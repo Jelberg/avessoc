@@ -1,0 +1,17 @@
+Server: 192.168.151.62
+domain_name: http://dev.avessoc.org.ve
+
+#DB name
+c5_jesstest
+
+#DB user 
+c5_devavessoc
+tukoGwJWMK7#
+
+# wp user
+jelberg.12
+Of!tKpFpAz$qvmLYST
+
+#Para CONTAO
+200.2.15.202 appsdev.avessoc.org.ve
+http://appsdev.avessoc.org.ve/contao
