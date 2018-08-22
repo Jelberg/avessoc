@@ -1,0 +1,107 @@
+
+
+  /***********************************************************************
+                      GRIDS CSS
+***************************************************************************/
+
+/* Especificacion de las areas principales de la pagina */
+
+/*
+        _________________________
+        |         HEADER          |
+        _________________________
+        |SIDEBAR|       MAIN      |
+        __________________________
+        |          FOODER         |
+        __________________________
+
+*/
+/*--------------------------------------*/
+.grid-1 {
+ display: grid;
+ background: white;
+ grid-row-gap: 200 px;
+ grid-template-areas:    "header header header"
+                         "sidebar main main"                                   
+                         "footer footer footer";
+}
+
+/* Areas del grid principal */
+
+.area-1 {
+	grid-area: header;
+  margin-top: 100 px;
+}
+
+.area-2 {
+  grid-area: sidebar;
+ 
+}
+.area-3 {
+	grid-area: main;
+
+}
+.area-4 {
+  grid-area: footer;
+
+}
+/*--------------------------------------*/
+
+/*--------------------------------------*/
+/* Divide en filas el contenido, separando en cuadros las categorias de los formularios*/
+.grid-2 {
+  display: grid;
+  grid-gap: 50px;
+  background-color: white;
+  padding: 10px;
+  }
+
+/* Items*/
+.grid-2>div {
+  background-color: #F5F5F5;
+  padding:20px 0;
+  text-align: 30 px;
+}
+
+.item-grid-2-border{ /*Define el margen entre el texto y el contenedor de informacion*/
+
+  margin-top: 10px; 
+  margin-left: 90px; 
+  margin-right: 90px; 
+  margin-bottom: 10px; 
+}
+/*--------------------------------------*/
+
+/*--------------------------------------*/
+/*grid para definir columnas*/
+.grid-columns {
+  display: grid;
+  grid-row-gap: 20px;
+  grid-column-gap: 0px;
+  grid-template-columns: auto auto auto;
+  }
+
+.item-span-two{
+    grid-column: span 2;
+}
+
+.item-span-three{
+    grid-column: span 3;
+}
+/*--------------------------------------*/
+
+  /***********************************************************************
+                      Estilos de los forms
+***************************************************************************/
+
+.form-area {
+  width  : 300px;
+}
+
+.form-area-two {
+    width  : 600px;
+  }
+
+  .form-area-three {
+    width  : 900px;
+  }
