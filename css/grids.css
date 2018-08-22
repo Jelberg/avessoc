@@ -1,0 +1,42 @@
+
+/* Especificacion de las areas principales de la pagina */
+
+/*
+        _________________________
+        |         HEADER          |
+        _________________________
+        |SIDEBAR|       MAIN      |
+        __________________________
+        |          FOODER         |
+        __________________________
+
+*/
+
+.grid-1 {
+ display: grid;
+ background: white;
+ grid-row-gap: 200 px;
+ grid-template-areas:    "header header header"
+                         "sidebar main main"                                   
+                         "footer footer footer";
+}
+
+/* Areas del grid principal */
+
+.area-1 {
+	grid-area: header;
+  margin-top: 100 px;
+}
+
+.area-2 {
+  grid-area: sidebar;
+ 
+}
+.area-3 {
+	grid-area: main;
+
+}
+.area-4 {
+  grid-area: footer;
+
+}
