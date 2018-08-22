@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     16/08/2018 10:26:53 a.m.                     */
+/* Created on:     17/08/2018 01:42:59 p.m.                     */
 /*==============================================================*/
 
 
@@ -24,7 +24,7 @@ drop table if exists MUNICIPALT;
 
 drop table if exists NOTIFICATION;
 
-drop table if exists "ORDER";
+drop table if exists ORD;
 
 drop table if exists PARISH;
 
@@ -121,8 +121,8 @@ create table DIRECTION
    DIRECTION_MPERSON_ID int,
    DIRECTION_USE_MPERSON_ID int,
    DIRECTION_MDC_MPERSON_ID int,
-   DIRECTION_DESC       text not null,
-   DIRECTION_TYPE       varchar(2) not null,
+   DIRECTION_DESC       text,
+   DIRECTION_TYPE       varchar(2),
    DIRECTION_ACRONYM    text,
    DIRECTION_ACTIVITY_DATE timestamp not null,
    DIRECTION_USER       text,
@@ -222,9 +222,9 @@ create table NOTIFICATION
 );
 
 /*==============================================================*/
-/* Table: "ORDER"                                               */
+/* Table: ORD                                                   */
 /*==============================================================*/
-create table "ORDER"
+create table ORD
 (
    ORDER_ID             int not null auto_increment,
    ORDER_SPONSOR_PERSON_ID int not null,
@@ -338,8 +338,8 @@ alter table REQUEST comment 'Engloba oedenes y preordenes ';
 create table RPERNOT
 (
    RPERNOT_ID           int not null auto_increment,
-   RPERNOT_MPERSON_ID   int,
    RPERNOT_NOTIFICATION_ID int,
+   MPERSON_ID           int,
    RPERNOT_REVISED      char(1),
    RPERNOT_ACTIVITY_DATE timestamp not null,
    RPERNOT_USER         text,
@@ -446,13 +446,13 @@ create table USER
    primary key (MPERSON_ID)
 );
 
-alter table ANSWER add constraint FK_RESPONDE foreign key (ANSWER_QUESTION_ID)
+alter table ANSWER add constraint FK_ANSWER_INV_QUESTION_ID foreign key (ANSWER_QUESTION_ID)
       references QUESTION (QUESTION_ID) on delete restrict on update restrict;
 
-alter table CNTBTION add constraint FK_REALIZA foreign key (CNTBTION_SPONSOR_ID)
+alter table CNTBTION add constraint FK_CNTBTION_INV_SPONSOR_ID foreign key (CNTBTION_SPONSOR_ID)
       references SPONSOR (MPERSON_ID) on delete restrict on update restrict;
 
-alter table CONFIG add constraint FK_SIGUE foreign key (CONFIG_MPERSON_ID)
+alter table CONFIG add constraint FK_CONFIG_INV_USER_ID foreign key (CONFIG_MPERSON_ID)
       references USER (MPERSON_ID) on delete restrict on update restrict;
 
 alter table CONTACT add constraint FK_CONTACT_INV_MDCENTER_ID foreign key (CONTACT_MDC_MPERSON_ID)
@@ -464,72 +464,63 @@ alter table CONTACT add constraint FK_CONTACT_INV_PATIENT_ID foreign key (CONTAC
 alter table CONTACT add constraint FK_CONTACT_INV_USER_ID foreign key (CONTACT_USER_MPERSON_ID)
       references USER (MPERSON_ID) on delete restrict on update restrict;
 
-alter table DIRECTION add constraint FK_CONTIENE foreign key (DIRECTION_PARISH_ID, DIRECTION_PAR_MUN_ID, DIRECTION_PAR_MUN_ST_ID)
+alter table DIRECTION add constraint FK_DIRECTION_INV_MDCENTER_ID foreign key (DIRECTION_MDC_MPERSON_ID)
+      references MDCENTER (MPERSON_ID) on delete restrict on update restrict;
+
+alter table DIRECTION add constraint FK_DIRECTION_INV_PARISH_ID foreign key (DIRECTION_PARISH_ID, DIRECTION_PAR_MUN_ID, DIRECTION_PAR_MUN_ST_ID)
       references PARISH (PARISH_ID, PARISH_MUNICIPALT_ID, PARISH_MUNICIPLAT_STATE_ID) on delete restrict on update restrict;
 
-alter table DIRECTION add constraint FK_SE_ENCUENTRA foreign key (DIRECTION_MPERSON_ID)
+alter table DIRECTION add constraint FK_DIRECTION_INV_PATIENT_ID foreign key (DIRECTION_MPERSON_ID)
       references PATIENT (MPERSON_ID) on delete restrict on update restrict;
 
-alter table DIRECTION add constraint FK_SE_ENCUENTRA_1 foreign key (DIRECTION_USE_MPERSON_ID)
+alter table DIRECTION add constraint FK_DIRECTION_INV_USER_ID foreign key (DIRECTION_USE_MPERSON_ID)
       references USER (MPERSON_ID) on delete restrict on update restrict;
 
-alter table DIRECTION add constraint FK_SE_ENCUENTRA_2 foreign key (DIRECTION_MDC_MPERSON_ID)
-      references MDCENTER (MPERSON_ID) on delete restrict on update restrict;
-
-alter table DISIEASE add constraint FK_ES_CONSECUENCIA foreign key (DISIEASE_EXAM_ID)
+alter table DISIEASE add constraint FK_DISIEASE_INV_EXAM_ID foreign key (DISIEASE_EXAM_ID)
       references EXAM (EXAM_ID) on delete restrict on update restrict;
 
-alter table MUNICIPALT add constraint FK_FORMADO foreign key (MUNICIPLAT_STATE_ID)
+alter table MUNICIPALT add constraint FK_MUNICIPALT_INV_STATE_ID foreign key (MUNICIPLAT_STATE_ID)
       references STATE (STATE_ID) on delete restrict on update restrict;
 
-alter table NOTIFICATION add constraint FK_GENERA foreign key (NOTIFICATION_RPORDER_ID, NOTIFICATION_RPORDER_REQUEST_ID, NOTIFICATION_REQUEST_PATIENT_ID, NOTIFICATION_REQUEST_MDCENTER_ID_CONCERNING, NOTIFICATION_REQUEST_MDCENTER_ID_REFERRED)
+alter table NOTIFICATION add constraint FK_NOTIFICATION_INV_ORDER_ID foreign key (NOTIFICATION_ORDER_ID)
+      references ORD (ORDER_ID) on delete restrict on update restrict;
+
+alter table NOTIFICATION add constraint FK_NOTIFICATION_INV_RPORDER_ID foreign key (NOTIFICATION_RPORDER_ID, NOTIFICATION_RPORDER_REQUEST_ID, NOTIFICATION_REQUEST_PATIENT_ID, NOTIFICATION_REQUEST_MDCENTER_ID_CONCERNING, NOTIFICATION_REQUEST_MDCENTER_ID_REFERRED)
       references RPORDER (RPORDER_ID, RPORDER_REQUEST_ID, REQUEST_PATIENT_PERSON_ID, REQUEST_MDCENTER_ID_CONCERNING, REQUEST_MDCENTER_ID_REFERRED) on delete restrict on update restrict;
 
-alter table NOTIFICATION add constraint FK_GENERA_ foreign key (NOTIFICATION_ORDER_ID)
-      references "ORDER" (ORDER_ID) on delete restrict on update restrict;
-
-alter table "ORDER" add constraint FK_SE_APORTA foreign key (ORDER_SPONSOR_PERSON_ID)
+alter table ORD add constraint FK_ORDER_INV_SPONSOR_ID foreign key (ORDER_SPONSOR_PERSON_ID)
       references SPONSOR (MPERSON_ID) on delete restrict on update restrict;
 
-alter table PARISH add constraint FK_FORMADO_POR foreign key (PARISH_MUNICIPALT_ID, PARISH_MUNICIPLAT_STATE_ID)
+alter table PARISH add constraint FK_PARISH_INV_MUNICIPALT_ID foreign key (PARISH_MUNICIPALT_ID, PARISH_MUNICIPLAT_STATE_ID)
       references MUNICIPALT (MUNICIPALT_ID, MUNICIPLAT_STATE_ID) on delete restrict on update restrict;
 
-alter table RCENTEREXAM add constraint FK_LO_REALIZAN foreign key (RCENTEREXAM_EXAM_ID)
+alter table RCENTEREXAM add constraint FK_RCENTEREXAM_INV_EXAM_ID foreign key (RCENTEREXAM_EXAM_ID)
       references EXAM (EXAM_ID) on delete restrict on update restrict;
 
-alter table RCENTEREXAM add constraint FK_OFRECE foreign key (RCENTEREXAM_MDCENTER_PERSON_ID)
+alter table RCENTEREXAM add constraint FK_RCENTEREXAM_INV_MDCENTER_ID foreign key (RCENTEREXAM_MDCENTER_PERSON_ID)
       references MDCENTER (MPERSON_ID) on delete restrict on update restrict;
 
-alter table REQUEST add constraint FK_OBTIENE foreign key (REQUEST_PATIENT_PERSON_ID)
+alter table REQUEST add constraint FK_REQUEST_INV_MDCENTER_CONCERNING foreign key (REQUEST_MDCENTER_ID_REFERRED)
+      references MDCENTER (MPERSON_ID) on delete restrict on update restrict;
+
+alter table REQUEST add constraint FK_REQUEST_INV_MECENTER_REFERRED foreign key (REQUEST_MDCENTER_ID_CONCERNING)
+      references MDCENTER (MPERSON_ID) on delete restrict on update restrict;
+
+alter table REQUEST add constraint FK_REQUEST_INV_PATIENT_ID foreign key (REQUEST_PATIENT_PERSON_ID)
       references PATIENT (MPERSON_ID) on delete restrict on update restrict;
 
-alter table REQUEST add constraint FK_REFERENTE foreign key (REQUEST_MDCENTER_ID_REFERRED)
-      references MDCENTER (MPERSON_ID) on delete restrict on update restrict;
-
-alter table REQUEST add constraint FK_REFERIDO_A foreign key (REQUEST_MDCENTER_ID_CONCERNING)
-      references MDCENTER (MPERSON_ID) on delete restrict on update restrict;
-
-alter table RPERNOT add constraint FK_SE_ENVIA foreign key (RPERNOT_NOTIFICATION_ID)
+alter table RPERNOT add constraint FK_RPERNOT_INV_NOTIFICATION foreign key (RPERNOT_NOTIFICATION_ID)
       references NOTIFICATION (NOTIFICATION_ID) on delete restrict on update restrict;
 
-alter table RPERNOT add constraint FK_USUARIO_OPTIENE foreign key (RPERNOT_MPERSON_ID)
-      references SPONSOR (MPERSON_ID) on delete restrict on update restrict;
-
-alter table RPERNOT add constraint FK_USUARIO_OPTIENE2 foreign key (RPERNOT_MPERSON_ID)
-      references PATIENT (MPERSON_ID) on delete restrict on update restrict;
-
-alter table RPERNOT add constraint FK_USUARIO_OPTIENE3 foreign key (RPERNOT_MPERSON_ID)
+alter table RPERNOT add constraint FK_RPERNOT_INV_USER_ID foreign key (MPERSON_ID)
       references USER (MPERSON_ID) on delete restrict on update restrict;
 
-alter table RPERNOT add constraint FK_USUARIO_OPTIENE4 foreign key (RPERNOT_MPERSON_ID)
-      references MDCENTER (MPERSON_ID) on delete restrict on update restrict;
+alter table RPORDER add constraint FK_RPORDER_INV_ORDER_ID foreign key (RPORDER_ORDER_ID)
+      references ORD (ORDER_ID) on delete restrict on update restrict;
 
-alter table RPORDER add constraint FK_A_RAZON foreign key (RPORDER_ORDER_ID)
-      references "ORDER" (ORDER_ID) on delete restrict on update restrict;
-
-alter table RPORDER add constraint FK_REALIZADO_POR foreign key (RPORDER_REQUEST_ID, REQUEST_PATIENT_PERSON_ID, REQUEST_MDCENTER_ID_CONCERNING, REQUEST_MDCENTER_ID_REFERRED)
-      references REQUEST (REQUEST_ID, REQUEST_PATIENT_PERSON_ID, REQUEST_MDCENTER_ID_CONCERNING, REQUEST_MDCENTER_ID_REFERRED) on delete restrict on update restrict;
-
-alter table RPORDER add constraint FK_SE_ANADE foreign key (RPORDER_CE_ID)
+alter table RPORDER add constraint FK_RPORDER_INV_RCENTEREXAM_ID foreign key (RPORDER_CE_ID)
       references RCENTEREXAM (RCENTEREXAM_ID) on delete restrict on update restrict;
+
+alter table RPORDER add constraint FK_RPORDER_INV_REQUEST_ID foreign key (RPORDER_REQUEST_ID, REQUEST_PATIENT_PERSON_ID, REQUEST_MDCENTER_ID_CONCERNING, REQUEST_MDCENTER_ID_REFERRED)
+      references REQUEST (REQUEST_ID, REQUEST_PATIENT_PERSON_ID, REQUEST_MDCENTER_ID_CONCERNING, REQUEST_MDCENTER_ID_REFERRED) on delete restrict on update restrict;
 
