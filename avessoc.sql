@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     17/08/2018 01:42:59 p.m.                     */
+/* Created on:     23/08/2018 11:30:46 a.m.                     */
 /*==============================================================*/
 
 
@@ -67,8 +67,8 @@ create table CNTBTION
 (
    CNTBTION_ID          int not null auto_increment,
    CNTBTION_SPONSOR_ID  int not null,
-   CNTBTION_CANT        numeric(8,0) not null,
-   CNTBTION_BALANCE     numeric(8,0) not null,
+   CNTBTION_CANT        numeric(10,10) not null,
+   CNTBTION_BALANCE     numeric(10,10) not null,
    CNTBTION_ACTIVITY_DATE timestamp not null,
    CNTBTION_USER        text,
    primary key (CNTBTION_ID)
@@ -297,7 +297,7 @@ create table RCENTEREXAM
    RCENTEREXAM_MDCENTER_PERSON_ID int not null,
    RCENTEREXAM_EXAM_ID  int not null,
    RCENTEREXAM_AVAILABILITY char(1) not null,
-   RCENTEREXAM_PRICE    numeric(8,0) not null,
+   RCENTEREXAM_PRICE    numeric(10,10) not null,
    RCENTEREXAM_ACTIVITY_DATE timestamp not null,
    RCENTEREXAM_USER     text,
    primary key (RCENTEREXAM_ID)

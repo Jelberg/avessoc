@@ -7,6 +7,8 @@ ________________________________________
 c5_jesstest // De prueba
 c6_devwpavessoc // De avessoc 
 
+#Para ingresar al admnin bd wp avessoc
+dev.avessoc.org.ve/phpmyadmin
 #DB user 
 c6_devavessoc
 tukoGwJWMK7#
@@ -22,8 +24,12 @@ gaa_avessoc_jelberg.12
 200.2.15.202 appsdev.avessoc.org.ve
 http://appsdev.avessoc.org.ve/contao
 
-#Para ingresar a wp de avessoc
-http://dev.avessoc.org.ve/Azzoci4si0n-C3ntr0-Z4lud
+#Para ingresar a wp de avessoc 192.168.151.61
+http://dev.avessoc.org.ve/Azzoci4si0n-C3ntr0-Z4lud  
 
-#Para ingresar al admnin bd 
-http://dev.avessoc.org.ve/phpmyadmin
+#Admnin bd contao avessoc
+appsdev.avessoc.org.ve/phpmyadmin 
+Base datos de contao
+Nombre: c2_db_contaoavc
+usuario: c2_usr_contaoavc
+pass: CBxhBgA_gg4

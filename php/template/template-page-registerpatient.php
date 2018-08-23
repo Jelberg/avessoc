@@ -4,14 +4,11 @@
 
 get_header();
 
-
+get_sidebar();
 ?>
 
 
-
 <section class="grid-1">
-
-
 
     <div class="area-2">
         <h1>Menu</h1>
@@ -190,17 +187,17 @@ get_header();
                         <div class = "item-span-two">
                             <label for="name">Tipo de familia con la que convive</label><br>
                             <select id="familia-tipo" class="form-area-two">
-                                <option value="S">Una sola persona</option>
-                                <option value="C">Pareja sin hijos</option>
-                                <option value="D">Madre/Padre solo, con hijos</option>
-                                <option value="V">Madre y Padre con hijos y otros parientes</option>
-                                <option value="V">Madre/Padre solo, hijos y otros parientes</option>
-                                <option value="V">Niño/a o adolence en entidad de atencion </option>
-                                <option value="V">Otro</option>
+                                <option value="1">Una sola persona</option>
+                                <option value="2">Pareja sin hijos</option>
+                                <option value="3">Madre/Padre solo, con hijos</option>
+                                <option value="4">Madre y Padre con hijos y otros parientes</option>
+                                <option value="5">Madre/Padre solo, hijos y otros parientes</option>
+                                <option value="6">Niño/a o adolence en entidad de atencion </option>
+                                <option value="0">Otro</option>
                             </select>
                         </div>
                         
-                        <div class = "item-span-two">
+                        <div class = "item-span-two" id="otro">
                             <label for="name">En caso de ser otro especifique</label><br>
                             <input type="text" class="form-area-two" name="otro-tipo" id="otro-tipo" />
                         </div>
@@ -215,14 +212,14 @@ get_header();
                 <div class="item-grid-2-border">
                     <!-- DETALLE LABORAL -->
                     <section class="grid-columns">
-                        <div class = "item-span-two">
-                        <label for="name">Condicion laboral</label><br>
-                        <select id="condicion-laboral" class ="form-area">
-                            <option value="S">Desocupado/ Sin trabajo</option>
-                            <option value="C">Oficios del hogar</option>
-                            <option value="D">Trabajo formal (Empresas, Organismos de estados, etc.)</option>
-                            <option value="V">Trabajo informal a destajo, trabajo temporal)</option>
-                        </select>
+                        <div class = "item-span-three">
+                            <label for="name">Condicion laboral</label><br>
+                            <select id="condicion-laboral" class ="form-area-three">
+                                <option value="1">Desocupado/ Sin trabajo</option>
+                                <option value="2">Oficios del hogar</option>
+                                <option value="3">Trabajo formal (Empresas, Organismos de estados, etc.)</option>
+                                <option value="4">Trabajo informal a destajo, trabajo temporal)</option>
+                            </select>
                     </div>
                     </section>
                     <!-- FIN DETALLE LABORAL -->
