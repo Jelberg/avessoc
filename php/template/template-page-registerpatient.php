@@ -16,11 +16,10 @@ get_header();
     <div class="area-3">
         <form name="formulario" method="post" action="">
         <section class="grid-2">
-
-
-
+        
             <div class="item1">
                 <div class="item-grid-2-border">
+                <h3>Datos Personales</h3>
                     <section class="grid-columns">
                                                     <!-- DATOS PERSONALES -->
                         <div class ="item1">
@@ -108,9 +107,10 @@ get_header();
             </div>
 
 
-
+           
             <div class="item2">
                 <div class="item-grid-2-border">
+                 <h3>Detalles de Direccion</h3>
                   <section class="grid-columns">
                     <!-- DIRECCION -->
                    <div class = "item1">
@@ -142,9 +142,10 @@ get_header();
             </div>
 
 
-
+            
             <div class="item3">
                 <div class="item-grid-2-border">
+                <h3>Detalles de Contacto</h3>
                     <section class="grid-columns">
                     <!-- CONTACTO -->
                         <div class ="item1">
@@ -168,9 +169,10 @@ get_header();
 
 
 
-
+                
             <div class="item4">
                 <div class="item-grid-2-border">
+                <h3>Composición Familiar</h3>
                     <!-- COMPOSICION FAMILIAR -->
                     <section class="grid-columns">
                         <div class = "item1">
@@ -207,9 +209,11 @@ get_header();
                 </div>
             </div>
 
-
+                
             <div class="item5">
+                
                 <div class="item-grid-2-border">
+                <h3>Detalles Laborales</h3> 
                     <!-- DETALLE LABORAL -->
                     <section class="grid-columns">
                         <div class = "item-span-three">
@@ -226,8 +230,12 @@ get_header();
                 </div>
             </div>
 
+
+                
             <div class="item6">
+            
                 <div class="item-grid-2-border">
+                <h3>Clasificación Graffar</h3>
                     <ol>
                     <!-- CLASIFICACION GRAFFAR -->
                     <li>

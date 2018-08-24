@@ -45,33 +45,13 @@ function insert_patient($nombre,$apellido,$snombre,$sapellido,$fnac,$numeroident
       'MPERSON_PROFETION' => $profesion,
       'MPERSON_TYPE_DOC' => $tipodoc
       ));
+      $id_paciente= $wpdb->get_var( "SELECT MAX(MPERSON_ID) AS id FROM PATIENT" ); //< Devuelve el ultimo id registrado
+
 
 }
 
 // > Gancho de accion que enlaza la funcion insert_patient a la funcion de wp
 add_action('wp', 'insert_patient');
 
-/*
-create table PATIENT
-(
-    1MPERSON_ID           int not null auto_increment,
-  2 MPERSON_NAME         text,
-   3MPERSON_LAST_NAME    text,
-   4MPERSON_BIRTH        date not null,
-   5MPERSON_IDENTF       int not null,
-   6MPERSON_ACTIVITY_DATE timestamp not null,
-   7MPERSON_USER         text,
-   8MPERSON_SECOND_NAME  text,
-   9MPERSON_SECOND_LNAME text,
-   10MPERSON_NACIONALITY  text,
-   11MPERSON_CIVIL_STATS  char(1),
-   12MPERSON_SEX          char(1),
-   13MPERSON_HOLDER_CARD  text,
-   14MPERSON_LEGAL_NAME   text not null,
-   15MPERSON_PROFETION    text,
-   16MPERSON_TYPE_DOC     char(3) not null,
-   primary key (MPERSON_ID)
-);
-*/
 
 ?>
