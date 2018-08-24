@@ -4,7 +4,6 @@
 
 get_header();
 
-get_sidebar();
 ?>
 
 
@@ -15,6 +14,7 @@ get_sidebar();
     </div>
 
     <div class="area-3">
+        <form name="formulario" method="post" action="">
         <section class="grid-2">
 
 
@@ -25,7 +25,7 @@ get_sidebar();
                                                     <!-- DATOS PERSONALES -->
                         <div class ="item1">
                             <label for="name">Tipo de Documento</label><br>
-                            <select class="form-area" id="tipo-documento">
+                            <select class="form-area" id="tipo-documento" name="tipo-documento">
                                 <option value="V">V</option>
                                 <option value="E">E</option>
                                 <option value="P">Passaporte</option>
@@ -34,7 +34,7 @@ get_sidebar();
                         </div>
                         <div class ="item2">
                             <label for="name">Titular</label><br>
-                            <select class="form-area" id="titular">
+                            <select class="form-area" id="titular" name="titular">
                                 <option value="PR">Propio</option>
                                 <option value="M">Madre</option>
                                 <option value="P">Padre</option>
@@ -43,37 +43,37 @@ get_sidebar();
                         </div>
                         <div class ="item3">
                             <label for="name">Numero del documento</label><br>
-                            <input type="text" class="form-area" name="name" id="numero-doc" />
+                            <input type="text" class="form-area" name="numero-doc" id="numero-doc"  />
                         </div>
 
                         <div class = "item4">
                             <label for="name">Primer Nombre</label><br>
-                            <input type="text" class="form-area" name="name" id="name-uno" />
+                            <input type="text" class="form-area" name="name-uno" id="name-uno" />
                         </div>
                         <div class = "item5">
                             <label for="name">Segundo Nombre</label><br>
-                            <input type="text" class="form-area" name="name" id="name-dos" />
+                            <input type="text" class="form-area" name="name-dos" id="name-dos" />
                         </div>
 
                         <div class = "item6"></div>  
                         
                         <div class = "item7">
                             <label for="name">Primer Apellido</label><br>
-                            <input type="text" class="form-area" name="name" id="apellido-uno" />
+                            <input type="text" class="form-area" name="apellido-uno" id="apellido-uno" />
                         </div>
                         <div class = "item8">
                             <label for="name">Segundo Apellido</label><br>
-                            <input type="text" class="form-area" name="name" id="apellido-dos" />
+                            <input type="text" class="form-area" name="apellido-dos" id="apellido-dos" />
                         </div>
                         <div class = "item9"></div>
                         <div class = "item10">
                             <label for="name">Fecha de Nacimiento</label><br>
-                            <input type="date"  class="form-area" name="name" id="birth-date" />
+                            <input type="date"  class="form-area" name="birth-date" id="birth-date" />
                         </div>
 
                         <div class = "item11">
                             <label for="name">Sexo</label><br>
-                            <select id="Sexo" class="form-area" >
+                            <select id="Sexo" class="form-area" name="sexo">
                                 <option value="M">Masculino</option>
                                 <option value="F">Femenino</option>
                             </select>
@@ -83,7 +83,7 @@ get_sidebar();
 
                         <div class = "item13">
                             <label for="name">Estado Civil</label><br>
-                            <select id="estado-civil" class="form-area" >
+                            <select id="estado-civil" class="form-area" name="estado-civil" >
                                 <option value="S">Soltero</option>
                                 <option value="C">Casado</option>
                                 <option value="D">Divorciado</option>
@@ -95,11 +95,11 @@ get_sidebar();
                         
                         <div class = "item-span-two">
                             <label for="name">Profesion u Oficio</label><br>
-                            <input type="text" class="form-area-two"  name="name" id="oficio" />
+                            <input type="text" class="form-area-two"  name="oficio" id="oficio" />
                         </div>
                         <div class = "item-span-two">
                             <label for="name">Nacionalidad</label><br>
-                            <input type="text" class="form-area-two"  name="name" id="nacionalidad" />
+                            <input type="text" class="form-area-two"  name="nacionalidad" id="nacionalidad" />
                         </div>
                     
                     <!-- FIN DATOS PERSONALES -->
@@ -277,10 +277,12 @@ get_sidebar();
                 </div>
             </div>
 
-                <button type="submit" name="submit" id="submit">Submit</button>
+                <button type="submit" name="submit" id="submit" on click="<?php insert_patient($_POST['name-uno'],$_POST['apellido-uno'],$_POST['name-dos'],$_POST['apellido-dos'],
+                                                                            $_POST['birth-date'],$_POST['numero-doc'],$_POST['nacionalidad'],$_POST['estado-civil'],$_POST['oficio'],
+                                                                            $_POST['sexo'],$_POST['tipo-documento'],$_POST['titular']); ?>">Submit</button>
 
         </section><!-- fin  grid-2-->
-
+        </form>
     </div><!-- fin  area-3 del grid-1 -->
 
 </section> <!-- fin  grid-1-->
