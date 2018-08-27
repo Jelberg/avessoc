@@ -140,7 +140,7 @@ get_header();
                     <!-- DIRECCION -->
                    <div class = "item1">
                         <label for="name">Estado</label><br>
-                            <select id="estado" class = "form-area">
+                            <select id="estado" name="estado" class = "form-area">
 
                                 <?php
                                     $results = read_state();

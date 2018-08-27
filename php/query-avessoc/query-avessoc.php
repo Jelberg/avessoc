@@ -101,7 +101,21 @@ add_action('wp', 'read_state');
 
 
 
+//----------------------------------------CRUD MUNICIPALT------------------------------------------------
 
+/**
+ * @param $id_state
+ * @return mixed
+ */
+function read_municipalt($id_state){
+    global $wpdb;
+    $municipios = $wpdb->get_results("SELECT MUNICIPALT_ID, MUNICIPALT_DESC FROM `MUNICIPALT` WHERE MUNICIPLAT_STATE_ID =1");
+    //$new_array_municipalt = obbjectToArray($municipios);
+    return $municipios;
+}
+
+// > Gancho de accion que enlaza la funcion read_municipalt a la funcion de wp
+add_action('wp', 'read_municipalt');
 
 
 ?>
