@@ -6,6 +6,31 @@
 * Author: Jessica Elberg
 */
 
+/**
+ * Convierte el objeto en un array
+ * @param $d
+ * @return array
+ */
+function objectToArray($d)
+{
+    if (is_object($d)) {
+        // Gets the properties of the given object
+        // with get_object_vars function
+        $d = get_object_vars($d);
+    }
+
+    if (is_array($d)) {
+        /*
+        * Return array converted to object
+        * Using __FUNCTION__ (Magic constant)
+        * for recursive call
+        */
+        return array_map(__FUNCTION__, $d);
+    } else {
+        // Return array
+        return $d;
+    }
+}
 
 //----------------------------------CRUD PACIENTE------------------------------------------
 
@@ -80,7 +105,7 @@ add_action('wp', 'read_state');
  * @param $id_state
  * @return mixed
  */
-function read_municipalt($id_state){
+/*function read_municipalt($id_state){
     global $wpdb;
     $municipios = $wpdb->get_results("SELECT MUNICIPALT_ID, MUNICIPALT_DESC FROM `MUNICIPALT` WHERE MUNICIPLAT_STATE_ID =1");
     //$new_array_municipalt = obbjectToArray($municipios);
@@ -89,7 +114,7 @@ function read_municipalt($id_state){
 
 // > Gancho de accion que enlaza la funcion read_municipalt a la funcion de wp
 add_action('wp', 'read_municipalt');
-
+*/
 
 ?>
 

@@ -6,11 +6,38 @@ get_header();
 
 ?>
 
+<head>
+
+<?php
+ function llenaComboBox($results)
+ {  // Funcion llena combobox pasando como parrametro un array de la forma
+     $cont = 0;
+     $key = "";
+     foreach ($results as $llave => $valor) {
+         foreach ($valor as $value => $option) {
+             if ($cont == 0) {
+                 $key = $option;
+                 $cont += 1;
+             } else {
+                 echo '<option value ="' . $key . '">' . $option . '</option>';
+                 $cont = 0;
+             }
+
+         }
+     }
+ }
+?> 
+
+</head>
+
+<body>
 
 <section class="grid-1">
 
     <div class="area-2">
-        <h1>Menu</h1>
+        <p><?php $hola = read_state();
+                  echo print_r($hola);  ?>
+        </p>
     </div>
 
     <div class="area-3">
@@ -302,3 +329,5 @@ get_header();
     </div><!-- fin  area-3 del grid-1 -->
 
 </section> <!-- fin  grid-1-->
+
+</body>
