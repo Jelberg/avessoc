@@ -6,33 +6,6 @@
 * Author: Jessica Elberg
 */
 
-/**
- *
- * Metodo combierte un objeto en un arreglo para el caso de las consultas a la bd
- * @param $d Parametro de entrada queb puede ser un array
- * @return array El arreglo modificado7trasformado
- */
-function objectToArray($d) 
-{
-    if (is_object($d)) {
-        // Gets the properties of the given object
-        // with get_object_vars function
-        $d = get_object_vars($d);
-    }
-
-    if (is_array($d)) {
-        /*
-        * Return array converted to object
-        * Using __FUNCTION__ (Magic constant)
-        * for recursive call
-        */
-        return array_map(__FUNCTION__, $d);
-    } else {
-        // Return array
-        return $d;
-    }
-}
-
 
 //----------------------------------CRUD PACIENTE------------------------------------------
 
@@ -119,4 +92,5 @@ add_action('wp', 'read_municipalt');
 
 
 ?>
+
 

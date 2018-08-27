@@ -5,37 +5,12 @@
 get_header();
 
 ?>
-<head>
-
-    <?php
-     function llenaComboBox($results){  // Funcion llena combobox pasando como parrametro un array de la forma
-        $cont = 0;
-        $key = "";
-        foreach($results as $llave => $valor){
-            foreach($valor as $value => $option){
-                if ($cont == 0){ 
-                    $key = $option;
-                    $cont += 1;
-                }
-                else {
-                    echo '<option value ="'.$key.'">'.$option.'</option>'; 
-                    $cont = 0;
-                }                              
-            
-        }
-    }
-    ?> 
-
-</head>
-
-<body>
 
 
 <section class="grid-1">
 
     <div class="area-2">
-        <p>  <?php $hola=read_state();
-                    echo print_r($hola);   ?>  </p>
+        <h1>Menu</h1>
     </div>
 
     <div class="area-3">
@@ -147,6 +122,8 @@ get_header();
                                     llenaComboBox($results);
                                 ?> 
 
+                            <select id="estado" class = "form-area">
+
                             </select>
                         </div>
 
@@ -219,7 +196,7 @@ get_header();
 
                         <div class = "item-span-two">
                             <label for="name">Tipo de familia con la que convive</label><br>
-                            <select id="familia-tipo" class="form-area-two" onchange="muestraOtroContenido()">
+                            <select id="familia-tipo" class="form-area-two">
                                 <option value="1">Una sola persona</option>
                                 <option value="2">Pareja sin hijos</option>
                                 <option value="3">Madre/Padre solo, con hijos</option>
@@ -230,16 +207,10 @@ get_header();
                             </select>
                         </div>
                         
-                        <div class = "item-span-two" id="otros" style="display:none">
+                        <div class = "item-span-two" id="otro">
                             <label for="name">En caso de ser otro especifique</label><br>
                             <input type="text" class="form-area-two" name="otro-tipo" id="otro-tipo" />
                         </div>
-
-                        <?php/*
-                            function muestraOtroContenido(){
-                             ($_POST['familia-tipo']=="0") ? document.getElementById('otros').style.display='block' : document.getElementById('otros').style.display='none'; 
-                            }*/
-                        ?>
 
                     </section>
                     <!-- FIN COMPOSICION FAMILIAR -->
@@ -331,4 +302,3 @@ get_header();
     </div><!-- fin  area-3 del grid-1 -->
 
 </section> <!-- fin  grid-1-->
-</body>
