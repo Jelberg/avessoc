@@ -6,6 +6,33 @@
 * Author: Jessica Elberg
 */
 
+/**
+ *
+ * Metodo combierte un objeto en un arreglo para el caso de las consultas a la bd
+ * @param $d Parametro de entrada queb puede ser un array
+ * @return array El arreglo modificado7trasformado
+ */
+function objectToArray($d) 
+{
+    if (is_object($d)) {
+        // Gets the properties of the given object
+        // with get_object_vars function
+        $d = get_object_vars($d);
+    }
+
+    if (is_array($d)) {
+        /*
+        * Return array converted to object
+        * Using __FUNCTION__ (Magic constant)
+        * for recursive call
+        */
+        return array_map(__FUNCTION__, $d);
+    } else {
+        // Return array
+        return $d;
+    }
+}
+
 
 //----------------------------------CRUD PACIENTE------------------------------------------
 
@@ -54,4 +81,28 @@ function insert_patient($nombre,$apellido,$snombre,$sapellido,$fnac,$numeroident
 add_action('wp', 'insert_patient');
 
 
+
+//------------------------------------------CRUD STATE-------------------------------------------------
+
+/**
+ * Metodo que trae los estados de la bd y devuelve un ARRAY
+ * @return array
+ */
+function read_state(){
+  global $wpdb;
+  $estados= $wpdb->get_results ("SELECT STATE_ID, STATE_DESC FROM `STATE` ");
+  $new_array = objectToArray($estados);
+  return $new_array;
+}
+
+// > Gancho de accion que enlaza la funcion read_state a la funcion de wp
+add_action('wp', 'read_state');
+
+
+
+
+
+
+
 ?>
+
