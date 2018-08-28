@@ -1,7 +1,8 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     24/08/2018 09:27:39 a.m.                     */
+/* Created on:     27/08/2018 03:07:11 p.m.                     */
 /*==============================================================*/
+
 
 /*==============================================================*/
 /* Table: ANSWER                                                */
@@ -24,7 +25,7 @@ create table CNTBTION
    CNTBTION_SPONSOR_ID  int not null,
    CNTBTION_CANT        numeric(10,10) not null,
    CNTBTION_BALANCE     numeric(10,10) not null,
-   CNTBTION_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
+   CNTBTION_ACTIVITY_DATE  timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    CNTBTION_USER        text,
    primary key (CNTBTION_ID)
 );
@@ -39,7 +40,7 @@ create table CONFIG
    CONFIG_ACTIVATION    char(1) not null,
    CONFIG_ACTIVACION_DATE date,
    CONFIG_DEACTIVATION_DATE date,
-   CONFIG_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
+   CONFIG_ACTIVITY_DATE  timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    CONFIG_USER          text,
    primary key (CONFIG_ID)
 );
@@ -59,7 +60,7 @@ create table CONTACT
    CONTACT_WEB_SITE     text,
    CONTACT_WORK_PHON    int,
    CONTACT_NUMBER_FAX   int,
-   CONTACT_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
+   CONTACT_ACTIVITY_DATE  timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    CONTACT_USER         text,
    primary key (CONTACT_ID)
 );
@@ -79,7 +80,7 @@ create table DIRECTION
    DIRECTION_DESC       text,
    DIRECTION_TYPE       varchar(2),
    DIRECTION_ACRONYM    text,
-   DIRECTION_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
+   DIRECTION_ACTIVITY_DATE  timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    DIRECTION_USER       text,
    primary key (DIRECTION_ID)
 );
@@ -92,7 +93,7 @@ create table DISIEASE
    DISIEASE_ID          int not null auto_increment,
    DISIEASE_EXAM_ID     int,
    DISIEASE_DESC        text,
-   DISIEASE_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
+   DISIEASE_ACTIVITY_DATE  timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    DISIEASE_USER        text,
    primary key (DISIEASE_ID)
 );
@@ -106,7 +107,7 @@ create table EXAM
    EXAM_TYPE            text not null,
    EXAM_CATEGORY        text not null,
    EXAM_ACRONYM         text not null,
-   EXAM_ACTIVITY_DATE   timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
+   EXAM_ACTIVITY_DATE    timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    EXAM_USER            text,
    primary key (EXAM_ID)
 );
@@ -122,7 +123,7 @@ create table MDCENTER
    MPERSON_BIRTH        date,
    MPERSON_HOLDER_CARD  text,
    MPERSON_IDENTF       int,
-   MPERSON_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
+   MPERSON_ACTIVITY_DATE  timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    MPERSON_USER         text,
    MPERSON_SECOND_NAME  text,
    MPERSON_SECOND_LNAME text,
@@ -150,11 +151,11 @@ create table MDCENTER
 create table MUNICIPALT
 (
    MUNICIPALT_ID        int not null auto_increment,
-   MUNICIPLAT_STATE_ID  int not null,
+   MUNICIPALT_STATE_ID  int not null,
    MUNICIPALT_DESC      text not null,
-   MUNICIPALT_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
+   MUNICIPALT_ACTIVITY_DATE  timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    MUNICIPALT_USER      text,
-   primary key (MUNICIPALT_ID, MUNICIPLAT_STATE_ID)
+   primary key (MUNICIPALT_ID, MUNICIPALT_STATE_ID)
 );
 
 /*==============================================================*/
@@ -166,12 +167,10 @@ create table NOTIFICATION
    NOTIFICATION_RPORDER_ID int,
    NOTIFICATION_RPORDER_REQUEST_ID int,
    NOTIFICATION_REQUEST_PATIENT_ID int,
-   NOTIFICATION_REQUEST_MDCENTER_ID_CONCERNING int,
-   NOTIFICATION_REQUEST_MDCENTER_ID_REFERRED int,
    NOTIFICATION_ORDER_ID int,
    NOTIFICATION_TYPE    text not null,
    NOTIFICATION_MENSAJE text,
-   NOTIFICATION_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
+   NOTIFICATION_ACTIVITY_DATE  timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    NOTIFICATION_USER    text,
    primary key (NOTIFICATION_ID)
 );
@@ -188,7 +187,7 @@ create table ORD
    ORDER_BILLING_USER   text,
    ORDER_PRICE_EXAM     numeric(8,0),
    ORDER_TOTAL_EXAM     int,
-   ORDER_ACTIVITY_DATE  timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
+   ORDER_ACTIVITY_DATE   timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    ORDER_USER           text,
    primary key (ORDER_ID)
 );
@@ -202,7 +201,7 @@ create table PARISH
    PARISH_MUNICIPALT_ID int not null,
    PARISH_MUNICIPLAT_STATE_ID int not null,
    PARISH_DESC          text,
-   PARISH_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
+   PARISH_ACTIVITY_DATE  timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    PARISH_USER          text,
    primary key (PARISH_ID, PARISH_MUNICIPALT_ID, PARISH_MUNICIPLAT_STATE_ID)
 );
@@ -217,7 +216,7 @@ create table PATIENT
    MPERSON_LAST_NAME    text,
    MPERSON_BIRTH        date not null,
    MPERSON_IDENTF       int not null,
-   MPERSON_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
+   MPERSON_ACTIVITY_DATE  timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    MPERSON_USER         text,
    MPERSON_SECOND_NAME  text,
    MPERSON_SECOND_LNAME text,
@@ -253,7 +252,7 @@ create table RCENTEREXAM
    RCENTEREXAM_EXAM_ID  int not null,
    RCENTEREXAM_AVAILABILITY char(1) not null,
    RCENTEREXAM_PRICE    numeric(10,10) not null,
-   RCENTEREXAM_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
+   RCENTEREXAM_ACTIVITY_DATE  timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    RCENTEREXAM_USER     text,
    primary key (RCENTEREXAM_ID)
 );
@@ -280,12 +279,10 @@ create table REQUEST
    REQUEST_AVERAGE_INCOME int,
    REQUEST_OBSERVATION  text,
    REQUEST_ORIGIN       text,
-   REQUEST_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
+   REQUEST_ACTIVITY_DATE  timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    REQUEST_USER         text,
-   primary key (REQUEST_ID, REQUEST_PATIENT_PERSON_ID, REQUEST_MDCENTER_ID_CONCERNING, REQUEST_MDCENTER_ID_REFERRED)
+   primary key (REQUEST_ID, REQUEST_PATIENT_PERSON_ID)
 );
-
-alter table REQUEST comment 'Engloba oedenes y preordenes ';
 
 /*==============================================================*/
 /* Table: RPERNOT                                               */
@@ -296,7 +293,7 @@ create table RPERNOT
    RPERNOT_NOTIFICATION_ID int,
    MPERSON_ID           int,
    RPERNOT_REVISED      char(1),
-   RPERNOT_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
+   RPERNOT_ACTIVITY_DATE  timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    RPERNOT_USER         text,
    primary key (RPERNOT_ID)
 );
@@ -309,14 +306,12 @@ create table RPORDER
    RPORDER_ID           int not null auto_increment,
    RPORDER_REQUEST_ID   int not null,
    REQUEST_PATIENT_PERSON_ID int not null,
-   REQUEST_MDCENTER_ID_CONCERNING int not null,
-   REQUEST_MDCENTER_ID_REFERRED int not null,
    RPORDER_STATUS       char(3) not null,
    RPORDER_CE_ID        int not null,
    RPORDER_ORDER_ID     int,
-   RPORDER_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
+   RPORDER_ACTIVITY_DATE  timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    RPORDER_USER         text,
-   primary key (RPORDER_ID, RPORDER_REQUEST_ID, REQUEST_PATIENT_PERSON_ID, REQUEST_MDCENTER_ID_CONCERNING, REQUEST_MDCENTER_ID_REFERRED)
+   primary key (RPORDER_ID, RPORDER_REQUEST_ID, REQUEST_PATIENT_PERSON_ID)
 );
 
 /*==============================================================*/
@@ -343,7 +338,7 @@ create table SPONSOR
    MPERSON_BIRTH        date,
    MPERSON_HOLDER_CARD  text,
    MPERSON_IDENTF       int,
-   MPERSON_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
+   MPERSON_ACTIVITY_DATE  timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    MPERSON_USER         text,
    MPERSON_SECOND_NAME  text,
    MPERSON_SECOND_LNAME text,
@@ -367,7 +362,7 @@ create table STATE
 (
    STATE_ID             int not null auto_increment,
    STATE_DESC           text not null,
-   STATE_ACTIVITY_DATE  timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
+   STATE_ACTIVITY_DATE   timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    STATE_USER           text,
    primary key (STATE_ID)
 );
@@ -382,7 +377,7 @@ create table USER
    MPERSON_LAST_NAME    text,
    MPERSON_BIRTH        date not null,
    MPERSON_IDENTF       int not null,
-   MPERSON_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
+   MPERSON_ACTIVITY_DATE  timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    MPERSON_USER         text,
    MPERSON_SECOND_NAME  text,
    MPERSON_SECOND_LNAME text,
@@ -434,20 +429,20 @@ alter table DIRECTION add constraint FK_DIRECTION_INV_USER_ID foreign key (DIREC
 alter table DISIEASE add constraint FK_DISIEASE_INV_EXAM_ID foreign key (DISIEASE_EXAM_ID)
       references EXAM (EXAM_ID) on delete restrict on update restrict;
 
-alter table MUNICIPALT add constraint FK_MUNICIPALT_INV_STATE_ID foreign key (MUNICIPLAT_STATE_ID)
+alter table MUNICIPALT add constraint FK_MUNICIPALT_INV_STATE_ID foreign key (MUNICIPALT_STATE_ID)
       references STATE (STATE_ID) on delete restrict on update restrict;
 
 alter table NOTIFICATION add constraint FK_NOTIFICATION_INV_ORDER_ID foreign key (NOTIFICATION_ORDER_ID)
       references ORD (ORDER_ID) on delete restrict on update restrict;
 
-alter table NOTIFICATION add constraint FK_NOTIFICATION_INV_RPORDER_ID foreign key (NOTIFICATION_RPORDER_ID, NOTIFICATION_RPORDER_REQUEST_ID, NOTIFICATION_REQUEST_PATIENT_ID, NOTIFICATION_REQUEST_MDCENTER_ID_CONCERNING, NOTIFICATION_REQUEST_MDCENTER_ID_REFERRED)
-      references RPORDER (RPORDER_ID, RPORDER_REQUEST_ID, REQUEST_PATIENT_PERSON_ID, REQUEST_MDCENTER_ID_CONCERNING, REQUEST_MDCENTER_ID_REFERRED) on delete restrict on update restrict;
+alter table NOTIFICATION add constraint FK_NOTIFICATION_INV_RPORDER_ID foreign key (NOTIFICATION_RPORDER_ID, NOTIFICATION_RPORDER_REQUEST_ID, NOTIFICATION_REQUEST_PATIENT_ID)
+      references RPORDER (RPORDER_ID, RPORDER_REQUEST_ID, REQUEST_PATIENT_PERSON_ID) on delete restrict on update restrict;
 
 alter table ORD add constraint FK_ORDER_INV_SPONSOR_ID foreign key (ORDER_SPONSOR_PERSON_ID)
       references SPONSOR (MPERSON_ID) on delete restrict on update restrict;
 
 alter table PARISH add constraint FK_PARISH_INV_MUNICIPALT_ID foreign key (PARISH_MUNICIPALT_ID, PARISH_MUNICIPLAT_STATE_ID)
-      references MUNICIPALT (MUNICIPALT_ID, MUNICIPLAT_STATE_ID) on delete restrict on update restrict;
+      references MUNICIPALT (MUNICIPALT_ID, MUNICIPALT_STATE_ID) on delete restrict on update restrict;
 
 alter table RCENTEREXAM add constraint FK_RCENTEREXAM_INV_EXAM_ID foreign key (RCENTEREXAM_EXAM_ID)
       references EXAM (EXAM_ID) on delete restrict on update restrict;
@@ -476,6 +471,6 @@ alter table RPORDER add constraint FK_RPORDER_INV_ORDER_ID foreign key (RPORDER_
 alter table RPORDER add constraint FK_RPORDER_INV_RCENTEREXAM_ID foreign key (RPORDER_CE_ID)
       references RCENTEREXAM (RCENTEREXAM_ID) on delete restrict on update restrict;
 
-alter table RPORDER add constraint FK_RPORDER_INV_REQUEST_ID foreign key (RPORDER_REQUEST_ID, REQUEST_PATIENT_PERSON_ID, REQUEST_MDCENTER_ID_CONCERNING, REQUEST_MDCENTER_ID_REFERRED)
-      references REQUEST (REQUEST_ID, REQUEST_PATIENT_PERSON_ID, REQUEST_MDCENTER_ID_CONCERNING, REQUEST_MDCENTER_ID_REFERRED) on delete restrict on update restrict;
+alter table RPORDER add constraint FK_RPORDER_INV_REQUEST_ID foreign key (RPORDER_REQUEST_ID, REQUEST_PATIENT_PERSON_ID)
+      references REQUEST (REQUEST_ID, REQUEST_PATIENT_PERSON_ID) on delete restrict on update restrict;
 

@@ -30,7 +30,7 @@
 
 .area-1 {
 	grid-area: header;
-  margin-top: 100 px;
+  margin-top: 100px;
 }
 
 .area-2 {
@@ -109,4 +109,49 @@
 
   .form-area-three {
     width  : 900px;
+  }
+
+  /***********************************************************************
+                              Mensajes
+***************************************************************************/
+  .required{
+      color: #fd9927;
+      font-weight: bold;
+  }
+
+  .error{
+      color: red;
+  }
+
+  /***********************************************************************
+
+                            Botones
+
+  *********************************************************************** */
+
+  .button-just{
+      background: white;
+      color:  #43a952;
+      font-weight: bold;
+      width  : 280px;
+      height: 60px;
+  }
+
+  .button-comp{
+      background: #43a952;
+      color:  white;
+      font-weight: bold;
+      width  : 280px;
+      height: 60px;
+  }
+
+  /************************************************************************
+
+                        Alineaciones
+
+  ********************************************************************** */
+
+  .right{
+      text-align: right;
+      margin-right: 80px;
   }
