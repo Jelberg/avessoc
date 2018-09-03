@@ -26,7 +26,47 @@ get_header();
          }
      }
  }
+
+$TdocErr = $titularErr = $numerodocErr = $nombre1Err = $apellido1Err =$profesionErr =$nacionalidadErr ="";
+$nameuno = $apellidouno = $profesion= $nacionalidad = $gender = $comment = $website = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (empty($_POST["name-uno"])) {
+        $nombre1Err = "Primer nombre es requerido";
+    } else {
+        $nameuno = test_input($_POST["name-uno"]);
+    }
+
+    if (empty($_POST["apellido-uno"])) {
+        $apellido1Err = "Primer apellido es requerido";
+    } else {
+        $apellidouno = test_input($_POST["apellido-uno"]);
+    }
+
+    if (empty($_POST["profesion"])) {
+        $profesionErr = "Profesión es requerida";
+    } else {
+        $profesion = test_input($_POST["prefesion"]);
+    }
+
+    if (empty($_POST["nacionalidad"])) {
+        $nacionalidadErr = "Nacionalidad es requerida";
+    } else {
+        $nacionalidad = test_input($_POST["nacionalidad"]);
+    }
+}
+
+function test_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+
 ?>
+
+
 
 </head>
 
@@ -41,7 +81,7 @@ get_header();
     </div>
 
     <div class="area-3">
-        <form name="formulario" method="post" action="">
+        <form name="formulario" method="POST"  action="">
         <section class="grid-2">
 
             <div class="item1">
@@ -75,7 +115,7 @@ get_header();
                         </div>
 
                         <div class = "item4">
-                            <label for="name">Primer Nombre</label><span class="required">* </span><br>
+                            <label for="name">Primer Nombre</label><span class="required">* <?php echo $nombre1Err;?></span><br>
                             <input type="text" class="form-area" name="name-uno" id="name-uno" />
                         </div>
                         <div class = "item5">
@@ -86,7 +126,7 @@ get_header();
                         <div class = "item6"></div>
 
                         <div class = "item7">
-                            <label for="name">Primer Apellido</label><span class="required">* </span><br>
+                            <label for="name">Primer Apellido</label><span class="required">* <?php echo $apellido1Err;?></span><br>
                             <input type="text" class="form-area" name="apellido-uno" id="apellido-uno" />
                         </div>
                         <div class = "item8">
@@ -124,61 +164,16 @@ get_header();
                         <div class = "item14"></div>
 
                         <div class = "item-span-two">
-                            <label for="name">Profesion u Oficio</label><span class="required">* </span><br>
+                            <label for="name">Profesión u Oficio</label><span class="required">* <?php echo $profesionErr;?></span><br>
                             <input type="text" class="form-area-two"  name="oficio" id="oficio" />
                         </div>
                         <div class = "item-span-two">
-                            <label for="name">Nacionalidad</label><span class="required">* </span><br>
+                            <label for="name">Nacionalidad</label><span class="required">* <?php echo $nacionalidadErr;?></span><br>
                             <input type="text" class="form-area-two"  name="nacionalidad" id="nacionalidad" />
                         </div>
 
                         <!-- FIN DATOS PERSONALES -->
                     </section> <!--fin section grid-columns-->
-                </div>
-            </div>
-
-
-
-            <div class="item2">
-                <div class="item-grid-2-border">
-                    <h3>Detalles de Direccion</h3>
-                    <section class="grid-columns">
-                        <!-- DIRECCION -->
-                        <div class = "item1">
-                            <label for="name">Estado</label><span class="required">* </span><br>
-                            <select id="estado" name="estado" class = "form-area">
-                                <option value="-1"><< Seleccione un Esatdo >></option>
-                                <?php
-                                $results = read_state();
-                                llenaComboBox($results);
-                                ?>
-
-                                <select id="estado" class = "form-area">
-
-                                </select>
-                        </div>
-
-                        <div class="item2">
-                            <label for="name">Municipio</label><br>
-                            <select id="municipio" class="form-area">
-                                <option value="-1"><< Seleccione un municipio >></option>
-                            </select>
-                        </div>
-
-                        <div class ="item3">
-                            <label for="name">Parroquia</label><br>
-                            <select id="parroquia" class="form-area">
-                                <option value="-1"><< Seleccione una parroquia >></option>
-                            </select>
-                        </div>
-
-                        <div class ="item-span-three">
-                            <label for="name">Direccion</label><br>
-                            <input type="text" class="form-area-three" name="direccion" id="direccion" />
-                        </div>
-
-                        <!-- FIN DIRECCION -->
-                    </section>
                 </div>
             </div>
 
@@ -335,9 +330,9 @@ get_header();
                 </div>
             </div>
 
-                <button type="submit" name="submit" id="submit" onclick="<?php insert_patient($_GET['name-uno'], $_GET['apellido-uno'], $_GET['name-dos'], $_GET['apellido-dos'], $_GET['birth-date'], $_GET['numero-doc'],
-                    $_GET['nacionalidad'], $_GET['estado-civil'], $_GET['oficio'], $_GET['sexo'], $_GET['tipo-documento'], $_GET['titular'], $_GET['local'],
-                    $_GET['movil'], $_GET['correo'], $_GET['num-personas'], $_GET['ingreso-promedio'], $_GET['familia-tipo'], $_GET['otro-tipo'], $_GET['condicion-laboral']); ?>">Submit</button>
+                <button type="submit" name="submit" id="submit" onclick="<?php insert_patient($_POST['name-uno'], $_POST['apellido-uno'], $_POST['name-dos'], $_POST['apellido-dos'], $_POST['birth-date'], $_POST['numero-doc'],
+                    $_POST['nacionalidad'], $_POST['estado-civil'], $_POST['oficio'], $_POST['sexo'], $_POST['tipo-documento'], $_POST['titular'], $_POST['local'],
+                    $_POST['movil'], $_POST['correo'], $_POST['num-personas'], $_POST['ingreso-promedio'], $_POST['familia-tipo'], $_POST['otro-tipo'], $_POST['condicion-laboral']); ?>">Submit</button>
 
         </section><!-- fin  grid-2-->
         </form>

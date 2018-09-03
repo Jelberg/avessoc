@@ -125,7 +125,7 @@ add_action('wp', 'read_municipalt');
 
 /**
  *
- * Insert de los datos de contacto 
+ * Insert de los datos de contacto
  * @param $id_paciente
  * @param $wpdb
  * @param $local
