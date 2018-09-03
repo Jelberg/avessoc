@@ -55,6 +55,7 @@ function insert_patient($nombre,$apellido,$snombre,$sapellido,$fnac,$numeroident
                         $nacionalidad,$ecivil,$profesion,$sexo,$tipodoc,
                         $titular,$local,$movil,$correo,$numpersonas,$ingresopromedio, $familiatipo, $otro, $condicionlab){
     global $wpdb;
+
     $wpdb->insert('PATIENT', array(
       'MPERSON_NAME' => $nombre,
       'MPERSON_LAST_NAME' => $apellido,
@@ -72,13 +73,13 @@ function insert_patient($nombre,$apellido,$snombre,$sapellido,$fnac,$numeroident
       ));
       $id_paciente= $wpdb->get_var( "SELECT MAX(MPERSON_ID) AS id FROM PATIENT" ); //< Devuelve el ultimo id registrado
 
-    add_contact_patient($id_paciente,$wpdb,$local,$movil,$correo);
-    add_request($wpdb,$id_paciente,$numpersonas,$ingresopromedio, $familiatipo, $otro, $condicionlab);
+    //add_contact_patient($id_paciente,$wpdb,$local,$movil,$correo);
+    //add_request($wpdb,$id_paciente,$numpersonas,$ingresopromedio, $familiatipo, $otro, $condicionlab);
 
 }
 
 // > Gancho de accion que enlaza la funcion insert_patient a la funcion de wp
-add_action('wp', 'insert_patient');
+//add_action('wp', 'insert_patient');
 
 
 
@@ -162,10 +163,6 @@ function add_contact_patient($id_paciente,$wpdb,$local,$movil,$correo){
  * @param $condicionlab         condicion laboral
  */
 function add_request($wpdb,$id_paciente,$numpersonas,$ingresopromedio, $familiatipo, $otro, $condicionlab){
-
-    //global $wpdb;
-//    $id_paciente= $wpdb->get_var( "SELECT MAX(MPERSON_ID) AS id FROM PATIENT" ); //< Devuelve el ultimo id registrado
-
 
     //Insercion de datos en la tabla REQUEST
     $wpdb->insert('REQUEST', array(
