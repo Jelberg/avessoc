@@ -289,7 +289,7 @@ function test_input($data) {
 
                         <div class = "item-span-two">
                             <label for="name">Tipo de familia con la que convive</label><br>
-                            <select id="familia-tipo" class="form-area-two">
+                            <select id="familia-tipo" name ="familia-tipo"  class="form-area-two">
                                 <option value="-1"> >>Seleccione opción<< </option>
                                 <option value="Una sola persona">Una sola persona</option>
                                 <option value="Pareja sin hijos">Pareja sin hijos</option>
@@ -320,7 +320,7 @@ function test_input($data) {
                     <section class="grid-columns">
                         <div class = "item-span-three">
                             <label for="name">Condicion laboral</label><br>
-                            <select id="condicion-laboral" class ="form-area-three">
+                            <select id="condicion-laboral" name="condicion-laboral" class ="form-area-three">
                                 <option value="-1"> >>Seleccione opción<< </option>
                                 <option value="Desocupado/ Sin trabajo">Desocupado/ Sin trabajo</option>
                                 <option value="Oficios del hogar">Oficios del hogar</option>
@@ -375,11 +375,11 @@ function test_input($data) {
                     <li>
                         <form>
                             <label>Condiciones de alojamiento</label><span class="required">** <?php echo $graffar4Err;?></span>
-                            <dd><input type="radio" name="CUATRO" id="cuatro-1" /><label for="">Vivienda con optimas condiciones sanitarias y ambientales de gran lujo</label></dd>
-                            <dd><input type="radio" name="CUATRO" id="cuatro-2" /><label for="">Vivienda con óptimas condiciones sanitarias, en ambientes con lujo, sin excesos y suficientes espacios.</label></dd>
-                            <dd><input type="radio" name="CUATRO" id="cuatro-3" /><label for="">Vivienda con buenas condiciones sanitarias en espacios reducidos o no, pero siempre menores que en la viviendas 1 y 2</label></dd>
-                            <dd><input type="radio" name="CUATRO" id="cuatro-4" /><label for="">Viviendas con ambientes espaciosos o reducidos y/o con deficiencias en algunas condiciones sanitarias</label></dd>
-                            <dd><input type="radio" name="CUATRO" id="cuatro-5" /><label for="">Rancho o vivienda con espacios insuficientes y condiciones sanitarias marcadamente inadecuadas</label></dd>
+                            <dd><input type="radio" name="CUATRO" id="cuatro-1" /><label for="cuatro-1">Vivienda con optimas condiciones sanitarias y ambientales de gran lujo</label></dd>
+                            <dd><input type="radio" name="CUATRO" id="cuatro-2" /><label for="cuatro-2">Vivienda con óptimas condiciones sanitarias, en ambientes con lujo, sin excesos y suficientes espacios.</label></dd>
+                            <dd><input type="radio" name="CUATRO" id="cuatro-3" /><label for="cuatro-3">Vivienda con buenas condiciones sanitarias en espacios reducidos o no, pero siempre menores que en la viviendas 1 y 2</label></dd>
+                            <dd><input type="radio" name="CUATRO" id="cuatro-4" /><label for="cuatro-4">Viviendas con ambientes espaciosos o reducidos y/o con deficiencias en algunas condiciones sanitarias</label></dd>
+                            <dd><input type="radio" name="CUATRO" id="cuatro-5" /><label for="cuatro-5">Rancho o vivienda con espacios insuficientes y condiciones sanitarias marcadamente inadecuadas</label></dd>
                         </form>
                     </li>
 
