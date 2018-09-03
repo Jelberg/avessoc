@@ -53,7 +53,7 @@ function objectToArray($d)
  */
 function insert_patient($nombre,$apellido,$snombre,$sapellido,$fnac,$numeroidentidad,
                         $nacionalidad,$ecivil,$profesion,$sexo,$tipodoc,
-                        $titular){
+                        $titular,$local,$movil,$correo,$numpersonas,$ingresopromedio, $familiatipo, $otro, $condicionlab){
     global $wpdb;
     $wpdb->insert('PATIENT', array(
       'MPERSON_NAME' => $nombre,
@@ -72,6 +72,8 @@ function insert_patient($nombre,$apellido,$snombre,$sapellido,$fnac,$numeroident
       ));
       $id_paciente= $wpdb->get_var( "SELECT MAX(MPERSON_ID) AS id FROM PATIENT" ); //< Devuelve el ultimo id registrado
 
+    add_contact_patient($id_paciente,$wpdb,$local,$movil,$correo);
+    add_request($wpdb,$id_paciente,$numpersonas,$ingresopromedio, $familiatipo, $otro, $condicionlab);
 
 }
 
@@ -115,6 +117,47 @@ add_action('wp', 'read_state');
 // > Gancho de accion que enlaza la funcion read_municipalt a la funcion de wp
 add_action('wp', 'read_municipalt');
 */
+
+
+
+//------------------------------------------CRUD CONTACT----------------------------------------------
+
+function add_contact_patient($id_paciente,$wpdb,$local,$movil,$correo){
+    //global $wpdb;
+    //$id_paciente= $wpdb->get_var( "SELECT MAX(MPERSON_ID) AS id FROM PATIENT" ); //< Devuelve el ultimo id registrado
+
+    //Ahora hace insert de contacto
+    $wpdb->insert('CONTACT', array(
+        'CONTACT_MPERSON_ID' => $id_paciente,
+        'CONTACT_LOCAL_PHON' => $local,
+        'CONTACT_MOVIL_PHON' => $movil,
+        'CONTACT_EMAIL' => $correo
+    ));
+}
+
+
+
+
+//-----------------------------------------CRUD REQUEST-----------------------------------------------
+
+function add_request($wpdb,$id_paciente,$numpersonas,$ingresopromedio, $familiatipo, $otro, $condicionlab){
+
+    //global $wpdb;
+//    $id_paciente= $wpdb->get_var( "SELECT MAX(MPERSON_ID) AS id FROM PATIENT" ); //< Devuelve el ultimo id registrado
+
+
+    //Insercion de datos en la tabla REQUEST
+    $wpdb->insert('REQUEST', array(
+        'REQUEST_PATIENT_PERSON_ID' => $id_paciente,
+        'REQUEST_INHABITANTS_NUMB' => $numpersonas,
+        'REQUEST_AVERAGE_INCOME' => $ingresopromedio,
+        'REQUEST_FAMILY_TYPE' => $familiatipo,
+        'REQUEST_FAMILY_OTHER' => $otro,
+        'REQUEST_LOBORAL_COND' => $condicionlab
+    ));
+
+}
+
 
 ?>
 

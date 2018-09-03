@@ -223,13 +223,13 @@ get_header();
 
                         <div class = "item-span-two">
                             <label for="name">Tipo de familia con la que convive</label><br>
-                            <select id="familia-tipo" class="form-area-two">
-                                <option value="1">Una sola persona</option>
-                                <option value="2">Pareja sin hijos</option>
+                            <select id="familia-tipo" name="familia-tipo" class="form-area-two">
+                                <option value="Una sola persona">Una sola persona</option>
+                                <option value="Pareja sin hijos">Pareja sin hijos</option>
                                 <option value="3">Madre/Padre solo, con hijos</option>
-                                <option value="4">Madre y Padre con hijos y otros parientes</option>
-                                <option value="5">Madre/Padre solo, hijos y otros parientes</option>
-                                <option value="6">Niño/a o adolence en entidad de atencion </option>
+                                <option value="Madre y Padre con hijos y otros parientes">Madre y Padre con hijos y otros parientes</option>
+                                <option value="Madre/Padre solo, hijos y otros parientes">Madre/Padre solo, hijos y otros parientes</option>
+                                <option value="Niño/a o adolence en entidad de atencion">Niño/a o adolence en entidad de atencion </option>
                                 <option value="0">Otro</option>
                             </select>
                         </div>
@@ -254,10 +254,10 @@ get_header();
                         <div class = "item-span-three">
                             <label for="name">Condicion laboral</label><br>
                             <select id="condicion-laboral" class ="form-area-three">
-                                <option value="1">Desocupado/ Sin trabajo</option>
-                                <option value="2">Oficios del hogar</option>
-                                <option value="3">Trabajo formal (Empresas, Organismos de estados, etc.)</option>
-                                <option value="4">Trabajo informal a destajo, trabajo temporal)</option>
+                                <option value="Desocupado/ Sin trabajo">Desocupado/ Sin trabajo</option>
+                                <option value="Oficios del hogar">Oficios del hogar</option>
+                                <option value="Trabajo formal (Empresas, Organismos de estados, etc.)">Trabajo formal (Empresas, Organismos de estados, etc.)</option>
+                                <option value="Trabajo informal a destajo, trabajo temporal)">Trabajo informal a destajo, trabajo temporal)</option>
                             </select>
                     </div>
                     </section>
@@ -320,9 +320,9 @@ get_header();
                 </div>
             </div>
 
-                <button type="submit" name="submit" id="submit" on click="<?php insert_patient($_POST['name-uno'],$_POST['apellido-uno'],$_POST['name-dos'],$_POST['apellido-dos'],
-                                                                            $_POST['birth-date'],$_POST['numero-doc'],$_POST['nacionalidad'],$_POST['estado-civil'],$_POST['oficio'],
-                                                                            $_POST['sexo'],$_POST['tipo-documento'],$_POST['titular']); ?>">Submit</button>
+                <button type="submit" name="submit" id="submit" onclick="<?php insert_patient($_GET['name-uno'], $_GET['apellido-uno'], $_GET['name-dos'], $_GET['apellido-dos'], $_GET['birth-date'], $_GET['numero-doc'],
+                    $_GET['nacionalidad'], $_GET['estado-civil'], $_GET['oficio'], $_GET['sexo'], $_GET['tipo-documento'], $_GET['titular'], $_GET['local'],
+                    $_GET['movil'], $_GET['correo'], $_GET['num-personas'], $_GET['ingreso-promedio'], $_GET['familia-tipo'], $_GET['otro-tipo'], $_GET['condicion-laboral']); ?>">Submit</button>
 
         </section><!-- fin  grid-2-->
         </form>
