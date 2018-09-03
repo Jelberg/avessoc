@@ -122,6 +122,16 @@ add_action('wp', 'read_municipalt');
 
 //------------------------------------------CRUD CONTACT----------------------------------------------
 
+
+/**
+ *
+ * Insert de los datos de contacto 
+ * @param $id_paciente
+ * @param $wpdb
+ * @param $local
+ * @param $movil
+ * @param $correo
+ */
 function add_contact_patient($id_paciente,$wpdb,$local,$movil,$correo){
     //global $wpdb;
     //$id_paciente= $wpdb->get_var( "SELECT MAX(MPERSON_ID) AS id FROM PATIENT" ); //< Devuelve el ultimo id registrado
@@ -140,6 +150,17 @@ function add_contact_patient($id_paciente,$wpdb,$local,$movil,$correo){
 
 //-----------------------------------------CRUD REQUEST-----------------------------------------------
 
+/**
+ * Inserta en la tabla REQUEST cuando se agrega el paciente al sistema
+ *
+ * @param $wpdb                 conexion a la base de datos
+ * @param $id_paciente          La id del paciente al que se esta registrando
+ * @param $numpersonas          cantidad de personas con la quie vive
+ * @param $ingresopromedio
+ * @param $familiatipo
+ * @param $otro                 puede ser nulo, dependiendo de la respuestaa del parametro anterior
+ * @param $condicionlab         condicion laboral
+ */
 function add_request($wpdb,$id_paciente,$numpersonas,$ingresopromedio, $familiatipo, $otro, $condicionlab){
 
     //global $wpdb;
