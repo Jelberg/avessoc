@@ -27,8 +27,8 @@ get_header();
      }
  }
 
-$TdocErr = $titularErr = $numerodocErr = $nombre1Err = $apellido1Err =$profesionErr =$nacionalidadErr = $graffar1Err = $graffar2Err = $graffar3Err =$graffar4Err = $sexoErr = $EcivilErr= $numperErr=$ingresoErr="";
-$tdoc=$titular=$nameuno = $apellidouno = $profesion= $nacionalidad = $numerodoc = $graffar1 = $graffar2 =  $graffar3= $graffar4 = $sexo=$Ecivil== $numper=$ingresr="";
+$TdocErr = $titularErr = $numerodocErr = $nombre1Err = $apellido1Err =$profesionErr =$nacionalidadErr = $graffar1Err = $g2Err = $g3Err =$g4Err = $sexoErr = $EcivilErr= $numperErr=$ingresoErr="";
+$tdoc=$titular=$nameuno = $apellidouno = $profesion= $nacionalidad = $numerodoc = $graffar1 = $g2 =  $g3= $g4 = $sexo=$Ecivil== $numper=$ingresr="";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $cont =0;
@@ -73,25 +73,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $graffar1 = test_input($_POST["UNO"]);
 
     }
+
     if (empty($_POST["DOS"])) {
-        $graffar2Err = "Requerido";
+        $g2Err = "Requerido";
     } else {
-        $graffar2 = test_input($_POST["DOS"]);
+        $g2 = test_input($_POST["DOS"]);
 
     }
+
     if (empty($_POST["TRES"])) {
-        $graffar3Err = "Requerido";
+        $g3Err = "Requerido";
     } else {
-        $graffar3 = test_input($_POST["TRES"]);
+        $g3 = test_input($_POST["TRES"]);
 
     }
 
     if (empty($_POST["CUATRO"])) {
-        $graffar4Err = "Requerido";
+        $g4Err = "Requerido";
     } else {
-        $graffar4 = test_input($_POST["CUATRO"]);
+        $g4 = test_input($_POST["CUATRO"]);
 
     }
+    
     if (($_POST["sexo"]) == "-1") {
         $sexoErr = "Requerido";
     } else {
@@ -148,7 +151,7 @@ function test_input($data) {
     </div>
 
     <div class="area-3">
-        <form name="formulario" method="post" action="">
+        <form name="formulario" id="formulario" method="post" action="">
         <section class="grid-2">
 
             <div class="item1">
@@ -178,32 +181,32 @@ function test_input($data) {
                         </div>
                         <div class ="item3">
                             <label for="name">Numero del documento</label><span class="required">* <?php echo $numerodocErr;?></span><br>
-                            <input type="text" class="form-area" name="numero-doc" id="numero-doc"  />
+                            <input type="text" class="form-area" name="numero-doc" id="numero-doc" value="<?php echo $_POST['numero-doc'] ?>"/>
                         </div>
 
                         <div class = "item4">
                             <label for="name">Primer Nombre</label><span class="required">* <?php echo $nombre1Err;?></span><br>
-                            <input type="text" class="form-area" name="name-uno" id="name-uno" />
+                            <input type="text" class="form-area" name="name-uno" id="name-uno" value="<?php echo $_POST['name-uno'] ?>"/>
                         </div>
                         <div class = "item5">
                             <label for="name">Segundo Nombre</label><br>
-                            <input type="text" class="form-area" name="name-dos" id="name-dos" />
+                            <input type="text" class="form-area" name="name-dos" id="name-dos" value="<?php echo $_POST['name-dos'] ?>"/>
                         </div>
 
                         <div class = "item6"></div>
 
                         <div class = "item7">
                             <label for="name">Primer Apellido</label><span class="required">* <?php echo $apellido1Err;?></span><br>
-                            <input type="text" class="form-area" name="apellido-uno" id="apellido-uno" />
+                            <input type="text" class="form-area" name="apellido-uno" id="apellido-uno" value="<?php echo $_POST['apellido-uno'] ?>"/>
                         </div>
                         <div class = "item8">
                             <label for="name">Segundo Apellido</label><br>
-                            <input type="text" class="form-area" name="apellido-dos" id="apellido-dos" />
+                            <input type="text" class="form-area" name="apellido-dos" id="apellido-dos" value="<?php echo $_POST['apellido-dos'] ?>"/>
                         </div>
                         <div class = "item9"></div>
                         <div class = "item10">
                             <label for="name">Fecha de Nacimiento</label><br>
-                            <input type="date"  class="form-area" name="birth-date" id="birth-date" />
+                            <input type="date"  class="form-area" name="birth-date" id="birth-date" value="<?php echo $_POST['birth-date'] ?>"/>
                         </div>
 
                         <div class = "item11">
@@ -232,11 +235,11 @@ function test_input($data) {
 
                         <div class = "item-span-two">
                             <label for="name">Profesión u Oficio</label><span class="required">* <?php echo $profesionErr;?></span><br>
-                            <input type="text" class="form-area-two"  name="oficio" id="oficio" />
+                            <input type="text" class="form-area-two"  name="oficio" id="oficio" value="<?php echo $_POST['oficio'] ?>"/>
                         </div>
                         <div class = "item-span-two">
                             <label for="name">Nacionalidad</label><span class="required">* <?php echo $nacionalidadErr;?></span><br>
-                            <input type="text" class="form-area-two"  name="nacionalidad" id="nacionalidad" />
+                            <input type="text" class="form-area-two"  name="nacionalidad" id="nacionalidad" value="<?php echo $_POST['nacionalidad'] ?>"/>
                         </div>
 
                     <!-- FIN DATOS PERSONALES -->
@@ -251,16 +254,16 @@ function test_input($data) {
                     <!-- CONTACTO -->
                         <div class ="item1">
                             <label for="name">Teléfono Local</label><br>
-                            <input type="number" class="form-area-number" name="local" id="local" />
+                            <input type="tel" class="form-area-number" name="local" id="local" value="<?php echo $_POST['local'] ?>"/>
                         </div>
                         <div class ="item2">
                             <label for="name">Teléfono Móvil</label><br>
-                            <input type="number" class="form-area-number" name="movil" id="movil" />
+                            <input type="number" class="form-area-number" name="movil" id="movil" value="<?php echo $_POST['movil'] ?>"/>
                         </div>
                             
                         <div class ="item3">
                             <label for="name">Correo</label><br>
-                            <input type="text"  class="form-area" name="correo" id="correo" />
+                            <input type="email"  class="form-area" name="correo" id="correo" value="<?php echo $_POST['correo'] ?>" placeholder="Ej.: ejemplo@correo.com"/>
                         </div>
 
                     <!-- FIN CONTACTO -->
@@ -278,11 +281,11 @@ function test_input($data) {
                     <section class="grid-columns">
                         <div class = "item1">
                             <label for="name">Número de personas que viven en el hogar</label><span class="required">**  <?php echo $numperErr;?> </span><br>
-                            <input type="number" class="form-area-number" name="num-personas" id="num-personas" />
+                            <input type="number" class="form-area-number" name="num-personas" id="num-personas" value="<?php echo $_POST['num-personas'] ?>"/>
                         </div>
                         <div class = "item2">
                             <label for="name">Ingreso Promedio Mensual</label><span class="required">**  <?php echo $ingresoErr;?></span><br>
-                            <input type="number" class="form-area-number" name="ingreso-promedio" id="ingreso-promedio" />
+                            <input type="number" class="form-area-number" name="ingreso-promedio" id="ingreso-promedio" value="<?php echo $_POST['ingreso-promedio'] ?>"/>
                         </div>
 
                         <div class = "item3"></div>
@@ -303,7 +306,7 @@ function test_input($data) {
                         
                         <div class = "item-span-two" id="otro">
                             <label for="name">En caso de ser otro especifique</label><br>
-                            <input type="text" class="form-area-two" name="otro-tipo" id="otro-tipo" />
+                            <input type="text" class="form-area-two" name="otro-tipo" id="otro-tipo" value="<?php echo $_POST['otro-tipo'] ?>"/>
                         </div>
 
                     </section>
@@ -342,45 +345,45 @@ function test_input($data) {
                     <ol>
                     <!-- CLASIFICACION GRAFFAR -->
                     <li>
-                        <form>
+                        <section>
                             <label>Profesion del jefe del hogar</label><span class="required">** <?php echo $graffar1Err;?></span>
                             <dd><input type="radio" name="UNO" id="UNO" /><label for="uno-1">Profesion Universitaria</label></dd>
                             <dd><input type="radio" name="UNO" id="UNO" /><label for="uno-2">Profesion Tecnica superior o medianos comerciantes o productores</label></dd>
                             <dd><input type="radio" name="UNO" id="UNO" /><label for="uno-3">Empleados sin profesion universitaria. Bachiller tecnico, pequeños comerciantes o propietarios</label></dd>
                             <dd><input type="radio" name="UNO" id="UNO" /><label for="uno-4">Obreros especializados, parte de los trabajadores del sector informal de la economia </label></dd>
                             <dd><input type="radio" name="UNO" id="UNO" /><label for="uno-5">Obreros no especializados y otra parte del sector informal de la economia</label></dd>
-                        </form>
+                        </section>
                     </li>
                     <li>
 
-                        <form>
-                            <label>Nivel de instruccion de la esposa o conyugue</label><span class="required">** <?php echo $graffar2Err;?></span>
+                        <section>
+                            <label>Nivel de instruccion de la esposa o conyugue</label><span class="required">** <?php echo $g2Err;?></span>
                             <dd><input type="radio" name="DOS" id="DOS" /><label for="dos-1">Enseñanza universitaria o su equivalente</label></dd>
                             <dd><input type="radio" name="DOS" id="DOS" /><label for="dos-2">Enseñan secundaria completa</label></dd>
                             <dd><input type="radio" name="DOS" id="DOS" /><label for="dos-3">Enseñanza secundaria incompleta</label></dd>
                             <dd><input type="radio" name="DOS" id="DOS" /><label for="dos-4">Enseñanza primaria o alfabeta (Algun grado de instruccion primaria)</label></dd>
                             <dd><input type="radio" name="DOS" id="DOS" /><label for="dos-5">Analfabeta</label></dd>
-                        </form>
+                        </section>
                     </li>
                     <li>
-                        <form>
-                            <label>Principal fuente de ingreso</label><span class="required">** <?php echo $graffar3Err;?></span>
+                        <section>
+                            <label>Principal fuente de ingreso</label><span class="required">** <?php echo $g3Err;?></span>
                             <dd><input type="radio" name="TRES" id="TRES" /><label for="tres-1">Fortuna heredada o adquirida</label></dd>
                             <dd><input type="radio" name="TRES" id="TRES" /><label for="tres-2">Ganancia, beneficios, honorarios profesionales</label></dd>
                             <dd><input type="radio" name="TRES" id="TRES" /><label for="tres-3">Sueldo mensual</label></dd>
                             <dd><input type="radio" name="TRES" id="TRES" /><label for="tres-4">Sueldo semanal, por dia. Entrada a destajo</label></dd>
                             <dd><input type="radio" name="TRES" id="TRES" /><label for="tres-5">Donaciones de origen público o privado</label></dd>
-                        </form>
+                        </section>
                     </li>
                     <li>
-                        <form>
-                            <label>Condiciones de alojamiento</label><span class="required">** <?php echo $graffar4Err;?></span>
+                        <section>
+                            <label>Condiciones de alojamiento</label><span class="required">** <?php echo $g4Err;?></span>
                             <dd><input type="radio" name="CUATRO" id="CUATRO" /><label for="cuatro-1">Vivienda con optimas condiciones sanitarias y ambientales de gran lujo</label></dd>
                             <dd><input type="radio" name="CUATRO" id="CUATRO" /><label for="cuatro-2">Vivienda con óptimas condiciones sanitarias, en ambientes con lujo, sin excesos y suficientes espacios.</label></dd>
                             <dd><input type="radio" name="CUATRO" id="CUATRO" /><label for="cuatro-3">Vivienda con buenas condiciones sanitarias en espacios reducidos o no, pero siempre menores que en la viviendas 1 y 2</label></dd>
                             <dd><input type="radio" name="CUATRO" id="CUATRO" /><label for="cuatro-4">Viviendas con ambientes espaciosos o reducidos y/o con deficiencias en algunas condiciones sanitarias</label></dd>
                             <dd><input type="radio" name="CUATRO" id="CUATRO" /><label for="cuatro-5">Rancho o vivienda con espacios insuficientes y condiciones sanitarias marcadamente inadecuadas</label></dd>
-                        </form>
+                        </section>
                     </li>
 
                     <!-- FIN CLASIFICACION GRAFFAR -->
@@ -389,20 +392,42 @@ function test_input($data) {
             </div>
 
 
-                <button type="submit" name="submit" id="submit" on click="<?php
+                <button type="submit" name="submit" id="submit" onclick="<?php
 
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (empty($_POST["name-uno"]) or empty($_POST["apellido-uno"]) or empty($_POST["oficio"]) or empty($_POST["nacionalidad"]) or
-                    empty($_POST["numero-doc"]) /*or empty($_POST["UNO"]) or empty($_POST["DOS"]) or empty($_POST["TRES"]) or empty($_POST["CUATRO"])*/ or
+                    empty($_POST["numero-doc"]) or empty($_POST["UNO"]) /*or empty($_POST["DOS"]) or empty($_POST["TRES"]) or empty($_POST["CUATRO"])*/ or
                     ($_POST["sexo"] == "-1") or ($_POST["estado-civil"] == "-1") or (empty($_POST["num-personas"])) or (empty($_POST["ingreso-promedio"])) or
                     (($_POST["tipo-documento"]) == "-1") or (($_POST["titular"]) == "-1")) {
                         //Debera entrar aqui si cualquier campo obligatorio es vacio
+                        //echo"<script>alert('Existen campos vacios')</script>";
                     }
                        else {
                 insert_patient($_POST['name-uno'],$_POST['apellido-uno'],$_POST['name-dos'],$_POST['apellido-dos'],
                                                                             $_POST['birth-date'],$_POST['numero-doc'],$_POST['nacionalidad'],$_POST['estado-civil'],$_POST['oficio'],
                                                                             $_POST['sexo'],$_POST['tipo-documento'],$_POST['titular'], $_POST['local'],
                     $_POST['movil'], $_POST['correo'], $_POST['num-personas'], $_POST['ingreso-promedio'], $_POST['familia-tipo'], $_POST['otro-tipo'], $_POST['condicion-laboral']);
+                
+                    unset($_POST['apellido-uno']);
+                    unset($_POST['name-uno']);
+                    unset($_POST['name-dos']);
+                    unset($_POST['apellido-dos']);
+                    unset($_POST['birth-date']);
+                    unset($_POST['numero-doc']);
+                    unset($_POST['nacionalidad']);
+                    unset($_POST['estado-civil']);
+                    unset($_POST['oficio']);
+                    unset($_POST['sexo']);
+                    unset($_POST['tipo-documento']);
+                    unset($_POST['titular']); 
+                    unset($_POST['local']);
+                    unset($_POST['movil']); 
+                    unset($_POST['correo']); 
+                    unset($_POST['num-personas']); 
+                    unset($_POST['ingreso-promedio']); 
+                    unset($_POST['familia-tipo']); 
+                    unset($_POST['otro-tipo']); 
+                    unset($_POST['condicion-laboral']);
                 }
             }
                     ?>">Submit</button>
@@ -413,5 +438,6 @@ function test_input($data) {
     </div><!-- fin  area-3 del grid-1 -->
 
 </section> <!-- fin  grid-1-->
+
 
 </body>

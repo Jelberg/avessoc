@@ -7,6 +7,18 @@
 */
 
 
+/**  Funcion que valida parametros de tipo entero
+ * @param $valor variable que se evalua
+ * @param null $opciones Arreglo de las posibles opcionnes que puede tener la variable valor, puede tomar valor nulo
+ * @return bool
+ */
+function validarEntero($valor, $opciones=null){
+    if(filter_var($valor, FILTER_VALIDATE_INT, $opciones) === FALSE){
+       return false;
+    }else{
+       return true;
+    }
+ }
 
 
 
