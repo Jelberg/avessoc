@@ -161,7 +161,7 @@ function test_input($data) {
                                                     <!-- DATOS PERSONALES -->
                         <div class ="item1">
                             <label for="name">Tipo de Documento</label><span class="required">* <?php echo $TdocErr;?></span><br>
-                            <select class="form-area" id="tipo-documento" name="tipo-documento">
+                            <select class="form-area" id="tipo-documento" name="tipo-documento" >
                                 <option value="-1"> >>Seleccione opción<< </option>
                                 <option value="V">V</option>
                                 <option value="E">E</option>
@@ -378,7 +378,7 @@ function test_input($data) {
                     <li>
                         <section>
                             <label>Condiciones de alojamiento</label><span class="required">** <?php echo $g4Err;?></span>
-                            <dd><input type="radio" name="CUATRO" id="CUATRO" /><label for="cuatro-1">Vivienda con optimas condiciones sanitarias y ambientales de gran lujo</label></dd>
+                            <dd><input type="radio" name="CUATRO" id="CUATRO" /><label for="cuatro-1">Vivienda con óptimas condiciones sanitarias y ambientales de gran lujo</label></dd>
                             <dd><input type="radio" name="CUATRO" id="CUATRO" /><label for="cuatro-2">Vivienda con óptimas condiciones sanitarias, en ambientes con lujo, sin excesos y suficientes espacios.</label></dd>
                             <dd><input type="radio" name="CUATRO" id="CUATRO" /><label for="cuatro-3">Vivienda con buenas condiciones sanitarias en espacios reducidos o no, pero siempre menores que en la viviendas 1 y 2</label></dd>
                             <dd><input type="radio" name="CUATRO" id="CUATRO" /><label for="cuatro-4">Viviendas con ambientes espaciosos o reducidos y/o con deficiencias en algunas condiciones sanitarias</label></dd>
@@ -396,11 +396,11 @@ function test_input($data) {
 
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (empty($_POST["name-uno"]) or empty($_POST["apellido-uno"]) or empty($_POST["oficio"]) or empty($_POST["nacionalidad"]) or
-                    empty($_POST["numero-doc"]) or empty($_POST["UNO"]) /*or empty($_POST["DOS"]) or empty($_POST["TRES"]) or empty($_POST["CUATRO"])*/ or
+                    empty($_POST["numero-doc"]) or empty($_POST["UNO"]) or empty($_POST["DOS"]) or empty($_POST["TRES"]) or empty($_POST["CUATRO"]) or
                     ($_POST["sexo"] == "-1") or ($_POST["estado-civil"] == "-1") or (empty($_POST["num-personas"])) or (empty($_POST["ingreso-promedio"])) or
                     (($_POST["tipo-documento"]) == "-1") or (($_POST["titular"]) == "-1")) {
                         //Debera entrar aqui si cualquier campo obligatorio es vacio
-                        //echo"<script>alert('Existen campos vacios')</script>";
+                     
                     }
                        else {
                 insert_patient($_POST['name-uno'],$_POST['apellido-uno'],$_POST['name-dos'],$_POST['apellido-dos'],
@@ -408,26 +408,6 @@ function test_input($data) {
                                                                             $_POST['sexo'],$_POST['tipo-documento'],$_POST['titular'], $_POST['local'],
                     $_POST['movil'], $_POST['correo'], $_POST['num-personas'], $_POST['ingreso-promedio'], $_POST['familia-tipo'], $_POST['otro-tipo'], $_POST['condicion-laboral']);
                 
-                    unset($_POST['apellido-uno']);
-                    unset($_POST['name-uno']);
-                    unset($_POST['name-dos']);
-                    unset($_POST['apellido-dos']);
-                    unset($_POST['birth-date']);
-                    unset($_POST['numero-doc']);
-                    unset($_POST['nacionalidad']);
-                    unset($_POST['estado-civil']);
-                    unset($_POST['oficio']);
-                    unset($_POST['sexo']);
-                    unset($_POST['tipo-documento']);
-                    unset($_POST['titular']); 
-                    unset($_POST['local']);
-                    unset($_POST['movil']); 
-                    unset($_POST['correo']); 
-                    unset($_POST['num-personas']); 
-                    unset($_POST['ingreso-promedio']); 
-                    unset($_POST['familia-tipo']); 
-                    unset($_POST['otro-tipo']); 
-                    unset($_POST['condicion-laboral']);
                 }
             }
                     ?>">Submit</button>
