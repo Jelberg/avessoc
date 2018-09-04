@@ -46,10 +46,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     }
 
-    if (empty($_POST["profesion"])) {
+    if (empty($_POST["oficio"])) {
         $profesionErr = "Requerido";
     } else {
-        $profesion = test_input($_POST["prefesion"]);
+        $profesion = test_input($_POST["oficio"]);
 
     }
 
@@ -231,7 +231,7 @@ function test_input($data) {
                         <div class = "item14"></div>
 
                         <div class = "item-span-two">
-                            <label for="name">Profesion u Oficio</label><span class="required">* <?php echo $profesionErr;?></span><br>
+                            <label for="name">Profesión u Oficio</label><span class="required">* <?php echo $profesionErr;?></span><br>
                             <input type="text" class="form-area-two"  name="oficio" id="oficio" />
                         </div>
                         <div class = "item-span-two">
@@ -344,42 +344,42 @@ function test_input($data) {
                     <li>
                         <form>
                             <label>Profesion del jefe del hogar</label><span class="required">** <?php echo $graffar1Err;?></span>
-                            <dd><input type="radio" name="UNO" id="uno-1" /><label for="uno-1">Profesion Universitaria</label></dd>
-                            <dd><input type="radio" name="UNO" id="uno-2" /><label for="uno-2">Profesion Tecnica superior o medianos comerciantes o productores</label></dd>
-                            <dd><input type="radio" name="UNO" id="uno-3" /><label for="uno-3">Empleados sin profesion universitaria. Bachiller tecnico, pequeños comerciantes o propietarios</label></dd>
-                            <dd><input type="radio" name="UNO" id="uno-4" /><label for="uno-4">Obreros especializados, parte de los trabajadores del sector informal de la economia </label></dd>
-                            <dd><input type="radio" name="UNO" id="uno-5" /><label for="uno-5">Obreros no especializados y otra parte del sector informal de la economia</label></dd>
+                            <dd><input type="radio" name="UNO" id="UNO" /><label for="uno-1">Profesion Universitaria</label></dd>
+                            <dd><input type="radio" name="UNO" id="UNO" /><label for="uno-2">Profesion Tecnica superior o medianos comerciantes o productores</label></dd>
+                            <dd><input type="radio" name="UNO" id="UNO" /><label for="uno-3">Empleados sin profesion universitaria. Bachiller tecnico, pequeños comerciantes o propietarios</label></dd>
+                            <dd><input type="radio" name="UNO" id="UNO" /><label for="uno-4">Obreros especializados, parte de los trabajadores del sector informal de la economia </label></dd>
+                            <dd><input type="radio" name="UNO" id="UNO" /><label for="uno-5">Obreros no especializados y otra parte del sector informal de la economia</label></dd>
                         </form>
                     </li>
                     <li>
 
                         <form>
                             <label>Nivel de instruccion de la esposa o conyugue</label><span class="required">** <?php echo $graffar2Err;?></span>
-                            <dd><input type="radio" name="DOS" id="dos-1" /><label for="dos-1">Enseñanza universitaria o su equivalente</label></dd>
-                            <dd><input type="radio" name="DOS" id="dos-2" /><label for="dos-2">Enseñan secundaria completa</label></dd>
-                            <dd><input type="radio" name="DOS" id="dos-3" /><label for="dos-3">Enseñanza secundaria incompleta</label></dd>
-                            <dd><input type="radio" name="DOS" id="dos-4" /><label for="dos-4">Enseñanza primaria o alfabeta (Algun grado de instruccion primaria)</label></dd>
-                            <dd><input type="radio" name="DOS" id="dos-5" /><label for="dos-5">Analfabeta</label></dd>
+                            <dd><input type="radio" name="DOS" id="DOS" /><label for="dos-1">Enseñanza universitaria o su equivalente</label></dd>
+                            <dd><input type="radio" name="DOS" id="DOS" /><label for="dos-2">Enseñan secundaria completa</label></dd>
+                            <dd><input type="radio" name="DOS" id="DOS" /><label for="dos-3">Enseñanza secundaria incompleta</label></dd>
+                            <dd><input type="radio" name="DOS" id="DOS" /><label for="dos-4">Enseñanza primaria o alfabeta (Algun grado de instruccion primaria)</label></dd>
+                            <dd><input type="radio" name="DOS" id="DOS" /><label for="dos-5">Analfabeta</label></dd>
                         </form>
                     </li>
                     <li>
                         <form>
                             <label>Principal fuente de ingreso</label><span class="required">** <?php echo $graffar3Err;?></span>
-                            <dd><input type="radio" name="TRES" id="tres-1" /><label for="tres-1">Fortuna heredada o adquirida</label></dd>
-                            <dd><input type="radio" name="TRES" id="tres-2" /><label for="tres-2">Ganancia, beneficios, honorarios profesionales</label></dd>
-                            <dd><input type="radio" name="TRES" id="tres-3" /><label for="tres-3">Sueldo mensual</label></dd>
-                            <dd><input type="radio" name="TRES" id="tres-4" /><label for="tres-4">Sueldo semanal, por dia. Entrada a destajo</label></dd>
-                            <dd><input type="radio" name="TRES" id="tres-5" /><label for="tres-5">Donaciones de origen público o privado</label></dd>
+                            <dd><input type="radio" name="TRES" id="TRES" /><label for="tres-1">Fortuna heredada o adquirida</label></dd>
+                            <dd><input type="radio" name="TRES" id="TRES" /><label for="tres-2">Ganancia, beneficios, honorarios profesionales</label></dd>
+                            <dd><input type="radio" name="TRES" id="TRES" /><label for="tres-3">Sueldo mensual</label></dd>
+                            <dd><input type="radio" name="TRES" id="TRES" /><label for="tres-4">Sueldo semanal, por dia. Entrada a destajo</label></dd>
+                            <dd><input type="radio" name="TRES" id="TRES" /><label for="tres-5">Donaciones de origen público o privado</label></dd>
                         </form>
                     </li>
                     <li>
                         <form>
                             <label>Condiciones de alojamiento</label><span class="required">** <?php echo $graffar4Err;?></span>
-                            <dd><input type="radio" name="CUATRO" id="cuatro-1" /><label for="cuatro-1">Vivienda con optimas condiciones sanitarias y ambientales de gran lujo</label></dd>
-                            <dd><input type="radio" name="CUATRO" id="cuatro-2" /><label for="cuatro-2">Vivienda con óptimas condiciones sanitarias, en ambientes con lujo, sin excesos y suficientes espacios.</label></dd>
-                            <dd><input type="radio" name="CUATRO" id="cuatro-3" /><label for="cuatro-3">Vivienda con buenas condiciones sanitarias en espacios reducidos o no, pero siempre menores que en la viviendas 1 y 2</label></dd>
-                            <dd><input type="radio" name="CUATRO" id="cuatro-4" /><label for="cuatro-4">Viviendas con ambientes espaciosos o reducidos y/o con deficiencias en algunas condiciones sanitarias</label></dd>
-                            <dd><input type="radio" name="CUATRO" id="cuatro-5" /><label for="cuatro-5">Rancho o vivienda con espacios insuficientes y condiciones sanitarias marcadamente inadecuadas</label></dd>
+                            <dd><input type="radio" name="CUATRO" id="CUATRO" /><label for="cuatro-1">Vivienda con optimas condiciones sanitarias y ambientales de gran lujo</label></dd>
+                            <dd><input type="radio" name="CUATRO" id="CUATRO" /><label for="cuatro-2">Vivienda con óptimas condiciones sanitarias, en ambientes con lujo, sin excesos y suficientes espacios.</label></dd>
+                            <dd><input type="radio" name="CUATRO" id="CUATRO" /><label for="cuatro-3">Vivienda con buenas condiciones sanitarias en espacios reducidos o no, pero siempre menores que en la viviendas 1 y 2</label></dd>
+                            <dd><input type="radio" name="CUATRO" id="CUATRO" /><label for="cuatro-4">Viviendas con ambientes espaciosos o reducidos y/o con deficiencias en algunas condiciones sanitarias</label></dd>
+                            <dd><input type="radio" name="CUATRO" id="CUATRO" /><label for="cuatro-5">Rancho o vivienda con espacios insuficientes y condiciones sanitarias marcadamente inadecuadas</label></dd>
                         </form>
                     </li>
 
@@ -388,10 +388,25 @@ function test_input($data) {
                 </div>
             </div>
 
-                <button type="submit" name="submit" id="submit" on click="<?php insert_patient($_POST['name-uno'],$_POST['apellido-uno'],$_POST['name-dos'],$_POST['apellido-dos'],
+
+                <button type="submit" name="submit" id="submit" on click="<?php
+
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    if (empty($_POST["name-uno"]) or empty($_POST["apellido-uno"]) or empty($_POST["oficio"]) or empty($_POST["nacionalidad"]) or
+                    empty($_POST["numero-doc"]) /*or empty($_POST["UNO"]) or empty($_POST["DOS"]) or empty($_POST["TRES"]) or empty($_POST["CUATRO"])*/ or
+                    ($_POST["sexo"] == "-1") or ($_POST["estado-civil"] == "-1") or (empty($_POST["num-personas"])) or (empty($_POST["ingreso-promedio"])) or
+                    (($_POST["tipo-documento"]) == "-1") or (($_POST["titular"]) == "-1")) {
+                        //Debera entrar aqui si cualquier campo obligatorio es vacio
+                    }
+                       else {
+                insert_patient($_POST['name-uno'],$_POST['apellido-uno'],$_POST['name-dos'],$_POST['apellido-dos'],
                                                                             $_POST['birth-date'],$_POST['numero-doc'],$_POST['nacionalidad'],$_POST['estado-civil'],$_POST['oficio'],
                                                                             $_POST['sexo'],$_POST['tipo-documento'],$_POST['titular'], $_POST['local'],
-                    $_POST['movil'], $_POST['correo'], $_POST['num-personas'], $_POST['ingreso-promedio'], $_POST['familia-tipo'], $_POST['otro-tipo'], $_POST['condicion-laboral']); ?>">Submit</button>
+                    $_POST['movil'], $_POST['correo'], $_POST['num-personas'], $_POST['ingreso-promedio'], $_POST['familia-tipo'], $_POST['otro-tipo'], $_POST['condicion-laboral']);
+                }
+            }
+                    ?>">Submit</button>
+             
 
         </section><!-- fin  grid-2-->
         </form>
