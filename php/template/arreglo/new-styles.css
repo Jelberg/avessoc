@@ -123,6 +123,28 @@
       color: red;
   }
 
+  .estiloError {
+    color: red;
+    animation: estiloError 7s linear forwards;
+      -webkit-animation: estiloError 7s linear forwards;      
+  }
+  
+  @keyframes estiloError {
+    0% { opacity: 0; }
+    2% { opacity: 1; }
+    98% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  
+    @-webkit-keyframes estiloError {
+  
+    0% { opacity: 0; }
+    2% { opacity: 1; }
+    98% { opacity: 1; }
+    100% { opacity: 0; }
+  
+  }
+
   /***********************************************************************
 
                             Botones
@@ -154,4 +176,22 @@
   .right{
       text-align: right;
       margin-right: 80px;
+  }
+
+
+  /******************************************************************
+
+                        type = "number"
+
+  **************************************************************** */
+
+  /* For Firefox */
+  input[type='number'] {
+      -moz-appearance:textfield;
+  }
+  /* Webkit browsers like Safari and Chrome */
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
   }
