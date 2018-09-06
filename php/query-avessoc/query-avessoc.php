@@ -97,7 +97,7 @@ function read_state(){
 }
 
 // > Gancho de accion que enlaza la funcion read_state a la funcion de wp
-add_action('wp', 'read_state');
+//add_action('wp', 'read_state');
 
 
 
@@ -108,16 +108,16 @@ add_action('wp', 'read_state');
  * @param $id_state
  * @return mixed
  */
-/*function read_municipalt($id_state){
+function read_municipalt($id_state){
     global $wpdb;
-    $municipios = $wpdb->get_results("SELECT MUNICIPALT_ID, MUNICIPALT_DESC FROM `MUNICIPALT` WHERE MUNICIPLAT_STATE_ID =1");
+    $municipios = $wpdb->get_results("SELECT MUNICIPALT_ID, MUNICIPALT_DESC FROM `MUNICIPALT` WHERE MUNICIPALT_STATE_ID =".$id_state);
     //$new_array_municipalt = obbjectToArray($municipios);
     return $municipios;
 }
 
 // > Gancho de accion que enlaza la funcion read_municipalt a la funcion de wp
-add_action('wp', 'read_municipalt');
-*/
+//add_action('wp', 'read_municipalt');
+
 
 
 
@@ -176,6 +176,21 @@ function add_request($wpdb,$id_paciente,$numpersonas,$ingresopromedio, $familiat
 
 }
 
+
+//--------------------------------------------CRUD SPONSOR-----------------------------------------------------
+function add_sponsor($nombrelegal,$tipodocumento,$numero,$logo){
+    global $wpdb;
+
+    $wpdb->insert('SPONSOR', array(
+        'MPERSON_LEGAL_NAME' => $nombrelegal,
+        'MPERSON_TYPE_DOC' => $tipodocumento,
+        'MPERSON_IDENTF' => $numero,
+        'SPONSOR_LOGO' => $logo
+    ));
+
+}
+
+//-------------------------------------------CRUD CNTRIBUTION--------------------------------------------------
 
 ?>
 
