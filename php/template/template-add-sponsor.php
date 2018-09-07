@@ -34,7 +34,7 @@ get_header();
 
         if (empty($_POST["numero-doc"]) or empty($_POST["tipo-documento"])) {
         } elseif (sizeof(search_sponsor_id($_POST["numero-doc"], $_POST["tipo-documento"])) != 0) {
-            $msjNumero = "Identificaion de usuario ya exiaste";
+            $msjNumero = "Tipo de documento con número de identificaion ya existen";
         }
     }
 
@@ -98,12 +98,13 @@ get_header();
                                     }
 
                                     ?>
-                                </select>
+                                </select><br>
+                                <?php if (!empty($msjNumero)) {  echo "<span class=estiloError>$msjNumero</span>"; }  ?>
                             </div>
 
                             <div class="item3" ><!--fila 3-->
-                                <label for="name">Numero del documento</label><span class="required">*</span><br>
-                                <input type="number" name="numero-doc" id="numero-doc" class="form-area-number-row" min="0" value="<?php echo $numedoc?>" required/>
+                                <label for="name">Número del documento de identidad</label><span class="required">*</span><br>
+                                <input type="number" name="numero-doc" id="numero-doc" class="form-area-number-row" min="0" value="<?php echo $numedoc?>" required/><br>
                                 <?php if (!empty($msjNumero)) {  echo "<span class=estiloError>$msjNumero</span>"; }  ?>
                             </div>
 
