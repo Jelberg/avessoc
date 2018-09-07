@@ -6,44 +6,23 @@
 get_header();
 ?>
 
+
+
 <head>
 
     <?php
-
-    //Variable para mensaje
-    $legalErrmsj="Sólo se permiten mayúsculas, minusculas y espacios en blanco.";
-    $msjNumero="";
-
-    //Variable para mantener selecciones
-    $legal=$numedoc=$aporte=$tdoc="";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $legal = test_input($_POST['legal-name']);
         $numedoc = test_input($_POST['numero-doc']);
-
-
-        if (($_POST["tipo-documento"]) == "") {
-        } else {
-            $tdoc = test_input($_POST["tipo-documento"]);
-        }
-
-        if (empty($_POST["aporte"])){
-        }else {
-            $aporte = test_input($_POST['aporte']);
-        }
+        $tdoc = test_input($_POST["tipo-documento"]);
+        $aporte = returnVarNoEmpty('aporte');
 
         if (empty($_POST["numero-doc"]) or empty($_POST["tipo-documento"])) {
         } elseif (sizeof(search_sponsor_id($_POST["numero-doc"], $_POST["tipo-documento"])) != 0) {
             $msjNumero = "Tipo de documento con número de identificaion ya existen";
         }
-    }
-
-    function test_input($data) {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
     }
 
     function phpAlert($msg) {

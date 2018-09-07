@@ -11,6 +11,59 @@
  * @param $d
  * @return array
  */
+
+//=========================================================================================
+//                                                                                        //
+//                                                                                        //
+//                               Variables de mansajes                                    //
+//                                                                                        //
+//                                                                                        //
+//=========================================================================================
+
+$ErrmsjOnlyLetters="Sólo se permiten mayúsculas, minusculas y espacios en blanco.";
+$msjNumero="";
+
+
+//=========================================================================================
+//                                                                                        //
+//                                                                                        //
+//                               Variables para mantener                                  //
+//                                                                                        //
+//                                                                                        //
+//=========================================================================================
+
+$legal=$numedoc=$aporte=$tdoc="";
+
+
+
+//=========================================================================================
+//                                                                                        //
+//                                                                                        //
+//    Se ejecuta todo el tiempo para mantener actualizado vas variables anteriores        //  IMPORTANTE REVISAR
+//                                                                                        //
+//                                                                                        //
+//=========================================================================================
+
+
+function returnVarNoEmpty($etiqueta){
+    $var ="";
+    if (empty($_POST['"'.$etiqueta.'"'])){
+        return $var;
+    }else {
+        return $var = test_input($_POST['"'.$etiqueta.'"']);
+    }
+}
+
+
+function test_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+//___________________________________________________________________________________________
+
 function objectToArray($d)
 {
     if (is_object($d)) {
