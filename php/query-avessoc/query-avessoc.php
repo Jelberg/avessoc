@@ -186,19 +186,19 @@ function add_request($wpdb,$id_paciente,$numpersonas,$ingresopromedio, $familiat
  * @param $numero
  * @param $logo
  */
-function add_sponsor($nombrelegal,$tipodocumento,$numero,$logo,$montoinicial){
+function add_sponsor(){
     global $wpdb;
 
     $wpdb->insert('SPONSOR', array(
-        'MPERSON_LEGAL_NAME' => $nombrelegal,
-        'MPERSON_TYPE_DOC' => $tipodocumento,
-        'MPERSON_IDENTF' => $numero,
-        'SPONSOR_LOGO' => $logo
+        'MPERSON_LEGAL_NAME' => $_POST["legal-name"],
+        'MPERSON_TYPE_DOC' => $_POST["tipo-documento"],
+        'MPERSON_IDENTF' => $_POST["numero-doc"],
+        'SPONSOR_LOGO' => $_POST["logo"]
     ));
 
-    if (!empty($montoinicial)){
+    if (!empty($_POST["aporte"])){
         $id_sponsor= $wpdb->get_results( "SELECT MAX(MPERSON_ID) AS id FROM SPONSOR" ); //< Devuelve el ultimo id registrado
-        add_cntribution_init($montoinicial,$id_sponsor);
+        add_cntribution_init($_POST["aporte"],$id_sponsor);
     }
 
 }

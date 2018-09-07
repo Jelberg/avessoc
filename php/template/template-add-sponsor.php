@@ -167,8 +167,7 @@ get_header();
                     // Funcion registra al patrocinante
                     $permitido = $_COOKIE["valid"];
                     if (preg_match("/^[a-zA-Z ]*$/", $legal) and !empty($_POST["legal-name"]) and $permitido=="true" and sizeof(search_sponsor_id($_POST["numero-doc"],$_POST["tipo-documento"])) == 0) {
-                        phpAlert("HELLO" );
-                        add_sponsor($_POST["legal-name"], $_POST["tipo-documento"], $_POST["numero-doc"], $_POST["logo"], $_POST["aporte"]);
+                        add_sponsor();
 
                     }
                     ?>
