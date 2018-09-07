@@ -41,10 +41,16 @@ function custom_enqueue_styles() {
 					);
 }
 
-function wpbody_insertar_js() {
-    wp_enqueue_script( 'script', get_template_directory_uri() . '/js/notifications.js', array ( 'jquery' ), 1.1, true);
+
+function my_scripts_enqueue() {
+    wp_register_script( 'bootstrap-js', get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'), NULL, true );
+    wp_enqueue_script( 'bootstrap-js' );
+
 }
-add_action( 'wp_enqueue_scripts', 'wpbody_insertar_js' );
+add_action( 'wp_enqueue_scripts', 'my_scripts_enqueue' );
+
+
+
 
 
 ?>

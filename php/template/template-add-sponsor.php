@@ -7,6 +7,7 @@ get_header();
 ?>
 
 <head>
+
     <?php
 
     //Variable para mensaje
@@ -45,6 +46,9 @@ get_header();
         return $data;
     }
 
+    function phpAlert($msg) {
+        echo '<script type="text/javascript">alert("' . $msg . '")</script>';
+    }
     ?>
 </head>
 
@@ -120,6 +124,7 @@ get_header();
                                 <input type="number" name="aporte" id="aporte" class="form-area-number-row"  min="0" value="<?php echo $aporte ?>"/>
                             </div>
 
+
                         </section><!--Grid de filas -->
                     </div>
                 </div>
@@ -127,6 +132,10 @@ get_header();
             <div class ="right">
                 <button class="button-just" name="registrar" id="registrar" onclick="registro(this.form, this.form.logo.value)">REGISTRAR PATROCINANTE</button>
             </div>
+            <!--div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
+                <strong> ¡Bien hecho!</strong> Has guardado correctamente el archivo.
+            </div-->
         </form><!--fin de formulario-->
     </div><!-- fin  area-3 del grid-1 -->
 </section> <!-- fin  grid-1-->
@@ -158,8 +167,9 @@ get_header();
                     // Funcion registra al patrocinante
                     $permitido = $_COOKIE["valid"];
                     if (preg_match("/^[a-zA-Z ]*$/", $legal) and !empty($_POST["legal-name"]) and $permitido=="true" and sizeof(search_sponsor_id($_POST["numero-doc"],$_POST["tipo-documento"])) == 0) {
-                            add_sponsor($_POST["legal-name"], $_POST["tipo-documento"], $_POST["numero-doc"], $_POST["logo"], $_POST["aporte"]);
-                        echo "<script languaje='javascript'>alert('Material en depósito : ')</script>";
+                        phpAlert("HELLO" );
+                        add_sponsor($_POST["legal-name"], $_POST["tipo-documento"], $_POST["numero-doc"], $_POST["logo"], $_POST["aporte"]);
+
                     }
                     ?>
                     //alert("Usuario Registrado correctamente");
@@ -167,7 +177,6 @@ get_header();
                     return 1;
                 }
 
-            //si estoy aqui es que no se ha podido submitir
             alert (mierror);
         }
 
