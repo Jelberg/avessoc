@@ -20,21 +20,23 @@ get_header();
 
         $legal = test_input($_POST['legal-name']);
         $numedoc = test_input($_POST['numero-doc']);
-        $aporte = test_input($_POST['aporte']);
-        $tdoc = test_input($_POST['tipo-documento']);
 
+
+        if (($_POST["tipo-documento"]) == "") {
+        } else {
+            $tdoc = test_input($_POST["tipo-documento"]);
+        }
+
+        if (empty($_POST["aporte"])){
+        }else {
+            $aporte = test_input($_POST['aporte']);
+        }
+
+        if (empty($_POST["numero-doc"]) or empty($_POST["tipo-documento"])) {
+        } elseif (sizeof(search_sponsor_id($_POST["numero-doc"], $_POST["tipo-documento"])) != 0) {
+            $msjNumero = "Identificaion de usuario ya exiaste";
+        }
     }
-
-    if (($_POST["tipo-documento"]) == "") {
-        $TdocErr = "Requerido";
-    } else {
-        $tdoc = test_input($_POST["tipo-documento"]);
-    }
-
-    if ( sizeof(search_sponsor_id($_POST["numero-doc"],$_POST["tipo-documento"])) != 0){
-        $msjNumero ="Identificaion de usuario ya exiaste";
-    }
-
 
     function test_input($data) {
         $data = trim($data);
@@ -114,7 +116,7 @@ get_header();
 
                             <div class="item5" ><!--fila 5-->
                                 <label for="name">Aporte Inicial</label><br>
-                                <input type="number" name="aporte" id="aporte" class="form-area-number-row"  min="0" value="<?php $aporte ?>"/>
+                                <input type="number" name="aporte" id="aporte" class="form-area-number-row"  min="0" value="<?php echo $aporte ?>"/>
                             </div>
 
                         </section><!--Grid de filas -->
