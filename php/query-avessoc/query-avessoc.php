@@ -1,7 +1,7 @@
 <?php
 /**
-* Plugin Name: Query's AVESSOC
-* Description: Este plugin esta desarrollado para que pueda ejecutar los query's de la base de datos que le da soporte al portal de avessoc
+* Plugin Name: Avessoc
+* Description: Plugin desarrollado para dar soporte al portal de avessoc
 * Version: 1.0.0
 * Author: Jessica Elberg
 */
@@ -20,9 +20,9 @@
 //                                                                                        //
 //=========================================================================================
 
-$ErrmsjOnlyLetters="Sólo se permiten mayúsculas, minusculas y espacios en blanco.";
+$ErrmsjOnlyLetters="Sólo se permiten mayúsculas, minusculas y espacios en blanco. Máximo 25 caracteres";
 $msjNumero="";
-
+$msjSuccess="";
 
 //=========================================================================================
 //                                                                                        //
@@ -91,49 +91,34 @@ function objectToArray($d)
 /**
  *   Este Realiza el insert de paciente
  *
- * @param $nombre   Primer nombre
- * @param $apellido Primer Apellido
- * @param $snombre  Segundo Nombre
- * @param $sapellido    Segundo Apellido
- * @param $fnac     Fecha de nacimiento
- * @param $numeroidentidad  numero del documento de identidad
- * @param $nacionalidad nacionalidad
- * @param $ecivil       Estado civil
- * @param $profesion    Profesion que ejerce
- * @param $sexo         Sexo
- * @param $tipodoc      Tipo de documento (RIF, V, E, Passaporte)
- * @param $titular      Titular del documento de identidad
  */
-function insert_patient($nombre,$apellido,$snombre,$sapellido,$fnac,$numeroidentidad,
-                        $nacionalidad,$ecivil,$profesion,$sexo,$tipodoc,
-                        $titular,$local,$movil,$correo,$numpersonas,$ingresopromedio, $familiatipo, $otro, $condicionlab){
+
+function insert_patient(){
+
     global $wpdb;
 
     $wpdb->insert('PATIENT', array(
-      'MPERSON_NAME' => $nombre,
-      'MPERSON_LAST_NAME' => $apellido,
-      'MPERSON_BIRTH' => $fnac,
-      'MPERSON_IDENTF' => $numeroidentidad,
-      'MPERSON_LEGAL_NAME' => $apellido,  //CAMBIAR
-      'MPERSON_SECOND_NAME' => $snombre,
-      'MPERSON_SECOND_LNAME' => $sapellido,
-      'MPERSON_NACIONALITY' => $nacionalidad,
-      'MPERSON_CIVIL_STATS' => $ecivil,
-      'MPERSON_SEX' => $sexo,
-      'MPERSON_HOLDER_CARD' => $titular,
-      'MPERSON_PROFETION' => $profesion,
-      'MPERSON_TYPE_DOC' => $tipodoc
+      'MPERSON_NAME' => $_POST['name-uno'],
+      'MPERSON_LAST_NAME' => $_POST['apellido-uno'],
+      'MPERSON_BIRTH' => $_POST['birth-date'],
+      'MPERSON_IDENTF' => $_POST['numero-doc'],
+      'MPERSON_LEGAL_NAME' => $_POST['apellido-uno']." ".$_POST['apellido-dos'].", ".$_POST['name-uno']." ".$_POST['name-dos'],
+      'MPERSON_SECOND_NAME' => $_POST['name-dos'],
+      'MPERSON_SECOND_LNAME' => $_POST['apellido-dos'],
+      'MPERSON_NACIONALITY' => $_POST['nacionalidad'],
+      'MPERSON_CIVIL_STATS' => $_POST['estado-civil'],
+      'MPERSON_SEX' => $_POST['sexo'],
+      'MPERSON_HOLDER_CARD' => $_POST['titular'],
+      'MPERSON_PROFETION' => $_POST['oficio'],
+      'MPERSON_TYPE_DOC' => $_POST['tipo-documento']
       ));
       $id_paciente= $wpdb->get_var( "SELECT MAX(MPERSON_ID) AS id FROM PATIENT" ); //< Devuelve el ultimo id registrado
 
-    //add_contact_patient($id_paciente,$wpdb,$local,$movil,$correo);
-    //add_request($wpdb,$id_paciente,$numpersonas,$ingresopromedio, $familiatipo, $otro, $condicionlab);
+   // add_contact_patient($id_paciente,$wpdb,$_POST['local'],$_POST['movil'], $_POST['correo']);
+    add_request($wpdb,$id_paciente,$_POST['num-personas'],$_POST['ingreso-promedio'], $_POST['familia-tipo'], $_POST['otro-tipo'], $_POST['condicion-laboral'],
+        $_POST['graffar-1'],$_POST['graffar-2'],$_POST['graffar-3'],$_POST['graffar-4']);
 
 }
-
-// > Gancho de accion que enlaza la funcion insert_patient a la funcion de wp
-//add_action('wp', 'insert_patient');
-
 
 
 //------------------------------------------CRUD STATE-------------------------------------------------
@@ -215,7 +200,9 @@ function add_contact_patient($id_paciente,$wpdb,$local,$movil,$correo){
  * @param $otro                 puede ser nulo, dependiendo de la respuestaa del parametro anterior
  * @param $condicionlab         condicion laboral
  */
-function add_request($wpdb,$id_paciente,$numpersonas,$ingresopromedio, $familiatipo, $otro, $condicionlab){
+function add_request($wpdb,$id_paciente,$numpersonas,$ingresopromedio, $familiatipo, $otro, $condicionlab,$g1,$g2,$g3,$g4){
+    $valor = $g1+$g2+$g3+$g4;
+    $porcentaje= $wpdb->get_var('SELECT SCALE_PORCENTAGE FROM `SCALE` WHERE SCALE_MIN<='.$valor.' AND SCALE_MAX>='.$valor);
 
     //Insercion de datos en la tabla REQUEST
     $wpdb->insert('REQUEST', array(
@@ -224,8 +211,14 @@ function add_request($wpdb,$id_paciente,$numpersonas,$ingresopromedio, $familiat
         'REQUEST_AVERAGE_INCOME' => $ingresopromedio,
         'REQUEST_FAMILY_TYPE' => $familiatipo,
         'REQUEST_FAMILY_OTHER' => $otro,
-        'REQUEST_LOBORAL_COND' => $condicionlab
+        'REQUEST_LOBORAL_COND' => $condicionlab,
+        'REQUEST_GRAFFAR_ONE' => $g1,
+        'REQUEST_GRAFFAR_TWO' => $g2,
+        'REQUEST_GRAFFAR_THREE' => $g3,
+        'REQUEST_GRAFFAR_FOUR' => $g4,
+        'REQUEST_GRAFFAR_PORCTG' => $porcentaje
     ));
+
 
 }
 
@@ -262,9 +255,9 @@ function add_sponsor(){
  * @param $tipo
  * @return mixed
  */
-function search_sponsor_id($numIdentificacion, $tipo){
+function search_sponsor_id(){
     global $wpdb;
-    $query ="SELECT MPERSON_ID FROM `SPONSOR` WHERE MPERSON_IDENTF = ".$numIdentificacion." AND MPERSON_TYPE_DOC ='".$tipo."'";
+    $query ="SELECT MPERSON_ID FROM `SPONSOR` WHERE MPERSON_IDENTF = ".$_POST["numero-doc"]." AND MPERSON_TYPE_DOC ='".$_POST["tipo-documento"]."'";
     $id_sponsor= $wpdb->get_var( $query );
     return $id_sponsor;
 }
@@ -287,6 +280,44 @@ function add_cntribution_init($montoinicial,$userid){
 
 }
 
-?>
+//------------------------------------------CRUD ANSWER----------------------------------------------------------
+
+function search_answer($id_question){
+    global $wpdb;
+    $query ="SELECT ANSWER_VALUE, ANSWER_DESC FROM `ANSWER` WHERE ANSWER_QUESTION_ID =".$id_question;
+    $answers= $wpdb->get_results( $query );
+    return $answers;
+}
 
 
+//=========================================================================================
+//                                                                                        //
+//                                                                                        //
+//                               FUNCIONES PARA PAGINAS                                   //
+//                                                                                        //
+//                                                                                        //
+//=========================================================================================
+
+
+ function llenaComboBox($results)
+ {  // Funcion llena combobox pasando como parrametro un array de la forma
+     $cont = 0;
+     $key = "";
+     foreach ($results as $llave => $valor) {
+         foreach ($valor as $value => $option) {
+             if ($cont == 0) {
+                 $key = $option;
+                 $cont += 1;
+             } else {
+                 echo '<option value ="' . $key . '">' . $option . '</option>';
+                 $cont = 0;
+             }
+
+         }
+     }
+ }
+
+
+
+
+ ?>
