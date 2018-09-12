@@ -457,28 +457,23 @@ get_header();
 
 function mostrarFormulario() {
     echo '
-			<table border="0">
-				<tr>
-					<td>Estado:</td>
-					<td>' . llenarEstados() . '</td>
-					<td>Municipios:</td>
-					<td>' . llenarMunicipios() . '</td>
-				</tr>
-				<tr>
-					<td>Total:</td>
+			<section class="grid-columns">
+				<div class="item1">
+					<label for="name">Estado</label><span class="required">*  </span><br>
+					<div>' . llenarEstados() . '</div>
+				</div>
+				<div class="item2">
+					<label for="name">Municipio</label><span class="required">* </span><br>
+					<div>' . llenarMunicipios() . '</div>
+				</div>
+				<section>
+					<label for="name">Total municipios</label><br>
 					<td colspan="3"><input type="text" name="totalMunicipios" id="totalMunicipios" /></td>
-				</tr>
-				<tr>
-					<td colspan="4"><textarea cols="35" rows="10" name="areaTexto">Esta es una prueba para cargar los combos</textarea></td>
-				</tr>
-				<tr>
+				</section>
+				<section>
 					<td colspan="4">&nbsp;</td>
-				</tr>
-				<tr>
-					<td><input type="hidden" name="rutear" value="1" /></td>
-					<td colspan="3" align="right"><input type="submit" value="Enviar informaci&oacute;n" /></td>
-				</tr>
-			</table>
+				</section>
+			</section>
 		';
 }
 
@@ -494,11 +489,11 @@ function llenarEstados() {
     $count =0;
     $key=""; //Guarda la llave para la segunda vuelta del foreach
     if ( $consulta2 > 0 ) {
-        $combo= '<select name="cmbEstados" onchange="cargarMunicipios(this.value);">';
+        $combo= '<select class="form-area" name="cmbEstados" onchange="cargarMunicipios(this.value)" requiered>';
         foreach ( $consulta as $rows => $row ) {
             foreach ( $row as $datos => $dato ) {
                 if ($i == 0)
-                    $combo .= '<option value="-1">Selecciona...</option>' . "\n"; // Solamente cuando empieza a llenar el combo para que seleccione opcion
+                    $combo .= '<option >Seleccione opción</option>' . "\n"; // Solamente cuando empieza a llenar el combo para que seleccione opcion
                 if ($count == 0) {
                     $key = $dato;
                     $count+=1;
@@ -527,7 +522,7 @@ function llenarMunicipios() {
         $id_mun="";
         $id_es="";
         $count =0;
-        $combo= '<select name="cmbMunicipios">';
+        $combo= '<select class="form-area" name="cmbMunicipios" required>';
         $i = 0;
         echo "<script language='javascript'>\n";
         foreach ( $consulta as $rows => $row ) {
