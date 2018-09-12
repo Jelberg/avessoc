@@ -175,10 +175,20 @@ get_header();
                            
                         </div>
 
-                    </section><!--fin Columnas del formulario-->
+                        </section><!--fin Columnas del formulario-->
                        </div>
-            </div>
+                    </div>
                     <!--fin de datos personales-->
+
+
+                    <!--Detalles de contacto-->
+                <div class="item2">
+                    <div class="item-grid-2-border">
+                        <h3>Detalles de Direccion</h3>
+
+                    </div><!--fin border grid 2-->
+                </div> <!--fin item2-->
+                    <!--fin de detalles de contacto-->
 
                     <!--Contacto-->
                     <div class="item3">
@@ -358,6 +368,7 @@ get_header();
                      if (!empty($_POST['name-uno']) or !empty($_POST['name-dos']) or !empty($_POST['apellido-uno']) or !empty($_POST['apellido-dos']) or !empty($_POST['nacionalidad'])
                          or !empty($_POST['oficio']) or !empty($_POST['tipo-documento']) or !empty($_POST['numero-doc']) or !empty($_POST['titular'])) {
                          insert_patient();
+                         echo "<script type='text/javascript'>alert('Lo estamos redireccionando'); </script>";
                      }?> ">REGISTRAR PACIENTE</button>
                 </section>
 
