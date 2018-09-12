@@ -148,7 +148,7 @@ get_header();
                         </div>
                          <div class ="item3">
                             <label for="name">Número del documento</label><span class="required">* </span><br>
-                            <input type="number" maxlength="25" class="form-area-number" name="numero-doc" id="numero-doc" min="1" pattern="^[0-9]+" value="<?php echo $numerodoc ?>"required/><br>
+                            <input type="number" class="form-area-number" name="numero-doc" id="numero-doc" min="1000000" max="999999999" pattern="^[0-9]+" title="<?php echo $msjNumero ?>" value="<?php echo $numerodoc ?>"required/><br>
                         </div>            
                         <div class = "item4">
                             <label for="name">Primer Nombre</label><span class="required">* </span><br>
@@ -271,11 +271,11 @@ get_header();
                             <!-- CONTACTO -->
                                 <div class ="item1">
                                     <label for="name">Teléfono Local</label><br>
-                                    <input type="number" class="form-area-number" name="local"  min="1" pattern="^[0-9]+" id="local" value="<?php echo $local ?>"/><br>
+                                    <input type="number" class="form-area-number" name="local"  min="1000000" max="999999999" pattern="^[0-9]+" id="local" title="<?php echo $msjContacto ?>" value="<?php echo $local ?>"/><br>
                                 </div>
                                 <div class ="item2">
                                     <label for="name">Teléfono Móvil</label><br>
-                                    <input type="number" class="form-area-number" name="movil" id="movil"  min="1" pattern="^[0-9]+" value='<?php echo htmlentities($movil) ?>' /><br>
+                                    <input type="number" class="form-area-number" name="movil" id="movil"  min="1000000" max="99999999999" pattern="^[0-9]+" title="<?php echo $msjContacto ?>" value='<?php echo htmlentities($movil) ?>' /><br>
                                 </div>
 
                                 <div class ="item3">
