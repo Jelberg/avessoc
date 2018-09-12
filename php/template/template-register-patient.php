@@ -181,14 +181,14 @@ get_header();
                     <!--fin de datos personales-->
 
 
-                    <!--Detalles de contacto-->
+                    <!--Detalles de direccion-->
                 <div class="item2">
                     <div class="item-grid-2-border">
                         <h3>Detalles de Direccion</h3>
-
+                            
                     </div><!--fin border grid 2-->
                 </div> <!--fin item2-->
-                    <!--fin de detalles de contacto-->
+                    <!--fin de detalles de direccion-->
 
                     <!--Contacto-->
                     <div class="item3">
