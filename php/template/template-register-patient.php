@@ -11,6 +11,10 @@ get_header();
         var idEstado =  new Array();
         var municipios = new Array();
 
+        var codParroquias =  new Array();
+        var idMunicipio =  new Array();
+        var parroquias = new Array();
+
         function limpiarMunicipios() {
             var reference = document.formPaciente.cmbMunicipios;
             var largo = reference.options.length;
@@ -36,6 +40,38 @@ get_header();
             }
             document.formPaciente.totalMunicipios.value = j + ' municipios';
         }
+
+
+        /*AQUI PARROQUIA*/
+
+        function limpiarParroquia() {
+            var reference = document.formPaciente.cmbParroquias;
+            var largo = reference.options.length;
+            for ( j = 0; j < 10; j++ )
+                for ( i = 0; i < largo; i++ )
+                    document.formPaciente.cmbParroquias.remove(i);
+        }
+
+        function cargarParroquias(valor) {
+            var longitud = idMunicipio.length;
+            var reference = document.formPaciente.cmbParroquias;
+            var i = 0;
+            var j = 0;
+
+            limpiarParroquia()
+
+            for ( i = 0; i < longitud; i++ ) {
+                if ( idMunicipio[i] == valor ) {
+                    var newOption = new Option(parroquias[i], codParroquias[i]);
+                    reference.options[j] = newOption;
+                    j++;
+                }
+            }
+            document.formPaciente.totalParroquias.value = j + ' parroquias';
+        }
+
+
+
     </script>
 
 </head>
@@ -220,7 +256,6 @@ get_header();
                             echo "Estado: " . $_REQUEST['cmbEstados'] . "<br>";
                             echo "Total: " . $_REQUEST['totalMunicipios'] . "<br>";
                             echo "Municipio: " . $_REQUEST['cmbMunicipios'] . "<br>";
-                            echo "Texto: " . $_REQUEST['areaTexto'] . "<br>";
                         } else
                             mostrarFormulario();
                         ?>
@@ -466,9 +501,17 @@ function mostrarFormulario() {
 					<label for="name">Municipio</label><span class="required">* </span><br>
 					<div>' . llenarMunicipios() . '</div>
 				</div>
+				<div class="item3">
+					<label for="name">Parroquia</label><span class="required">* </span><br>
+					<div>' . llenarParroquias() . '</div>
+				</div>				
 				<section>
 					<label for="name">Total municipios</label><br>
 					<td colspan="3"><input type="text" name="totalMunicipios" id="totalMunicipios" /></td>
+				</section>
+				<section>
+					<label for="name">Total parroquias</label><br>
+					<td colspan="3"><input type="text" name="totalParroquias" id="totalParroquias" /></td>
 				</section>
 				<section>
 					<td colspan="4">&nbsp;</td>
@@ -522,7 +565,7 @@ function llenarMunicipios() {
         $id_mun="";
         $id_es="";
         $count =0;
-        $combo= '<select class="form-area" name="cmbMunicipios" required>';
+        $combo= '<select class="form-area" name="cmbMunicipios" onchange="cargarParroquias(this.value)" requiered>';
         $i = 0;
         echo "<script language='javascript'>\n";
         foreach ( $consulta as $rows => $row ) {
@@ -549,6 +592,45 @@ function llenarMunicipios() {
     return $combo;
 }
 
+
+function llenarParroquias() {
+    global $wpdb;
+    $query = "SELECT PARISH_ID, PARISH_MUNICIPALT_ID, PARISH_DESC FROM `PARISH` WHERE PARISH_ID > 0 ORDER BY PARISH_DESC ASC ;";
+    $count= "SELECT COUNT(PARISH_ID) FROM PARISH"; //cantidad de filas
+    $consulta = $wpdb->get_results($query);
+    $consulta2 = $wpdb->get_var($count);
+    $combo = "";
+
+    if ( $consulta2 > 0 ) {
+
+        $id_parroquia="";
+        $id_municio="";
+        $count =0;
+        $combo= '<select class="form-area" name="cmbParroquias" required>';
+        $i = 0;
+        echo "<script language='javascript'>\n";
+        foreach ( $consulta as $rows => $row ) {
+            foreach ( $row as $datos => $dato ) {
+                if ($count == 0){
+                    $id_parroquia = $dato;
+                    $count +=1;
+                }else if($count == 1){
+                    $id_municio = $dato;
+                    $count +=1;
+                } else {
+                    echo "codParroquias[" . $i . "] = " . $id_parroquia . ";\n";
+                    echo "idMunicipio[" . $i . "] = " . $id_municio . ";\n";
+                    echo "parroquias[" . $i . "] = '" . $dato . "';\n";
+                    $count=0;
+                    $i++;
+                }
+            }
+        }
+        echo "</script>\n";
+        $combo .= "</select>\n";
+    }
+    return $combo;
+}
 
 ?>
 
