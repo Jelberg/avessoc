@@ -30,6 +30,7 @@ get_header();
             var j = 0;
 
             limpiarMunicipios();
+            limpiarParroquia();
 
             for ( i = 0; i < longitud; i++ ) {
                 if ( idEstado[i] == valor ) {
@@ -58,7 +59,7 @@ get_header();
             var i = 0;
             var j = 0;
 
-            limpiarParroquia()
+            limpiarParroquia();
 
             for ( i = 0; i < longitud; i++ ) {
                 if ( idMunicipio[i] == valor ) {
