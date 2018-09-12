@@ -318,6 +318,4 @@ function search_answer($id_question){
  }
 
 
-
-
  ?>

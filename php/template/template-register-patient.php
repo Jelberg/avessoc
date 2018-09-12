@@ -6,7 +6,37 @@ get_header();
 ?>
 
 <head>
+    <script language="javascript">
+        var codMunicipios = new Array();
+        var idEstado =  new Array();
+        var municipios = new Array();
 
+        function limpiarMunicipios() {
+            var reference = document.formPaciente.cmbMunicipios;
+            var largo = reference.options.length;
+            for ( j = 0; j < 8; j++ )
+                for ( i = 0; i < largo; i++ )
+                    document.formPaciente.cmbMunicipios.remove(i);
+        }
+
+        function cargarMunicipios(valor) {
+            var longitud = idEstado.length;
+            var reference = document.formPaciente.cmbMunicipios;
+            var i = 0;
+            var j = 0;
+
+            limpiarMunicipios();
+
+            for ( i = 0; i < longitud; i++ ) {
+                if ( idEstado[i] == valor ) {
+                    var newOption = new Option(municipios[i], codMunicipios[i]);
+                    reference.options[j] = newOption;
+                    j++;
+                }
+            }
+            document.formPaciente.totalMunicipios.value = j + ' municipios';
+        }
+    </script>
 
 </head>
 
@@ -20,7 +50,7 @@ get_header();
     </div> <!-- fin area 2-->
 
     <div class="area-3">
-        <form name="" id="" method="post" action=""> <!--Inicio de formulario-->
+        <form name="formPaciente" id="" method="post" action=""> <!--Inicio de formulario-->
             <section class="grid-2">
 
                 <div class="item1">  <!--Revisaarrr-->
@@ -181,14 +211,22 @@ get_header();
                     <!--fin de datos personales-->
 
 
-                    <!--Detalles de contacto-->
+                    <!--Detalles de direccion-->
                 <div class="item2">
                     <div class="item-grid-2-border">
                         <h3>Detalles de Direccion</h3>
-
+                        <?php
+                        if ( isset($_REQUEST['rutear']) ) {
+                            echo "Estado: " . $_REQUEST['cmbEstados'] . "<br>";
+                            echo "Total: " . $_REQUEST['totalMunicipios'] . "<br>";
+                            echo "Municipio: " . $_REQUEST['cmbMunicipios'] . "<br>";
+                            echo "Texto: " . $_REQUEST['areaTexto'] . "<br>";
+                        } else
+                            mostrarFormulario();
+                        ?>
                     </div><!--fin border grid 2-->
                 </div> <!--fin item2-->
-                    <!--fin de detalles de contacto-->
+                    <!--fin de detalles de direccion-->
 
                     <!--Contacto-->
                     <div class="item3">
@@ -414,6 +452,110 @@ get_header();
 
 </script>
 
+<?php
+
+
+function mostrarFormulario() {
+    echo '
+			<table border="0">
+				<tr>
+					<td>Estado:</td>
+					<td>' . llenarEstados() . '</td>
+					<td>Municipios:</td>
+					<td>' . llenarMunicipios() . '</td>
+				</tr>
+				<tr>
+					<td>Total:</td>
+					<td colspan="3"><input type="text" name="totalMunicipios" id="totalMunicipios" /></td>
+				</tr>
+				<tr>
+					<td colspan="4"><textarea cols="35" rows="10" name="areaTexto">Esta es una prueba para cargar los combos</textarea></td>
+				</tr>
+				<tr>
+					<td colspan="4">&nbsp;</td>
+				</tr>
+				<tr>
+					<td><input type="hidden" name="rutear" value="1" /></td>
+					<td colspan="3" align="right"><input type="submit" value="Enviar informaci&oacute;n" /></td>
+				</tr>
+			</table>
+		';
+}
+
+function llenarEstados() {
+    //$db = new MySql();
+    global $wpdb;
+    $query = "SELECT STATE_ID, STATE_DESC FROM STATE WHERE STATE_ID > 0 ORDER BY STATE_DESC ASC ;"; // Trae todos los estados
+    $count= "SELECT COUNT(STATE_ID) FROM STATE"; //cantidad de filas
+    $consulta = $wpdb->get_results($query);
+    $consulta2 = $wpdb->get_var($count);
+    $combo = "";
+    $i = 0;
+    $count =0;
+    $key=""; //Guarda la llave para la segunda vuelta del foreach
+    if ( $consulta2 > 0 ) {
+        $combo= '<select name="cmbEstados" onchange="cargarMunicipios(this.value);">';
+        foreach ( $consulta as $rows => $row ) {
+            foreach ( $row as $datos => $dato ) {
+                if ($i == 0)
+                    $combo .= '<option value="-1">Selecciona...</option>' . "\n"; // Solamente cuando empieza a llenar el combo para que seleccione opcion
+                if ($count == 0) {
+                    $key = $dato;
+                    $count+=1;
+                }else{
+                    $combo .= '<option value="' . $key . '">' . $dato . "</option>\n";
+                    $count =0;
+                }
+                $i++;
+            }
+        }
+        $combo .= "</select>\n";
+    }
+    return $combo;
+}
+
+function llenarMunicipios() {
+    global $wpdb;
+    $query = "SELECT MUNICIPALT_ID, MUNICIPALT_STATE_ID, MUNICIPALT_DESC FROM `MUNICIPALT` WHERE MUNICIPALT_ID > 0 ORDER BY MUNICIPALT_DESC ASC ;";
+    $count= "SELECT COUNT(MUNICIPALT_ID) FROM MUNICIPALT"; //cantidad de filas
+    $consulta = $wpdb->get_results($query);
+    $consulta2 = $wpdb->get_var($count);
+    $combo = "";
+
+    if ( $consulta2 > 0 ) {
+
+        $id_mun="";
+        $id_es="";
+        $count =0;
+        $combo= '<select name="cmbMunicipios">';
+        $i = 0;
+        echo "<script language='javascript'>\n";
+        foreach ( $consulta as $rows => $row ) {
+            foreach ( $row as $datos => $dato ) {
+                if ($count == 0){
+                    $id_mun = $dato;
+                    $count +=1;
+                }else if($count == 1){
+                    $id_es = $dato;
+                    $count +=1;
+                } else {
+                    echo "codMunicipios[" . $i . "] = " . $id_mun . ";\n";
+                    echo "idEstado[" . $i . "] = " . $id_es . ";\n";
+                    echo "municipios[" . $i . "] = '" . $dato . "';\n";
+                    //$combo .= '<option value="' . $id_mun . '">' . $dato . "</option>\n";
+                    $count=0;
+                    $i++;
+                }
+            }
+        }
+        echo "</script>\n";
+        $combo .= "</select>\n";
+    }
+    return $combo;
+}
+
+
+?>
 
 
 </body>
