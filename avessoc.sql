@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     12/09/2018 01:15:40 p.m.                     */
+/* Created on:     12/09/2018 02:54:44 p.m.                     */
 /*==============================================================*/
 
 
@@ -25,7 +25,7 @@ create table CNTBTION
    CNTBTION_SPONSOR_ID  int not null,
    CNTBTION_CANT        numeric(10,10) not null,
    CNTBTION_BALANCE     numeric(10,10) not null,
-   CNTBTION_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
+   CNTBTION_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    CNTBTION_USER        text,
    primary key (CNTBTION_ID)
 );
@@ -40,7 +40,7 @@ create table CONFIG
    CONFIG_ACTIVATION    char(1) not null,
    CONFIG_ACTIVACION_DATE date,
    CONFIG_DEACTIVATION_DATE date,
-   CONFIG_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
+   CONFIG_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    CONFIG_USER          text,
    primary key (CONFIG_ID)
 );
@@ -166,8 +166,6 @@ create table NOTIFICATION
    NOTIFICATION_RPORDER_ID int,
    NOTIFICATION_RPORDER_REQUEST_ID int,
    NOTIFICATION_REQUEST_PATIENT_ID int,
-   NOTIFICATION_REQUEST_MDCENTER_ID_CONCERNING int,
-   NOTIFICATION_REQUEST_MDCENTER_ID_REFERRED int,
    NOTIFICATION_ORDER_ID int,
    NOTIFICATION_TYPE    text not null,
    NOTIFICATION_MENSAJE text,
@@ -264,8 +262,8 @@ create table REQUEST
 (
    REQUEST_ID           int not null auto_increment,
    REQUEST_PATIENT_PERSON_ID int not null,
-   REQUEST_MDCENTER_ID_CONCERNING int not null,
-   REQUEST_MDCENTER_ID_REFERRED int not null,
+   REQUEST_MDCENTER_ID_CONCERNING int ,
+   REQUEST_MDCENTER_ID_REFERRED int,
    REQUEST_FAMILY_TYPE  text,
    REQUEST_FAMILY_OTHER text,
    REQUEST_LOBORAL_COND text,
@@ -281,7 +279,7 @@ create table REQUEST
    REQUEST_ORIGIN       text,
    REQUEST_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    REQUEST_USER         text,
-   primary key (REQUEST_ID, REQUEST_PATIENT_PERSON_ID, REQUEST_MDCENTER_ID_CONCERNING, REQUEST_MDCENTER_ID_REFERRED)
+   primary key (REQUEST_ID, REQUEST_PATIENT_PERSON_ID)
 );
 
 /*==============================================================*/
@@ -306,14 +304,12 @@ create table RPORDER
    RPORDER_ID           int not null auto_increment,
    RPORDER_REQUEST_ID   int not null,
    REQUEST_PATIENT_PERSON_ID int not null,
-   REQUEST_MDCENTER_ID_CONCERNING int not null,
-   REQUEST_MDCENTER_ID_REFERRED int not null,
    RPORDER_STATUS       char(3) not null,
    RPORDER_CE_ID        int not null,
    RPORDER_ORDER_ID     int,
    RPORDER_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    RPORDER_USER         text,
-   primary key (RPORDER_ID, RPORDER_REQUEST_ID, REQUEST_PATIENT_PERSON_ID, REQUEST_MDCENTER_ID_CONCERNING, REQUEST_MDCENTER_ID_REFERRED)
+   primary key (RPORDER_ID, RPORDER_REQUEST_ID, REQUEST_PATIENT_PERSON_ID)
 );
 
 /*==============================================================*/
@@ -435,8 +431,8 @@ alter table MUNICIPALT add constraint FK_MUNICIPALT_INV_STATE_ID foreign key (MU
 alter table NOTIFICATION add constraint FK_NOTIFICATION_INV_ORDER_ID foreign key (NOTIFICATION_ORDER_ID)
       references ORD (ORDER_ID) on delete restrict on update restrict;
 
-alter table NOTIFICATION add constraint FK_NOTIFICATION_INV_RPORDER_ID foreign key (NOTIFICATION_RPORDER_ID, NOTIFICATION_RPORDER_REQUEST_ID, NOTIFICATION_REQUEST_PATIENT_ID, NOTIFICATION_REQUEST_MDCENTER_ID_CONCERNING, NOTIFICATION_REQUEST_MDCENTER_ID_REFERRED)
-      references RPORDER (RPORDER_ID, RPORDER_REQUEST_ID, REQUEST_PATIENT_PERSON_ID, REQUEST_MDCENTER_ID_CONCERNING, REQUEST_MDCENTER_ID_REFERRED) on delete restrict on update restrict;
+alter table NOTIFICATION add constraint FK_NOTIFICATION_INV_RPORDER_ID foreign key (NOTIFICATION_RPORDER_ID, NOTIFICATION_RPORDER_REQUEST_ID, NOTIFICATION_REQUEST_PATIENT_ID)
+      references RPORDER (RPORDER_ID, RPORDER_REQUEST_ID, REQUEST_PATIENT_PERSON_ID) on delete restrict on update restrict;
 
 alter table ORD add constraint FK_ORDER_INV_SPONSOR_ID foreign key (ORDER_SPONSOR_PERSON_ID)
       references SPONSOR (MPERSON_ID) on delete restrict on update restrict;
@@ -471,6 +467,6 @@ alter table RPORDER add constraint FK_RPORDER_INV_ORDER_ID foreign key (RPORDER_
 alter table RPORDER add constraint FK_RPORDER_INV_RCENTEREXAM_ID foreign key (RPORDER_CE_ID)
       references RCENTEREXAM (RCENTEREXAM_ID) on delete restrict on update restrict;
 
-alter table RPORDER add constraint FK_RPORDER_INV_REQUEST_ID foreign key (RPORDER_REQUEST_ID, REQUEST_PATIENT_PERSON_ID, REQUEST_MDCENTER_ID_CONCERNING, REQUEST_MDCENTER_ID_REFERRED)
-      references REQUEST (REQUEST_ID, REQUEST_PATIENT_PERSON_ID, REQUEST_MDCENTER_ID_CONCERNING, REQUEST_MDCENTER_ID_REFERRED) on delete restrict on update restrict;
+alter table RPORDER add constraint FK_RPORDER_INV_REQUEST_ID foreign key (RPORDER_REQUEST_ID, REQUEST_PATIENT_PERSON_ID)
+      references REQUEST (REQUEST_ID, REQUEST_PATIENT_PERSON_ID) on delete restrict on update restrict;
 

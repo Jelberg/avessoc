@@ -114,9 +114,27 @@ function insert_patient(){
       ));
       $id_paciente= $wpdb->get_var( "SELECT MAX(MPERSON_ID) AS id FROM PATIENT" ); //< Devuelve el ultimo id registrado
 
-   // add_contact_patient($id_paciente,$wpdb,$_POST['local'],$_POST['movil'], $_POST['correo']);
+    if (!empty($_POST['local']) or !empty($_POST['movil']) or !empty($_POST['correo'])){
+        add_contact_patient($id_paciente, $wpdb, $_POST['local'], $_POST['movil'], $_POST['correo']);
+    }
     add_request($wpdb,$id_paciente,$_POST['num-personas'],$_POST['ingreso-promedio'], $_POST['familia-tipo'], $_POST['otro-tipo'], $_POST['condicion-laboral'],
         $_POST['graffar-1'],$_POST['graffar-2'],$_POST['graffar-3'],$_POST['graffar-4']);
+    insert_direction($id_paciente);
+
+}
+
+//------------------------------------------CRUD DIRECCION---------------------------------------------
+
+function insert_direction($id_usuario){
+
+    global $wpdb;
+
+    $wpdb->insert('DIRECTION', array(
+        'DIRECTION_PARISH_ID' => $_POST['cmbParroquias'],
+        'DIRECTION_PAR_MUN_ID' => $_POST['cmbMunicipios'],
+        'DIRECTION_MPERSON_ID' => $id_usuario,
+        'DIRECTION_DESC' => $_POST['direccion']
+    ));
 
 }
 
@@ -134,9 +152,6 @@ function read_state(){
   return $new_array;
 }
 
-// > Gancho de accion que enlaza la funcion read_state a la funcion de wp
-//add_action('wp', 'read_state');
-
 
 
 
@@ -152,9 +167,6 @@ function read_municipalt($id_state){
     //$new_array_municipalt = obbjectToArray($municipios);
     return $municipios;
 }
-
-// > Gancho de accion que enlaza la funcion read_municipalt a la funcion de wp
-//add_action('wp', 'read_municipalt');
 
 
 
@@ -317,5 +329,153 @@ function search_answer($id_question){
      }
  }
 
+ //
 
- ?>
+
+
+function mostrarFormulario() {
+    echo '
+			<section class="grid-columns">
+				<div class="item1">
+					<label for="name">Estado</label><span class="required">*  </span><br>
+					<div>' . llenarEstados() . '</div>
+				</div>
+				<div class="item2">
+					<label for="name">Municipio</label><span class="required">* </span><br>
+					<div>' . llenarMunicipios() . '</div>
+				</div>
+				<div class="item3">
+					<label for="name">Parroquia</label><span class="required">* </span><br>
+					<div>' . llenarParroquias() . '</div>
+				</div>
+				<div class="item-span-three">
+				    <label for="name">Direccion</label><br>
+                    <input type="text" class="form-area-three" name="direccion" id="direccion" pattern="[a-zA-Z ]+"  title="<?php echo $ErrmsjOnlyLetters ?>" /><br>
+                </div>       				
+			</section>
+		';
+}
+
+//=========================================================================================
+//                                                                                        //
+//                                                                                        //
+//       FUNCIONES PARA LLENAR COMBOBOX DE ESTADO MUNICIPIO Y PARROQUIA                   //
+//                                                                                        //
+//                                                                                        //
+//=========================================================================================
+
+function llenarEstados() {
+    //$db = new MySql();
+    global $wpdb;
+    $query = "SELECT STATE_ID, STATE_DESC FROM STATE WHERE STATE_ID > 0 ORDER BY STATE_DESC ASC ;"; // Trae todos los estados
+    $count= "SELECT COUNT(STATE_ID) FROM STATE"; //cantidad de filas
+    $consulta = $wpdb->get_results($query);
+    $consulta2 = $wpdb->get_var($count);
+    $combo = "";
+    $i = 0;
+    $count =0;
+    $key=""; //Guarda la llave para la segunda vuelta del foreach
+    if ( $consulta2 > 0 ) {
+        $combo= '<select class="form-area" name="cmbEstados" id="cmbEstados" onchange="cargarMunicipios(this.value)" requiered>';
+        foreach ( $consulta as $rows => $row ) {
+            foreach ( $row as $datos => $dato ) {
+                if ($i == 0)
+                    $combo .= '<option >Seleccione opción</option>' . "\n"; // Solamente cuando empieza a llenar el combo para que seleccione opcion
+                if ($count == 0) {
+                    $key = $dato;
+                    $count+=1;
+                }else{
+                    $combo .= '<option value="' . $key . '">' . $dato . "</option>\n";
+                    $count =0;
+                }
+                $i++;
+            }
+        }
+        $combo .= "</select>\n";
+    }
+    return $combo;
+}
+
+function llenarMunicipios() {
+    global $wpdb;
+    $query = "SELECT MUNICIPALT_ID, MUNICIPALT_STATE_ID, MUNICIPALT_DESC FROM `MUNICIPALT` WHERE MUNICIPALT_ID > 0 ORDER BY MUNICIPALT_DESC ASC ;";
+    $count= "SELECT COUNT(MUNICIPALT_ID) FROM MUNICIPALT"; //cantidad de filas
+    $consulta = $wpdb->get_results($query);
+    $consulta2 = $wpdb->get_var($count);
+    $combo = "";
+
+    if ( $consulta2 > 0 ) {
+
+        $id_mun="";
+        $id_es="";
+        $count =0;
+        $combo= '<select class="form-area" name="cmbMunicipios" id="cmbMunicipios" onclick="cargarParroquias(this.value)" requiered>';
+        $i = 0;
+        echo "<script language='javascript'>\n";
+        foreach ( $consulta as $rows => $row ) {
+            foreach ( $row as $datos => $dato ) {
+                if ($count == 0){
+                    $id_mun = $dato;
+                    $count +=1;
+                }else if($count == 1){
+                    $id_es = $dato;
+                    $count +=1;
+                } else {
+                    echo "codMunicipios[" . $i . "] = " . $id_mun . ";\n";
+                    echo "idEstado[" . $i . "] = " . $id_es . ";\n";
+                    echo "municipios[" . $i . "] = '" . $dato . "';\n";
+                    //$combo .= '<option value="' . $id_mun . '">' . $dato . "</option>\n";
+                    $count=0;
+                    $i++;
+                }
+            }
+        }
+        echo "</script>\n";
+        $combo .= "</select>\n";
+    }
+    return $combo;
+}
+
+
+function llenarParroquias() {
+    global $wpdb;
+    $query = "SELECT PARISH_ID, PARISH_MUNICIPALT_ID, PARISH_DESC FROM `PARISH` WHERE PARISH_ID > 0 ORDER BY PARISH_DESC ASC ;";
+    $count= "SELECT COUNT(PARISH_ID) FROM PARISH"; //cantidad de filas
+    $consulta = $wpdb->get_results($query);
+    $consulta2 = $wpdb->get_var($count);
+    $combo = "";
+
+    if ( $consulta2 > 0 ) {
+
+        $id_parroquia="";
+        $id_municio="";
+        $count =0;
+        $combo= '<select class="form-area" name="cmbParroquias" id="cmbParroquias" required>';
+        $i = 0;
+        echo "<script language='javascript'>\n";
+        foreach ( $consulta as $rows => $row ) {
+            foreach ( $row as $datos => $dato ) {
+                if ($count == 0){
+                    $id_parroquia = $dato;
+                    $count +=1;
+                }else if($count == 1){
+                    $id_municio = $dato;
+                    $count +=1;
+                } else {
+                    echo "codParroquias[" . $i . "] = " . $id_parroquia . ";\n";
+                    echo "idMunicipio[" . $i . "] = " . $id_municio . ";\n";
+                    echo "parroquias[" . $i . "] = '" . $dato . "';\n";
+                    $count=0;
+                    $i++;
+                }
+            }
+        }
+        echo "</script>\n";
+        $combo .= "</select>\n";
+    }
+    return $combo;
+}
+
+
+
+?>
