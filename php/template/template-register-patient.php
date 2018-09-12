@@ -565,7 +565,7 @@ function llenarMunicipios() {
         $id_mun="";
         $id_es="";
         $count =0;
-        $combo= '<select class="form-area" name="cmbMunicipios" onchange="cargarParroquias(this.value)" requiered>';
+        $combo= '<select class="form-area" name="cmbMunicipios" onclick="cargarParroquias(this.value)" requiered>';
         $i = 0;
         echo "<script language='javascript'>\n";
         foreach ( $consulta as $rows => $row ) {

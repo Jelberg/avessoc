@@ -1,7 +1,8 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     24/08/2018 09:27:39 a.m.                     */
+/* Created on:     12/09/2018 01:15:40 p.m.                     */
 /*==============================================================*/
+
 
 /*==============================================================*/
 /* Table: ANSWER                                                */
@@ -24,7 +25,7 @@ create table CNTBTION
    CNTBTION_SPONSOR_ID  int not null,
    CNTBTION_CANT        numeric(10,10) not null,
    CNTBTION_BALANCE     numeric(10,10) not null,
-   CNTBTION_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
+   CNTBTION_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    CNTBTION_USER        text,
    primary key (CNTBTION_ID)
 );
@@ -39,7 +40,7 @@ create table CONFIG
    CONFIG_ACTIVATION    char(1) not null,
    CONFIG_ACTIVACION_DATE date,
    CONFIG_DEACTIVATION_DATE date,
-   CONFIG_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
+   CONFIG_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    CONFIG_USER          text,
    primary key (CONFIG_ID)
 );
@@ -72,7 +73,6 @@ create table DIRECTION
    DIRECTION_ID         int not null auto_increment,
    DIRECTION_PARISH_ID  int not null,
    DIRECTION_PAR_MUN_ID int not null,
-   DIRECTION_PAR_MUN_ST_ID int not null,
    DIRECTION_MPERSON_ID int,
    DIRECTION_USE_MPERSON_ID int,
    DIRECTION_MDC_MPERSON_ID int,
@@ -154,7 +154,7 @@ create table MUNICIPALT
    MUNICIPALT_DESC      text not null,
    MUNICIPALT_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    MUNICIPALT_USER      text,
-   primary key (MUNICIPALT_ID, MUNICIPALT_STATE_ID)
+   primary key (MUNICIPALT_ID)
 );
 
 /*==============================================================*/
@@ -200,11 +200,10 @@ create table PARISH
 (
    PARISH_ID            int not null auto_increment,
    PARISH_MUNICIPALT_ID int not null,
-   PARISH_MUNICIPALT_STATE_ID int not null,
    PARISH_DESC          text,
    PARISH_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    PARISH_USER          text,
-   primary key (PARISH_ID, PARISH_MUNICIPALT_ID, PARISH_MUNICIPALT_STATE_ID)
+   primary key (PARISH_ID, PARISH_MUNICIPALT_ID)
 );
 
 /*==============================================================*/
@@ -265,8 +264,8 @@ create table REQUEST
 (
    REQUEST_ID           int not null auto_increment,
    REQUEST_PATIENT_PERSON_ID int not null,
-   REQUEST_MDCENTER_ID_CONCERNING int,
-   REQUEST_MDCENTER_ID_REFERRED int,
+   REQUEST_MDCENTER_ID_CONCERNING int not null,
+   REQUEST_MDCENTER_ID_REFERRED int not null,
    REQUEST_FAMILY_TYPE  text,
    REQUEST_FAMILY_OTHER text,
    REQUEST_LOBORAL_COND text,
@@ -282,10 +281,8 @@ create table REQUEST
    REQUEST_ORIGIN       text,
    REQUEST_ACTIVITY_DATE timestamp DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP not null,
    REQUEST_USER         text,
-   primary key (REQUEST_ID, REQUEST_PATIENT_PERSON_ID)
+   primary key (REQUEST_ID, REQUEST_PATIENT_PERSON_ID, REQUEST_MDCENTER_ID_CONCERNING, REQUEST_MDCENTER_ID_REFERRED)
 );
-
-alter table REQUEST comment 'Engloba oedenes y preordenes ';
 
 /*==============================================================*/
 /* Table: RPERNOT                                               */
@@ -354,8 +351,6 @@ create table SPONSOR
    MPERSON_PROFETION    text,
    MPERSON_TYPE_DOC     char(3),
    MPERSON_BIRTH_PLACE  text,
-   SPONSOR_DATE_INIT    date not null,
-   SPONSOR_DESC         text,
    SPONSOR_LOGO         longblob,
    primary key (MPERSON_ID)
 );
@@ -422,8 +417,8 @@ alter table CONTACT add constraint FK_CONTACT_INV_USER_ID foreign key (CONTACT_U
 alter table DIRECTION add constraint FK_DIRECTION_INV_MDCENTER_ID foreign key (DIRECTION_MDC_MPERSON_ID)
       references MDCENTER (MPERSON_ID) on delete restrict on update restrict;
 
-alter table DIRECTION add constraint FK_DIRECTION_INV_PARISH_ID foreign key (DIRECTION_PARISH_ID, DIRECTION_PAR_MUN_ID, DIRECTION_PAR_MUN_ST_ID)
-      references PARISH (PARISH_ID, PARISH_MUNICIPALT_ID, PARISH_MUNICIPALT_STATE_ID) on delete restrict on update restrict;
+alter table DIRECTION add constraint FK_DIRECTION_INV_PARISH_ID foreign key (DIRECTION_PARISH_ID, DIRECTION_PAR_MUN_ID)
+      references PARISH (PARISH_ID, PARISH_MUNICIPALT_ID) on delete restrict on update restrict;
 
 alter table DIRECTION add constraint FK_DIRECTION_INV_PATIENT_ID foreign key (DIRECTION_MPERSON_ID)
       references PATIENT (MPERSON_ID) on delete restrict on update restrict;
@@ -440,14 +435,14 @@ alter table MUNICIPALT add constraint FK_MUNICIPALT_INV_STATE_ID foreign key (MU
 alter table NOTIFICATION add constraint FK_NOTIFICATION_INV_ORDER_ID foreign key (NOTIFICATION_ORDER_ID)
       references ORD (ORDER_ID) on delete restrict on update restrict;
 
-alter table NOTIFICATION add constraint FK_NOTIFICATION_INV_RPORDER_ID foreign key (NOTIFICATION_RPORDER_ID, NOTIFICATION_RPORDER_REQUEST_ID, NOTIFICATION_REQUEST_PATIENT_ID)
-      references RPORDER (RPORDER_ID, RPORDER_REQUEST_ID, REQUEST_PATIENT_PERSON_ID) on delete restrict on update restrict;
+alter table NOTIFICATION add constraint FK_NOTIFICATION_INV_RPORDER_ID foreign key (NOTIFICATION_RPORDER_ID, NOTIFICATION_RPORDER_REQUEST_ID, NOTIFICATION_REQUEST_PATIENT_ID, NOTIFICATION_REQUEST_MDCENTER_ID_CONCERNING, NOTIFICATION_REQUEST_MDCENTER_ID_REFERRED)
+      references RPORDER (RPORDER_ID, RPORDER_REQUEST_ID, REQUEST_PATIENT_PERSON_ID, REQUEST_MDCENTER_ID_CONCERNING, REQUEST_MDCENTER_ID_REFERRED) on delete restrict on update restrict;
 
 alter table ORD add constraint FK_ORDER_INV_SPONSOR_ID foreign key (ORDER_SPONSOR_PERSON_ID)
       references SPONSOR (MPERSON_ID) on delete restrict on update restrict;
 
-alter table PARISH add constraint FK_PARISH_INV_MUNICIPALT_ID foreign key (PARISH_MUNICIPALT_ID, PARISH_MUNICIPALT_STATE_ID)
-      references MUNICIPALT (MUNICIPALT_ID, MUNICIPALT_STATE_ID) on delete restrict on update restrict;
+alter table PARISH add constraint FK_PARISH_INV_MUNICIPALT_ID foreign key (PARISH_MUNICIPALT_ID)
+      references MUNICIPALT (MUNICIPALT_ID) on delete restrict on update restrict;
 
 alter table RCENTEREXAM add constraint FK_RCENTEREXAM_INV_EXAM_ID foreign key (RCENTEREXAM_EXAM_ID)
       references EXAM (EXAM_ID) on delete restrict on update restrict;
@@ -476,6 +471,6 @@ alter table RPORDER add constraint FK_RPORDER_INV_ORDER_ID foreign key (RPORDER_
 alter table RPORDER add constraint FK_RPORDER_INV_RCENTEREXAM_ID foreign key (RPORDER_CE_ID)
       references RCENTEREXAM (RCENTEREXAM_ID) on delete restrict on update restrict;
 
-alter table RPORDER add constraint FK_RPORDER_INV_REQUEST_ID foreign key (RPORDER_REQUEST_ID, REQUEST_PATIENT_PERSON_ID)
-      references REQUEST (REQUEST_ID, REQUEST_PATIENT_PERSON_ID) on delete restrict on update restrict;
+alter table RPORDER add constraint FK_RPORDER_INV_REQUEST_ID foreign key (RPORDER_REQUEST_ID, REQUEST_PATIENT_PERSON_ID, REQUEST_MDCENTER_ID_CONCERNING, REQUEST_MDCENTER_ID_REFERRED)
+      references REQUEST (REQUEST_ID, REQUEST_PATIENT_PERSON_ID, REQUEST_MDCENTER_ID_CONCERNING, REQUEST_MDCENTER_ID_REFERRED) on delete restrict on update restrict;
 
