@@ -49,19 +49,30 @@
 
 /*--------------------------------------*/
 /* Divide en filas el contenido, separando en cuadros las categorias de los formularios*/
-.grid-2 {
+
+  .grid-2 {
   display: grid;
   grid-gap: 50px;
   background-color: white;
   padding: 50px;
   }
+  /* Items*/
+  .grid-2>div {
+      background-color: #F5F5F5;
+      padding:20px 0;
 
-/* Items*/
-.grid-2>div {
-  background-color: #F5F5F5;
-  padding:20px 0;
+  }
+  .grid-3 {
+      display: grid;
+      grid-gap: 50px;
+      background-color: white;
+      padding: 50px;
+  }
+  /* Items*/
+  .grid-3>div {
+      padding:20px 0;
 
-}
+  }
 
 .item-grid-2-border{ /*Define el margen entre el texto y el contenedor de informacion*/
 
@@ -197,6 +208,15 @@
       height: 60px;
   }
 
+  .button-search{
+      margin-top: 0px;
+      background: dodgerblue;
+      color:  white;
+      font-weight: bold;
+      width  : 180px;
+      height: 35px;
+  }
+
   .accordion {
       background-color: #b6e1e0;
       color: #444;
@@ -215,6 +235,19 @@
       border: darkgray;
       background-color: #b6e1e0;
       weight: 250px;
+  }
+
+  .search {
+      font-family:Verdana,Helvetica;
+      font-size:12pt;
+      width: 500px;
+      color:#696969;
+      padding: 5px 7px 5px 7px;
+      border:1px solid darkgray;
+      background:#FFF;
+      -webkit-border-radius: 25px;
+      -moz-border-radius: 25px;
+      border-radius: 15px;
   }
 
   /************************************************************************
@@ -337,4 +370,28 @@
 
   .alert-danger .alert-link {
       color: #843534;
+  }
+
+
+  /******************************************************************
+
+                  SELECT / COMBOBOX
+
+
+************************************************************* */
+  .select {
+      border: 1px solid #ccc;
+      width: 200px;
+      overflow: hidden;
+      background: #fff url("http://www.csslab.cl/ejemplos/select/arrowdown.gif") no-repeat 90% center;
+  }
+  .select select {
+      border: none;
+      width: 200px;
+      box-shadow: none;
+      background-color: transparent;
+      background-image: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
   }
