@@ -34,6 +34,10 @@
 
 <?php
 
+function cargaLista(){
+	echo llenaListaPatrocinantes();
+}
+
 function llenaListaPatrocinantes(){
     global $wpdb;
 

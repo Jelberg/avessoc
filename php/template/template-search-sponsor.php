@@ -65,7 +65,7 @@ include "template-search-sponsor-index.php";
                                 <td>System Architect</td>
                                 <td>Edinburgh</td>
                             </tr>
-                            <?php llenaListaPatrocinantes(); ?>
+                            <?php cargaLista(); ?>
                             </tbody>
                             <tfoot>
                             <tr>
