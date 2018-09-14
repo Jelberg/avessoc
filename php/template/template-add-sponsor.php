@@ -4,6 +4,7 @@
 /* Template Name: Register Sponsor */
 
 get_header();
+include "menu.php";
 ?>
 
 
@@ -36,6 +37,9 @@ get_header();
 
     <div class="area-2">
         <!--Area del menu para navegacion-->
+        <?php
+        mostrarMenu();
+        ?>
     </div> <!-- fin area 2-->
 
     <div class="area-3">

@@ -5,6 +5,7 @@
 
 get_header();
 include "template-search-sponsor-index.php";
+include "menu.php";
 ?>
 
 <head>
@@ -47,7 +48,9 @@ include "template-search-sponsor-index.php";
 
     <div class="area-2">
         <!--Area del menu para navegacion-->
-        <p><?php echo $data_table; ?></p>
+        <?php
+        mostrarMenu();
+        ?>
     </div> <!-- fin area 2-->
 
     <div class="area-3">
@@ -55,7 +58,7 @@ include "template-search-sponsor-index.php";
 
                 <section class="grid-3">
                     <div class="item2">
-                        <table id="example" class="display" style="width:100%">
+                        <table id="example" class="display" style="width:100%" >
                             <thead>
                             <tr>
                                 <th>Nombre Legal</th>

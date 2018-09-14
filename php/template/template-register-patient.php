@@ -4,6 +4,7 @@
 
 get_header();
 include "template-register-patient-index.php";
+include "menu.php";
 ?>
 
 <head>
@@ -18,6 +19,9 @@ include "template-register-patient-index.php";
 
     <div class="area-2">
         <!--Area del menu para navegacion-->
+        <?php
+        mostrarMenu();
+        ?>
     </div> <!-- fin area 2-->
 
     <div class="area-3">
