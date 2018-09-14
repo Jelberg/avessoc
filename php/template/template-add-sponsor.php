@@ -80,13 +80,11 @@ get_header();
 
                                     ?>
                                 </select><br>
-                                <?php if (!empty($msjNumero)) {  echo "<span class=estiloError>$msjNumero</span>"; }  ?>
                             </div>
 
                             <div class="item3" ><!--fila 3-->
                                 <label for="name">Número del documento de identidad</label><span class="required">*</span><br>
-                                <input type="number" name="numero-doc" id="numero-doc" class="form-area-number-row" min="0" value="<?php echo $numedoc?>" required/><br>
-                                <?php if (!empty($msjNumero)) {  echo "<span class=estiloError>$msjNumero</span>"; }  ?>
+                                <input type="number" title="<?php echo $msjNumero?>" name="numero-doc" id="numero-doc" class="form-area-number-row" min="0" value="<?php echo $numedoc?>" required/><br>
                             </div>
 
                             <div class="item4" ><!--fila 4-->

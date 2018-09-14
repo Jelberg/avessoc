@@ -12,6 +12,33 @@ include "template-search-sponsor-index.php";
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
+    <script language="JavaScript">
+
+        $(document).ready(function() {
+            $('#example').DataTable( {
+                "language": {
+                    "loadingRecords": "Cargando...",
+                    "decimal": ",",
+                    "thousands": ".",
+                    "processing":     "Procesando...",
+                    "lengthMenu": "Mostrar _MENU_ entradas ",
+                    "zeroRecords": "No se encontró ningún registro disponible",
+                    "search":         "Buscar:",
+                    "info": "pagina _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay registros disponibles",
+                    "infoFiltered": "(filtered from _MAX_ total records)",
+                    "paginate": {
+                        "first":      "Primera",
+                        "last":       "Ultima",
+                        "next":       "Siguiente",
+                        "previous":   "Anterior"
+                    }
+                }
+            } );
+        } );
+
+    </script>
+
 </head>
 
 <body>
@@ -20,38 +47,15 @@ include "template-search-sponsor-index.php";
 
     <div class="area-2">
         <!--Area del menu para navegacion-->
+        <p><?php echo $data_table; ?></p>
     </div> <!-- fin area 2-->
 
     <div class="area-3">
         <form name="formSearchSponsor" id="formSearchSponsor" method="post" action=""> <!--Inicio de formulario-->
 
                 <section class="grid-3">
-                    <div class="item1">
-
-                        <section class="grid-columns"><!--la informacion se ordena en filas-->
-
-                            <div class="item1" >
-                                <select id="opcion-busqueda" name="opcion-busqueda" class="select" required>
-                                    <option value="" selected>Seleccione</option>
-                                    <option value="V" selected> V </option>
-                                    <option value="E" selected> E </option>
-                                    <option value="RIF" selected> RIF </option>
-                                    <option value="NL" selected> Nombre Legal </option>
-                                </select><br>
-                            </div>
-                            <div class="item2">
-                                <input type="text" id="criterio-sponsor" name="criterio-sponsor" class="search" />
-                            </div>
-                            <div class="item3">
-                                <button id="buscar-sponsor" name="buscar-sponsor" class="button-search">BUSCAR</button>
-                            </div>
-
-                        </section><!--Grid de filas -->
-
-                    </div> <!--fin del item 1 del grid-3-->
-
                     <div class="item2">
-                        <table id="example" class="display" style="width:70%">
+                        <table id="example" class="display" style="width:100%">
                             <thead>
                             <tr>
                                 <th>Nombre Legal</th>
@@ -59,13 +63,20 @@ include "template-search-sponsor-index.php";
                                 <th>Número de documento</th>
                             </tr>
                             </thead>
-                            <tbody>    
+                            <tbody>
+                            <?php
+                            foreach( $wpdb->get_results($query_sponsor) as $key => $row){
+                                $uno =$row->MPERSON_LEGAL_NAME;
+                                $dos=$row->MPERSON_TYPE_DOC;
+                                $tres=$row->MPERSON_IDENTF;
+                                ?>
                             <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-                                <td>Edinburgh</td>
+                                <td><?php printf($uno); ?></td>
+                                <td><?php printf($dos); ?></td>
+                                <td><?php printf($tres); ?></td>
                             </tr>
-                            <?php cargaLista(); ?>
+                            <?php
+                                 }?>
                             </tbody>
                             <tfoot>
                             <tr>
@@ -84,5 +95,5 @@ include "template-search-sponsor-index.php";
     </div><!-- fin  area-3 del grid-1Show _MENU_ entries -->
 </section> <!-- fin  grid-1-->
 
-</body>
 
+</body>
