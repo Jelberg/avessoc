@@ -1,10 +1,10 @@
 
 <?php
 
-/* Template Name: Search Sponsor */
+/* Template Name: Search Patient */
 
 get_header();
-include "template-search-sponsor-index.php";
+include "template-search-patient-index.php";
 include "menu.php";
 ?>
 
@@ -16,7 +16,7 @@ include "menu.php";
     <script language="JavaScript">
 
         $(document).ready(function() {
-            $('#example').DataTable( {
+            $('#paciente').DataTable( {
                 "language": {
                     "loadingRecords": "Cargando...",
                     "decimal": ",",
@@ -57,36 +57,42 @@ include "menu.php";
         <form name="formSearchSponsor" id="formSearchSponsor" method="post" action=""> <!--Inicio de formulario-->
 
                 <section class="grid-3">
-                    <h3>Busqueda de Patrocinante</h3>
+                    <h3>Buscar Pacientes</h3>
                     <div class="item2">
-                        <table id="example" class="display" style="width:100%" >
+                        <table id="paciente" class="display" style="width:100%" >
                             <thead>
                             <tr>
-                                <th>Nombre Legal</th>
-                                <th>Tipo de Documento</th>
-                                <th>Número de documento</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>T. Doc</th>
+                                <th>Número de identidad</th>
                             </tr>
                             </thead>
                             <tbody>
                             <?php
-                            foreach( $wpdb->get_results($query_sponsor) as $key => $row){
-                                $uno =$row->MPERSON_LEGAL_NAME;
-                                $dos=$row->MPERSON_TYPE_DOC;
-                                $tres=$row->MPERSON_IDENTF;
+                            global $wpdb;
+                            $query ="SELECT MPERSON_NAME, MPERSON_LAST_NAME, MPERSON_TYPE_DOC, MPERSON_IDENTF FROM PATIENT";
+                            foreach( $wpdb->get_results($query) as $key => $row){
+                                $uno =$row->MPERSON_NAME;
+                                $dos=$row-> MPERSON_LAST_NAME;
+                                $tres=$row->MPERSON_TYPE_DOC;
+                                $cuatro=$row->MPERSON_IDENTF;
                                 ?>
                             <tr>
                                 <td><?php printf($uno); ?></td>
                                 <td><?php printf($dos); ?></td>
                                 <td><?php printf($tres); ?></td>
+                                <td><?php printf($cuatro); ?></td>
                             </tr>
                             <?php
                                  }?>
                             </tbody>
                             <tfoot>
                             <tr>
-                                <th>Nombre Legal</th>
-                                <th>Tipo de Documento</th>
-                                <th>Número de documento</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>T. Doc</th>
+                                <th>Número de identidad</th>
                             </tr>
                             </tfoot>
                         </table>

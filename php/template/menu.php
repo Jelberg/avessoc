@@ -60,7 +60,7 @@ function mostrarMenu(){
                     <label for="c2" class="tree_label">Pacientes</label>
                     <ul>
                       <li><a href="http://dev.avessoc.org.ve/avessoc-registro-paciente/" class="tree_label">Registrar nuevo</a></li>
-                      <li><span class="tree_label">Buscar paciente</span></li>
+                      <li><a href=" http://dev.avessoc.org.ve/avessor-buscar-pacientes/" class="tree_label">Buscar paciente</a></li>
                     </ul>
                   </li>
                   <li>
