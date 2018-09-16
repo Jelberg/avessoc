@@ -21,6 +21,7 @@
  display: grid;
  background: white;
     padding: 15px;
+ grid-row-gap: 100px;
  grid-template-areas:    "header header header"
                          "sidebar main main"                                   
                          "footer footer footer";
@@ -58,7 +59,19 @@
 /*--------------------------------------*/
 /* Divide en filas el contenido, separando en cuadros las categorias de los formularios*/
 
+  .grid-2 {
+  display: grid;
+      margin-right: 10px;
+  background-color: white;
+  }
+  /* Items*/
+  .grid-2>div {
+      background-color: #F5F5F5;
+      padding: 20px;
+      margin-left: 0px;
+      margin-top: 0px;
 
+  }
   .grid-3 {
       display: grid;
       grid-gap: 50px;
@@ -71,7 +84,10 @@
 
   }
 
-
+.item-grid-2-border{ /*Define el margen entre el texto y el contenedor de informacion*/
+    padding: 5px;
+    margin-top: 0px;
+}
 
   .item-grid-3-border{ /*Define el margen entre el texto y el contenedor de informacion*/
       padding: 50px;
@@ -124,19 +140,6 @@
   width  : 280px;
 }
 
-.form-area > select{
-      border: 1px solid #ccc;
-      overflow: hidden;
-      background: #fff url("http://www.csslab.cl/ejemplos/select/arrowdown.gif") no-repeat 90% center;
-      border: none;
-      box-shadow: none;
-      background-color: transparent;
-      background-image: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-}
-
 .form-area-number {
     width  : 280px;
     height: 35px;
@@ -146,34 +149,8 @@
     width  : 600px;
   }
 
-  .form-area-two > select{
-    border: 1px solid #ccc;
-      overflow: hidden;
-      background: #fff url("http://www.csslab.cl/ejemplos/select/arrowdown.gif") no-repeat 90% center;
-      border: none;
-      box-shadow: none;
-      background-color: transparent;
-      background-image: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-  }
-
   .form-area-three {
     width  : 900px;
-  }
-
-  .form-area-three > select {
-      border: 1px solid #ccc;
-      overflow: hidden;
-      background: #fff url("http://www.csslab.cl/ejemplos/select/arrowdown.gif") no-repeat 90% center;
-      border: none;
-      box-shadow: none;
-      background-color: transparent;
-      background-image: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
   }
 
   /* Estilos para los grids filas*/
@@ -181,33 +158,9 @@
       width  : 550px;
   }
 
-
   .form-area-number-row {
       width  : 550px;
       height: 40px;
-  }
-
-    /******************************************************************
-
-                  SELECT / COMBOBOX
-
-
-************************************************************* */
-  .select {
-      border: 1px solid #ccc;
-      width: 200px;
-      overflow: hidden;
-      background: #fff url("http://www.csslab.cl/ejemplos/select/arrowdown.gif") no-repeat 90% center;
-  }
-  .select select {
-      border: none;
-      width: 200px;
-      box-shadow: none;
-      background-color: transparent;
-      background-image: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
   }
 
 
@@ -432,7 +385,28 @@
   }
 
 
+  /******************************************************************
 
+                  SELECT / COMBOBOX
+
+
+************************************************************* */
+  .select {
+      border: 1px solid #ccc;
+      width: 200px;
+      overflow: hidden;
+      background: #fff url("http://www.csslab.cl/ejemplos/select/arrowdown.gif") no-repeat 90% center;
+  }
+  .select select {
+      border: none;
+      width: 200px;
+      box-shadow: none;
+      background-color: transparent;
+      background-image: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+  }
 
   /******************************************************************
 
