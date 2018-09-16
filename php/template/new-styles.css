@@ -124,6 +124,19 @@
   width  : 280px;
 }
 
+.form-area > select{
+      border: 1px solid #ccc;
+      overflow: hidden;
+      background: #fff url("http://www.csslab.cl/ejemplos/select/arrowdown.gif") no-repeat 90% center;
+      border: none;
+      box-shadow: none;
+      background-color: transparent;
+      background-image: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+}
+
 .form-area-number {
     width  : 280px;
     height: 35px;
@@ -133,8 +146,34 @@
     width  : 600px;
   }
 
+  .form-area-two > select{
+    border: 1px solid #ccc;
+      overflow: hidden;
+      background: #fff url("http://www.csslab.cl/ejemplos/select/arrowdown.gif") no-repeat 90% center;
+      border: none;
+      box-shadow: none;
+      background-color: transparent;
+      background-image: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+  }
+
   .form-area-three {
     width  : 900px;
+  }
+
+  .form-area-three > select {
+      border: 1px solid #ccc;
+      overflow: hidden;
+      background: #fff url("http://www.csslab.cl/ejemplos/select/arrowdown.gif") no-repeat 90% center;
+      border: none;
+      box-shadow: none;
+      background-color: transparent;
+      background-image: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
   }
 
   /* Estilos para los grids filas*/
@@ -142,9 +181,33 @@
       width  : 550px;
   }
 
+
   .form-area-number-row {
       width  : 550px;
       height: 40px;
+  }
+
+    /******************************************************************
+
+                  SELECT / COMBOBOX
+
+
+************************************************************* */
+  .select {
+      border: 1px solid #ccc;
+      width: 200px;
+      overflow: hidden;
+      background: #fff url("http://www.csslab.cl/ejemplos/select/arrowdown.gif") no-repeat 90% center;
+  }
+  .select select {
+      border: none;
+      width: 200px;
+      box-shadow: none;
+      background-color: transparent;
+      background-image: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
   }
 
 
@@ -369,28 +432,7 @@
   }
 
 
-  /******************************************************************
 
-                  SELECT / COMBOBOX
-
-
-************************************************************* */
-  .select {
-      border: 1px solid #ccc;
-      width: 200px;
-      overflow: hidden;
-      background: #fff url("http://www.csslab.cl/ejemplos/select/arrowdown.gif") no-repeat 90% center;
-  }
-  .select select {
-      border: none;
-      width: 200px;
-      box-shadow: none;
-      background-color: transparent;
-      background-image: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-  }
 
   /******************************************************************
 
