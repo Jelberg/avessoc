@@ -30,6 +30,7 @@
 
 .area-1 {
 	grid-area: header;
+  margin-top: 100px;
 }
 
 .area-2 {
@@ -100,6 +101,7 @@
   /*grid para definir filas*/
   .grid-rows {
       display: grid;
+      grid-gap: 50px;
       grid-row-gap: 10px;
       grid-column-gap: 20px;
   }
