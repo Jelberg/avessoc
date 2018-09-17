@@ -36,7 +36,7 @@ include "menu.php";
 
                         <div class="item-2" ><!--fila 2-->
                             <label for="name">Tipo de Documento</label><span class="required">*</span><br>
-                            <select id="tipo-documento" name="tipo-documento" class="form-area-row" required>
+                            <select id="tipo-documento" name="tipo-documento" class="select" required>
                                 <option value="" selected> >>Seleccione opción<< </option>
                                 <?php
 

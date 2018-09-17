@@ -44,21 +44,21 @@ include "menu.php";
 
 <body>
 
-<section class="grid-1">
+<div class="grid-container">
 
-    <div class="area-2">
+    <div class="item2">
         <!--Area del menu para navegacion-->
         <?php
         mostrarMenu();
         ?>
     </div> <!-- fin area 2-->
 
-    <div class="area-3">
+    <div class="item3">
         <form name="formSearchSponsor" id="formSearchSponsor" method="post" action=""> <!--Inicio de formulario-->
 
-                <section class="grid-3">
-                    <h3>Busqueda de Patrocinante</h3>
+                <section class="grid-2">
                     <div class="item2">
+                        <h2>Busqueda de Patrocinante</h2>
                         <table id="example" class="display" style="width:100%" >
                             <thead>
                             <tr>
@@ -96,8 +96,8 @@ include "menu.php";
 
 
         </form><!--fin de formulario-->
-    </div><!-- fin  area-3 del grid-1Show _MENU_ entries -->
-</section> <!-- fin  grid-1-->
+    </div><!-- fin  area-2 del grid-1Show _MENU_ entries -->
+</div> <!-- fin  grid-1-->
 
 
 </body>

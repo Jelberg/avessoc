@@ -34,7 +34,7 @@ include "menu.php";
                         <section class="grid-columns"><!-- Columnas del formulario-->
                             <div class ="item1">
                                 <label for="name">Tipo de Documento</label><span class="required">*</span><br>
-                                <select class="form-area" id="tipo-documento" name="tipo-documento"  required>
+                                <select class="select-area" id="tipo-documento" name="tipo-documento"  required>
                                     <option value="" selected> >>Seleccione opción<< </option>
                                     <?php
 
@@ -58,7 +58,7 @@ include "menu.php";
                             </div>
                             <div class ="item2">
                                 <label for="name">Titular</label><span class="required">*</span><br>
-                                <select class="form-area" id="titular" name="titular" required>
+                                <select class="select-area" id="titular" name="titular" required>
                                     <option value="" selected> >>Seleccione opción<< </option>
                                     <?php
 
@@ -112,7 +112,7 @@ include "menu.php";
 
                             <div class = "item11">
                                 <label for="name">Sexo</label><span class="required">* <?php echo $sexoErr;?></span><br>
-                                <select id="Sexo" class="form-area" name="sexo" required>
+                                <select id="Sexo" class="select-area" name="sexo" required>
                                     <option value="" selected> >>Seleccione opción<< </option>
                                     <?php
 
@@ -139,7 +139,7 @@ include "menu.php";
 
                             <div class = "item13">
                                 <label for="name">Estado Civil</label><span class="required">* </span><br>
-                                <select id="estado-civil" class="form-area" name="estado-civil" required>
+                                <select id="estado-civil" class="select-area" name="estado-civil" required>
                                     <option value="" selected> >>Seleccione opción<< </option>
                                     <?php
 
@@ -186,11 +186,6 @@ include "menu.php";
                     <div class="item-grid-2-border">
                         <h3>Detalles de Direccion</h3>
                         <?php
-                        if ( isset($_REQUEST['rutear']) ) {
-                            echo "Estado: " . $_REQUEST['cmbEstados'] . "<br>";
-                            echo "Total: " . $_REQUEST['totalMunicipios'] . "<br>";
-                            echo "Municipio: " . $_REQUEST['cmbMunicipios'] . "<br>";
-                        } else
                             mostrarFormulario();
                         ?>
                     </div><!--fin border grid 2-->
@@ -240,7 +235,7 @@ include "menu.php";
 
                             <div class = "item-span-two">
                                 <label for="name">Tipo de familia con la que convive</label><br>
-                                <select id="familia-tipo" name ="familia-tipo"  class="form-area-two" onchange="muestraInfo()">
+                                <select id="familia-tipo" name ="familia-tipo"  class="select-area-two" onchange="muestraInfo()">
                                     <option value="" selected> >>Seleccione opción<< </option>
                                     <?php
 
@@ -282,7 +277,7 @@ include "menu.php";
                         <section class="grid-columns">
                             <div class = "item-span-three">
                                 <label for="name">Condicion laboral</label><br>
-                                <select id="condicion-laboral" name="condicion-laboral" class ="form-area-three">
+                                <select id="condicion-laboral" name="condicion-laboral" class ="select-area-three">
                                     <option value="" selected> >>Seleccione opción<< </option>
                                     <?php
 
@@ -321,7 +316,7 @@ include "menu.php";
                             <div class = "item-span-three">
                                 <div class = "item1">
                                     <label for="name">Profesion del jefe del hogar</label><span class="required">** </span><br>
-                                    <select id="graffar-1" name="graffar-1"  class ="form-area-three" required>
+                                    <select id="graffar-1" name="graffar-1"  class ="select-area-three" required>
                                         <option value=""> >>Seleccione Opción<< </option>
                                         <?php
                                         $results = search_answer("1");
@@ -333,7 +328,7 @@ include "menu.php";
                             <div class = "item-span-three">
                                 <div class = "item2">
                                     <label for="name">Nivel de instruccion de la esposa o conyugue</label><span class="required">** </span><br>
-                                    <select id="graffar-2" name="graffar-2"  class ="form-area-three" required>
+                                    <select id="graffar-2" name="graffar-2"  class ="select-area-three" required>
                                         <option value=""> >>Seleccione Opción<< </option>
                                         <?php
                                         $results = search_answer("2");
@@ -345,7 +340,7 @@ include "menu.php";
                             <div class = "item-span-three">
                                 <div class = "item3">
                                     <label for="name">Principal fuente de ingreso</label><span class="required">** </span><br>
-                                    <select id="graffar-3" name="graffar-3"  class ="form-area-three" required>
+                                    <select id="graffar-3" name="graffar-3"  class ="select-area-three" required>
                                         <option value=""> >>Seleccione Opción<< </option>
                                         <?php
                                         $results = search_answer("3");
@@ -357,7 +352,7 @@ include "menu.php";
                             <div class = "item-span-three">
                                 <div class = "item4">
                                     <label for="name">Condiciones de alojamiento</label><span class="required">** </span><br>
-                                    <select id="graffar-4" name="graffar-4"  class ="form-area-three" required>
+                                    <select id="graffar-4" name="graffar-4"  class ="select-area-three" required>
                                         <option value=""> >>Seleccione Opción<< </option>
                                         <?php
                                         $results = search_answer("4");

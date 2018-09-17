@@ -168,7 +168,7 @@ $i = 0;
 $count =0;
 $key=""; //Guarda la llave para la segunda vuelta del foreach
 if ( $consulta2 > 0 ) {
-$combo= '<select class="form-area" name="cmbEstados" id="cmbEstados" onchange="cargarMunicipios(this.value)" requiered>';
+$combo= '<select class="select-area" name="cmbEstados" id="cmbEstados" onchange="cargarMunicipios(this.value)" requiered>';
     foreach ( $consulta as $rows => $row ) {
     foreach ( $row as $datos => $dato ) {
     if ($i == 0)
@@ -206,7 +206,7 @@ if ( $consulta2 > 0 ) {
 $id_mun="";
 $id_es="";
 $count =0;
-$combo= '<select class="form-area" name="cmbMunicipios" id="cmbMunicipios" onclick="cargarParroquias(this.value)" requiered>';
+$combo= '<select class="select-area" name="cmbMunicipios" id="cmbMunicipios" onclick="cargarParroquias(this.value)" requiered>';
     $i = 0;
     echo "<script language='javascript'>\n";
         foreach ( $consulta as $rows => $row ) {
@@ -251,7 +251,7 @@ if ( $consulta2 > 0 ) {
 $id_parroquia="";
 $id_municio="";
 $count =0;
-$combo= '<select class="form-area" name="cmbParroquias" id="cmbParroquias" required>';
+$combo= '<select class="select-area" name="cmbParroquias" id="cmbParroquias" required>';
     $i = 0;
     echo "<script language='javascript'>\n";
         foreach ( $consulta as $rows => $row ) {

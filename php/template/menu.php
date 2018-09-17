@@ -13,22 +13,22 @@ function mostrarMenu(){
             <ul class="tree">
               <li>
                 <input type="checkbox" checked="checked" id="c1" />
-                <label class="tree_label" for="c1">Fondo Solidario</label>
+                <label style="color: #85c1e9" class="tree_label" for="c1">Fondo Solidario</label>
                 <ul>
                   <li>
                     <input type="checkbox" checked="checked" id="c2" />
                     <label for="c2" class="tree_label">Pacientes</label>
                     <ul>
-                      <li><a href="http://dev.avessoc.org.ve/avessoc-registro-paciente/" class="tree_label">Registrar nuevo</a></li>
-                      <li><a href=" http://dev.avessoc.org.ve/avessor-buscar-pacientes/" class="tree_label">Buscar paciente</a></li>
+                      <li><a style="color: black"href=" http://dev.avessoc.org.ve/avessor-buscar-pacientes/" class="tree_label">Buscar paciente</a></li>
+                      <li><a style="color: black" href="http://dev.avessoc.org.ve/avessoc-registro-paciente/" class="tree_label">Registrar</a></li>
                     </ul>
                   </li>
                   <li>
                     <input type="checkbox" id="c3" />
                     <label for="c3" class="tree_label">Patrocinantes</label>
                     <ul>
-                      <li><a href="http://dev.avessoc.org.ve/avessoc-registro-patrocinante/" class="tree_label">Registrar nuevo</a></li>
-                      <li><a href=" http://dev.avessoc.org.ve/avessos-buscar-patrocinante/" class="tree_label">Buscar patrocinante</a></li>
+                      <li><a style="color: black" href="http://dev.avessoc.org.ve/avessoc-registro-patrocinante/" class="tree_label">Agregar</a></li>
+                      <li><a style="color: black" href=" http://dev.avessoc.org.ve/avessos-buscar-patrocinante/" class="tree_label">Buscar patrocinante</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -37,7 +37,7 @@ function mostrarMenu(){
               
               <li>
                 <input type="checkbox" id="c5" />
-                <label class="tree_label" for="c5">Level 0</label>
+                <label style="color: #85c1e9" class="tree_label" for="c5">Level 0</label>
                 <ul>
                   <li>
                     <input type="checkbox" id="c6" />
