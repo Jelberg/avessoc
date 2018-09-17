@@ -4,19 +4,24 @@
                       GRIDS CSS
 ***************************************************************************/
 
-/* Especificacion de las areas principales de la pagina */
+/* Grid-container principal  */
 
-/*
-        _________________________
-        |         HEADER          |
-        _________________________
-        |SIDEBAR|       MAIN      |
-        __________________________
-        |          FOODER         |
-        __________________________
+  /* -->  |   25%   |           AUTO             |
 
-*/
 /*--------------------------------------*/
+
+  .grid-container {
+      display: grid;
+      background: white;
+      margin-top: 100px;
+      grid-template-columns: 25% auto;
+      grid-gap: 10px;
+      padding: 10px;
+  }
+  .grid-container > div {
+      background-color: white;
+  }
+
 .grid-1 {
  display: grid;
  background: white;
@@ -27,33 +32,6 @@
                          "footer footer footer";
 }
 
-/* Areas del grid principal */
-
-.area-1 {
-	grid-area: header;
-  margin-top: 100px;
-}
-
-.area-2 {
-  grid-area: sidebar;
-}
-  .area-2 > div {
-      margin-left: 0px;
-      text-align: left;
-
-  }
-
-
-.area-3 {
-	grid-area: main;
-
-}
-.area-4 {
-  grid-area: footer;
-
-
-
-}
 /*--------------------------------------*/
 
 /*--------------------------------------*/
@@ -61,15 +39,13 @@
 
   .grid-2 {
   display: grid;
-      margin-right: 10px;
+      grid-row-gap: 20px;
   background-color: white;
   }
   /* Items*/
   .grid-2>div {
       background-color: #F5F5F5;
       padding: 20px;
-      margin-left: 0px;
-      margin-top: 0px;
 
   }
   .grid-3 {
@@ -83,11 +59,6 @@
       padding:20px 0;
 
   }
-
-.item-grid-2-border{ /*Define el margen entre el texto y el contenedor de informacion*/
-    padding: 5px;
-    margin-top: 0px;
-}
 
   .item-grid-3-border{ /*Define el margen entre el texto y el contenedor de informacion*/
       padding: 50px;
@@ -117,9 +88,7 @@
   /*grid para definir filas*/
   .grid-rows {
       display: grid;
-      grid-gap: 50px;
       grid-row-gap: 10px;
-      grid-column-gap: 20px;
   }
 
   .item-span-two-row{
@@ -416,7 +385,7 @@
 ************************************************************* */
 
 
-  #fontSizeWrapper { font-size: 16px; }
+  #fontSizeWrapper {  }
 
   #fontSize {
       width: 100px;
@@ -461,13 +430,12 @@
   .tree_label {
       position: relative;
       display: inline-block;
-      background: #fff;
       display: block;
   }
 
   label.tree_label { cursor: pointer; display: block;}
 
-  label.tree_label:hover { color: #666; display: block;}
+  label.tree_label:hover { display: block;}
 
   /* ————————————————————–
     Tree expanded icon
@@ -546,7 +514,6 @@
 
   .tree_custom {
       display: block;
-      background: #eee;
       padding: 1em;
       border-radius: 0.3em;
   }
