@@ -3,6 +3,7 @@
 /* Template Name: Register Sponsor */
 
 get_header();
+include "template-add-sponsor-index.php";
 include "menu.php";
 ?>
 
@@ -31,7 +32,7 @@ include "menu.php";
                         <div class="item-1" ><!--fila 1-->
                             <label for="legal-name">Nombre Legal</label><span class="required">*</span><br>
                             <input type="text" name="legal-name" id="legal-name" class="form-area-row" value="<?php echo $legal?>"
-                                   pattern="[a-zA-Z ]+"  title="<?php echo $legalErrmsj ?>" maxlength="25" required/><br>
+                                   pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+"  title="<?php echo $legalErrmsj ?>" maxlength="25" required/><br>
                         </div>
 
                         <div class="item-2" ><!--fila 2-->
@@ -73,7 +74,7 @@ include "menu.php";
 
                         <div class="item-5" ><!--fila 5-->
                             <label for="name">Aporte Inicial</label><br>
-                            <input type="number" name="aporte" id="aporte" class="form-area-number-row"  min="0" value="<?php echo $aporte ?>"/>
+                            <input type="number" name="aporte" id="aporte" class="form-area-number-row" step="0.01"  min="0"  placeholder="Sólo hasta dos(2) decimales Ej.: 123,45" value="<?php echo $aporte ?>"/>
                         </div>
 
 
@@ -117,13 +118,10 @@ include "menu.php";
                 $permitido = $_COOKIE["valid"];
                 if (preg_match("/^[a-zA-Z ]*$/", $legal) and !empty($legal) and $permitido=="true" and sizeof(search_sponsor_id() == 0)) {
                     add_sponsor();
-                    global $msjSuccess;
-                    $msjSuccess =" OK";
 
                 }
                 ?>
 
-                alert("Patrocinante registrado exitosamente");
 
                 return 1;
             }

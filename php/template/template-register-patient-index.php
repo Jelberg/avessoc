@@ -145,7 +145,7 @@ function mostrarFormulario() {
 				</div>
 				<div class="item-span-three">
 				    <label for="name">Direccion</label><br>
-                    <input type="text" class="form-area-three" name="direccion" id="direccion" pattern="[a-zA-Z ]+"  title="<?php echo $ErrmsjOnlyLetters ?>" /><br>
+                    <input type="text" class="form-area-three" name="direccion" id="direccion" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+"  title="<?php echo $ErrmsjOnlyLetters ?>" /><br>
                 </div>       				
 			</section>
 		';

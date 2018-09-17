@@ -8,7 +8,7 @@
         <script language="JavaScript">
 
             $(document).ready(function() {
-                $('#example').DataTable( {
+                var table = $('#listaSponsor').DataTable( {
                     "language": {
                         "loadingRecords": "Cargando...",
                         "decimal": ",",
@@ -28,6 +28,15 @@
                         }
                     }
                 } );
+
+                $('#listaSponsor tbody').on( 'click', 'tr', function () {
+                    $(this).toggleClass('selected');
+                } );
+
+                $('#button').click( function () {
+                    table.row('.selected').remove().draw( false );
+                } );
+
             } );
 
         </script>
@@ -45,7 +54,7 @@ function llenaListaSponsor(){
     $query_sponsor ="SELECT MPERSON_ID ,MPERSON_LEGAL_NAME, MPERSON_TYPE_DOC, MPERSON_IDENTF FROM SPONSOR;";
 
     $lista .= '
-                            <table id="example" class="display" style="width:100%" >
+                            <table id="listaSponsor" class="display" style="width:100%" >
                             <thead>
                             <tr>
                                 <th>Nombre Legal</th>

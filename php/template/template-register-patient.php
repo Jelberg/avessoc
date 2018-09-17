@@ -86,22 +86,22 @@ include "menu.php";
                             </div>
                             <div class = "item4">
                                 <label for="name">Primer Nombre</label><span class="required">* </span><br>
-                                <input type="text" maxlength="25" pattern="[a-zA-Z ]+" title="<?php echo $ErrmsjOnlyLetters ?>" class="form-area" name="name-uno" id="name-uno" value="<?php echo htmlentities($nameuno) ?>" required/><br>
+                                <input type="text" maxlength="25" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+" title="<?php echo $ErrmsjOnlyLetters ?>" class="form-area" name="name-uno" id="name-uno" value="<?php echo htmlentities($nameuno) ?>" required/><br>
                             </div>
                             <div class = "item5">
                                 <label for="name">Segundo Nombre</label><br>
-                                <input type="text" maxlength="25" pattern="[a-zA-Z ]+" title="<?php echo $ErrmsjOnlyLetters ?>" class="form-area" name="name-dos" id="name-dos" value="<?php echo htmlentities($nombre2) ?>"/><br>
+                                <input type="text" maxlength="25" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+" title="<?php echo $ErrmsjOnlyLetters ?>" class="form-area" name="name-dos" id="name-dos" value="<?php echo htmlentities($nombre2) ?>"/><br>
                             </div>
                             <div class = "item6"></div>
 
                             <div class = "item7">
                                 <label for="name">Primer Apellido</label><span class="required">* </span><br>
-                                <input type="text" maxlength="25" class="form-area" name="apellido-uno" id="apellido-uno" value="<?php echo htmlentities($apellidouno) ?>" pattern="[a-zA-Z ]+" title="<?php echo $ErrmsjOnlyLetters ?>" required/><br>
+                                <input type="text" maxlength="25" class="form-area" name="apellido-uno" id="apellido-uno" value="<?php echo htmlentities($apellidouno) ?>" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+" title="<?php echo $ErrmsjOnlyLetters ?>" required/><br>
 
                             </div>
                             <div class = "item8">
                                 <label for="name">Segundo Apellido</label><br>
-                                <input type="text" maxlength="25" class="form-area" name="apellido-dos" id="apellido-dos" value="<?php echo htmlentities($apellido2) ?>" pattern="[a-zA-Z ]+" title="<?php echo $ErrmsjOnlyLetters ?>"/><br>
+                                <input type="text" maxlength="25" class="form-area" name="apellido-dos" id="apellido-dos" value="<?php echo htmlentities($apellido2) ?>" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+" title="<?php echo $ErrmsjOnlyLetters ?>"/><br>
 
                             </div>
                             <div class = "item9"></div>
@@ -166,12 +166,12 @@ include "menu.php";
 
                             <div class = "item-span-two">
                                 <label for="name">Profesión u Oficio</label><span class="required">* </span><br>
-                                <input type="text" maxlength="25" class="form-area-two"  name="oficio" id="oficio" value="<?php echo $profesion ?>" pattern="[a-zA-Z ]+" title="<?php echo $ErrmsjOnlyLetters ?>" required/><br>
+                                <input type="text" maxlength="25" class="form-area-two"  name="oficio" id="oficio" value="<?php echo $profesion ?>" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+" title="<?php echo $ErrmsjOnlyLetters ?>" required/><br>
 
                             </div>
                             <div class = "item-span-two">
                                 <label for="name">Nacionalidad</label><span class="required">* </span><br>
-                                <input type="text" maxlength="25" class="form-area-two"  name="nacionalidad" id="nacionalidad" value="<?php echo $nacionalidad?>" pattern="[a-zA-Z ]+" title="<?php echo $ErrmsjOnlyLetters ?>" required/><br>
+                                <input type="text" maxlength="25" class="form-area-two"  name="nacionalidad" id="nacionalidad" value="<?php echo $nacionalidad?>" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+" title="<?php echo $ErrmsjOnlyLetters ?>" required/><br>
 
                             </div>
 
@@ -184,7 +184,7 @@ include "menu.php";
                 <!--Detalles de direccion-->
                 <div class="item2">
                     <div class="item-grid-2-border">
-                        <h3>Detalles de Direccion</h3>
+                        <h3>Detalles de Dirección</h3>
                         <?php
                             mostrarFormulario();
                         ?>
@@ -200,11 +200,11 @@ include "menu.php";
                             <!-- CONTACTO -->
                             <div class ="item1">
                                 <label for="name">Teléfono Local</label><br>
-                                <input type="number" class="form-area-number" name="local"  min="1000000" max="999999999" pattern="^[0-9]+" id="local" title="<?php echo $msjContacto ?>" value="<?php echo $local ?>"/><br>
+                                <input type="number" class="form-area-number" name="local"  min="2000000000" max="2999999999" pattern="^[0-9]+" placeholder="Ej.: 2121234567" id="local" title="Min 10 digítos. Máx 10 digítos. Debe incluir el código de área" value="<?php echo $local ?>"/><br>
                             </div>
                             <div class ="item2">
                                 <label for="name">Teléfono Móvil</label><br>
-                                <input type="number" class="form-area-number" name="movil" id="movil"  min="1000000" max="99999999999" pattern="^[0-9]+" title="<?php echo $msjContacto ?>" value='<?php echo htmlentities($movil) ?>' /><br>
+                                <input type="number" class="form-area-number" name="movil" id="movil"  min="4000000000" max="4999999999" pattern="^[0-9]+" placeholder="Ej.: 4149876543" title="Min 10 digítos. Máx 10 digítos. Debe incluir el código de la línea telefónica" value='<?php echo htmlentities($movil) ?>' /><br>
                             </div>
 
                             <div class ="item3">
@@ -228,7 +228,7 @@ include "menu.php";
                             </div>
                             <div class = "item2">
                                 <label for="name">Ingreso Promedio Mensual</label><span class="required">**  </span><br>
-                                <input type="number" class="form-area-number" name="ingreso-promedio" id="ingreso-promedio"  min="1" pattern="^[0-9]+" value="<?php echo $ingresr ?>" required/>
+                                <input type="number" class="form-area-number" name="ingreso-promedio" id="ingreso-promedio" step="0.01"  min="1"  placeholder="Sólo hasta dos(2) decimales Ej.: 123,45" value="<?php echo $ingresr ?>" required/>
                             </div>
 
                             <div class = "item3"></div>
@@ -259,7 +259,7 @@ include "menu.php";
                             </div>
                             <div class = "item-span-two" id="otro" style="display: block|none;">
                                 <label for="name">En caso de ser otro especifique</label><br>
-                                <input type="text" class="form-area-two" name="otro-tipo" id="otro-tipo" value="<?php echo $otrof ?>" pattern="[a-zA-Z ]+"  title="<?php echo $ErrmsjOnlyLetters ?>" /><br>
+                                <input type="text" class="form-area-two" name="otro-tipo" id="otro-tipo" value="<?php echo $otrof ?>" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+"  title="<?php echo $ErrmsjOnlyLetters ?>" /><br>
                                 <p id="demo" maxlength="25" class="required"></p>
                             </div>
                         </section>

@@ -142,32 +142,10 @@ function insert_direction($id_usuario){
 
 //------------------------------------------CRUD STATE-------------------------------------------------
 
-/**
- * Metodo que trae los estados de la bd y devuelve un ARRAY
- * @return array
- */
-function read_state(){
-  global $wpdb;
-  $estados= $wpdb->get_results ("SELECT STATE_ID, STATE_DESC FROM `STATE` ");
-  $new_array = objectToArray($estados);
-  return $new_array;
-}
-
 
 
 
 //----------------------------------------CRUD MUNICIPALT------------------------------------------------
-
-/**
- * @param $id_state
- * @return mixed
- */
-function read_municipalt($id_state){
-    global $wpdb;
-    $municipios = $wpdb->get_results("SELECT MUNICIPALT_ID, MUNICIPALT_DESC FROM `MUNICIPALT` WHERE MUNICIPALT_STATE_ID =".$id_state);
-    //$new_array_municipalt = obbjectToArray($municipios);
-    return $municipios;
-}
 
 
 
@@ -237,61 +215,10 @@ function add_request($wpdb,$id_paciente,$numpersonas,$ingresopromedio, $familiat
 
 
 //--------------------------------------------CRUD SPONSOR-----------------------------------------------------
-/**
- *
- * Inserta el Sponsor a la base de datos
- * @param $nombrelegal
- * @param $tipodocumento
- * @param $numero
- * @param $logo
- */
-function add_sponsor(){
-    global $wpdb;
 
-    $wpdb->insert('SPONSOR', array(
-        'MPERSON_LEGAL_NAME' => ucfirst(strtolower($_POST["legal-name"])),
-        'MPERSON_TYPE_DOC' => $_POST["tipo-documento"],
-        'MPERSON_IDENTF' => $_POST["numero-doc"],
-        'SPONSOR_LOGO' => $_POST["logo"]
-    ));
-
-    if (!empty($_POST["aporte"])){
-        $id_sponsor= $wpdb->get_results( "SELECT MAX(MPERSON_ID) AS id FROM SPONSOR" ); //< Devuelve el ultimo id registrado
-        add_cntribution_init($_POST["aporte"],$id_sponsor);
-    }
-
-}
-
-/**
- * Buscar el numero de identificacion del sponsor
- * @param $numIdentificacion
- * @param $tipo
- * @return mixed
- */
-function search_sponsor_id(){
-    global $wpdb;
-    $query ="SELECT MPERSON_ID FROM `SPONSOR` WHERE MPERSON_IDENTF = ".$_POST["numero-doc"]." AND MPERSON_TYPE_DOC ='".$_POST["tipo-documento"]."'";
-    $id_sponsor= $wpdb->get_var( $query );
-    return $id_sponsor;
-}
 
 //-------------------------------------------CRUD CNTRIBUTION--------------------------------------------------
 
-/**
- * Este insert es solo para cuando se agrega por primera vez al sponsor
- * @param $montoinicial
- * @param $userid
- */
-function add_cntribution_init($montoinicial,$userid){
-    global $wpdb;
-
-    $wpdb->insert('CNTBTION', array(
-        'CNTBTION_CANT' => $montoinicial,
-        'CNTBTION_BALANCE' => $montoinicial,
-        'CNTBTION_SPONSOR_ID' => $userid
-    ));
-
-}
 
 //------------------------------------------CRUD ANSWER----------------------------------------------------------
 

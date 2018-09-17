@@ -10,7 +10,6 @@ include "menu.php";
 
 <head>
 
-
 </head>
 
 <body>
@@ -25,11 +24,12 @@ include "menu.php";
     </div> <!-- fin area 2-->
 
     <div class="item3">
-        <form name="formSearchSponsor" id="formSearchSponsor" method="post" action=""> <!--Inicio de formulario-->
 
                 <section class="grid-2">
+
                     <div class="item2">
                         <h2>Busqueda de Patrocinante</h2>
+                        <button class="rigth" id="button">Eliminar</button>
                             <?php
                             echo llenaListaSponsor();
                             ?>
@@ -37,8 +37,6 @@ include "menu.php";
 
                 </section> <!--fin section grid-2-->
 
-
-        </form><!--fin de formulario-->
     </div><!-- fin  area-2 del grid-1Show _MENU_ entries -->
 </div> <!-- fin  grid-1-->
 

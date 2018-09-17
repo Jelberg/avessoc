@@ -30,7 +30,7 @@ include "menu.php";
                     <div class="item2">
                         <h2>Buscar Pacientes</h2>
                             <?php
-                            echo llenaListaPacientes(); 
+                            echo llenaListaPacientes();
                             ?>
 
                     </div> <!--fin div 3 grid-3-->
