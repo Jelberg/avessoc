@@ -13,8 +13,9 @@ include "function-templates/template-add-sponsor-function.php";
 
 <head>
     <?php
-        if(){
-            
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            notificationWarning("","");
+            notificationSuccess("","");
         }
 
     ?>
@@ -106,10 +107,6 @@ include "function-templates/template-add-sponsor-function.php";
     </div><!-- fin  area-3 del grid-1 -->
 </div> <!-- fin  grid-1-->
 
-<?php
-notificationWarning("","");
-notificationSuccess("","");
-?>
 
 <script language="JavaScript">
     var close = document.getElementsByClassName("closebtn");
