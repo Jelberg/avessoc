@@ -5,12 +5,20 @@
 
 get_header();
 include "menu.php";
+include "notifications.php";
 include "function-templates/template-add-sponsor-function.php";
 ?>
 
 
 
 <head>
+    <?php
+        if(){
+            
+        }
+
+    ?>
+
 </head>
 
 
@@ -98,6 +106,23 @@ include "function-templates/template-add-sponsor-function.php";
     </div><!-- fin  area-3 del grid-1 -->
 </div> <!-- fin  grid-1-->
 
+<?php
+notificationWarning("","");
+notificationSuccess("","");
+?>
+
+<script language="JavaScript">
+    var close = document.getElementsByClassName("closebtn");
+    var i;
+
+    for (i = 0; i < close.length; i++) {
+        close[i].onclick = function(){
+            var div = this.parentElement;
+            div.style.opacity = "0";
+            setTimeout(function(){ div.style.display = "none"; }, 600);
+        }
+    }
+</script>
 
 </body>
 

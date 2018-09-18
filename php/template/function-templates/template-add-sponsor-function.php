@@ -99,7 +99,7 @@
                     add_sponsor();
                     global $msjSuccess;
                     $msjSuccess =" OK";
-
+                    notificationSuccess("","");
                 }
                 ?>
 
