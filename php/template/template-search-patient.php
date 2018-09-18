@@ -5,7 +5,7 @@
 
 get_header();
 include "menu.php";
-include "function-templates/template-search-patient.php";
+include "function-templates/template-search-patient-function.php";
 ?>
 
 <head>

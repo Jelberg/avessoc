@@ -12,9 +12,9 @@
 
   .grid-container {
       display: grid;
-      /* background: white; */
+       background: white;
       margin-top: 100px;
-      grid-template-columns: 25% auto;
+      grid-template-columns: 20% auto;
       grid-gap: 10px;
       padding: 10px;
   }
@@ -465,7 +465,7 @@
       line-height: 1.2;
       position: relative;
       list-style:none;
-      padding: 0 0 1em 1em;
+      padding: 0 0 1em 0;
   }
 
   .tree ul li { padding: 1em 0 0 1em;

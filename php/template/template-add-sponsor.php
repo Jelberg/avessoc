@@ -11,19 +11,6 @@ include "function-templates/template-add-sponsor-function.php";
 
 
 <head>
-
-    <?php
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-        if (empty($_POST["numero-doc"]) or empty($_POST["tipo-documento"])) {
-        } elseif (sizeof(search_sponsor_id($_POST["numero-doc"], $_POST["tipo-documento"])) != 0) {
-            $msjNumero = "Tipo de documento con número de identificaion ya existen";
-        }
-    }
-
-
-    ?>
 </head>
 
 
@@ -52,13 +39,13 @@ include "function-templates/template-add-sponsor-function.php";
 
                             <div class="item-1" ><!--fila 1-->
                                 <label for="legal-name">Nombre Legal</label><span class="required">*</span><br>
-                                <input type="text" name="legal-name" id="legal-name" class="form-area-row"
-                                       pattern="[a-zA-Z ]+"  title="<?php echo $legalErrmsj ?>" maxlength="25" required/><br>
+                                <input type="text" name="legal-name" id="legal-name" class="form-area-two" value="<?php echo $legal?>"
+                                       pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+"  title="Max. 40 carácteres. Solo Letras" maxlength="40" required/><br>
                             </div>
 
                             <div class="item-2" ><!--fila 2-->
                                 <label for="name">Tipo de Documento</label><span class="required">*</span><br>
-                                <select id="tipo-documento" name="tipo-documento" class="form-area-row" required>
+                                <select id="tipo-documento" name="tipo-documento" class="select-area-two" required>
                                     <option value="" selected> >>Seleccione opción<< </option>
                                     <?php
 
@@ -83,7 +70,7 @@ include "function-templates/template-add-sponsor-function.php";
 
                             <div class="item-3" ><!--fila 3-->
                                 <label for="name">Número del documento de identidad</label><span class="required">*</span><br>
-                                <input type="number" title="<?php echo $msjNumero?>" name="numero-doc" id="numero-doc" class="form-area-number-row" min="0" required/><br>
+                                <input type="number" title="<?php echo $msjNumero?>" name="numero-doc" id="numero-doc" class="form-area-number-row" min="0" value="<?php echo $numedoc?>" required/><br>
                             </div>
 
                             <div class="item-4" ><!--fila 4-->
@@ -95,7 +82,7 @@ include "function-templates/template-add-sponsor-function.php";
 
                             <div class="item-5" ><!--fila 5-->
                                 <label for="name">Aporte Inicial</label><br>
-                                <input type="number" name="aporte" id="aporte" class="form-area-number-row"  min="0" />
+                                <input type="number" name="aporte" id="aporte" step="0.01"  min="0"  placeholder="Sólo hasta dos(2) decimales Ej.: 123,45" class="form-area-number-row"  min="0" value="<?php echo $aporte ?>"/>
                             </div>
 
 
@@ -104,61 +91,13 @@ include "function-templates/template-add-sponsor-function.php";
                 </div>
             </section>
             <div class ="right">
-                <button class="button-just" name="registrar_sponsor" id="registrar_sponsor" onclick="registro_sponsor(this.form, this.form.logo.value)">REGISTRAR PATROCINANTE</button>
+                <button class="button-just" name="registrar" id="registrar" onclick="registro(this.form, this.form.logo.value)">REGISTRAR PATROCINANTE</button>
             </div>
-            <!--div class="alert alert-success">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
-                <strong> ¡Bien hecho!</strong> Has guardado correctamente el archivo.
-            </div-->
+
         </form><!--fin de formulario-->
     </div><!-- fin  area-3 del grid-1 -->
 </div> <!-- fin  grid-1-->
 
-<script language="JavaScript">
-
-    function registro_sponsor(formulario, archivo) {
-        extensiones_permitidas = new Array(".png", ".jpeg");
-        mierror = "";
-        if (archivo) { // Si existe el archivo
-            //recupero la extensión de este nombre de archivo
-            extension = (archivo.substring(archivo.lastIndexOf("."))).toLowerCase();
-            //compruebo si la extensión está entre las permitidas
-            permitida = false;
-            document.cookie = "valid= false";
-            for (var i = 0; i < extensiones_permitidas.length; i++) {
-                if (extensiones_permitidas[i] == extension) {
-                    permitida = true;
-                    document.cookie = "valid= true";
-                    break;
-                }
-            }
-            if (!permitida) {
-                mierror = "Comprueba la extensión de los archivos a subir. \nSólo se pueden subir archivos con extensiones: " + extensiones_permitidas.join();
-            }else
-                if(permitida) {
-                    //submito!
-                    <?php
-                    // Funcion registra al patrocinante
-                    $permitido = $_COOKIE["valid"];
-                    if (preg_match("/^[a-zA-Z ]*$/", $legal) and !empty($legal) and $permitido=="true" and sizeof(search_sponsor_id() == 0)) {
-                        add_sponsor();
-                        global $msjSuccess;
-                        $msjSuccess =" OK";
-
-                    }
-                    ?>
-
-                    return 1;
-                }
-
-            alert (mierror);
-        }
-
-        return 0;
-    }
-
-
-</script>
 
 </body>
 
