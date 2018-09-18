@@ -277,4 +277,153 @@ $combo= '<select class="select-area" name="cmbParroquias" id="cmbParroquias" req
 return $combo;
 }
 
+
+/**
+ *   Registra el paciente en todas las tablas relacionadas en el template
+ *
+ */
+
+function insert_patient(){
+
+    global $wpdb;
+
+    $wpdb->insert('PATIENT', array(
+        'MPERSON_NAME' => ucfirst(strtolower($_POST['name-uno'])),
+        'MPERSON_LAST_NAME' => ucfirst(strtolower($_POST['apellido-uno'])),
+        'MPERSON_BIRTH' => $_POST['birth-date'],
+        'MPERSON_IDENTF' => $_POST['numero-doc'],
+        'MPERSON_LEGAL_NAME' => ucfirst(strtolower($_POST['apellido-uno']))." ".ucfirst(strtolower($_POST['apellido-dos'])).", ".ucfirst(strtolower($_POST['name-uno']))." ".ucfirst(strtolower($_POST['name-dos'])),
+        'MPERSON_SECOND_NAME' => ucfirst(strtolower($_POST['name-dos'])),
+        'MPERSON_SECOND_LNAME' => ucfirst(strtolower($_POST['apellido-dos'])),
+        'MPERSON_NACIONALITY' => ucfirst(strtolower($_POST['nacionalidad'])),
+        'MPERSON_CIVIL_STATS' => $_POST['estado-civil'],
+        'MPERSON_SEX' => $_POST['sexo'],
+        'MPERSON_HOLDER_CARD' => $_POST['titular'],
+        'MPERSON_PROFETION' => ucfirst(strtolower($_POST['oficio'])),
+        'MPERSON_TYPE_DOC' => $_POST['tipo-documento']
+    ));
+    $id_paciente= $wpdb->get_var( "SELECT MAX(MPERSON_ID) AS id FROM PATIENT" ); //< Devuelve el ultimo id registrado
+
+    if (!empty($_POST['local']) or !empty($_POST['movil']) or !empty($_POST['correo'])){
+        add_contact_patient($id_paciente, $wpdb, $_POST['local'], $_POST['movil'], strtolower($_POST['correo']));
+    }
+    add_request($wpdb,$id_paciente,$_POST['num-personas'],$_POST['ingreso-promedio'], $_POST['familia-tipo'], ucfirst(strtolower($_POST['otro-tipo'])), $_POST['condicion-laboral'],
+        $_POST['graffar-1'],$_POST['graffar-2'],$_POST['graffar-3'],$_POST['graffar-4']);
+    insert_direction($id_paciente);
+
+}
+
+
+/**
+ * Registra la direccion del usuario
+ * @param $id_usuario
+ */
+function insert_direction($id_usuario){
+
+    global $wpdb;
+
+    $wpdb->insert('DIRECTION', array(
+        'DIRECTION_PARISH_ID' => $_POST['cmbParroquias'],
+        'DIRECTION_PAR_MUN_ID' => $_POST['cmbMunicipios'],
+        'DIRECTION_MPERSON_ID' => $id_usuario,
+        'DIRECTION_DESC' => ucfirst(strtolower($_POST['direccion']))
+    ));
+
+}
+
+
+/**
+ *
+ * Insert de los datos de contacto
+ * @param $id_paciente
+ * @param $wpdb
+ * @param $local
+ * @param $movil
+ * @param $correo
+ */
+function add_contact_patient($id_paciente,$wpdb,$local,$movil,$correo){
+    //global $wpdb;
+    //$id_paciente= $wpdb->get_var( "SELECT MAX(MPERSON_ID) AS id FROM PATIENT" ); //< Devuelve el ultimo id registrado
+
+    //Ahora hace insert de contacto
+    $wpdb->insert('CONTACT', array(
+        'CONTACT_MPERSON_ID' => $id_paciente,
+        'CONTACT_LOCAL_PHON' => $local,
+        'CONTACT_MOVIL_PHON' => $movil,
+        'CONTACT_EMAIL' => $correo
+    ));
+}
+
+
+/**
+ * Inserta en la tabla REQUEST cuando se agrega el paciente al sistema
+ *
+ * @param $wpdb                 conexion a la base de datos
+ * @param $id_paciente          La id del paciente al que se esta registrando
+ * @param $numpersonas          cantidad de personas con la quie vive
+ * @param $ingresopromedio
+ * @param $familiatipo
+ * @param $otro                 puede ser nulo, dependiendo de la respuestaa del parametro anterior
+ * @param $condicionlab         condicion laboral
+ */
+function add_request($wpdb,$id_paciente,$numpersonas,$ingresopromedio, $familiatipo, $otro, $condicionlab,$g1,$g2,$g3,$g4){
+    $valor = $g1+$g2+$g3+$g4;
+    $porcentaje= $wpdb->get_var('SELECT SCALE_PORCENTAGE FROM `SCALE` WHERE SCALE_MIN<='.$valor.' AND SCALE_MAX>='.$valor);
+
+    //Insercion de datos en la tabla REQUEST
+    $wpdb->insert('REQUEST', array(
+        'REQUEST_PATIENT_PERSON_ID' => $id_paciente,
+        'REQUEST_INHABITANTS_NUMB' => $numpersonas,
+        'REQUEST_AVERAGE_INCOME' => $ingresopromedio,
+        'REQUEST_FAMILY_TYPE' => $familiatipo,
+        'REQUEST_FAMILY_OTHER' => $otro,
+        'REQUEST_LOBORAL_COND' => $condicionlab,
+        'REQUEST_GRAFFAR_ONE' => $g1,
+        'REQUEST_GRAFFAR_TWO' => $g2,
+        'REQUEST_GRAFFAR_THREE' => $g3,
+        'REQUEST_GRAFFAR_FOUR' => $g4,
+        'REQUEST_GRAFFAR_PORCTG' => $porcentaje
+    ));
+
+
+}
+
+
+/**
+ * Obtiene el valor y la descripcion de la respuesta de la escala graffar
+ * @param $id_question
+ * @return mixed
+ */
+function search_answer($id_question){
+    global $wpdb;
+    $query ="SELECT ANSWER_VALUE, ANSWER_DESC FROM `ANSWER` WHERE ANSWER_QUESTION_ID =".$id_question;
+    $answers= $wpdb->get_results( $query );
+    return $answers;
+}
+
+
+
+/**
+ * Funcion tranforma lo que se obtiene del array para llenar el select
+ * @param $results Array con el resultado de la consulta, El array que debe recibir en un Arreglo dentro de otro arreglo.
+ */
+function llenaComboBox($results)
+{  // Funcion llena combobox pasando como parrametro un array de la forma
+    $cont = 0;
+    $key = "";
+    foreach ($results as $llave => $valor) {
+        foreach ($valor as $value => $option) {
+            if ($cont == 0) {
+                $key = $option;
+                $cont += 1;
+            } else {
+                echo '<option value ="' . $key . '">' . $option . '</option>';
+                $cont = 0;
+            }
+        }
+    }
+}
+
+
+
 ?>

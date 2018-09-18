@@ -4,8 +4,8 @@
 /* Template Name: Search Patient */
 
 get_header();
-include "template-search-patient-index.php";
 include "menu.php";
+include "function-templates/template-search-patient.php";
 ?>
 
 <head>

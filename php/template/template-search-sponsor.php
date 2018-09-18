@@ -4,8 +4,8 @@
 /* Template Name: Search Sponsor */
 
 get_header();
-include "template-search-sponsor-index.php";
 include "menu.php";
+include "function-templates/template-search-sponsor-function.php";
 ?>
 
 <head>

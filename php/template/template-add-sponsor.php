@@ -1,98 +1,122 @@
+
 <?php
 
 /* Template Name: Register Sponsor */
 
 get_header();
-include "template-add-sponsor-index.php";
 include "menu.php";
+include "function-templates/template-add-sponsor-function.php";
 ?>
 
-<!DOCTYPE html>
-<html>
+
+
 <head>
 
+    <?php
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        if (empty($_POST["numero-doc"]) or empty($_POST["tipo-documento"])) {
+        } elseif (sizeof(search_sponsor_id($_POST["numero-doc"], $_POST["tipo-documento"])) != 0) {
+            $msjNumero = "Tipo de documento con número de identificaion ya existen";
+        }
+    }
+
+
+    ?>
 </head>
+
+
 <body>
+
 <div class="grid-container">
+
     <div class="item2">
+        <!--Area del menu para navegacion-->
         <?php
         mostrarMenu();
         ?>
-    </div>
+    </div> <!-- fin area 2-->
+
     <div class="item3">
         <form name="formSponsor" id="formSponsor" method="post" action=""> <!--Inicio de formulario-->
             <section class="grid-2">
 
-                <div class="item">
-                    <h3>Registrar Patrocinante</h3>
-                    <div class="required">* Campos obligatorios</div>
+                <div class="item1">
 
-                    <section class="grid-rows"><!--la informacion se ordena en filas-->
 
-                        <div class="item-1" ><!--fila 1-->
-                            <label for="legal-name">Nombre Legal</label><span class="required">*</span><br>
-                            <input type="text" name="legal-name" id="legal-name" class="form-area-row" value="<?php echo $legal?>"
-                                   pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+"  title="<?php echo $legalErrmsj ?>" maxlength="25" required/><br>
-                        </div>
+                        <h2>Registrar Patrocinante</h2>
+                        <div class="required">* Campos obligatorios</div>
 
-                        <div class="item-2" ><!--fila 2-->
-                            <label for="name">Tipo de Documento</label><span class="required">*</span><br>
-                            <select id="tipo-documento" name="tipo-documento" class="select" required>
-                                <option value="" selected> >>Seleccione opción<< </option>
-                                <?php
+                        <section class="grid-rows"><!--la informacion se ordena en filas-->
 
-                                $datos = array("V","E","Passaporte","RIF");
-                                $valor = array("V","E","Passaporte","RIF");
+                            <div class="item-1" ><!--fila 1-->
+                                <label for="legal-name">Nombre Legal</label><span class="required">*</span><br>
+                                <input type="text" name="legal-name" id="legal-name" class="form-area-row"
+                                       pattern="[a-zA-Z ]+"  title="<?php echo $legalErrmsj ?>" maxlength="25" required/><br>
+                            </div>
 
-                                for($i=0; $i<count($datos); $i++)
-                                {
-                                    if($valor[$i]==$tdoc) // Compara si el valor que se guarda en tdoc se encuentra dentro del arreglo
+                            <div class="item-2" ><!--fila 2-->
+                                <label for="name">Tipo de Documento</label><span class="required">*</span><br>
+                                <select id="tipo-documento" name="tipo-documento" class="form-area-row" required>
+                                    <option value="" selected> >>Seleccione opción<< </option>
+                                    <?php
+
+                                    $datos = array("V","E","Passaporte","RIF");
+                                    $valor = array("V","E","Passaporte","RIF");
+
+                                    for($i=0; $i<count($datos); $i++)
                                     {
-                                        echo "<option value='".$valor[$i]."' selected>".$datos[$i]."</option>";
+                                        if($valor[$i]==$tdoc) // Compara si el valor que se guarda en tdoc se encuentra dentro del arreglo
+                                        {
+                                            echo "<option value='".$valor[$i]."' selected>".$datos[$i]."</option>";
+                                        }
+                                        else
+                                        {
+                                            echo "<option value='".$valor[$i]."'>".$datos[$i]."</option>";
+                                        }
                                     }
-                                    else
-                                    {
-                                        echo "<option value='".$valor[$i]."'>".$datos[$i]."</option>";
-                                    }
-                                }
 
-                                ?>
-                            </select><br>
-                        </div>
+                                    ?>
+                                </select><br>
+                            </div>
 
-                        <div class="item-3" ><!--fila 3-->
-                            <label for="name">Número del documento de identidad</label><span class="required">*</span><br>
-                            <input type="number" title="<?php echo $msjNumero?>" name="numero-doc" id="numero-doc" class="form-area-number-row" min="0" value="<?php echo $numedoc?>" required/><br>
-                        </div>
+                            <div class="item-3" ><!--fila 3-->
+                                <label for="name">Número del documento de identidad</label><span class="required">*</span><br>
+                                <input type="number" title="<?php echo $msjNumero?>" name="numero-doc" id="numero-doc" class="form-area-number-row" min="0" required/><br>
+                            </div>
 
-                        <div class="item-4" ><!--fila 4-->
-                            <label for="logo">Logo</label><span class="required">*</span><br>
-                            <p>Sólo archivos .jpeg y .png</p>
-                            <input type="file" id="logo" name="logo" accept="image/png, image/jpeg" class="input-file" required/>
+                            <div class="item-4" ><!--fila 4-->
+                                <label for="logo">Logo</label><span class="required">*</span><br>
+                                <p>Sólo archivos .jpeg y .png</p>
+                                <input type="file" id="logo" name="logo" accept="image/png, image/jpeg" class="input-file" required/>
 
-                        </div>
+                            </div>
 
-                        <div class="item-5" ><!--fila 5-->
-                            <label for="name">Aporte Inicial</label><br>
-                            <input type="number" name="aporte" id="aporte" class="form-area-number-row" step="0.01"  min="0"  placeholder="Sólo hasta dos(2) decimales Ej.: 123,45" value="<?php echo $aporte ?>"/>
-                        </div>
+                            <div class="item-5" ><!--fila 5-->
+                                <label for="name">Aporte Inicial</label><br>
+                                <input type="number" name="aporte" id="aporte" class="form-area-number-row"  min="0" />
+                            </div>
 
 
-                    </section><!--Grid de filas -->
+                        </section><!--Grid de filas -->
 
                 </div>
             </section>
             <div class ="right">
-                <button class="button-just" name="registrar" id="registrar" onclick="registro(this.form, this.form.logo.value)">REGISTRAR PATROCINANTE</button>
+                <button class="button-just" name="registrar_sponsor" id="registrar_sponsor" onclick="registro_sponsor(this.form, this.form.logo.value)">REGISTRAR PATROCINANTE</button>
             </div>
+            <!--div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
+                <strong> ¡Bien hecho!</strong> Has guardado correctamente el archivo.
+            </div-->
         </form><!--fin de formulario-->
-    </div>
-
-</div>
+    </div><!-- fin  area-3 del grid-1 -->
+</div> <!-- fin  grid-1-->
 
 <script language="JavaScript">
 
-    function registro(formulario, archivo) {
+    function registro_sponsor(formulario, archivo) {
         extensiones_permitidas = new Array(".png", ".jpeg");
         mierror = "";
         if (archivo) { // Si existe el archivo
@@ -111,20 +135,21 @@ include "menu.php";
             if (!permitida) {
                 mierror = "Comprueba la extensión de los archivos a subir. \nSólo se pueden subir archivos con extensiones: " + extensiones_permitidas.join();
             }else
-            if(permitida) {
-                //submito!
-                <?php
-                // Funcion registra al patrocinante
-                $permitido = $_COOKIE["valid"];
-                if (preg_match("/^[a-zA-Z ]*$/", $legal) and !empty($legal) and $permitido=="true" and sizeof(search_sponsor_id() == 0)) {
-                    add_sponsor();
+                if(permitida) {
+                    //submito!
+                    <?php
+                    // Funcion registra al patrocinante
+                    $permitido = $_COOKIE["valid"];
+                    if (preg_match("/^[a-zA-Z ]*$/", $legal) and !empty($legal) and $permitido=="true" and sizeof(search_sponsor_id() == 0)) {
+                        add_sponsor();
+                        global $msjSuccess;
+                        $msjSuccess =" OK";
 
+                    }
+                    ?>
+
+                    return 1;
                 }
-                ?>
-
-
-                return 1;
-            }
 
             alert (mierror);
         }
@@ -136,4 +161,4 @@ include "menu.php";
 </script>
 
 </body>
-</html>
+

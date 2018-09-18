@@ -3,8 +3,8 @@
 /* Template Name: Register Patient */
 
 get_header();
-include "template-register-patient-index.php";
 include "menu.php";
+include "function-templates/template-register-patient-function.php";
 ?>
 
 <!DOCTYPE html>
