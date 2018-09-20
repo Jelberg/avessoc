@@ -14,8 +14,7 @@ include "function-templates/template-add-sponsor-function.php";
 <head>
     <?php
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            notificationWarning("","");
-            notificationSuccess("","");
+            notificationSuccess("Success!","Patrocinante registrado exitosamente.");
         }
 
     ?>
@@ -108,18 +107,6 @@ include "function-templates/template-add-sponsor-function.php";
 </div> <!-- fin  grid-1-->
 
 
-<script language="JavaScript">
-    var close = document.getElementsByClassName("closebtn");
-    var i;
-
-    for (i = 0; i < close.length; i++) {
-        close[i].onclick = function(){
-            var div = this.parentElement;
-            div.style.opacity = "0";
-            setTimeout(function(){ div.style.display = "none"; }, 600);
-        }
-    }
-</script>
 
 </body>
 

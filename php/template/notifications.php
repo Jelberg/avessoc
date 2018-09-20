@@ -9,7 +9,7 @@
             display: block;
             float: none;
             bottom: 0;
-            right: 0;
+            align-self: center;
             position: fixed;
             z-index: 999;
             background-color: #f44336;
@@ -55,43 +55,68 @@
 <body>
 
 <?php
+/**
+ * Notificacion para mensajes de Error
+ * @param $titulo
+ * @param $mensaje
+ */
 function notificationDanger($titulo,$mensaje){
     $alerta = '
     <div id="notif" class="alert">
-    <span class="closebtn">&times;</span>
-    <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
+    <span class="closebtn" onclick="cierreNotification()">x</span>
+    <strong>'.$titulo.'</strong><br> 
+    <p>'.$mensaje.'</p>
     </div>
     ';
     echo $alerta;
 }
 
+/**
+ * Notificacion para mensajes de exitoso
+ * @param $titulo
+ * @param $mensaje
+ */
 function notificationSuccess($titulo,$mensaje){
     $alerta='
     <div id="notif" class="alert success">
-    <span class="closebtn">&times;</span>
-    <strong>Success!</strong> Indicates a successful or positive action.
+    <span class="closebtn" onclick="cierreNotification()">x</span>
+    <strong>'.$titulo.'</strong><br> 
+    <p>'.$mensaje.'</p>
     </div>
     ';
 
     echo $alerta;
 }
 
+/**
+ * Notificacion para mensajes ede Informacion
+ * @param $titulo
+ * @param $mensaje
+ */
 function notificationInfo($titulo,$mensaje){
     $alerta='
     <div id="notif" class="alert info">
-    <span class="closebtn">&times;</span>
-    <strong>Info!</strong> Indicates a neutral informative change or action.
+    <span class="closebtn" onclick="cierreNotification()">x</span>
+    <strong>'.$titulo.'</strong><br> 
+    <p>'.$mensaje.'</p>
     </div>
     ';
 
     echo $alerta;
 }
 
+
+/**
+ * Notificacion para mensajes de advertencia
+ * @param $titulo
+ * @param $mensaje
+ */
 function notificationWarning($titulo,$mensaje){
     $alerta='
     <div id="notif" class="alert warning">
-    <span class="closebtn">&times;</span>
-    <strong>Warning!</strong> Indicates a warning that might need attention.
+    <span class="closebtn" onclick="cierreNotification()">x</span>
+    <strong>'.$titulo.'</strong><br> 
+    <p>'.$mensaje.'</p>
     </div>
     ';
 
@@ -99,7 +124,26 @@ function notificationWarning($titulo,$mensaje){
 }
 ?>
 
+<script language="JavaScript">
 
+    /**
+     * Funcion que cierra la ventana de notificacion usando la etiqueta span
+     */
+    function cierreNotification() {
+        var close = document.getElementsByClassName("closebtn");
+        var i;
+
+        for (i = 0; i < close.length; i++) {
+            close[i].onclick = function(){
+                var div = this.parentElement;
+                div.style.opacity = "0";
+                setTimeout(function(){ div.style.display = "none"; }, 600);
+            }
+        }
+
+    }
+
+</script>
 
 
 </body>
