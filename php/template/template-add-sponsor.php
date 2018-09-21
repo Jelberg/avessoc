@@ -53,7 +53,7 @@ include "function-templates/template-add-sponsor-function.php";
 
                             <div class="item-2" ><!--fila 2-->
                                 <label for="name">Tipo de Documento</label><span class="required">*</span><br>
-                                <select id="tipo-documento" name="tipo-documento" class="select-area-two" required>
+                                <select id="tipo-documento" name="tipo-documento" onchange="cambioTipoDocumento()" class="select-area-two" required>
                                     <option value="" selected> >>Seleccione opción<< </option>
                                     <?php
 
@@ -78,7 +78,7 @@ include "function-templates/template-add-sponsor-function.php";
 
                             <div class="item-3" ><!--fila 3-->
                                 <label for="name">Número del documento de identidad</label><span class="required">*</span><br>
-                                <input type="number" title="<?php echo $msjNumero?>" name="numero-doc" id="numero-doc" class="form-area-number-row" min="0" value="<?php echo $numedoc?>" required/><br>
+                                <input type="text" name="numero-doc" id="numero-doc" class="form-area-number-row" required/><br>
                             </div>
 
                             <div class="item-4" ><!--fila 4-->

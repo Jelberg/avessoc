@@ -41,7 +41,7 @@ include "function-templates/template-register-patient-function.php";
                         <section class="grid-columns"><!-- Columnas del formulario-->
                             <div class ="item1">
                                 <label for="name">Tipo de Documento</label><span class="required">*</span><br>
-                                <select class="select-area" id="tipo-documento" name="tipo-documento"  required>
+                                <select class="select-area" id="tipo-documento" name="tipo-documento" onchange="cambioTipoDocumento()" required>
                                     <option value="" selected> >>Seleccione opción<< </option>
                                     <?php
 
@@ -89,7 +89,7 @@ include "function-templates/template-register-patient-function.php";
                             </div>
                             <div class ="item3">
                                 <label for="name">Número del documento</label><span class="required">* </span><br>
-                                <input type="number" class="form-area-number" name="numero-doc" id="numero-doc" min="1000000" max="999999999" pattern="^[0-9]+" title="<?php echo $msjNumero ?>" value="<?php echo $numerodoc ?>"required/><br>
+                                <input type="text" onkeyup="javascript:this.value=this.value.toUpperCase();" class="form-area" name="numero-doc" id="numero-doc" required/><br>
                             </div>
                             <div class = "item4">
                                 <label for="name">Primer Nombre</label><span class="required">* </span><br>

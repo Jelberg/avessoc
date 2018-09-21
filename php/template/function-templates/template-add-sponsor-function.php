@@ -71,6 +71,25 @@
 <body>
 <script language="JavaScript">
 
+    /**
+     * Funcion para establecer un pattern en el campo de número de documento en base al tipo
+     * */
+    function cambioTipoDocumento() {
+        if (document.getElementById("tipo-documento").value == "RIF") {
+            document.getElementById("numero-doc").pattern = "([VEJPG]{1})([0-9]{7,9})";
+            document.getElementById("numero-doc").placeholder = "Ej.: J3323432";
+            document.getElementById("numero-doc").title = "El campo RIF debe contener una letra (V,E,J,P,G) y entre 7 a 9 dígitos"
+        } else if(document.getElementById("tipo-documento").value == "E" || document.getElementById("tipo-documento").value == "V"){
+            document.getElementById("numero-doc").pattern = "([0-9]{7,9})";
+            document.getElementById("numero-doc").placeholder = "Ej.: 1234567";
+            document.getElementById("numero-doc").title = "Tipo de documentos V o E deben contener solo digitos. Entre 7 a 9 digitos"
+        } else{
+            document.getElementById("numero-doc").placeholder = " ";
+            document.getElementById("numero-doc").title = " Ingrese número de Pasaporte"
+        }
+
+    }
+
     function registro(formulario, archivo) {
         extensiones_permitidas = new Array(".png", ".jpeg");
         mierror = "";
