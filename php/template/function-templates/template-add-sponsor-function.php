@@ -13,10 +13,6 @@
     /**
      *
      * Inserta el Sponsor a la base de datos
-     * @param $nombrelegal
-     * @param $tipodocumento
-     * @param $numero
-     * @param $logo
      */
     function add_sponsor(){
         global $wpdb;
@@ -37,8 +33,6 @@
 
     /**
      * Buscar el numero de identificacion del sponsor
-     * @param $numIdentificacion
-     * @param $tipo
      * @return mixed
      */
     function search_sponsor_id(){

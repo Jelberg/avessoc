@@ -1,11 +1,11 @@
 <?php
 
-/* Template Name: Register Patient */
+/* Template Name: Load Patient */
 
 get_header();
 include "menu.php";
 include "notifications.php";
-include "function-templates/template-register-patient-function.php";
+include "function-templates/template-load-sponsor-function.php";
 ?>
 
 <!DOCTYPE html>
@@ -193,7 +193,7 @@ include "function-templates/template-register-patient-function.php";
                     <div class="item-grid-2-border">
                         <h3>Detalles de Dirección</h3>
                         <?php
-                            mostrarFormulario();
+                        mostrarFormulario();
                         ?>
                     </div><!--fin border grid 2-->
                 </div> <!--fin item2-->

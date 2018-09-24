@@ -1,9 +1,14 @@
+<?php
+//include "../notifications.php";
+?>
 <!DOCTYPE html>
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" >
         <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
         <script language="JavaScript">
 
@@ -26,18 +31,36 @@
                             "next":       "Siguiente",
                             "previous":   "Anterior"
                         }
+                    },
+                    "columnDefs": [
+                        {
+                            "targets": [ 0 ],
+                            "visible": false,
+                            "searchable": false
+                        }
+                    ]
+                } );
+
+
+           /*     $('#listaSponsor tbody').on( 'click', 'tr', function () {
+                    if ( $(this).hasClass('selected') ) {
+                        $(this).removeClass('selected');
                     }
-                } );
+                    else {
+                        table.$('tr.selected').removeClass('selected');
+                        $(this).addClass('selected');
+                    }
+                } );*/
 
-                $('#listaSponsor tbody').on( 'click', 'tr', function () {
-                    $(this).toggleClass('selected');
-                } );
-
-                $('#button').click( function () {
-                    table.row('.selected').remove().draw( false );
-                } );
 
             } );
+
+           /* function muestraid(id){
+                alert('Este es el id: '.concat(id));
+            }*/
+
+
+
 
         </script>
 
@@ -45,9 +68,25 @@
 
 <body>
 
+</body>
+</html>
+
 
 <?php
 
+/**
+ * Funcion que elimina sponsor de la base de datos
+ * @param $id
+ */
+function deleteSponsor($id){
+    global $wpdb;
+    $wpdb->delete('SPONSOR', array('MPERSON_ID' => $id ));
+}
+
+/**
+ * Llena la lista del datatable del sponsor
+ * @return string
+ */
 function llenaListaSponsor(){
     global $wpdb;
     $lista="";
@@ -57,9 +96,11 @@ function llenaListaSponsor(){
                             <table id="listaSponsor" class="display" style="width:100%" >
                             <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Nombre Legal</th>
                                 <th>Tipo de Documento</th>
                                 <th>Número de documento</th>
+                                <th>Accion</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -71,9 +112,15 @@ function llenaListaSponsor(){
         $dos=$row->MPERSON_TYPE_DOC;
         $tres=$row->MPERSON_IDENTF;
         $lista .= "<tr>\n";
+            $lista .= '<td>'.$id."</td>\n";
             $lista .= '<td>'.$uno."</td>\n";
             $lista .= '<td>'.$dos."</td>\n";
-            $lista .= '<td>'.$tres."</td>\n";
+            $lista .= '<td>'.$tres."</td>\n
+                       <td><button type='button' onclick='muestraid(".$id.")'>
+                        <span >Ver</span>
+                        </button>
+                        <span id='deleteS' name='deleteS' onclick='eliminar(".$id.")'><img src='http://dev.avessoc.org.ve/wp-content/themes/hestia-child/page-templates/icons/ic-borrar.png'></span>
+                        </td>\n";
         $lista .= "</tr>\n";
     }
 
@@ -81,9 +128,11 @@ function llenaListaSponsor(){
     </tbody>
                             <tfoot>
                             <tr>
+                                <th>ID</th>
                                 <th>Nombre Legal</th>
                                 <th>Tipo de Documento</th>
                                 <th>Número de documento</th>
+                                <th>Accion</th>
                             </tr>
                             </tfoot>
                         </table>
@@ -94,6 +143,3 @@ function llenaListaSponsor(){
 }
 
 ?>
-
-</body>
-</html>

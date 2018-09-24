@@ -24,7 +24,6 @@ include "function-templates/template-search-patient-function.php";
     </div> <!-- fin area 2-->
 
     <div class="item3">
-        <form name="formSearchSponsor" id="formSearchSponsor" method="post" action=""> <!--Inicio de formulario-->
 
                 <section class="grid-2">
                     <div class="item2">
@@ -38,7 +37,6 @@ include "function-templates/template-search-patient-function.php";
                 </section> <!--fin section grid-3-->
 
 
-        </form><!--fin de formulario-->
     </div><!-- fin  area-3 del grid-1Show _MENU_ entries -->
 </div> <!-- fin  grid-1-->
 

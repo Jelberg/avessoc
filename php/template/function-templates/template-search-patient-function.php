@@ -26,8 +26,9 @@
                         "next":       "Siguiente",
                         "previous":   "Anterior"
                     }
-                }
-            } );
+                },
+            });
+
 
             $('#example tbody').on( 'click', 'tr', function () {
                 if ( $(this).hasClass('selected') ) {
@@ -60,6 +61,7 @@ function llenaListaPacientes(){
     <table id="paciente" class="display" style="width:100%" >
                             <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Apellido</th>
                                 <th>T. Doc</th>
@@ -69,14 +71,16 @@ function llenaListaPacientes(){
                             <tbody>
     ';
 
-    $query ="SELECT MPERSON_NAME, MPERSON_LAST_NAME, MPERSON_TYPE_DOC, MPERSON_IDENTF FROM PATIENT";
+    $query ="SELECT MPERSON_ID, MPERSON_NAME, MPERSON_LAST_NAME, MPERSON_TYPE_DOC, MPERSON_IDENTF FROM PATIENT";
     foreach( $wpdb->get_results($query) as $key => $row) {
+        $cero =$row->MPERSON_ID;
         $uno = $row->MPERSON_NAME;
         $dos = $row->MPERSON_LAST_NAME;
         $tres = $row->MPERSON_TYPE_DOC;
         $cuatro = $row->MPERSON_IDENTF;
 
         $lista .= "<tr>\n";
+        $lista .= '<th>'.$cero."</th>\n";
         $lista .= '<td>'.$uno."</td>\n";
         $lista .= '<td>'.$dos."</td>\n";
         $lista .= '<td>'.$tres."</td>\n";
@@ -89,6 +93,7 @@ function llenaListaPacientes(){
     </tbody>
                             <tfoot>
                             <tr>
+                                <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Apellido</th>
                                 <th>T. Doc</th>
