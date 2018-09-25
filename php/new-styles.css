@@ -319,6 +319,14 @@
       height: 50px;
   }
 
+  .button-delete{
+      background-color: #e6413e;
+      border-radius: 4px;
+      box-shadow: none;
+      border: 0;
+      color: #fff;
+  }
+
 
   /************************************************************************
 

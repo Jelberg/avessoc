@@ -55,18 +55,25 @@
 
             } );
 
-           /* function muestraid(id){
-                alert('Este es el id: '.concat(id));
-            }*/
+            function elimina(id){
+                var a = id;
 
-
-
+                $("#contenerdor").load("template-search-sponsor-function.php",{id_sponsor:a})
+                //alert('Este es el id: '.concat(id));
+                <?php
+                    //echo 'alert("'.$_REQUEST['id_sponsor'].'")';
+                    deleteSponsor($_REQUEST['id_sponsor']);
+                ?>
+            }
 
         </script>
 
 </head>
 
 <body>
+
+<section id="contenedor" name="contenedor" style="display: none">
+</section>
 
 </body>
 </html>
@@ -79,8 +86,10 @@
  * @param $id
  */
 function deleteSponsor($id){
-    global $wpdb;
-    $wpdb->delete('SPONSOR', array('MPERSON_ID' => $id ));
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        global $wpdb;
+        $wpdb->delete('SPONSOR', array('MPERSON_ID' => $id));
+    }
 }
 
 /**
@@ -116,10 +125,11 @@ function llenaListaSponsor(){
             $lista .= '<td>'.$uno."</td>\n";
             $lista .= '<td>'.$dos."</td>\n";
             $lista .= '<td>'.$tres."</td>\n
-                       <td><button type='button' onclick='muestraid(".$id.")'>
-                        <span >Ver</span>
-                        </button>
-                        <span id='deleteS' name='deleteS' onclick='eliminar(".$id.")'><img src='http://dev.avessoc.org.ve/wp-content/themes/hestia-child/page-templates/icons/ic-borrar.png'></span>
+                       <td>
+                       <form action='http://dev.avessoc.org.ve/avessoc-load-sponsor?sponsor=".$id."'>
+                            <button type='submit' id='sponsor_val' name='sponsor_val' value=".$id.">VER</button>
+                       </form>
+             
                         </td>\n";
         $lista .= "</tr>\n";
     }
