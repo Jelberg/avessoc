@@ -8,7 +8,7 @@
         <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awsesome.min.css">
 
         <script language="JavaScript">
 
@@ -55,16 +55,6 @@
 
             } );
 
-            function elimina(id){
-                var a = id;
-
-                $("#contenerdor").load("template-search-sponsor-function.php",{id_sponsor:a})
-                //alert('Este es el id: '.concat(id));
-                <?php
-                    //echo 'alert("'.$_REQUEST['id_sponsor'].'")';
-                    deleteSponsor($_REQUEST['id_sponsor']);
-                ?>
-            }
 
         </script>
 
@@ -80,17 +70,6 @@
 
 
 <?php
-
-/**
- * Funcion que elimina sponsor de la base de datos
- * @param $id
- */
-function deleteSponsor($id){
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        global $wpdb;
-        $wpdb->delete('SPONSOR', array('MPERSON_ID' => $id));
-    }
-}
 
 /**
  * Llena la lista del datatable del sponsor

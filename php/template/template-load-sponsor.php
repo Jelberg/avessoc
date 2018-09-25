@@ -23,14 +23,16 @@ include "function-templates/template-load-sponsor-function.php";
 
 <body>
 
-<div class="grid-container">
+<section class="grid-container">
 
     <div class="itemm1">
 
     </div>
-    <div class="item0">
+    <div id="item0">
+        <button class="button-delete" name="delete" id="delete" onclick="eliminar()"><strong>ELIMINAR</strong></button>
         <button class="button-edit" style="display: none|block" name="edit" id="edit" onclick="editSponsor()"><strong>EDITAR</strong></button>
         <button class="button-deshabilitar-edit" name="edit-null" style="display: none|block" id="edit-null" onclick="deshabilitar()"><strong>DESHABILITAR EDICIÓN</strong></button>
+
     </div>
     <div class="item2">
         <!--Area del menu para navegacion-->
@@ -104,7 +106,7 @@ include "function-templates/template-load-sponsor-function.php";
 
         </form><!--fin de formulario-->
     </div><!-- fin  area-3 del grid-1 -->
-</div> <!-- fin  grid-1-->
+</section> <!-- fin  grid-1-->
 
 <script language="JavaScript">
 

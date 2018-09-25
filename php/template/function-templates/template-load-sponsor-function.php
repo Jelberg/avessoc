@@ -1,6 +1,8 @@
+<?php
+include "../notifications.php";
+?>
 <html>
 <head>
-
 </head>
 <body>
 
@@ -14,7 +16,7 @@
         document.getElementById("legal-name").disabled=true;
         document.getElementById("tipo-documento").disabled=true;
         document.getElementById("numero-doc").disabled=true;
-        cargarInformacion(1);
+        cargarInformacion();
 
     }
 
@@ -22,6 +24,7 @@
      * Funcion habilita la edicion
      */
     function editSponsor(){
+
         document.getElementById("edit").style.display = "none";
         document.getElementById("boton-derecho").style.display = "block";
         document.getElementById("edit-null").style.display = "block";
@@ -35,12 +38,13 @@
      * Carga la informacion del sponsor en el html
      */
     function cargarInformacion(){
+
+        document.getElementById("legal-name").value= "<?php echo obtieneValor(loadSponsor($_GET["sponsor_val"]),"MPERSON_LEGAL_NAME");?>";
+        document.getElementById("numero-doc").value= "<?php echo obtieneValor(loadSponsor($_GET["sponsor_val"]),"MPERSON_IDENTF");?>";
+        document.getElementById("tipo-documento").value= "<?php echo obtieneValor(loadSponsor($_GET["sponsor_val"]),"MPERSON_TYPE_DOC");?>";
         document.getElementById("edit").style.display = "block";
         document.getElementById("boton-derecho").style.display = "none";
         document.getElementById("edit-null").style.display = "none";
-        document.getElementById("legal-name").value= "<?php echo obtieneValor(loadSponsor(1),"MPERSON_LEGAL_NAME");?>";
-        document.getElementById("numero-doc").value= "<?php echo obtieneValor(loadSponsor(1),"MPERSON_IDENTF");?>";
-        document.getElementById("tipo-documento").value= "<?php echo obtieneValor(loadSponsor(1),"MPERSON_TYPE_DOC");?>";
     }
 
     /**
@@ -62,12 +66,45 @@
 
     }
 
+    /**
+     * Llama a la funcion de eliminacion de sponsor en php, este metodo se usa para que al cargar la pagina php no se desfase de la accion del boton del lado del cliente
+     */
+    function eliminar(){
+            document.cookie= "COOKIE_DEL=1"
+            <?php
+                if (htmlspecialchars($_COOKIE["COOKIE_DEL"])==1){
+                    deleteSponsor();
+                }
+
+            ?>
+    }
+
+    $("#delete").on('click', function(){
+        $.ajax({
+            url: 'template-load-sponsor-function.php',
+            success: function(data){
+                data returned from php }
+            });
+        )};
+
 </script>
 
 </body>
 </html>
 
 <?php
+
+/**
+ * Funcion elimina el sponsor de la base de datos
+ */
+function deleteSponsor(){
+
+        global $wpdb;
+        $wpdb->delete('SPONSOR', array('MPERSON_ID' => $_GET["sponsor_val"] ));
+        notificationInfo("Informacion!","Patrocinante eliminado corrcectamente.");
+
+}
+
 /**
  * Trae la informacion del spnsor segun la id
  * @param $id_sponsor
@@ -75,7 +112,7 @@
  */
 function loadSponsor($id_sponsor){
     global $wpdb;
-    $query = "SELECT MPERSON_ID, MPERSON_LEGAL_NAME, MPERSON_TYPE_DOC ,MPERSON_IDENTF, SPONSOR_LOGO FROM `SPONSOR` WHERE MPERSON_ID = 1";
+    $query = "SELECT MPERSON_ID, MPERSON_LEGAL_NAME, MPERSON_TYPE_DOC ,MPERSON_IDENTF, SPONSOR_LOGO FROM `SPONSOR` WHERE MPERSON_ID =".$id_sponsor;
     $resultado= $wpdb->get_results($query);
     return $resultado;
 }
