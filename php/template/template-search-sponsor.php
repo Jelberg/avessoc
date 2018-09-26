@@ -10,6 +10,24 @@ include "function-templates/template-search-sponsor-function.php";
 
 <head>
 
+
+    <script>
+        $(function() {
+            $( "#dialog-confirm" ).dialog({
+                resizable: false,
+                height:140,
+                modal: true,
+                buttons: {
+                    "Delete all items": function() {
+                        $( this ).dialog( "close" );
+                    },
+                    Cancel: function() {
+                        $( this ).dialog( "close" );
+                    }
+                }
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -40,6 +58,11 @@ include "function-templates/template-search-sponsor-function.php";
                 </section> <!--fin section grid-2-->
 
     </div><!-- fin  area-2 del grid-1Show _MENU_ entries -->
+
 </div> <!-- fin  grid-1-->
+
+<div id="dialog-confirm" title="Eliminar？">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Si o No？</p>
+</div>
 
 </body>

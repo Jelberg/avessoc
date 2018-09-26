@@ -4,21 +4,28 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="../boostrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="../boostrap/css/bootstrap-theme.css" rel="stylesheet">
-        <script src="../boostrap/js/jquery-3.1.1.min.js"></script>
-        <script src="../boostrap/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+        <script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+        <link rel = "stylesheet" href = "http://jqueryui.com/resources/demos/style.css">
+
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" >
         <!--script src="https://code.jquery.com/jquery-3.3.1.js"></script-->
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awsesome.min.css">
+        <script src="https://cdn.datatables.net/1.10.19/js/dataTables.jqueryui.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" >
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.jqueryui.min.css" >
+
+
+
 
         <script language="JavaScript">
 
             $(document).ready(function() {
                 var table = $('#listaSponsor').DataTable( {
+                    "jQueryUI": true,
                     "language": {
                         "loadingRecords": "Cargando...",
                         "decimal": ",",
@@ -59,6 +66,22 @@
 
 
             } );
+
+            $(function() {
+                $( "#dialog-confirm" ).dialog({
+                    resizable: false,
+                    height:140,
+                    modal: true,
+                    buttons: {
+                        "Delete all items": function() {
+                            $( this ).dialog( "close" );
+                        },
+                        Cancel: function() {
+                            $( this ).dialog( "close" );
+                        }
+                    }
+                });
+            });
 
 
         </script>
@@ -110,7 +133,7 @@ function llenaListaSponsor(){
                        <form action='http://dev.avessoc.org.ve/avessoc-load-sponsor?sponsor=".$id."'>
                             <button type='submit' id='sponsor_val' name='sponsor_val' value=".$id.">VER</button>
                        </form>
-                       <a href=\"#\" data-href=\"eliminar.php?id=<?php echo $id; ?>\" data-toggle=\"modal\" data-target=\"#confirm-delete\"><span class=\"glyphicon glyphicon-trash\"></span></a>
+                       <a href=\"#\" data-href=\"popup.php\" data-toggle=\"modal\" data-target=\"#confirm-delete\">DELETE</a>
                       
                            
                         </td>\n";
