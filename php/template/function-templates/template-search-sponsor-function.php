@@ -2,10 +2,15 @@
 //include "../notifications.php";
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="../boostrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../boostrap/css/bootstrap-theme.css" rel="stylesheet">
+        <script src="../boostrap/js/jquery-3.1.1.min.js"></script>
+        <script src="../boostrap/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" >
-        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <!--script src="https://code.jquery.com/jquery-3.3.1.js"></script-->
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awsesome.min.css">
@@ -62,9 +67,6 @@
 
 <body>
 
-<section id="contenedor" name="contenedor" style="display: none">
-</section>
-
 </body>
 </html>
 
@@ -108,7 +110,9 @@ function llenaListaSponsor(){
                        <form action='http://dev.avessoc.org.ve/avessoc-load-sponsor?sponsor=".$id."'>
                             <button type='submit' id='sponsor_val' name='sponsor_val' value=".$id.">VER</button>
                        </form>
-             
+                       <a href=\"#\" data-href=\"eliminar.php?id=<?php echo $id; ?>\" data-toggle=\"modal\" data-target=\"#confirm-delete\"><span class=\"glyphicon glyphicon-trash\"></span></a>
+                      
+                           
                         </td>\n";
         $lista .= "</tr>\n";
     }
