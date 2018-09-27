@@ -64,11 +64,11 @@ include "function-templates/template-search-sponsor-function.php";
                     <div class="item2">
 
                         <h2>Busqueda de Patrocinante</h2>
-                        <form action='http://dev.avessoc.org.ve/avessos-buscar-patrocinante/' id="ssponsor" name="ssponsor">
+
                             <?php
                             echo llenaListaSponsor();
                             ?>
-                        </form>
+
                     </div> <!--fin div 2 grid-2-->
 
                 </section> <!--fin section grid-2-->
@@ -80,8 +80,6 @@ include "function-templates/template-search-sponsor-function.php";
 <script language="JavaScript">
 
     function eliminarxid(id){
-        console.log(id);
-        var a = 0;
         swal({
             title: "Advertencia!",
             text: "Una vez eliminado el patrocinante, se borraran todos los registros!",
@@ -100,15 +98,8 @@ include "function-templates/template-search-sponsor-function.php";
                     });
                     $.post('http://dev.avessoc.org.ve/avessos-buscar-patrocinante/', {sponsor_del: id});
                     window.location.reload(false);
-                    a=1;
                 }
             });
-
-        if (a==1){
-            a=0;
-            //document.getElementById("ssponsor").submit();
-            //window.location.reload(forceget);
-        }
     }
 
 </script>

@@ -124,10 +124,12 @@ function llenaListaSponsor(){
             $lista .= '<td>'.$tres."</td>\n
                        <td>
                        <form action='http://dev.avessoc.org.ve/avessoc-load-sponsor?sponsor=".$id."' name='ViewSponsor' id='ViewSponsor'>
-                            <button type='submit' id='sponsor_val' name='sponsor_val' value=".$id.">VER</button>
+                            <button style=' background-color: #3498DB; padding-left: 10px; padding-top:10px; padding-bottom:10px;
+                            padding-right: 10px; color: #006505s' type='submit' id='sponsor_val' name='sponsor_val' value=".$id."><img src='http://dev.avessoc.org.ve/wp-content/themes/hestia-child/page-templates/icons/ic-view.png'></button>
                        </form>
                        
-                            <a id='sponsor_del' name='sponsor_del' value=".$id." href='javascript: eliminarxid(".$id.")'>DELETE</a>
+                       <a id='sponsor_del' name='sponsor_del' value=".$id." href='javascript: eliminarxid(".$id.")'>
+                       <img src='http://dev.avessoc.org.ve/wp-content/themes/hestia-child/page-templates/icons/ic-borrar.png'></a>
                      
                         </td>\n";
         $lista .= "</tr>\n";
