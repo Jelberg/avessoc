@@ -5,19 +5,20 @@
 <html lang="es">
     <head>
 
-        <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+        <!--link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
         <script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-        <link rel = "stylesheet" href = "http://jqueryui.com/resources/demos/style.css">
+        <link rel = "stylesheet" href = "http://jqueryui.com/resources/demos/style.css"-->
+
+
 
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" >
-        <!--script src="https://code.jquery.com/jquery-3.3.1.js"></script-->
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.19/js/dataTables.jqueryui.min.js"></script>
 
         <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" >
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.jqueryui.min.css" >
-
 
 
 
@@ -67,22 +68,6 @@
 
             } );
 
-            $(function() {
-                $( "#dialog-confirm" ).dialog({
-                    resizable: false,
-                    height:140,
-                    modal: true,
-                    buttons: {
-                        "Delete all items": function() {
-                            $( this ).dialog( "close" );
-                        },
-                        Cancel: function() {
-                            $( this ).dialog( "close" );
-                        }
-                    }
-                });
-            });
-
 
         </script>
 
@@ -95,6 +80,16 @@
 
 
 <?php
+
+/**
+ * funcion elimina sponsor
+ * @param $id_sponsor
+ */
+function deleteSponsor($id_sponsor){
+    global $wpdb;
+    $wpdb->delete('SPONSOR',array('MPERSON_ID'=>$id_sponsor));
+}
+
 
 /**
  * Llena la lista del datatable del sponsor
@@ -133,8 +128,11 @@ function llenaListaSponsor(){
                        <form action='http://dev.avessoc.org.ve/avessoc-load-sponsor?sponsor=".$id."'>
                             <button type='submit' id='sponsor_val' name='sponsor_val' value=".$id.">VER</button>
                        </form>
-                       <a href=\"#\" data-href=\"popup.php\" data-toggle=\"modal\" data-target=\"#confirm-delete\">DELETE</a>
-                      
+                       <form action='http://dev.avessoc.org.ve/avessos-buscar-patrocinante' method='POST'>
+                            <button type='submit' id='sponsor_del' name='sponsor_del' value=".$id." >Del</button>
+                       </form>
+                       <!--a href=\"#\" onclick='eliminarxid()' data-href=\"popup.php\" data-toggle=\"modal\" data-target=\"#confirm-delete\" id='DeleteSponsorID'>DELETE</a-->
+                        <a href=\"#\" onclick='eliminarxid(".$id.")' id='DeleteSponsorID' >DELETE</a>
                            
                         </td>\n";
         $lista .= "</tr>\n";
@@ -156,6 +154,11 @@ function llenaListaSponsor(){
 
 
     return $lista;
+}
+
+
+if (!empty($_POST['sponsor_del'])){
+    deleteSponsor($_POST['sponsor_del']);
 }
 
 ?>
