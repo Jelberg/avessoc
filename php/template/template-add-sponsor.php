@@ -5,19 +5,10 @@
 
 get_header();
 include "menu.php";
-include "notifications.php";
 include "function-templates/template-add-sponsor-function.php";
 ?>
 
-
-
 <head>
-    <?php
-        if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            notificationSuccess("Success!","Patrocinante registrado exitosamente.");
-        }
-
-    ?>
 
 </head>
 
@@ -106,6 +97,18 @@ include "function-templates/template-add-sponsor-function.php";
     </div><!-- fin  area-3 del grid-1 -->
 </div> <!-- fin  grid-1-->
 
+<script language="JavaScript">
+    var alerta =<?php if ($_SERVER["REQUEST_METHOD"] === "POST"){
+                            echo 1;
+                    } else {echo 0;}
+                    ?>;
+    console.log(alerta);
+    if (alerta ==1){
+        console.log(alerta);
+        swal("Pactrocinante redistrado correctamente!", "Click en el botón!", "success");
+        alerta ="";
+    }
+</script>
 
 
 </body>

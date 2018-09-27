@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        if (empty($_POST["numero-doc"]) or empty($_POST["tipo-documento"])) {
+      /*  if (empty($_POST["numero-doc"]) or empty($_POST["tipo-documento"])) {
         } elseif (sizeof(search_sponsor_id($_POST["numero-doc"], $_POST["tipo-documento"])) != 0) {
             $msjNumero = "Tipo de documento con número de identificaion ya existen";
-        }
+        }*/
     }
 
     /**
@@ -35,13 +37,13 @@
      * Buscar el numero de identificacion del sponsor
      * @return mixed
      */
-    function search_sponsor_id(){
+   /* function search_sponsor_id(){
         global $wpdb;
         $query ="SELECT MPERSON_ID FROM `SPONSOR` WHERE MPERSON_IDENTF = ".$_POST["numero-doc"]." AND MPERSON_TYPE_DOC ='".$_POST["tipo-documento"]."'";
         $id_sponsor= $wpdb->get_var( $query );
         return $id_sponsor;
     }
-
+*/
 
     /**
      * Este insert es solo para cuando se agrega por primera vez al sponsor
@@ -108,11 +110,8 @@
                 <?php
                 // Funcion registra al patrocinante
                 $permitido = $_COOKIE["valid"];
-                if (preg_match("/^[a-zA-Z ]*$/", $_POST['legal-name']) and !empty($_POST['legal-name']) and $permitido=="true" and sizeof(search_sponsor_id() == 0)) {
+                if (preg_match("/^[a-zA-Z ]*$/", $_POST['legal-name']) and !empty($_POST['legal-name']) and $permitido=="true" /*and sizeof(search_sponsor_id() == 0)*/) {
                     add_sponsor();
-                    global $msjSuccess;
-                    $msjSuccess =" OK";
-                    notificationSuccess("","");
                 }
                 ?>
 

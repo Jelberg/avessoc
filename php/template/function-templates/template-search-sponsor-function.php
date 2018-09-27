@@ -1,6 +1,4 @@
-<?php
-//include "../notifications.php";
-?>
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -125,15 +123,12 @@ function llenaListaSponsor(){
             $lista .= '<td>'.$dos."</td>\n";
             $lista .= '<td>'.$tres."</td>\n
                        <td>
-                       <form action='http://dev.avessoc.org.ve/avessoc-load-sponsor?sponsor=".$id."'>
+                       <form action='http://dev.avessoc.org.ve/avessoc-load-sponsor?sponsor=".$id."' name='ViewSponsor' id='ViewSponsor'>
                             <button type='submit' id='sponsor_val' name='sponsor_val' value=".$id.">VER</button>
                        </form>
-                       <form action='http://dev.avessoc.org.ve/avessos-buscar-patrocinante' method='POST'>
-                            <button type='submit' id='sponsor_del' name='sponsor_del' value=".$id." >Del</button>
-                       </form>
-                       <!--a href=\"#\" onclick='eliminarxid()' data-href=\"popup.php\" data-toggle=\"modal\" data-target=\"#confirm-delete\" id='DeleteSponsorID'>DELETE</a-->
-                        <a href=\"#\" onclick='eliminarxid(".$id.")' id='DeleteSponsorID' >DELETE</a>
-                           
+                       
+                            <a id='sponsor_del' name='sponsor_del' value=".$id." href='javascript: eliminarxid(".$id.")'>DELETE</a>
+                     
                         </td>\n";
         $lista .= "</tr>\n";
     }
@@ -159,6 +154,7 @@ function llenaListaSponsor(){
 
 if (!empty($_POST['sponsor_del'])){
     deleteSponsor($_POST['sponsor_del']);
+    $_POST['sponsor_del']= array();
 }
 
 ?>

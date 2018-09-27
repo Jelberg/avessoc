@@ -4,7 +4,6 @@
 
 get_header();
 include "menu.php";
-include "notifications.php";
 include "function-templates/template-register-patient-function.php";
 ?>
 
@@ -13,7 +12,6 @@ include "function-templates/template-register-patient-function.php";
 <head>
     <?php
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        notificationSuccess("Success!","Paciente registrado exitosamente.");
     }
 
     ?>

@@ -64,11 +64,11 @@ include "function-templates/template-search-sponsor-function.php";
                     <div class="item2">
 
                         <h2>Busqueda de Patrocinante</h2>
-
+                        <form action='http://dev.avessoc.org.ve/avessos-buscar-patrocinante/' id="ssponsor" name="ssponsor">
                             <?php
                             echo llenaListaSponsor();
                             ?>
-
+                        </form>
                     </div> <!--fin div 2 grid-2-->
 
                 </section> <!--fin section grid-2-->
@@ -76,18 +76,14 @@ include "function-templates/template-search-sponsor-function.php";
     </div><!-- fin  area-2 del grid-1Show _MENU_ entries -->
 </div> <!-- fin  grid-1-->
 
-<!--div id="dialog-confirm" title="Desea eliminar？">
-    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span></p>
-</div-->
-
 
 <script language="JavaScript">
 
-    function eliminarxid(valor){
-        var id = valor;
-        /*console.log(id);
+    function eliminarxid(id){
+        console.log(id);
+        var a = 0;
         swal({
-            title: "Advertencia?",
+            title: "Advertencia!",
             text: "Una vez eliminado el patrocinante, se borraran todos los registros!",
             icon: "warning",
             buttons: true,
@@ -95,54 +91,24 @@ include "function-templates/template-search-sponsor-function.php";
         })
             .then((willDelete) => {
                 if (willDelete) {
-                    go(valor,"DeleteSponsor");
-                    swal("Patrocinante eliminado", {
-                        icon: "success",
+                    window.swal({
+                        title: "Eliminando...",
+                        text: "Por favor, espere",
+                        button:false,
+                        showConfirmButton: false,
+                        allowOutsideClick: false
                     });
+                    $.post('http://dev.avessoc.org.ve/avessos-buscar-patrocinante/', {sponsor_del: id});
+                    window.location.reload(false);
+                    a=1;
                 }
             });
-        p = confirm("Estas seguro?");
-        if(p){
-                    $.post("http://dev.avessoc.org.ve/wp-content/themes/hestia-child/page-templates/sponsorcrud.php",
-                        {
-                            name: "Donald Duck",
-                            city: "Duckburg"
-                        },
-                        function(data,status){
-                            alert("Data: " + data + "\nStatus: " + status);
-                        });
 
-
-        }*/
-        go(id,"DeleteSponsor");
-    }
-
-    function go(valor,comando){
-        var a = "wp-content/themes/hestia-child/page-templates/sponsorcrud.php";
-        $.post(a,
-            {
-                comand: comando,
-                val: valor,
-
-            },
-            function(resp) {
-                console.log(resp);
-            });
-        //window.location.reload();
-    }
-
-    function go2(valor,comando) {
-        $.ajax({
-            url: "http://dev.avessoc.org.ve/wp-content/themes/hestia-child/page-templates/sponsorcrud.php", //http:/ /www.ejemplo.com/peticion
-            type: "POST", // POST, GET, PUT, DELETE
-            dataType: {comand: comando, val:valor},
-            success: function(data){
-                console.log("Todo ha funcionado");
-            } ,
-            error: function(){
-                console.log("Ha ocurrido un error! :(");
-            }
-        });
+        if (a==1){
+            a=0;
+            //document.getElementById("ssponsor").submit();
+            //window.location.reload(forceget);
+        }
     }
 
 </script>
