@@ -46,7 +46,6 @@
   .grid-2>div {
       background-color: #F5F5F5;
       padding: 20px;
-
   }
   .grid-3 {
       display: grid;
@@ -498,4 +497,33 @@
       display: block;
       padding: 1em;
       border-radius: 0.3em;
+  }
+
+  /***********************************************
+
+                        ACORDEON
+
+  ***********************************************/
+  .accordion {
+      background-color: #AED6F1  ;
+      color: #444;
+      height: 20%;
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 15px;
+      transition: 0.4s;
+  }
+
+  .active, .accordion:hover {
+      background-color: #ccc;
+  }
+
+  .panel {
+      padding: 0 18px;
+      display: none;
+      overflow: hidden;
   }

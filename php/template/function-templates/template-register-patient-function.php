@@ -103,6 +103,9 @@
 
  }
 
+ /**
+  * Funcion muestra en combo oculto cuando se selecciona otro en tipo de familia
+  *  */
     function muestraInfo(){
         var fam = document.getElementById("familia-tipo").value;
         if (fam == "0"){

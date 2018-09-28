@@ -69,7 +69,7 @@ include "function-templates/template-add-sponsor-function.php";
 
                             <div class="item-3" ><!--fila 3-->
                                 <label for="name">Número del documento de identidad</label><span class="required">*</span><br>
-                                <input type="text" name="numero-doc" id="numero-doc" class="form-area-number-row" required/><br>
+                                <input type="text" name="numero-doc" id="numero-doc" onkeyup="javascript:this.value=this.value.toUpperCase();" class="form-area-number-row" required/><br>
                             </div>
 
                             <div class="item-4" ><!--fila 4-->
