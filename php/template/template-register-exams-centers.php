@@ -23,11 +23,18 @@ include "function-templates/template-register-exams-centers-function.php";
     </div> <!-- fin area 2-->
 
     <div class="area-3">
-        <form id="ExamenCentroForm" name="ExamenCentroForm">
+        <form id="ExamenCentroForm" name="ExamenCentroForm" method="post">
             <h3>Registrar Examen en Centros de Salud</h3>
             <section class="grid-2">
                 <div class="item1"> <!--item coloreado-->
                     <section class="grid-rows" style="text-align: center">
+                        <div class="algodistinto">
+                            <?php
+                            $i=1;
+                                echo $_POST['centro'.$i];
+                                //echo "HOLAAAA";
+                            ?>
+                        </div>
                         <div class="item-1">
                             <?php
                             echo mostrarExamenes();
@@ -53,7 +60,7 @@ include "function-templates/template-register-exams-centers-function.php";
                 </div> <!--fin item coloreado-->
             </section>
             <div class="right">
-                <button id="pruebaenvio">Serializable</button>
+                <button class="button-just" id="pruebaenvio" onsubmit="<?php agregarExamenenCentro();?>">REGISTRAR</button>
             </div>
         </form>
 

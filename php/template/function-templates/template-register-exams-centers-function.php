@@ -41,22 +41,13 @@
          * Se serializan los datos para mandarlos por ajax
          * */
             $('#pruebaenvio').click( function() {
-                var contador;
-                for(i=1; i <= 8; i++ ){
-                    if (verificaForm(i)){
-                        contador++;
-                    }else alert("Complete los campos de la fila: ".concat(i).concat(". O elimine la fila"));
-                }
-
-                if (contador == 8){
-                    //Manda todos los datos en el submit
                     var data = table.$('input, select').serialize();
-                    $.get(" http://dev.avessoc.org.ve/avessoc-registrar-examenes-centros/" ,{datos:data});
-                    //document.getElementsByTagName("ExamenCentroForm").submit();
-                    window.location.reload(false);
-                    return true;
-                }
-                else return false;
+                    $.post(" http://dev.avessoc.org.ve/avessoc-registrar-examenes-centros" ,
+                        {
+                            datos:data,
+                            contadorNumerico:count // no lo esta tomando en cuenta :((
+                        });
+                    return true;s
             });
 
 
@@ -64,15 +55,17 @@
              * Añade otra fila a la tabla   NO USADO
              * */
             $('#addRow').on( 'click', function () {
-                count++;
-                table.row.add( [
-                    '<select id="centro'.concat(count).concat('"').concat('" name="centro').concat(count).concat('"').concat('" class="select-area"> <option value="" selected> >>Seleccione opción<< </option> <?php echo llenaListaCentros(); ?>').concat('</select>'),
-                    '<input type="number" class="form-area-number" id="precio'.concat(count).concat('"').concat('step="0.01"  min="1"  placeholder="Sólo hasta dos(2) decimales Ej.: 123,45"').concat(' name="precio').concat(count).concat('"').concat('required/>'),
-                    '<select '.concat('id="disp').concat(count).concat('"').concat('name="disp').concat(count).concat('"').concat('class="select-area" name="disp" required> <option value="N" selected> No </option> <option value="S" selected> Si </option> </select>')
-                ] ).draw( false );
+                if (count < 25) { // Arbitrariamente se limito a 25 filas, contando con las que se eliminan
+                    count++;
+                    table.row.add([
+                        '<select id="centro'.concat(count).concat('"').concat('" name="centro').concat(count).concat('"').concat('" class="select-area" required> <option value="" selected> >>Seleccione opción<< </option> <?php echo llenaListaCentros(); ?>').concat('</select>'),
+                        '<input type="number" class="form-area-number" id="precio'.concat(count).concat('"').concat('step="0.01"  min="1"  placeholder="Sólo hasta dos(2) decimales Ej.: 123,45"').concat(' name="precio').concat(count).concat('"').concat('required/>'),
+                        '<select '.concat('id="disp').concat(count).concat('"').concat('name="disp').concat(count).concat('"').concat('class="select-area" name="disp" required> <option value="N" selected> No </option> <option value="S" selected> Si </option> </select>')
+                    ]).draw(false);
+                } else alert("Inportante: Registre informacion actual antes de seguir agregando mas datos");
             } );
 
-            // Llena automaticamente 8 FILAS
+            // Llena automaticamente la 1era fila
             $('#addRow').click();
 
             /**
@@ -175,6 +168,33 @@ function llenaListaCentros(){
     }
 
     return $lista;
+}
+
+/**
+ * Registra el examen en el centro de salud
+ */
+function agregarExamenenCentro(){
+
+    for($i=1; $i < 25 ;$i++){
+
+        if(!empty($_POST['centro'.$i]) and !empty($_POST['precio'.$i]) and !empty($_POST['disp'.$i])) {
+            global $wpdb;
+
+            $wpdb->insert('RCENTEREXAM', array(
+                'RCENTEREXAM_MDCENTER_PERSON_ID' => $_POST['centro'.$i],
+                'RCENTEREXAM_EXAM_ID' => $_POST['tipo-examen'],
+                'RCENTEREXAM_AVAILABILITY' => $_POST['disp'.$i],
+                'RCENTEREXAM_PRICE' => $_POST['precio'.$i]
+            ));
+
+                unset($_POST['centro' . $i]);
+                unset($_POST['disp' . $i]);
+                unset($_POST['precio' . $i]);
+                unset($_POST['tipo-examen' . $i]);
+            }
+        }
+   // }
+
 }
 
 
