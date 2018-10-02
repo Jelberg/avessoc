@@ -34,6 +34,8 @@
             document.getElementById("legal-name").value = nombrelegal;
             document.getElementById("edad").value = edadpaciente;
             document.getElementById("clasificacion").value = porcentajedescuento;
+            document.getElementById("paciente-id").value = 1; //Aqui va lo que se obtiene del post al cargar la preorden
+
         }
 
         /**
@@ -45,20 +47,24 @@
         function CargaCentrosSalud(valor,idExam){
             var longitud = idexamen.length;
             console.log(longitud);
+            document.getElementById("span".concat(valor)).value="";
             $('#centroReferir'.concat(valor)).empty(); // Limpia el combo
             $('#centroReferir'.concat(valor)).append('<option value="" selected> >>Seleccione opción<< </option>');
             for(i = 0; i < longitud; i++) {
 
                 if (idexamen[i]== idExam) {
                     var disp;
-                    if (disponibilidad[i] == "S")
-                        disp="DISPONIBLE";
-                    else disp="NO DISPONIBLE";
-
+                    if (disponibilidad[i] == "S") {
+                        disp = "DISPONIBLE";
+                    }
+                    else {
+                        disp = "NO DISPONIBLE";
+                    }
                     $('#centroReferir'.concat(valor)).append('<option value="'.concat(idcentro[i]).concat('" selected>').concat(centroName[i]).concat(' - ').concat(disp).concat('</option>'));
                 }
             }
             document.getElementById("centroReferir".concat(valor)).value = "";
+
         }
 
     </script>
@@ -92,6 +98,19 @@
             "info":     false
         });
         var count=0; //Variable para tener id y nombre único
+
+        /**
+         * Se serializan los datos para mandarlos por ajax
+         * */
+        $('#submit-porden').click( function() {
+            var data = table.$('select').serialize();
+            $.get(" http://dev.avessoc.org.ve/avessoc-nueva-preorden/" ,
+                {
+                    datos:data,
+                });
+            return true;
+        });
+
         /**
          * Añade otra fila a la tabla
          * */
@@ -100,7 +119,7 @@
                 count++;
                 table.row.add([
                     '<select id="examenNombre'.concat(count).concat('"').concat('" name="examenNombre').concat(count).concat('"').concat('" class="select-area"  onchange="CargaCentrosSalud(').concat(count).concat(',this.value)" required> <option value="" selected> >>Seleccione opción<< </option> <?php echo llenaListaExamenes(); ?>').concat('</select>'),
-                    '<select id="centroReferir'.concat(count).concat('"').concat('" name="centroReferir').concat(count).concat('"').concat('" class="select-area-two" required> <option value="" selected> >>Seleccione opción<< </option> <?php  ?>').concat('</select>')
+                    '<select id="centroReferir'.concat(count).concat('"').concat('" name="centroReferir').concat(count).concat('"').concat('" class="select-area-two" required> <option value="" selected> >>Seleccione opción<< </option>').concat('</select>').concat('<span id="span').concat(count).concat('"').concat('name="span').concat(count).concat('"').concat('> </span>')
                 ]).draw(false);
                 document.getElementById("examenNombre".concat(count)).value = "";
             } else alert("Ya no puede seguir agregando mas datos");
@@ -266,7 +285,30 @@ function registraPOrden($id_solicitud){
             // Cuando el ID del campo es igual al número 1
             array('REQUEST_ID' => $id_solicitud)
         );
+
+        //Se obtiene el ultimo id de la tabla
+        $nuevonum ="";
+        $last_id= $wpdb->get_var("SELECT `RPORDER_ID` FROM `RPORDER` ORDER BY `RPORDER_ID` ASC LIMIT 1");
+
+        if (empty($last_id)){
+            $nuevonum =1;
+        }else $nuevonum = $last_id +1;
+
+        for($i=1; $i < 25 ;$i++){
+            //Obtengo el id del centro que posee el examen
+            if ($_GET["centroReferir$i"]=="") {
+                $id_rcentroexamen = $wpdb->get_var('SELECT `RCENTEREXAM_ID` FROM `RCENTEREXAM`, MDCENTER, EXAM WHERE `RCENTEREXAM_MDCENTER_PERSON_ID`= MPERSON_ID AND `RCENTEREXAM_EXAM_ID`=EXAM_ID AND RCENTEREXAM_MDCENTER_PERSON_ID = ' . $_GET["centroReferir$i"] . ' AND RCENTEREXAM_EXAM_ID=' . $_GET["examenNombre$i"]);
+
+                $wpdb->insert("RPORDER", array(
+                    'REQUEST_PATIENT_PERSON_ID' => $_POST['paciente-id'], //
+                    'RPORDER_REQUEST_ID' => $id_solicitud,
+                    'RPORDER_CE_ID' => $id_rcentroexamen,
+                    'RPORDER_NUMERO_SOL' => $nuevonum
+                ));
+            }
+        }
     }
 }
+
 
 ?>

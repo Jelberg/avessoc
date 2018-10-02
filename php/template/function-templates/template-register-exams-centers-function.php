@@ -47,7 +47,7 @@
                             datos:data,
                             contadorNumerico:count // no lo esta tomando en cuenta :((
                         });
-                    return true;s
+                    return true;
             });
 
 

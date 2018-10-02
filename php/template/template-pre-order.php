@@ -24,11 +24,14 @@ include "function-templates/template-pre-order-function.php"
     <div class="area-3">
         <h3>Nueva Pre-Orden</h3>
         <h6>Datos del Paciente</h6>
-        <form id="FormPreOrden" name="FormPreOrden" method="post" action="">
+        <form id="FormPreOrden" name="FormPreOrden" action="">
         <section class="grid-2">
 
             <div class="item-0">
                 <section class="grid-rows">
+                        <div class="item-row-o">
+                            <input type="text" name="paciente-id" id="paciente-id" style="display: none" readonly="readonly"/><br>
+                        </div>
                           <div class="item-row-1">
                               <label for="identificacion">Documento de Identificación</label><br>
                               <input type="text" name="identificacion" id="identificacion" class="form-area-two" readonly="readonly"/><br>
