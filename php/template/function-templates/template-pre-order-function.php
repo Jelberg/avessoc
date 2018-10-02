@@ -5,12 +5,36 @@
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
     <script language="JavaScript">
+        //Variables necesarios para llenar los combos de los examenes
         var centroName = new Array();
         var idcentro= new Array();
         var idexamen = new Array();
         var disponibilidad = new Array();
 
-        <?php preparaComboCentro();?>
+        //variables para cargar informacion
+        var tipodoc = "";
+        var numeroident = "";
+        var nombrelegal = "";
+        var edadpaciente = "";
+        var porcentajedescuento = "";
+        var id_solicitud = "";
+        var id_paciente =""; // AUNQUE se puede hacer por $_POST
+
+        <?php
+            preparaComboCentro();
+            cargaDatosPaciente(1);
+        ?>
+
+
+        /**
+         * Funcio carga los datos del paciente en la pagina de la preorden
+         * */
+        function cargaInfoPaciente() {
+            document.getElementById("identificacion").value = tipodoc.concat(" ").concat(numeroident);
+            document.getElementById("legal-name").value = nombrelegal;
+            document.getElementById("edad").value = edadpaciente;
+            document.getElementById("clasificacion").value = porcentajedescuento;
+        }
 
         /**
          * Carga el combo de centros de slud
@@ -164,6 +188,19 @@ function llenaListaExamenes(){
     return $combo;
 }
 
+/**
+ * Funcion llena el combo de enfermedades
+ */
+function llenaListaEnfermedades(){
+    global $wpdb;
+    $option ="";
+    $query = 'SELECT `DISIEASE_ID`, `DISIEASE_DESC` FROM `DISIEASE` order by DISIEASE_DESC ASC;';
+        foreach( $wpdb->get_results($query) as $key => $row){
+            $option .= '<option value="'.$row->DISIEASE_ID.'" selected>'.$row->DISIEASE_DESC.'</option>';
+        }
+    return $option;
+}
+
 /*
  * Funcion prepara el combo de centro, trayecdo toda la consulta para que sea mas facil saber los centros disponibles
  */
@@ -177,6 +214,58 @@ function preparaComboCentro(){
         echo 'idexamen['.$i.']='.$row->RCENTEREXAM_EXAM_ID.";\n";
         echo 'disponibilidad['.$i.']="'.$row->RCENTEREXAM_AVAILABILITY.'"'.";\n";
         $i = $i +1;
+    }
+}
+
+/**
+ * Carga los datos del paciente en la ventana de la pre-orden
+ */
+function cargaDatosPaciente($id_pacient){
+    global $wpdb;
+    $query= 'SELECT `MPERSON_LEGAL_NAME`, TIMESTAMPDIFF(YEAR,`MPERSON_BIRTH`,CURDATE()) AS EDAD, MPERSON_TYPE_DOC, `MPERSON_IDENTF`, `REQUEST_GRAFFAR_PORCTG`, REQUEST_ID, MPERSON_ID FROM `PATIENT`, REQUEST WHERE MPERSON_ID = REQUEST_PATIENT_PERSON_ID AND MPERSON_ID ='.$id_pacient;
+    foreach($wpdb->get_results($query) as $key => $row){
+        echo 'nombrelegal ="'.$row->MPERSON_LEGAL_NAME.'"'.";\n";
+        echo 'tipodoc ="'.$row->MPERSON_TYPE_DOC.'"'.";\n";
+        echo 'numeroident ="'.$row->MPERSON_IDENTF.'"'.";\n";
+        echo 'edadpaciente ='.$row->EDAD.";\n";
+        echo 'porcentajedescuento ='.$row->REQUEST_GRAFFAR_PORCTG.";\n";
+        echo 'id_solicitud='.$row->REQUEST_ID.";\n";
+        echo 'id_paciente'.$row->MPERSON_ID.";\n";
+    }
+}
+
+/**
+ * Devuelve el id del request
+ * @param $id_paciente
+ * @return string
+ */
+function request($id_paciente){
+    global $wpdb;
+    $query= 'SELECT REQUEST_ID FROM `PATIENT`, REQUEST WHERE MPERSON_ID = REQUEST_PATIENT_PERSON_ID AND MPERSON_ID ='.$id_paciente;
+    $id_sol ="";
+    foreach($wpdb->get_results($query) as $key => $row){
+        $id_sol = $row->REQUEST_ID;
+    }
+    return $id_sol;
+}
+
+/**
+ * Registra la preorden con los examenes solicitados por el usuario
+ * @param $id_solicitud
+ */
+function registraPOrden($id_solicitud){
+    if (!empty($_POST['procedencia']) && !empty($_POST['peso']) && !empty($_POST['causa'])) { //Si no estan vacios hacen el update
+        global $wpdb;
+        $wpdb->update('REQUEST',
+            // Datos que se remplazarán
+            array(
+                'REQUEST_ORIGIN' => $_POST['procedencia'],
+                'REQUEST_WEIGHT' => $_POST['peso'],
+                'REQUEST_CAUSE_EXAM' => $_POST['causa']
+            ),
+            // Cuando el ID del campo es igual al número 1
+            array('REQUEST_ID' => $id_solicitud)
+        );
     }
 }
 
