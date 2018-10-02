@@ -62,6 +62,7 @@
                         '<input type="number" class="form-area-number" id="precio'.concat(count).concat('"').concat('step="0.01"  min="1"  placeholder="Sólo hasta dos(2) decimales Ej.: 123,45"').concat(' name="precio').concat(count).concat('"').concat('required/>'),
                         '<select '.concat('id="disp').concat(count).concat('"').concat('name="disp').concat(count).concat('"').concat('class="select-area" name="disp" required> <option value="N" selected> No </option> <option value="S" selected> Si </option> </select>')
                     ]).draw(false);
+                    document.getElementById("centro".concat(count)).value = "";
                 } else alert("Inportante: Registre informacion actual antes de seguir agregando mas datos");
             } );
 
