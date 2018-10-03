@@ -23,12 +23,16 @@ include "function-templates/template-pre-order-function.php"
 
     <div class="area-3">
         <h3>Nueva Pre-Orden</h3>
+        <h4 id="preordennumero" style="color: dodgerblue"></h4>
         <h6>Datos del Paciente</h6>
         <form id="FormPreOrden" name="FormPreOrden" method="post" action="">
         <section class="grid-2">
 
             <div class="item-0">
                 <section class="grid-rows">
+                        <div class="item-row-o">
+                            <input type="text" name="paciente-id" id="paciente-id" style="display: none" readonly="readonly"/><br>
+                        </div>
                           <div class="item-row-1">
                               <label for="identificacion">Documento de Identificación</label><br>
                               <input type="text" name="identificacion" id="identificacion" class="form-area-two" readonly="readonly"/><br>
@@ -54,7 +58,7 @@ include "function-templates/template-pre-order-function.php"
                             <select id="procedencia" name="procedencia" class="select-area-two" required>
                                 <option value="" selected> >>Seleccione opción<< </option>
                                 <option value="Barrio Adentro" selected>Barrio Adentro </option>
-                                <option value=" C.D.I" selected> C.D.I </option>
+                                <option value="C.D.I" selected> C.D.I </option>
                                 <option value="Clinicas Privadas" selected> Clinicas Privadas</option>
                                 <option value="Hospital Público" selected> Hospital Público</option>
                                 <option value="Hospital Seguro Social" selected> Hospital Seguro Social</option>

@@ -34,6 +34,9 @@
             document.getElementById("legal-name").value = nombrelegal;
             document.getElementById("edad").value = edadpaciente;
             document.getElementById("clasificacion").value = porcentajedescuento;
+            document.getElementById("paciente-id").value = 1; //Aqui va lo que se obtiene del post al cargar la preorden
+            document.getElementById("preordennumero").textContent = "Pre-Orden # <?php echo numeroPreOrden(); ?>";
+            document.getElementById("preordennumero").value = <?php echo numeroPreOrden(); ?>;
         }
 
         /**
@@ -92,6 +95,19 @@
             "info":     false
         });
         var count=0; //Variable para tener id y nombre único
+
+        /**
+         * Se serializan los datos para mandarlos por ajax
+         * */
+        $('#submit-porden').click( function() {
+            var data = table.$('select').serialize();
+            $.post(" http://dev.avessoc.org.ve/avessoc-nueva-preorden/" ,
+                {
+                    datos:data,
+                });
+            return true;
+        });
+
         /**
          * Añade otra fila a la tabla
          * */
@@ -230,7 +246,7 @@ function cargaDatosPaciente($id_pacient){
         echo 'edadpaciente ='.$row->EDAD.";\n";
         echo 'porcentajedescuento ='.$row->REQUEST_GRAFFAR_PORCTG.";\n";
         echo 'id_solicitud='.$row->REQUEST_ID.";\n";
-        echo 'id_paciente'.$row->MPERSON_ID.";\n";
+        echo 'id_paciente='.$row->MPERSON_ID.";\n";
     }
 }
 
@@ -250,6 +266,22 @@ function request($id_paciente){
 }
 
 /**
+ * Funcion devuelve el ultimo numero de pre-orden para colocar en el formulario
+ * @return int|string
+ */
+function numeroPreOrden(){
+    global $wpdb;
+    $nuevonum ="EMPTY";
+    $last_id= $wpdb->get_var("SELECT `RPORDER_NUMERO_SOL` FROM `RPORDER` ORDER BY `RPORDER_NUMERO_SOL` ASC LIMIT 1");
+
+    if (($last_id)==null or $last_id ==""){
+        $nuevonum =1;
+    }else $nuevonum = $last_id +1;
+
+    return $nuevonum;
+}
+
+/**
  * Registra la preorden con los examenes solicitados por el usuario
  * @param $id_solicitud
  */
@@ -266,6 +298,23 @@ function registraPOrden($id_solicitud){
             // Cuando el ID del campo es igual al número 1
             array('REQUEST_ID' => $id_solicitud)
         );
+
+        //Se obtiene el ultimo id de la tabla
+        $nuevonum =numeroPreOrden();
+
+        // Para hacer el insert de los examenes
+        for($i=1; $i < 25 ;$i++){
+            if (!empty($_POST["centroReferir$i"]) && !empty($_POST["centroReferir$i"]) && !empty($_POST["examenNombre$i"])) {
+                //Obtengo el id del centro que posee el examen
+                $id_rcentroexamen = $wpdb->get_var('SELECT `RCENTEREXAM_ID` FROM `RCENTEREXAM`, MDCENTER, EXAM WHERE `RCENTEREXAM_MDCENTER_PERSON_ID`= MPERSON_ID AND `RCENTEREXAM_EXAM_ID`=EXAM_ID AND RCENTEREXAM_MDCENTER_PERSON_ID = ' . $_POST["centroReferir$i"] . ' AND RCENTEREXAM_EXAM_ID=' . $_POST["examenNombre$i"]);
+                $wpdb->insert("RPORDER", array(
+                    'REQUEST_PATIENT_PERSON_ID' => $_POST['paciente-id'], //
+                    'RPORDER_REQUEST_ID' => $id_solicitud,
+                    'RPORDER_CE_ID' => $id_rcentroexamen,
+                    'RPORDER_NUMERO_SOL' => $nuevonum
+                ));
+            }
+        }
     }
 }
 
