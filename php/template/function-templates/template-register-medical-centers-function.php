@@ -70,6 +70,18 @@
             }
         }
 
+        function muestraTelefonos() {
+            var cant = document.getElementById("cant-telefonos").value;
+            for (i = 1; i <= 5; i++){
+                document.getElementById("numero-".concat(i)).style.display = "block";
+                document.getElementById("numero-".concat(i)).required = true;
+                if (i > cant){
+                    document.getElementById("numero-".concat(i)).style.display = "none";
+                    document.getElementById("numero-".concat(i)).required = false;
+                }
+            }
+
+        }
 
 
     </script>
@@ -232,3 +244,74 @@ function llenarParroquias() {
     }
     return $combo;
 }
+
+
+/**
+ * Funcion reistra al centro de salud
+ */
+function agregaCentroSalud(){
+    if (!empty($_POST['name-center']) && !empty($_POST['flaborday']) && !empty($_POST['lastlaborday'])) {
+        global $wpdb;
+        $wpdb->insert("MDCENTER", array(
+            'MPERSON_LEGAL_NAME' => $_POST['name-center'],
+            'MDCENTER_REFERENCE_CENTER' => $_POST['salud'],
+            'MDCENTER_ACRONYM' => $_POST['siglas'],
+            'MDCENTER_NATURE_INST' => $_POST['naturaleza'],
+            'MDCENTER_CONGREGATION' => $_POST['congregacion'],
+            'MDCENTER_FLABOR_DAY' => $_POST['flaborday'],
+            'MDCENTER_LLABOR_DAY' => $_POST['lastlaborday'],
+            'MDCENTER_FTURN_INIT' => $_POST['tunoinicio'],
+            'MDCENTER_FTURN_END' => $_POST['tunofin'],
+            'MDCENTER_STURN_INIT' => $_POST['tdosinicio'],
+            'MDCENTER_STURN_END' => $_POST['tdosfin'],
+            'MDCENTER_RESPANSABILITY_NAME' => $_POST['responsable'],
+            'MDCENTER_RESPANSABILITY_EMAIL' => $_POST['correo']
+        ));
+
+        $id_mdcenter= $wpdb->get_var( "SELECT MAX(MPERSON_ID) AS id FROM MDCENTER" ); //< Devuelve el ultimo id registrado
+        agregarDir($id_mdcenter);
+        if (!empty($_POST['cant-telefonos'])) {
+            agregarcontacto($id_mdcenter);
+        }
+    }
+}
+
+
+/**
+ * Registra la direccion del centro de salud
+ * @param $id_mdcenter
+ */
+function agregarDir($id_mdcenter){
+
+    global $wpdb;
+
+    $wpdb->insert('DIRECTION', array(
+        'DIRECTION_PARISH_ID' => $_POST['cmbParroquias'],
+        'DIRECTION_PAR_MUN_ID' => $_POST['cmbMunicipios'],
+        'DIRECTION_MDC_MPERSON_ID' => $id_mdcenter,
+        'DIRECTION_DESC' => ucfirst(strtolower($_POST['direccion']))
+    ));
+
+}
+
+/**
+ *
+ * Funcion inserta la informacion de contacto de Centro de Salud
+ * @param $id_mdcenter
+ */
+function agregarcontacto($id_mdcenter){
+
+    global $wpdb;
+
+    $wpdb->insert('CONTACT',array(
+            'CONTACT_MDC_MPERSON_ID'=> $id_mdcenter,
+            'CONTACT_WEB_SITE'=> $_POST['web'],
+        'CONTACT_LOCAL_PHON'=> $_POST['local1'],
+        'CONTACT_LOCAL_PHON_2'=> $_POST['local2'],
+        'CONTACT_LOCAL_PHON_3'=> $_POST['local3'],
+        'CONTACT_LOCAL_PHON_4'=> $_POST['local4'],
+        'CONTACT_LOCAL_PHON_5'=> $_POST['local5']
+    ));
+}
+
+?>

@@ -79,13 +79,13 @@ include "../notifications.php";
             ?>
     }
 
-    $("#delete").on('click', function(){
+  /*  $("#delete").on('click', function(){
         $.ajax({
             url: 'template-load-sponsor-function.php',
             success: function(data){
                 data returned from php }
             });
-        )};
+        )};*/
 
 </script>
 

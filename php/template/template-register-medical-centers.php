@@ -23,7 +23,7 @@ include "function-templates/template-register-medical-centers-function.php";
     </div> <!-- fin area 2-->
 
     <div class="area-3">
-        <form id="formSaludCenter" name="formSaludCenter">
+        <form id="formSaludCenter" name="formSaludCenter" action="" method="post">
         <section class="grid-2">
             <h2>Centro de Salud</h2>
 
@@ -31,13 +31,18 @@ include "function-templates/template-register-medical-centers-function.php";
 
                 <section class="grid-columns">
                     <div class="item-0">
-                        <label for="name">Marque la casilla si el Centro de Salud  a registrar es Centro de Referencia: </label><input type="checkbox" id="salud"><br>
+                        <label for="name">¿Es un Centro de Referencia?</label><span class="required">*</span><br>
+                        <select id="salud" name="salud" class="select-area" required>
+                            <option value="" selected> >>Seleccione opción<< </option>
+                            <option value="SI" selected>SI</option>
+                            <option value="NO" selected>NO</option>
+                        </select>
                     </div>
                     <div></div>
                     <div></div>
                     <div class="item-1">
                         <label for="legal-name">Nombre del Centro</label><span class="required">*</span><br>
-                        <input type="text" name="name-center" id="name-center" class="form-area-two"><br><br>
+                        <input type="text" name="name-center" id="name-center" class="form-area-two" required><br><br>
                     </div>
                     <div class="item-2">
                         <label for="legal-name">Siglas</label><br>
@@ -49,7 +54,7 @@ include "function-templates/template-register-medical-centers-function.php";
                         <input type="text" name="congregacion" id="congregacion" class="form-area-two"><br>
                     </div>
                     <div class="item-4">
-                        <label for="name">Naturaleza de la institución</label><span class="required">*</span><br>
+                        <label for="name">Naturaleza de la institución</label></span><br>
                         <input type="text" name="naturaleza" id="naturaleza" class="form-area"><br>
                     </div>
                     <div></div>
@@ -64,7 +69,7 @@ include "function-templates/template-register-medical-centers-function.php";
                             <option value="Viernes" selected>Viernes</option>
                             <option value="Sábado" selected>Sábado</option>
                             <option value="Domingo" selected>Domingo</option>
-                        </select> <label for="name"> A </label>
+                        </select> <label for="name"> A </label><span class="required">*</span>
                         <select id="lastlaborday" name="lastlaborday" class="select-area" required>
                             <option value="" selected> >>Seleccione opción<< </option>
                             <option value="Lunes" selected>Lunes</option>
@@ -80,13 +85,13 @@ include "function-templates/template-register-medical-centers-function.php";
                     <div></div>
                     <div class="item6">
                         <label for="name">Primer Turno</label><br>
-                        Inicio: <input type="time" id="tunoinicio" style="width: 244px">  Fin: <input type="time" id="tunofin" style="width: 268px"><br>
+                        Inicio: <input type="time" id="tunoinicio" name="tunoinicio" style="width: 244px">  Fin: <input type="time" id="tunofin" name="tunofin" style="width: 268px"><br>
                     </div>
                     <div></div>
                     <div></div>
                     <div class="item7">
                         <label for="name">Segundo Turno</label><br>
-                        Inicio: <input type="time" id="tdosinicio" style="width: 244px">  Fin: <input type="time" id="tdosfin" style="width: 268px"><br>
+                        Inicio: <input type="time" id="tdosinicio" name="tdosinicio" style="width: 244px">  Fin: <input type="time" id="tdosfin" name="tdosfin" style="width: 268px"><br>
                     </div>
                     <div></div>
                     <div></div>
@@ -118,7 +123,7 @@ include "function-templates/template-register-medical-centers-function.php";
                     <div class="item-1">
                         <label for="name">Cantidad de números de teléfono a registrar</label><br>
                         <span class="required"> Sólo hasta 5 números</span><br>
-                        <select id="flaborday" name="flaborday" class="select-area" required>
+                        <select id="cant-telefonos" name="cant-telefonos" class="select-area" onchange="muestraTelefonos()">
                             <option value="" selected> >>Seleccione opción<< </option>
                             <option value="1" selected>1</option>
                             <option value="2" selected>2</option>
@@ -151,7 +156,7 @@ include "function-templates/template-register-medical-centers-function.php";
 
                     <div class="numero-5" id="numero-5">
                         <label for="name">Teléfono Local 5</label><br>
-                        <input type="number" class="form-area-number" name="loca5" id="loca5"  min="2000000000" max="2999999999" pattern="^[0-9]+" placeholder="Ej.: 2121234567" title="Min 10 digítos. Máx 10 digítos. Debe incluir el código de área"/><br>
+                        <input type="number" class="form-area-number" name="local5" id="local5"  min="2000000000" max="2999999999" pattern="^[0-9]+" placeholder="Ej.: 2121234567" title="Min 10 digítos. Máx 10 digítos. Debe incluir el código de área"/><br>
                     </div>
                     <div class="item2">
                         <label for="name">Website</label><br>
@@ -162,7 +167,7 @@ include "function-templates/template-register-medical-centers-function.php";
 
         </section><!--fin grid- 2-->
             <section class="right">
-                <button class="button-just" type="submit" name="submit" id="submit" onsubmit="">REGISTRAR</button>
+                <button class="button-just" type="submit" name="submit" id="submit" onsubmit="<?php agregaCentroSalud(); ?>">REGISTRAR</button>
             </section>
 
     </div><!-- fin  area-3 del grid-container -->
