@@ -22,7 +22,7 @@
 
         <?php
             preparaComboCentro();
-            cargaDatosPaciente(1);
+            cargaDatosPaciente($_GET['id_pac']);
         ?>
 
 
@@ -34,7 +34,7 @@
             document.getElementById("legal-name").value = nombrelegal;
             document.getElementById("edad").value = edadpaciente;
             document.getElementById("clasificacion").value = porcentajedescuento;
-            document.getElementById("paciente-id").value = 1; //Aqui va lo que se obtiene del post al cargar la preorden
+            document.getElementById("paciente-id").value = id_paciente; //Aqui va lo que se obtiene del post al cargar la preorden
             document.getElementById("preordennumero").textContent = "Pre-Orden # <?php echo numeroPreOrden(); ?>";
             document.getElementById("preordennumero").value = <?php echo numeroPreOrden(); ?>;
         }
@@ -237,16 +237,18 @@ function preparaComboCentro(){
  * Carga los datos del paciente en la ventana de la pre-orden
  */
 function cargaDatosPaciente($id_pacient){
-    global $wpdb;
-    $query= 'SELECT `MPERSON_LEGAL_NAME`, TIMESTAMPDIFF(YEAR,`MPERSON_BIRTH`,CURDATE()) AS EDAD, MPERSON_TYPE_DOC, `MPERSON_IDENTF`, `REQUEST_GRAFFAR_PORCTG`, REQUEST_ID, MPERSON_ID FROM `PATIENT`, REQUEST WHERE MPERSON_ID = REQUEST_PATIENT_PERSON_ID AND MPERSON_ID ='.$id_pacient;
-    foreach($wpdb->get_results($query) as $key => $row){
-        echo 'nombrelegal ="'.$row->MPERSON_LEGAL_NAME.'"'.";\n";
-        echo 'tipodoc ="'.$row->MPERSON_TYPE_DOC.'"'.";\n";
-        echo 'numeroident ="'.$row->MPERSON_IDENTF.'"'.";\n";
-        echo 'edadpaciente ='.$row->EDAD.";\n";
-        echo 'porcentajedescuento ='.$row->REQUEST_GRAFFAR_PORCTG.";\n";
-        echo 'id_solicitud='.$row->REQUEST_ID.";\n";
-        echo 'id_paciente='.$row->MPERSON_ID.";\n";
+    if (!empty($id_pacient)) {
+        global $wpdb;
+        $query = 'SELECT `MPERSON_LEGAL_NAME`, TIMESTAMPDIFF(YEAR,`MPERSON_BIRTH`,CURDATE()) AS EDAD, MPERSON_TYPE_DOC, `MPERSON_IDENTF`, `REQUEST_GRAFFAR_PORCTG`, REQUEST_ID, MPERSON_ID FROM `PATIENT`, REQUEST WHERE MPERSON_ID = REQUEST_PATIENT_PERSON_ID AND MPERSON_ID =' . $id_pacient;
+        foreach ($wpdb->get_results($query) as $key => $row) {
+            echo 'nombrelegal ="' . $row->MPERSON_LEGAL_NAME . '"' . ";\n";
+            echo 'tipodoc ="' . $row->MPERSON_TYPE_DOC . '"' . ";\n";
+            echo 'numeroident ="' . $row->MPERSON_IDENTF . '"' . ";\n";
+            echo 'edadpaciente =' . $row->EDAD . ";\n";
+            echo 'porcentajedescuento =' . $row->REQUEST_GRAFFAR_PORCTG . ";\n";
+            echo 'id_solicitud=' . $row->REQUEST_ID . ";\n";
+            echo 'id_paciente=' . $row->MPERSON_ID . ";\n";
+        }
     }
 }
 
@@ -256,13 +258,15 @@ function cargaDatosPaciente($id_pacient){
  * @return string
  */
 function request($id_paciente){
-    global $wpdb;
-    $query= 'SELECT REQUEST_ID FROM `PATIENT`, REQUEST WHERE MPERSON_ID = REQUEST_PATIENT_PERSON_ID AND MPERSON_ID ='.$id_paciente;
-    $id_sol ="";
-    foreach($wpdb->get_results($query) as $key => $row){
-        $id_sol = $row->REQUEST_ID;
-    }
-    return $id_sol;
+    if (!empty($id_paciente)) {
+        global $wpdb;
+        $query = 'SELECT REQUEST_ID FROM `PATIENT`, REQUEST WHERE MPERSON_ID = REQUEST_PATIENT_PERSON_ID AND MPERSON_ID =' . $id_paciente;
+        $id_sol = "";
+        foreach ($wpdb->get_results($query) as $key => $row) {
+            $id_sol = $row->REQUEST_ID;
+        }
+        return $id_sol;
+    } else return null;
 }
 
 /**
@@ -271,14 +275,8 @@ function request($id_paciente){
  */
 function numeroPreOrden(){
     global $wpdb;
-    $nuevonum ="EMPTY";
-    $last_id= $wpdb->get_var("SELECT `RPORDER_NUMERO_SOL` FROM `RPORDER` ORDER BY `RPORDER_NUMERO_SOL` ASC LIMIT 1");
-
-    if (($last_id)==null or $last_id ==""){
-        $nuevonum =1;
-    }else $nuevonum = $last_id +1;
-
-    return $nuevonum;
+    $last_id= $wpdb->get_var("SELECT `RPORDER_NUMERO_SOL`+1 AS SOL FROM `RPORDER` ORDER BY `RPORDER_NUMERO_SOL` DESC LIMIT 1");
+    return  $last_id;
 }
 
 /**
