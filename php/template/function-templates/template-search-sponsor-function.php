@@ -88,7 +88,11 @@ function deleteSponsor($id_sponsor){
     $wpdb->delete('SPONSOR',array('MPERSON_ID'=>$id_sponsor));
 }
 
-
+function path($clave){
+    if ($clave == "DELETE_IC"){
+        return PATH_IC_DELETE;
+    }
+}
 /**
  * Llena la lista del datatable del sponsor
  * @return string
@@ -129,7 +133,7 @@ function llenaListaSponsor(){
                        </form>
                        
                        <a id='sponsor_del' name='sponsor_del' value=".$id." href='javascript: eliminarxid(".$id.")'>
-                       <img src='http://dev.avessoc.org.ve/wp-content/themes/hestia-child/page-templates/icons/ic-borrar.png'></a>
+                       <img src='".path('DELETE_IC')."'></a>
                      
                         </td>\n";
         $lista .= "</tr>\n";
