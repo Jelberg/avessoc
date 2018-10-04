@@ -145,8 +145,9 @@
             document.getElementById("tt").style.display="none";
             document.getElementById("edit").style.display="block";
             document.getElementById("edit-null").style.display="none";
+            //document.getElementById("look-1").style.display="none";
+            document.getElementById("look-2").style.display="block";
 
-            
             document.getElementById("salud").disabled =  true;
             document.getElementById("name-center").disabled =  true;
             document.getElementById("siglas").disabled = true ;
@@ -170,6 +171,9 @@
             document.getElementById("muestraMunicipio").disabled = true;
             document.getElementById("muestraParroquia").disabled = true ;
             document.getElementById("direccion").disabled = true;
+            document.getElementById("cmbEstados").style.display = "none";
+            document.getElementById("cmbMunicipios").style.display = "none";
+            document.getElementById("cmbParroquias").style.display = "none";
         }
 
         function editCentro(){
@@ -192,13 +196,15 @@
             document.getElementById("local4").disabled = false ;
             document.getElementById("local5").disabled = false ;
             document.getElementById("web").disabled =false ;
-            document.getElementById("muestraEstado").disabled = false ;
-            document.getElementById("muestraMunicipio").disabled = false;
-            document.getElementById("muestraParroquia").disabled = false ;
             document.getElementById("direccion").disabled = false;
             document.getElementById("tt").style.display="block";
             document.getElementById("edit").style.display="none";
             document.getElementById("edit-null").style.display="block";
+            document.getElementById("cmbEstados").style.display = "block";
+            document.getElementById("cmbMunicipios").style.display = "block";
+            document.getElementById("cmbParroquias").style.display = "block";
+           // document.getElementById("look-1").style.display="none";
+           // document.getElementById("look-2").style.display="block";
         }
 
 
@@ -222,17 +228,17 @@ function mostrarFormulario() {
             <section class="grid-columns">
                 <div class="item1" style="display: none|block" id="cmbsE">
                     <label for="name">Estado</label><span class="required">*  </span><br>
-                    <input type="text" class="form-area" name="web" id="muestraEstado"/><br>
+                    <input type="text" class="form-area" name="muestraEstado" id="muestraEstado"/>
                     <div>' . llenarEstados() . '</div>
                 </div>
                 <div class="item2" style="display: none|block" id="cmbsM">
                     <label for="name">Municipio</label><span class="required">* </span><br>
-                    <input type="text" class="form-area" name="web" id="muestraMunicipio"/><br
+                    <input type="text" class="form-area" name="muestraMunicipio" id="muestraMunicipio"/>
                     <div>' . llenarMunicipios() . '</div>
                 </div>
                 <div class="item3" style="display: none|block" id="cmbsP">
                     <label for="name">Parroquia</label><span class="required">* </span><br>
-                    <input type="text" class="form-area" name="web" id="muestraParroquia"/><br>
+                    <input type="text" class="form-area" name="muestraParroquia" id="muestraParroquia"/>
                     <div>' . llenarParroquias() . '</div>
                 </div>
                 <div class="item-span-three">
@@ -243,34 +249,6 @@ function mostrarFormulario() {
         ';
 }
 
-/**
- * Funcion que muestra los datos de direccion del paciente
- */
-function mostrardireccionmdcenter() {
-    echo '
-            <section class="grid-columns">
-                <div class="item1" style="display: none|block" id="cmbsE">
-                    <label for="name">Estado</label><span class="required">*  </span><br>
-                    <input type="text" class="form-area" name="muestraEstado" id="muestraEstado"/>
-    
-                </div>
-                <div class="item2" style="display: none|block" id="cmbsM">
-                    <label for="name">Municipio</label><span class="required">* </span><br>
-                    <input type="text" class="form-area" name="muestraMunicipio" id="muestraMunicipio"/>
-                    
-                </div>
-                <div class="item3" style="display: none|block" id="cmbsP">
-                    <label for="name">Parroquia</label><span class="required">* </span><br>
-                    <input type="text" class="form-area" name="muestraParroquia" id="muestraParroquia"/>
-        
-                </div>
-                <div class="item-span-three">
-                    <label for="name">Direccion</label><br>
-                    <input type="text" class="form-area-three" name="direccion" id="direccion" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+"  title="<?php echo $ErrmsjOnlyLetters ?>" />
-                </div>                      
-            </section>
-        ';
-}
 
 /**
  * Funcion devuelve el dibujo del html con los datos de la consulta de Estado en el Select
@@ -288,7 +266,7 @@ function llenarEstados() {
     $count =0;
     $key=""; //Guarda la llave para la segunda vuelta del foreach
     if ( $consulta2 > 0 ) {
-        $combo= '<select class="select-area" name="cmbEstados" id="cmbEstados" onchange="cargarMunicipios(this.value)" requiered>';
+        $combo= '<select class="select-area" name="cmbEstados" id="cmbEstados" onchange="cargarMunicipios(this.value)" >';
         foreach ( $consulta as $rows => $row ) {
             foreach ( $row as $datos => $dato ) {
                 if ($i == 0)
@@ -326,7 +304,7 @@ function llenarMunicipios() {
         $id_mun="";
         $id_es="";
         $count =0;
-        $combo= '<select class="select-area" name="cmbMunicipios" id="cmbMunicipios" onclick="cargarParroquias(this.value)" requiered>';
+        $combo= '<select class="select-area" name="cmbMunicipios" id="cmbMunicipios" onclick="cargarParroquias(this.value)" >';
         $i = 0;
         echo "<script language='javascript'>\n";
         foreach ( $consulta as $rows => $row ) {
@@ -371,7 +349,7 @@ function llenarParroquias() {
         $id_parroquia="";
         $id_municio="";
         $count =0;
-        $combo= '<select class="select-area" name="cmbParroquias" id="cmbParroquias" required>';
+        $combo= '<select class="select-area" name="cmbParroquias" id="cmbParroquias" >';
         $i = 0;
         echo "<script language='javascript'>\n";
         foreach ( $consulta as $rows => $row ) {
@@ -492,8 +470,23 @@ MUNICIPALT_ID AND MUNICIPALT_STATE_ID=STATE_ID AND DIRECTION_ID=".$id_direccion;
  * @param $id_mdcenter
  */
 function actualizaInformacionCentroSalud($id_mdcenter){
-    if (!empty($_POST['fan'])) {
-        global $wpdb;
+    global $wpdb;
+
+    // Es decir, lleno los datos del combo de direccion
+    if (!empty($_POST['cmbEstados']) && !empty($_POST['cmbMunicipios'])&& !empty($_POST['cmbParroquias'])){
+        // Actualiza los datos de contacto
+        $wpdb->update('DIRECTION', array(
+            'DIRECTION_PARISH_ID' => $_POST['cmbParroquias'],
+            'DIRECTION_PAR_MUN_ID' => $_POST['cmbMunicipios'],
+            'DIRECTION_DESC' => ucfirst(strtolower($_POST['direccion']))
+        ),
+            // Cuando el ID del campo es igual al número 1
+            array('DIRECTION_ID' => $_POST['dir'])
+        );
+    }
+
+        if (!empty($_POST['fan'])) {
+
         $wpdb->update('MDCENTER',
             // Datos que se remplazarán
             array(
@@ -530,7 +523,8 @@ function actualizaInformacionCentroSalud($id_mdcenter){
         );
 
 
-    }
+        }
+
 }
 
 ?>

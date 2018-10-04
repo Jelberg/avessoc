@@ -114,16 +114,16 @@ include "function-templates/template-load-mdcenter-function.php";
                 </div><!--fin del item1 del grid-2-->
 
                 <h4>Detalles de Dirección</h4>
-                <div class="item2">
-                    <section class="grid-columns">
-                        <?php
-                       mostrardireccionmdcenter();
-                        ?>
-                    </section>
-                </div> <!--fin item2-->
+                <div class="item3" id="look-2" >
+                <section class="grid-columns" id="look-2">
+                    <?php
+                     mostrarFormulario();
+                    ?>
+                </section>
+                </div>
 
                 <h4>Contacto</h4>
-                <div class="item2">
+                <div class="item4">
                     <section class="grid-columns">
                         <div class="numero-1" id="numero-1">
                             <label for="name">Teléfono Local 1</label><br>
