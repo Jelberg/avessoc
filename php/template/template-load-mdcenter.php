@@ -5,7 +5,7 @@
 
 get_header();
 include "menu.php";
-include "function-templates/template-load-mdcenters-function.php";
+include "function-templates/template-load-mdcenter-function.php";
 ?>
 
 <head>
@@ -23,7 +23,7 @@ include "function-templates/template-load-mdcenters-function.php";
     </div> <!-- fin area 2-->
 
     <div class="area-3">
-        <form id="formSaludCenter" name="formSaludCenter" action="" method="post">
+        <form id="formSaludCenterLoad" name="formSaludCenterLoad" action="" method="post">
             <section class="grid-2">
                 <h2>Centro de Salud</h2>
 
@@ -39,10 +39,11 @@ include "function-templates/template-load-mdcenters-function.php";
                             </select>
                         </div>
                         <div></div>
-                        <div></div>
+                        <div><input type="text" name="fan" id="fan" class="form-area-two" style="display: none" readonly="readonly"></div>
+
                         <div class="item-1">
                             <label for="legal-name">Nombre del Centro</label><span class="required">*</span><br>
-                            <input type="text" name="name-center" id="name-center" class="form-area-two" required><br><br>
+                            <input type="text" name="center" id="center" class="form-area-two" required><br><br>
                         </div>
                         <div class="item-2">
                             <label for="legal-name">Siglas</label><br>
@@ -167,11 +168,15 @@ include "function-templates/template-load-mdcenters-function.php";
 
             </section><!--fin grid- 2-->
             <section class="right">
-                <button class="button-just" type="submit" name="submit" id="submit" onsubmit="<?php agregaCentroSalud(); ?>">REGISTRAR</button>
+                <button class="button-just" type="submit" name="submit" id="submit" onsubmit="<?php  ?>">REGISTRAR</button>
             </section>
 
     </div><!-- fin  area-3 del grid-container -->
     </form>
 </section> <!-- fin  grid-container-->
+
+<script language="JavaScript">
+    cargaDatos();
+</script>
 
 </body>
