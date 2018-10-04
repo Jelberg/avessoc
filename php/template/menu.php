@@ -32,6 +32,9 @@ define("PATH_PAG_ADD_SPONSOR","http://dev.avessoc.org.ve/avessoc-registro-patroc
 //Direccion para busqueda de sponsor
 define("PATH_PAG_SEARCH_SPONSOR","http://dev.avessoc.org.ve/avessos-buscar-patrocinante/");
 
+//Direccion de pagina que muestra la informacion del centro de salud
+define("PATH_PAG_LOAD_MDCENTER","http://dev.avessoc.org.ve/avessoc-load-mdcenter/");
+
 ?>
 
 

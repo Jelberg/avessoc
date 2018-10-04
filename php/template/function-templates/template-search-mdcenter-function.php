@@ -70,9 +70,9 @@ function muestraListaMdcenter(){
 
         $lista .= '<td>'.$uno."</td>\n             
                     <td>
-                       <form action='' name='ViewMDcenter' id='VieMDcenter'>
+                       <form action='".PATH_PAG_LOAD_MDCENTER."' name='ViewMDcenter' id='VieMDcenter'>
                             <button style=' background-color: #3498DB; padding-left: 10px; padding-top:10px; padding-bottom:10px;
-                            padding-right: 10px; color: #006505s' type='submit' id='sponsor_val' name='sponsor_val' value=".$id.">VER</button>
+                            padding-right: 10px; color: #006505s' type='submit' id='mdcenter_val' name='mdcenter_val' value=".$id.">VER</button>
                        </form>
                        
                        <a id='mdcenter_del' name='mdcenter_del' value=".$id." href='javascript: eliminarxid(".$id.")'>
