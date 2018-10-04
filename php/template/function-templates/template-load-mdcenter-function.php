@@ -138,6 +138,9 @@
             document.getElementById("muestraMunicipio").value = nombreMunicipio;
             document.getElementById("muestraParroquia").value = nombreParroquia ;
             document.getElementById("direccion").value = direcciondesc;
+            document.getElementById("tt").style.display="none";
+            document.getElementById("edit").style.display="block";
+            document.getElementById("edit-null").style.display="none";
 
             
             document.getElementById("salud").disabled =  true;
@@ -165,6 +168,34 @@
             document.getElementById("direccion").disabled = true;
         }
 
+        function editCentro(){
+            document.getElementById("salud").disabled =  false;
+            document.getElementById("name-center").disabled =  false;
+            document.getElementById("siglas").disabled = false ;
+            document.getElementById("congregacion").disabled =  false ;
+            document.getElementById("naturaleza").disabled =  false;
+            document.getElementById("flaborday").disabled = false ;
+            document.getElementById("lastlaborday").disabled =false;
+            document.getElementById("tunoinicio").disabled = false;
+            document.getElementById("tunofin").disabled =  false;
+            document.getElementById("tdosinicio").disabled =  false;
+            document.getElementById("tdosfin").disabled = false ;
+            document.getElementById("responsable").disabled =false;
+            document.getElementById("correo").disabled = false ;
+            document.getElementById("local1").disabled =false ;
+            document.getElementById("local2").disabled =false ;
+            document.getElementById("local3").disabled = false;
+            document.getElementById("local4").disabled = false ;
+            document.getElementById("local5").disabled = false ;
+            document.getElementById("web").disabled =false ;
+            document.getElementById("muestraEstado").disabled = false ;
+            document.getElementById("muestraMunicipio").disabled = false;
+            document.getElementById("muestraParroquia").disabled = false ;
+            document.getElementById("direccion").disabled = false;
+            document.getElementById("tt").style.display="block";
+            document.getElementById("edit").style.display="none";
+            document.getElementById("edit-null").style.display="block";
+        }
 
 
     </script>
@@ -447,6 +478,35 @@ MUNICIPALT_ID AND MUNICIPALT_STATE_ID=STATE_ID AND DIRECTION_ID=".$id_direccion;
         echo 'nombreMunicipio="'.$row->MUNICIPALT_DESC.'"'.";\n";
         echo 'nombreParroquia="'.$row->PARISH_DESC.'"'.";\n";
     }
+}
+
+
+/**
+ * Funcion Actualiza la informacion del Centro de salud
+ * @param $id_mdcenter
+ */
+function actualizaInformacionCentroSalud($id_mdcenter){
+        global $wpdb;
+        $wpdb->update( 'MDCENTER',
+            // Datos que se remplazarán
+            array(
+                'MPERSON_LEGAL_NAME' => $_POST['name-center'],
+                'MDCENTER_REFERENCE_CENTER' => $_POST['salud'],
+                'MDCENTER_ACRONYM' => $_POST['siglas'],
+                'MDCENTER_NATURE_INST' => $_POST['naturaleza'],
+                'MDCENTER_CONGREGATION' => $_POST['congregacion'],
+                'MDCENTER_FLABOR_DAY' => $_POST['flaborday'],
+                'MDCENTER_LLABOR_DAY' => $_POST['lastlaborday'],
+                'MDCENTER_FTURN_INIT' => $_POST['tunoinicio'],
+                'MDCENTER_FTURN_END' => $_POST['tunofin'],
+                'MDCENTER_STURN_INIT' => $_POST['tdosinicio'],
+                'MDCENTER_STURN_END' => $_POST['tdosfin'],
+                'MDCENTER_RESPANSABILITY_NAME' => $_POST['responsable'],
+                'MDCENTER_RESPANSABILITY_EMAIL' => $_POST['correo']
+            ),
+            // Cuando el ID del campo es igual al número 1
+            array( 'MPERSON_ID' => $id_mdcenter )
+        );
 }
 
 ?>

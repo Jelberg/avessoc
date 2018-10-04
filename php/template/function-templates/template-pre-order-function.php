@@ -276,7 +276,9 @@ function request($id_paciente){
 function numeroPreOrden(){
     global $wpdb;
     $last_id= $wpdb->get_var("SELECT `RPORDER_NUMERO_SOL`+1 AS SOL FROM `RPORDER` ORDER BY `RPORDER_NUMERO_SOL` DESC LIMIT 1");
-    return  $last_id;
+    if (empty($last_id)){
+        return 1;
+    }else return  $last_id;
 }
 
 /**

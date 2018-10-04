@@ -23,6 +23,8 @@ include "function-templates/template-load-mdcenter-function.php";
     </div> <!-- fin area 2-->
 
     <div class="area-3">
+        <button class="button-edit" style="display: none|block" name="edit" id="edit" onclick="editCentro()"><strong>EDITAR</strong></button>
+        <button class="button-deshabilitar-edit" name="edit-null" style="display: none|block" id="edit-null" onclick="cargaDatos()"><strong>DESHABILITAR EDICIÓN</strong></button>
         <form id="formSaludCenterLoad" name="formSaludCenterLoad" action="" method="post">
             <section class="grid-2">
                 <h2>Centro de Salud</h2>
@@ -152,7 +154,7 @@ include "function-templates/template-load-mdcenter-function.php";
                 </div> <!--fin item2-->
 
             </section><!--fin grid- 2-->
-            <section class="right">
+            <section class="right" id="tt">
                 <button class="button-just" type="submit" name="submit" id="submit" onsubmit="<?php  ?>">ACTUALIZAR DATOS DE PACIENTE</button>
             </section>
 
