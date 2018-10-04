@@ -43,7 +43,7 @@ include "function-templates/template-load-mdcenter-function.php";
 
                         <div class="item-1">
                             <label for="legal-name">Nombre del Centro</label><span class="required">*</span><br>
-                            <input type="text" name="center" id="center" class="form-area-two" required><br><br>
+                            <input type="text" name="name-center" id="name-center" class="form-area-two" required><br><br>
                         </div>
                         <div class="item-2">
                             <label for="legal-name">Siglas</label><br>
@@ -121,20 +121,6 @@ include "function-templates/template-load-mdcenter-function.php";
                 <h4>Contacto</h4>
                 <div class="item2">
                     <section class="grid-columns">
-                        <div class="item-1">
-                            <label for="name">Cantidad de números de teléfono a registrar</label><br>
-                            <span class="required"> Sólo hasta 5 números</span><br>
-                            <select id="cant-telefonos" name="cant-telefonos" class="select-area" onchange="muestraTelefonos()">
-                                <option value="" selected> >>Seleccione opción<< </option>
-                                <option value="1" selected>1</option>
-                                <option value="2" selected>2</option>
-                                <option value="3" selected>3</option>
-                                <option value="4" selected>4</option>
-                                <option value="5" selected>5</option>
-                            </select>
-                        </div>
-                        <div></div>
-                        <div></div>
                         <div class="numero-1" id="numero-1">
                             <label for="name">Teléfono Local 1</label><br>
                             <input type="number" class="form-area-number" name="local1" id="local1"  min="2000000000" max="2999999999" pattern="^[0-9]+" placeholder="Ej.: 2121234567" title="Min 10 digítos. Máx 10 digítos. Debe incluir el código de área"/><br>
@@ -152,7 +138,6 @@ include "function-templates/template-load-mdcenter-function.php";
                         <div class="numero-4" id="numero-4">
                             <label for="name">Teléfono Local 4</label><br>
                             <input type="number" class="form-area-number" name="local4" id="local4"  min="2000000000" max="2999999999" pattern="^[0-9]+" placeholder="Ej.: 2121234567" title="Min 10 digítos. Máx 10 digítos. Debe incluir el código de área"/><br>
-
                         </div>
 
                         <div class="numero-5" id="numero-5">

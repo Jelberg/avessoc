@@ -30,6 +30,13 @@
         var rresponsable="";
         var ccorreo ="";
 
+      /*  var uno="";
+        var dos="";
+        var tres="";
+        var cuatro="";
+        var cinco="";
+        var web="";*/
+
         <?php
         loadMdcenter();
         //cargaDatosPaciente();
@@ -42,23 +49,24 @@
             document.getElementById("fan").value =<?php echo $_GET['mdcenter_val']; ?>  ;
             console.log(document.getElementById("fan").value);
             document.getElementById("salud").value =  rreferencia;
-            //document.getElementById("name").value =  ccentro;
+            document.getElementById("name-center").value =  ccentro;
             document.getElementById("siglas").value = ssiglas ;
             document.getElementById("congregacion").value =  ccongregacion ;
-            const x = "CONGREGACION: ";
-            console.log(x.concat(ccongregacion));
             document.getElementById("naturaleza").value =  nnaturaleza;
-            console.log("N: ".concat(nnaturaleza));
             document.getElementById("flaborday").value = llaboral_1 ;
             document.getElementById("lastlaborday").value = llaboral_2 ;
             document.getElementById("tunoinicio").value =  tturno_1_1;
-            //document.getElementById("tunodfin").value =  turno_1_2;
+            document.getElementById("tunofin").value =  tturno_1_2;
             document.getElementById("tdosinicio").value =  tturno_2_1;
             document.getElementById("tdosfin").value = tturno_2_2 ;
             document.getElementById("responsable").value = rresponsable ;
             document.getElementById("correo").value = ccorreo ;
-            //document.getElementById("").value =  ;*/
-            //document.getElementById("").value =  ;
+           /* document.getElementById("numero-1").value =uno  ;
+            document.getElementById("numero-2").value =dos  ;
+            document.getElementById("numero-3").value =  tres;
+            document.getElementById("numero-4").value = cuatro ;
+            document.getElementById("numero-5").value = cinco ;
+            document.getElementById("web").value = web ;*/
 
         }
 
@@ -294,6 +302,7 @@ function llenarParroquias() {
 function loadMdcenter(){
     if (!empty($_GET['mdcenter_val'])) {
         global $wpdb;
+        $id_contacto="";
         $query = "SELECT MPERSON_LEGAL_NAME, MDCENTER_REFERENCE_CENTER, MDCENTER_RESPANSABILITY_NAME, MDCENTER_RESPANSABILITY_EMAIL, MDCENTER_FLABOR_DAY, MDCENTER_LLABOR_DAY, MDCENTER_ACRONYM,  MDCENTER_CONGREGATION, MDCENTER_NATURE_INST,MDCENTER_FTURN_INIT, MDCENTER_FTURN_END, MDCENTER_STURN_INIT, MDCENTER_STURN_END, DIRECTION_ID, CONTACT_ID FROM `MDCENTER`, DIRECTION,CONTACT WHERE MPERSON_ID=DIRECTION_MDC_MPERSON_ID AND CONTACT_MDC_MPERSON_ID=MPERSON_ID AND MPERSON_ID=" . $_GET['mdcenter_val'];
         foreach ($wpdb->get_results($query) as $key => $row) {
             echo 'rreferencia="' . $row->MDCENTER_REFERENCE_CENTER . '"' . ";\n";
@@ -309,7 +318,18 @@ function loadMdcenter(){
             echo 'tturno_2_2="' . $row->MDCENTER_STURN_END . '"' . ";\n";
             echo 'rresponsable="' . $row->MDCENTER_RESPANSABILITY_NAME . '"' . ";\n";
             echo 'ccorreo ="' . $row->MDCENTER_RESPANSABILITY_EMAIL . '"' . ";\n";
+            $id_contacto = $row->CONTACT_ID;
         }
+      /*  $query_contacto="SELECT CONTACT_LOCAL_PHON, CONTACT_LOCAL_PHON_2, CONTACT_LOCAL_PHON_3, CONTACT_LOCAL_PHON_4, CONTACT_LOCAL_PHON_5, CONTACT_WEB_SITE FROM CONTACT WHERE CONTACT_ID=".$id_contacto;
+        foreach ($wpdb->get_results($query_contacto) as $key => $row) {
+            echo 'uno=' . $row->CONTACT_LOCAL_PHON  . ";\n";
+            echo 'dos=' . $row->CONTACT_LOCAL_PHON_2  . ";\n";
+            echo 'tres =' . $row->CONTACT_LOCAL_PHON_3  . ";\n";
+            echo 'cuatro=' . $row->CONTACT_LOCAL_PHON_4  . ";\n";
+            echo 'cinco=' . $row->CONTACT_LOCAL_PHON._5  . ";\n";
+            echo 'web="' . $row->CONTACT_WEB_SITE . '"' . ";\n";
+        }*/
+
     }
 }
 
