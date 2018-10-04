@@ -486,8 +486,9 @@ MUNICIPALT_ID AND MUNICIPALT_STATE_ID=STATE_ID AND DIRECTION_ID=".$id_direccion;
  * @param $id_mdcenter
  */
 function actualizaInformacionCentroSalud($id_mdcenter){
+    if (!empty($_POST['fan'])) {
         global $wpdb;
-        $wpdb->update( 'MDCENTER',
+        $wpdb->update('MDCENTER',
             // Datos que se remplazarán
             array(
                 'MPERSON_LEGAL_NAME' => $_POST['name-center'],
@@ -505,8 +506,9 @@ function actualizaInformacionCentroSalud($id_mdcenter){
                 'MDCENTER_RESPANSABILITY_EMAIL' => $_POST['correo']
             ),
             // Cuando el ID del campo es igual al número 1
-            array( 'MPERSON_ID' => $id_mdcenter )
+            array('MPERSON_ID' => $id_mdcenter)
         );
+    }
 }
 
 ?>

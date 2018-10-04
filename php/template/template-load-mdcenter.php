@@ -155,7 +155,7 @@ include "function-templates/template-load-mdcenter-function.php";
 
             </section><!--fin grid- 2-->
             <section class="right" id="tt">
-                <button class="button-just" type="submit" name="submit" id="submit" onsubmit="<?php  ?>">ACTUALIZAR DATOS DE PACIENTE</button>
+                <button class="button-just" type="submit" name="submit" id="submit" onsubmit="<?php actualizaInformacionCentroSalud($_POST['fan']) ?>">ACTUALIZAR DATOS DE PACIENTE</button>
             </section>
 
     </div><!-- fin  area-3 del grid-container -->
