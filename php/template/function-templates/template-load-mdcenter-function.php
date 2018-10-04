@@ -29,6 +29,8 @@
         var tturno_2_2="";
         var rresponsable="";
         var ccorreo ="";
+        var idcontacto;
+        var iddireccion;
 
         var uno;
         var dos;
@@ -115,6 +117,8 @@
          */
         function cargaDatos(){
             document.getElementById("fan").value =<?php echo $_GET['mdcenter_val']; ?>  ;
+            document.getElementById("con").value = idcontacto;
+            document.getElementById("dir").value = iddireccion;
             document.getElementById("salud").value =  rreferencia;
             document.getElementById("name-center").value =  ccentro;
             document.getElementById("siglas").value = ssiglas ;
@@ -419,6 +423,8 @@ function loadMdcenter(){
             echo 'tturno_2_2="' . $row->MDCENTER_STURN_END . '"' . ";\n";
             echo 'rresponsable="' . $row->MDCENTER_RESPANSABILITY_NAME . '"' . ";\n";
             echo 'ccorreo ="' . $row->MDCENTER_RESPANSABILITY_EMAIL . '"' . ";\n";
+            echo 'idcontacto =' . $row->CONTACT_ID  . ";\n";
+            echo 'iddireccion =' . $row->DIRECTION_ID  . ";\n";
             $id_contacto = $row->CONTACT_ID;
             $id_direccion = $row->DIRECTION_ID;
         }
@@ -508,6 +514,22 @@ function actualizaInformacionCentroSalud($id_mdcenter){
             // Cuando el ID del campo es igual al número 1
             array('MPERSON_ID' => $id_mdcenter)
         );
+
+        // Actualiza los datos de contacto
+        $wpdb->update('CONTACT',array(
+                'CONTACT_MDC_MPERSON_ID'=> $id_mdcenter,
+                'CONTACT_WEB_SITE'=> $_POST['web'],
+                'CONTACT_LOCAL_PHON'=> $_POST['local1'],
+                'CONTACT_LOCAL_PHON_2'=> $_POST['local2'],
+                'CONTACT_LOCAL_PHON_3'=> $_POST['local3'],
+                'CONTACT_LOCAL_PHON_4'=> $_POST['local4'],
+                'CONTACT_LOCAL_PHON_5'=> $_POST['local5']
+            ),
+            // Cuando el ID del campo es igual al número 1
+            array('CONTACT_ID' => $_POST['con'])
+        );
+
+
     }
 }
 

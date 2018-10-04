@@ -26,6 +26,9 @@ include "function-templates/template-load-mdcenter-function.php";
         <button class="button-edit" style="display: none|block" name="edit" id="edit" onclick="editCentro()"><strong>EDITAR</strong></button>
         <button class="button-deshabilitar-edit" name="edit-null" style="display: none|block" id="edit-null" onclick="cargaDatos()"><strong>DESHABILITAR EDICIÓN</strong></button>
         <form id="formSaludCenterLoad" name="formSaludCenterLoad" action="" method="post">
+            <div><input type="text" name="fan" id="fan" class="form-area-two" style="display: none" readonly="readonly"></div>
+            <div><input type="text" name="con" id="con" class="form-area-two" style="display: none" readonly="readonly"></div>
+            <div><input type="text" name="dir" id="dir" class="form-area-two" style="display: none" readonly="readonly"></div>
             <section class="grid-2">
                 <h2>Centro de Salud</h2>
 
@@ -41,8 +44,7 @@ include "function-templates/template-load-mdcenter-function.php";
                             </select>
                         </div>
                         <div></div>
-                        <div><input type="text" name="fan" id="fan" class="form-area-two" style="display: none" readonly="readonly"></div>
-
+                        <div></div>
                         <div class="item-1">
                             <label for="legal-name">Nombre del Centro</label><span class="required">*</span><br>
                             <input type="text" name="name-center" id="name-center" class="form-area-two" required><br><br>
