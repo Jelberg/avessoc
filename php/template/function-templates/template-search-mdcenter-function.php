@@ -70,7 +70,7 @@ function muestraListaMdcenter(){
 
         $lista .= '<td>'.$uno."</td>\n             
                     <td>
-                       <form action='".PATH_PAG_LOAD_MDCENTER."' name='ViewMDcenter' id='VieMDcenter'>
+                       <form action='".PATH_PAG_LOAD_MDCENTER."' name='ViewMDcenter' id='VieMDcenter' metho='post'>
                             <button style=' background-color: #3498DB; padding-left: 10px; padding-top:10px; padding-bottom:10px;
                             padding-right: 10px; color: #006505s' type='submit' id='mdcenter_val' name='mdcenter_val' value=".$id.">VER</button>
                        </form>

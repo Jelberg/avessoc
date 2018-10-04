@@ -113,7 +113,7 @@ include "function-templates/template-load-mdcenter-function.php";
                 <div class="item2">
                     <section class="grid-columns">
                         <?php
-                        mostrarFormulario();
+                       mostrardireccionmdcenter();
                         ?>
                     </section>
                 </div> <!--fin item2-->
@@ -153,7 +153,7 @@ include "function-templates/template-load-mdcenter-function.php";
 
             </section><!--fin grid- 2-->
             <section class="right">
-                <button class="button-just" type="submit" name="submit" id="submit" onsubmit="<?php  ?>">REGISTRAR</button>
+                <button class="button-just" type="submit" name="submit" id="submit" onsubmit="<?php  ?>">ACTUALIZAR DATOS DE PACIENTE</button>
             </section>
 
     </div><!-- fin  area-3 del grid-container -->

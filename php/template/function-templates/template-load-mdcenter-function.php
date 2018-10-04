@@ -30,47 +30,20 @@
         var rresponsable="";
         var ccorreo ="";
 
-      /*  var uno="";
-        var dos="";
-        var tres="";
-        var cuatro="";
-        var cinco="";
-        var web="";*/
+        var uno;
+        var dos;
+        var tres;
+        var cuatro;
+        var cinco;
+        var web="";
 
-        <?php
-        loadMdcenter();
-        //cargaDatosPaciente();
-        ?>
-
-        /**
-         * Carga los datos del centro en la pagina
-         */
-        function cargaDatos(){
-            document.getElementById("fan").value =<?php echo $_GET['mdcenter_val']; ?>  ;
-            console.log(document.getElementById("fan").value);
-            document.getElementById("salud").value =  rreferencia;
-            document.getElementById("name-center").value =  ccentro;
-            document.getElementById("siglas").value = ssiglas ;
-            document.getElementById("congregacion").value =  ccongregacion ;
-            document.getElementById("naturaleza").value =  nnaturaleza;
-            document.getElementById("flaborday").value = llaboral_1 ;
-            document.getElementById("lastlaborday").value = llaboral_2 ;
-            document.getElementById("tunoinicio").value =  tturno_1_1;
-            document.getElementById("tunofin").value =  tturno_1_2;
-            document.getElementById("tdosinicio").value =  tturno_2_1;
-            document.getElementById("tdosfin").value = tturno_2_2 ;
-            document.getElementById("responsable").value = rresponsable ;
-            document.getElementById("correo").value = ccorreo ;
-           /* document.getElementById("numero-1").value =uno  ;
-            document.getElementById("numero-2").value =dos  ;
-            document.getElementById("numero-3").value =  tres;
-            document.getElementById("numero-4").value = cuatro ;
-            document.getElementById("numero-5").value = cinco ;
-            document.getElementById("web").value = web ;*/
-
-        }
-
-
+        var estado;
+        var municipio;
+        var parroquia;
+        var direcciondesc="";
+        var nombreEstado = "";
+        var nombreMunicipio = "";
+        var nombreParroquia = "";
         /**
          * Funcion limpia el combo boxbox de municios
          * */
@@ -131,7 +104,72 @@
             }
         }
 
+
+        <?php
+        loadMdcenter();  //Carga los datos del centro de salud
+        //cargaDatosPaciente();
+        ?>
+
+        /**
+         * Carga los datos del centro en la pagina
+         */
+        function cargaDatos(){
+            document.getElementById("fan").value =<?php echo $_GET['mdcenter_val']; ?>  ;
+            document.getElementById("salud").value =  rreferencia;
+            document.getElementById("name-center").value =  ccentro;
+            document.getElementById("siglas").value = ssiglas ;
+            document.getElementById("congregacion").value =  ccongregacion ;
+            document.getElementById("naturaleza").value =  nnaturaleza;
+            document.getElementById("flaborday").value = llaboral_1 ;
+            document.getElementById("lastlaborday").value = llaboral_2 ;
+            document.getElementById("tunoinicio").value =  tturno_1_1;
+            document.getElementById("tunofin").value =  tturno_1_2;
+            document.getElementById("tdosinicio").value =  tturno_2_1;
+            document.getElementById("tdosfin").value = tturno_2_2 ;
+            document.getElementById("responsable").value = rresponsable ;
+            document.getElementById("correo").value = ccorreo ;
+            document.getElementById("local1").value =uno  ;
+            document.getElementById("local2").value =dos  ;
+            document.getElementById("local3").value =  tres;
+            document.getElementById("local4").value = cuatro ;
+            document.getElementById("local5").value = cinco ;
+            document.getElementById("web").value = web ;
+            document.getElementById("muestraEstado").value = nombreEstado ;
+            document.getElementById("muestraMunicipio").value = nombreMunicipio;
+            document.getElementById("muestraParroquia").value = nombreParroquia ;
+            document.getElementById("direccion").value = direcciondesc;
+
+            
+            document.getElementById("salud").disabled =  true;
+            document.getElementById("name-center").disabled =  true;
+            document.getElementById("siglas").disabled = true ;
+            document.getElementById("congregacion").disabled =  true ;
+            document.getElementById("naturaleza").disabled =  true;
+            document.getElementById("flaborday").disabled = true ;
+            document.getElementById("lastlaborday").disabled =true;
+            document.getElementById("tunoinicio").disabled = true;
+            document.getElementById("tunofin").disabled =  true;
+            document.getElementById("tdosinicio").disabled =  true;
+            document.getElementById("tdosfin").disabled = true ;
+            document.getElementById("responsable").disabled =true;
+            document.getElementById("correo").disabled = true ;
+            document.getElementById("local1").disabled =true ;
+            document.getElementById("local2").disabled =true ;
+            document.getElementById("local3").disabled = true;
+            document.getElementById("local4").disabled = true ;
+            document.getElementById("local5").disabled = true ;
+            document.getElementById("web").disabled =true ;
+            document.getElementById("muestraEstado").disabled = true ;
+            document.getElementById("muestraMunicipio").disabled = true;
+            document.getElementById("muestraParroquia").disabled = true ;
+            document.getElementById("direccion").disabled = true;
+        }
+
+
+
     </script>
+
+
 
 </head>
 <body>
@@ -146,27 +184,58 @@
  */
 function mostrarFormulario() {
     echo '
-			<section class="grid-columns">
-				<div class="item1">
-					<label for="name">Estado</label><span class="required">*  </span><br>
-					<div>' . llenarEstados() . '</div>
-				</div>
-				<div class="item2">
-					<label for="name">Municipio</label><span class="required">* </span><br>
-					<div>' . llenarMunicipios() . '</div>
-				</div>
-				<div class="item3">
-					<label for="name">Parroquia</label><span class="required">* </span><br>
-					<div>' . llenarParroquias() . '</div>
-				</div>
-				<div class="item-span-three">
-				    <label for="name">Direccion</label><br>
+            <section class="grid-columns">
+                <div class="item1" style="display: none|block" id="cmbsE">
+                    <label for="name">Estado</label><span class="required">*  </span><br>
+                    <input type="text" class="form-area" name="web" id="muestraEstado"/><br>
+                    <div>' . llenarEstados() . '</div>
+                </div>
+                <div class="item2" style="display: none|block" id="cmbsM">
+                    <label for="name">Municipio</label><span class="required">* </span><br>
+                    <input type="text" class="form-area" name="web" id="muestraMunicipio"/><br
+                    <div>' . llenarMunicipios() . '</div>
+                </div>
+                <div class="item3" style="display: none|block" id="cmbsP">
+                    <label for="name">Parroquia</label><span class="required">* </span><br>
+                    <input type="text" class="form-area" name="web" id="muestraParroquia"/><br>
+                    <div>' . llenarParroquias() . '</div>
+                </div>
+                <div class="item-span-three">
+                    <label for="name">Direccion</label><br>
                     <input type="text" class="form-area-three" name="direccion" id="direccion" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+"  title="<?php echo $ErrmsjOnlyLetters ?>" /><br>
-                </div>       				
-			</section>
-		';
+                </div>                      
+            </section>
+        ';
 }
 
+/**
+ * Funcion que muestra los datos de direccion del paciente
+ */
+function mostrardireccionmdcenter() {
+    echo '
+            <section class="grid-columns">
+                <div class="item1" style="display: none|block" id="cmbsE">
+                    <label for="name">Estado</label><span class="required">*  </span><br>
+                    <input type="text" class="form-area" name="muestraEstado" id="muestraEstado"/>
+    
+                </div>
+                <div class="item2" style="display: none|block" id="cmbsM">
+                    <label for="name">Municipio</label><span class="required">* </span><br>
+                    <input type="text" class="form-area" name="muestraMunicipio" id="muestraMunicipio"/>
+                    
+                </div>
+                <div class="item3" style="display: none|block" id="cmbsP">
+                    <label for="name">Parroquia</label><span class="required">* </span><br>
+                    <input type="text" class="form-area" name="muestraParroquia" id="muestraParroquia"/>
+        
+                </div>
+                <div class="item-span-three">
+                    <label for="name">Direccion</label><br>
+                    <input type="text" class="form-area-three" name="direccion" id="direccion" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+"  title="<?php echo $ErrmsjOnlyLetters ?>" />
+                </div>                      
+            </section>
+        ';
+}
 
 /**
  * Funcion devuelve el dibujo del html con los datos de la consulta de Estado en el Select
@@ -303,6 +372,7 @@ function loadMdcenter(){
     if (!empty($_GET['mdcenter_val'])) {
         global $wpdb;
         $id_contacto="";
+        $id_direccion="";
         $query = "SELECT MPERSON_LEGAL_NAME, MDCENTER_REFERENCE_CENTER, MDCENTER_RESPANSABILITY_NAME, MDCENTER_RESPANSABILITY_EMAIL, MDCENTER_FLABOR_DAY, MDCENTER_LLABOR_DAY, MDCENTER_ACRONYM,  MDCENTER_CONGREGATION, MDCENTER_NATURE_INST,MDCENTER_FTURN_INIT, MDCENTER_FTURN_END, MDCENTER_STURN_INIT, MDCENTER_STURN_END, DIRECTION_ID, CONTACT_ID FROM `MDCENTER`, DIRECTION,CONTACT WHERE MPERSON_ID=DIRECTION_MDC_MPERSON_ID AND CONTACT_MDC_MPERSON_ID=MPERSON_ID AND MPERSON_ID=" . $_GET['mdcenter_val'];
         foreach ($wpdb->get_results($query) as $key => $row) {
             echo 'rreferencia="' . $row->MDCENTER_REFERENCE_CENTER . '"' . ";\n";
@@ -319,20 +389,64 @@ function loadMdcenter(){
             echo 'rresponsable="' . $row->MDCENTER_RESPANSABILITY_NAME . '"' . ";\n";
             echo 'ccorreo ="' . $row->MDCENTER_RESPANSABILITY_EMAIL . '"' . ";\n";
             $id_contacto = $row->CONTACT_ID;
+            $id_direccion = $row->DIRECTION_ID;
         }
-      /*  $query_contacto="SELECT CONTACT_LOCAL_PHON, CONTACT_LOCAL_PHON_2, CONTACT_LOCAL_PHON_3, CONTACT_LOCAL_PHON_4, CONTACT_LOCAL_PHON_5, CONTACT_WEB_SITE FROM CONTACT WHERE CONTACT_ID=".$id_contacto;
-        foreach ($wpdb->get_results($query_contacto) as $key => $row) {
-            echo 'uno=' . $row->CONTACT_LOCAL_PHON  . ";\n";
-            echo 'dos=' . $row->CONTACT_LOCAL_PHON_2  . ";\n";
-            echo 'tres =' . $row->CONTACT_LOCAL_PHON_3  . ";\n";
-            echo 'cuatro=' . $row->CONTACT_LOCAL_PHON_4  . ";\n";
-            echo 'cinco=' . $row->CONTACT_LOCAL_PHON._5  . ";\n";
-            echo 'web="' . $row->CONTACT_WEB_SITE . '"' . ";\n";
-        }*/
+
+        cargaDatoscontacto($id_contacto);
+        cargaDireccion($id_direccion);
 
     }
 }
 
+/**
+ *
+ * Funcion carga los datos de contacto en la pagina
+ * @param $id_contactoss
+ */
+function cargaDatoscontacto($id_contacto){
+    global $wpdb;
+    $query_contacto="SELECT CONTACT_LOCAL_PHON, CONTACT_LOCAL_PHON_2, CONTACT_LOCAL_PHON_3, CONTACT_LOCAL_PHON_4, CONTACT_LOCAL_PHON_5, CONTACT_WEB_SITE FROM CONTACT WHERE CONTACT_ID=".$id_contacto;
+    foreach ($wpdb->get_results($query_contacto) as $key => $row) {
+        if ($row->CONTACT_LOCAL_PHON==0){
+            echo 'uno=""'. ";\n";
+        }else echo 'uno=' . $row->CONTACT_LOCAL_PHON  . ";\n";
+        if ($row->CONTACT_LOCAL_PHON_2 ==0){
+            echo 'dos=""'. ";\n";
+        }else echo 'dos=' . $row->CONTACT_LOCAL_PHON_2   . ";\n";
+        if ($row->CONTACT_LOCAL_PHON_3 ==0){
+            echo 'tres=""'. ";\n";
+        }else echo 'tres=' . $row->CONTACT_LOCAL_PHON_3   . ";\n";
+        if ($row->CONTACT_LOCAL_PHON_4==0){
+            echo 'cuatro=""'. ";\n";
+        }else echo 'cuatro=' . $row->CONTACT_LOCAL_PHON_4  . ";\n";
+        if ($row->CONTACT_LOCAL_PHON_5==0){
+            echo 'cinco=""'. ";\n";
+        }else echo 'cinco=' . $row->CONTACT_LOCAL_PHON_5  . ";\n";
 
+        echo 'web="' . $row->CONTACT_WEB_SITE . '"' . ";\n";
+    }
+
+}
+
+
+/**
+ * Funcion carga la direccion en la pagina
+ * @param $id_direccion
+ */
+function cargaDireccion($id_direccion){
+    global $wpdb;
+    $query ="SELECT `DIRECTION_DESC`, PARISH_ID, PARISH_DESC, MUNICIPALT_ID, MUNICIPALT_DESC, STATE_ID, STATE_DESC FROM 
+`DIRECTION`, PARISH, MUNICIPALT, STATE WHERE `DIRECTION_PARISH_ID`= PARISH_ID AND `DIRECTION_PAR_MUN_ID`= 
+MUNICIPALT_ID AND MUNICIPALT_STATE_ID=STATE_ID AND DIRECTION_ID=".$id_direccion;
+    foreach ($wpdb->get_results($query) as $key => $row) {
+        echo 'estado='.$row->STATE_ID.";\n";
+        echo 'municipio='.$row->MUNICIPALT_ID.";\n";
+        echo 'parroquia='.$row->PARISH_ID. ";\n";
+        echo 'direcciondesc="'.$row->DIRECTION_DESC.'"'.";\n";
+        echo 'nombreEstado="'.$row->STATE_DESC.'"'.";\n";
+        echo 'nombreMunicipio="'.$row->MUNICIPALT_DESC.'"'.";\n";
+        echo 'nombreParroquia="'.$row->PARISH_DESC.'"'.";\n";
+    }
+}
 
 ?>
