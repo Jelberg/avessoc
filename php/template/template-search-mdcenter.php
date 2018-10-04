@@ -51,7 +51,7 @@ include "function-templates/template-search-mdcenter-function.php";
                         showConfirmButton: false,
                         allowOutsideClick: false
                     });
-                    $.post('http://dev.avessoc.org.ve/avessoc-search-mdcenters/', {mdcenter_del: id});
+                    $.post('<?php echo PATH_PAG_SEARCH_MDCENTER; ?>', {mdcenter_del: id});
                     window.location.reload(false);
                 }
             });
