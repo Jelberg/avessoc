@@ -318,4 +318,17 @@ function registraPOrden($id_solicitud){
     }
 }
 
+/**
+ * Carga el combo de los centros solicitantes
+ */
+function cargaCentrosSolicitantes(){
+    global $wpdb;
+    $query ="SELECT MPERSON_ID, MPERSON_LEGAL_NAME FROM MDCENTER";
+    $option="";
+    foreach($wpdb->get_results($query) as $key =>$row){
+        $option .= '<option value="'.$row->MPERSON_ID.'" selected>'.$row->MPERSON_LEGAL_NAME.'</option>';
+    }
+    return $option;
+}
+
 ?>

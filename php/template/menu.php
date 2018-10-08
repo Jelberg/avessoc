@@ -35,120 +35,26 @@ define("PATH_PAG_SEARCH_SPONSOR","http://dev.avessoc.org.ve/avessos-buscar-patro
 //Direccion de pagina que muestra la informacion del centro de salud
 define("PATH_PAG_LOAD_MDCENTER","http://dev.avessoc.org.ve/avessoc-load-mdcenter/");
 
+//Direccion de busqueda de centros de salud
+define("PATH_PAG_SEARCH_MDCENTER","http://dev.avessoc.org.ve/avessoc-search-mdcenters/");
+
+//Direccion para Agregar nuevos centros de salud
+define("PATH_PAG_ADD_MDCENTER","http://dev.avessoc.org.ve/avessoc-registro-centro-de-salud/");
+
+//Path para registro de examenes en centros, agrega el examen en el centro con disponibilidad y precio
+define("PATH_PAG_REGISTER_EXAM_FROM_CENTER","http://dev.avessoc.org.ve/avessoc-registrar-examenes-centros/");
+
+//Direccion done se registra los nuevos examenes
+define("PATH_PAG_ADD_NEW_EXAM"," http://dev.avessoc.org.ve/avessoc-agregar-nuevo-examen/");
+
+//Direccion para generar una nueva solicitud
+define("PATH_PAG_NEW_REQUEST","http://dev.avessoc.org.ve/avessoc-nueva-solicitud-paciente/");
 ?>
 
 
 <!DOCTYPE html>
 <html>
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-    }
 
-    body {
-        font-family: 'Roboto', sans-serif;
-        line-height: 18px;
-    }
-
-    a {
-        text-decoration: none;
-        color:#fff;
-    }
-
-    .btn-menu {
-        display: none;
-        padding: 20px;
-        background: #0d2c44;
-        color:#fff;
-    }
-
-    .btn-menu .icono {
-        float: right;
-    }
-
-    .contenedor-menu {
-        width: 20%;
-        min-width: 100%;
-        display: inline-block;
-        font-family: 'Roboto', sans-serif;
-        line-height: 18px;
-    }
-
-    .contenedor-menu .menu {
-        width: 100%;
-    }
-
-    .contenedor-menu ul {
-        list-style: none;
-    }
-
-    .contenedor-menu .menu li a {
-        color:#494949;
-        display: block;
-        padding: 15px 20px;
-        background: #e9e9e9;
-    }
-
-    .contenedor-menu .menu li a:hover {
-        background: #1a95d5;
-        color:#fff;
-    }
-
-    .contenedor-menu .menu .icono {
-        font-size: 12px;
-        line-height: 18px;
-    }
-
-    .contenedor-menu .menu .icono.izquierda {
-        float: left;
-        margin-right: 10px;
-    }
-
-    .contenedor-menu .menu .icono.derecha {
-        float: right;
-        margin-left: 10px;
-    }
-
-    .contenedor-menu .menu ul {
-        display: none;
-    }
-
-    .contenedor-menu .menu ul li a {
-        background: #424242;
-        color:#e9e9e9;
-    }
-
-    .contenedor-menu .menu .activado > a {
-        background: #1a95d5;
-        color:#fff;
-    }
-
-    @media screen and (max-width: 450px) {
-        body {
-            padding-top: 80px;
-        }
-
-        .contenedor-menu {
-            margin: 0;
-            width: 100%;
-            position: fixed;
-            top:0;
-            z-index: 1000;
-        }
-
-        .btn-menu {
-            display: block;
-        }
-
-        .contenedor-menu .menu {
-            display: none;
-        }
-    }
-</style>
 <head>
 
 </head>
@@ -163,26 +69,26 @@ function mostrarMenu(){
 		<ul class="menu">
 			<li><a href="#"><i class="icono izquierda fa fa-gift"></i>Pacientes<i class="icono derecha fa fa-chevron-down"></i></a>
 				<ul>
-                     <li><a href="#"><i class="icono izquierda fa fa-arrow-right"></i>Registrar nuevos Pacientes</a>
-				     <li><a href="#"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Pacientes</a>
+                     <li><a href="'.PATH_PAG_REGISTER_PATIENT.'"><i class="icono izquierda fa fa-arrow-right"></i>Registrar nuevos Pacientes</a>
+				     <li><a href="'.PATH_PAG_SEARCH_PATIENT.'"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Pacientes</a>
 				</ul>
 			<li><a href="#"><i class="icono izquierda fa fa-users"></i>Patrocinantes<i class="icono derecha fa fa-chevron-down"></i></a>
 				<ul>
-					<li><a href="#"><i class="icono izquierda fa fa-arrow-right"></i>Agregar Patrocinantes</a>
-                    <li><a href="#"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Patrocinantes</a>
+					<li><a href="'.PATH_PAG_ADD_SPONSOR.'"><i class="icono izquierda fa fa-arrow-right"></i>Agregar Patrocinantes</a>
+                    <li><a href="'.PATH_PAG_SEARCH_SPONSOR.'"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Patrocinantes</a>
 				</ul>
 			</li>
 			<li><a href="#"><i class="icono izquierda fa fa-university"></i>Centros de Salud<i class="icono derecha fa fa-chevron-down"></i></a>
 				<ul>
-					<li><a href="#"><i class="icono izquierda fa fa-arrow-right"></i>Agregar Centros</a>
-                    <li><a href="#"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Centros de Salud</a>
+					<li><a href="'.PATH_PAG_ADD_MDCENTER.'"><i class="icono izquierda fa fa-arrow-right"></i>Agregar Centros</a>
+                    <li><a href="'.PATH_PAG_SEARCH_MDCENTER.'"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Centros de Salud</a>
 				</ul>
-			<li><a  href="#"><i class="icono izquierda "></i>Examenes en Centros<i class="icono derecha fa fa-chevron-down"></i></a>
+			<li><a  href="#"><i class="icono izquierda "></i>Examenes<i class="icono derecha fa fa-chevron-down"></i></a>
 			    <ul>
 			        <li><a href="#"><i class="icono izquierda fa fa-arrow-right"></i>Buscar examenes en centros</a>
-			        <li><a href="#"><i class="icono izquierda fa fa-arrow-right"></i>Registrar examenes en centros</a>
+			        <li><a href="'.PATH_PAG_REGISTER_EXAM_FROM_CENTER.'"><i class="icono izquierda fa fa-arrow-right"></i>Registrar examenes en centros</a>
+			        <li><a href="'.PATH_PAG_ADD_NEW_EXAM.'"><i class="icono izquierda fa fa-arrow-right"></i>Agregar nuevos examenes</a>
                  </ul>
-			<li><a href="#"><i class="icono izquierda fa fa-university"></i>Examenes<i class="icono derecha fa fa-chevron-down"></i></a>
 			</li>
 		</ul>
 	</div>

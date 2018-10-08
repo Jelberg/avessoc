@@ -26,17 +26,17 @@ include "function-templates/template-pre-order-function.php"
         <h4 id="preordennumero" style="color: dodgerblue"></h4>
         <h6>Datos del Paciente</h6>
         <form id="FormPreOrden" name="FormPreOrden" method="post" action="">
-        <section class="grid-2">
+            <section class="grid-2">
 
-            <div class="item-0">
-                <section class="grid-rows">
+                <div class="item-0">
+                    <section class="grid-rows">
                         <div class="item-row-o">
                             <input type="text" name="paciente-id" id="paciente-id" style="display: none" readonly="readonly"/><br>
                         </div>
-                          <div class="item-row-1">
-                              <label for="identificacion">Documento de Identificación</label><br>
-                              <input type="text" name="identificacion" id="identificacion" class="form-area-two" readonly="readonly"/><br>
-                          </div>
+                        <div class="item-row-1">
+                            <label for="identificacion">Documento de Identificación</label><br>
+                            <input type="text" name="identificacion" id="identificacion" class="form-area-two" readonly="readonly"/><br>
+                        </div>
                         <div class="item-row-2">
                             <section class="grid-columns">
                                 <div class="item-column-1">
@@ -51,7 +51,11 @@ include "function-templates/template-pre-order-function.php"
                         </div>
                         <div class="item-row-3">
                             <label for="legal-name">Centro Solicitante</label><br>
-                            <input type="text" name="solicitante" id="solicitante" class="form-area-two" readonly="readonly"/><br>
+                            <select name="solicitante" id="solicitante" class="select-area-two" required>
+                                <?php
+                                echo cargaCentrosSolicitantes();
+                                ?>
+                            </select>
                         </div>
                         <div class="item-row-4">
                             <label for="name">Procedencia del Paciente</label><span class="required">*</span><br>
@@ -66,35 +70,35 @@ include "function-templates/template-pre-order-function.php"
                                 <option value="Otros" selected> Otros</option>
                             </select>
                         </div>
-                    <div class="item-row-4">
-                        <label for="name">Causa del Examen</label><span class="required">*</span><br>
-                        <select id="causa" name="causa" class="select-area-two" required>
-                            <option value="" selected> >>Seleccione opción<< </option>
-                            <?php
-                             echo llenaListaEnfermedades();
-                            ?>
-                        </select>
-                    </div>
-                    <div class="item-row-5">
-                        <label for="name">Peso</label><span class="required">*</span><br>
-                        <input type="number" name="peso" id="peso" class="form-area-number-two" min="0" step="0.01" placeholder="En Kg" required/><br>
-                    </div>
-                    <div class="item-row-6">
-                        <label for="name">Porcentaje en base a clasificación Graffar estimado</label><br>
-                        <input type="text" name="clasificacion" id="clasificacion" class="form-area-two" readonly="readonly"/><br>
-                    </div>
-                </section>
-            </div>
-            <h6>Detalles del Examen</h6>
-            <div class="item-1">
-                <span id="addRow" style="background: none; color: darkcyan"><strong>AGREGAR OTRO EXAMEN</strong></span>
-                <span id="eliminafila"  style="background: none; color: firebrick" title="Seleciona un item de la lista para poder eliminar"><strong>ELIMINAR FILA</strong></span>
-                <?php
+                        <div class="item-row-4">
+                            <label for="name">Causa del Examen</label><span class="required">*</span><br>
+                            <select id="causa" name="causa" class="select-area-two" required>
+                                <option value="" selected> >>Seleccione opción<< </option>
+                                <?php
+                                echo llenaListaEnfermedades();
+                                ?>
+                            </select>
+                        </div>
+                        <div class="item-row-5">
+                            <label for="name">Peso</label><span class="required">*</span><br>
+                            <input type="number" name="peso" id="peso" class="form-area-number-two" min="0" step="0.01" placeholder="En Kg" required/><br>
+                        </div>
+                        <div class="item-row-6">
+                            <label for="name">Porcentaje en base a clasificación Graffar estimado</label><br>
+                            <input type="text" name="clasificacion" id="clasificacion" class="form-area-two" readonly="readonly"/><br>
+                        </div>
+                    </section>
+                </div>
+                <h6>Detalles del Examen</h6>
+                <div class="item-1">
+                    <span id="addRow" style="background: none; color: darkcyan"><strong>AGREGAR OTRO EXAMEN</strong></span>
+                    <span id="eliminafila"  style="background: none; color: firebrick" title="Seleciona un item de la lista para poder eliminar"><strong>ELIMINAR FILA</strong></span>
+                    <?php
                     echo llenaTablaExamenes();
-                ?>
-            </div>
+                    ?>
+                </div>
 
-        </section>
+            </section>
             <div class="right">
                 <button class="button-just" id="submit-porden" onsubmit="<?php registraPOrden(request($_GET['id_pac'])); ?>">ENVIAR PRE-ORDEN</button>
             </div>
