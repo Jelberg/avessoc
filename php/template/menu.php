@@ -40,8 +40,117 @@ define("PATH_PAG_LOAD_MDCENTER","http://dev.avessoc.org.ve/avessoc-load-mdcenter
 
 <!DOCTYPE html>
 <html>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
 
+    body {
+        font-family: 'Roboto', sans-serif;
+        line-height: 18px;
+    }
+
+    a {
+        text-decoration: none;
+        color:#fff;
+    }
+
+    .btn-menu {
+        display: none;
+        padding: 20px;
+        background: #0d2c44;
+        color:#fff;
+    }
+
+    .btn-menu .icono {
+        float: right;
+    }
+
+    .contenedor-menu {
+        width: 20%;
+        min-width: 100%;
+        display: inline-block;
+        font-family: 'Roboto', sans-serif;
+        line-height: 18px;
+    }
+
+    .contenedor-menu .menu {
+        width: 100%;
+    }
+
+    .contenedor-menu ul {
+        list-style: none;
+    }
+
+    .contenedor-menu .menu li a {
+        color:#494949;
+        display: block;
+        padding: 15px 20px;
+        background: #e9e9e9;
+    }
+
+    .contenedor-menu .menu li a:hover {
+        background: #1a95d5;
+        color:#fff;
+    }
+
+    .contenedor-menu .menu .icono {
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .contenedor-menu .menu .icono.izquierda {
+        float: left;
+        margin-right: 10px;
+    }
+
+    .contenedor-menu .menu .icono.derecha {
+        float: right;
+        margin-left: 10px;
+    }
+
+    .contenedor-menu .menu ul {
+        display: none;
+    }
+
+    .contenedor-menu .menu ul li a {
+        background: #424242;
+        color:#e9e9e9;
+    }
+
+    .contenedor-menu .menu .activado > a {
+        background: #1a95d5;
+        color:#fff;
+    }
+
+    @media screen and (max-width: 450px) {
+        body {
+            padding-top: 80px;
+        }
+
+        .contenedor-menu {
+            margin: 0;
+            width: 100%;
+            position: fixed;
+            top:0;
+            z-index: 1000;
+        }
+
+        .btn-menu {
+            display: block;
+        }
+
+        .contenedor-menu .menu {
+            display: none;
+        }
+    }
+</style>
 <head>
+
 </head>
 
 <body>
@@ -49,65 +158,76 @@ define("PATH_PAG_LOAD_MDCENTER","http://dev.avessoc.org.ve/avessoc-load-mdcenter
 <?php
 function mostrarMenu(){
     echo '
-          <div>
-            <ul class="tree">
-              <li>
-                <input type="checkbox" checked="checked" id="c1" />
-                <label style="color: #85c1e9" class="tree_label" for="c1">Fondo Solidario</label>
-                <ul>
-                  <li>
-                    <input type="checkbox" checked="checked" id="c2" />
-                    <label for="c2" class="tree_label">Pacientes</label>
-                    <ul>
-                      <li><a style="color: black"href="'.PATH_PAG_SEARCH_PATIENT.'" class="tree_label">Buscar paciente</a></li>
-                      <li><a style="color: black" href="'.PATH_PAG_REGISTER_PATIENT.'" class="tree_label">Registrar</a></li>
-                    </ul>
-                  </li>
-                  <li>
-                    <input type="checkbox" id="c3" />
-                    <label for="c3" class="tree_label">Patrocinantes</label>
-                    <ul>
-                      <li><a style="color: black" href="'.PATH_PAG_ADD_SPONSOR.'" class="tree_label">Agregar</a></li>
-                      <li><a style="color: black" href="'.PATH_PAG_SEARCH_SPONSOR.'" class="tree_label">Buscar patrocinante</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              
-              
-              <li>
-                <input type="checkbox" id="c5" />
-                <label style="color: #85c1e9" class="tree_label" for="c5">Level 0</label>
-                <ul>
-                  <li>
-                    <input type="checkbox" id="c6" />
-                    <label for="c6" class="tree_label">Level 1</label>
-                    <ul>
-                      <li><span class="tree_label">Level 2</span></li>
-                    </ul>
-                  </li>
-                  <li>
-                    <input type="checkbox" id="c7" />
-                    <label for="c7" class="tree_label">Level 1</label>
-                    <ul>
-                      <li><span class="tree_label">Level 2</span></li>
-                      <li>
-                        <input type="checkbox" id="c8" />
-                        <label for="c8" class="tree_label">Level 2</label>
-                        <ul>
-                          <li><span class="tree_label">Level 3</span></li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-         </div>
+       <div class="contenedor-menu">
+
+		<ul class="menu">
+			<li><a href="#"><i class="icono izquierda fa fa-gift"></i>Pacientes<i class="icono derecha fa fa-chevron-down"></i></a>
+				<ul>
+                     <li><a href="#"><i class="icono izquierda fa fa-arrow-right"></i>Registrar nuevos Pacientes</a>
+				     <li><a href="#"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Pacientes</a>
+				</ul>
+			<li><a href="#"><i class="icono izquierda fa fa-users"></i>Patrocinantes<i class="icono derecha fa fa-chevron-down"></i></a>
+				<ul>
+					<li><a href="#"><i class="icono izquierda fa fa-arrow-right"></i>Agregar Patrocinantes</a>
+                    <li><a href="#"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Patrocinantes</a>
+				</ul>
+			</li>
+			<li><a href="#"><i class="icono izquierda fa fa-university"></i>Centros de Salud<i class="icono derecha fa fa-chevron-down"></i></a>
+				<ul>
+					<li><a href="#"><i class="icono izquierda fa fa-arrow-right"></i>Agregar Centros</a>
+                    <li><a href="#"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Centros de Salud</a>
+				</ul>
+			<li><a  href="#"><i class="icono izquierda "></i>Examenes en Centros<i class="icono derecha fa fa-chevron-down"></i></a>
+			    <ul>
+			        <li><a href="#"><i class="icono izquierda fa fa-arrow-right"></i>Buscar examenes en centros</a>
+			        <li><a href="#"><i class="icono izquierda fa fa-arrow-right"></i>Registrar examenes en centros</a>
+                 </ul>
+			<li><a href="#"><i class="icono izquierda fa fa-university"></i>Examenes<i class="icono derecha fa fa-chevron-down"></i></a>
+			</li>
+		</ul>
+	</div>
     ';
 }
+
 ?>
 
+<script language="JavaScript">
+    jQuery(function($){
+        $('.menu li:has(ul)').click(function(e){
+            e.preventDefault();
+
+            if ($(this).hasClass('activado')){
+                $(this).removeClass('activado');
+                $(this).children('ul').slideUp();
+            } else {
+                $('.menu li ul').slideUp();
+                $('.menu li').removeClass('activado');
+                $(this).addClass('activado');
+                $(this).children('ul').slideDown();
+            }
+        });
+
+        $('.btn-menu').click(function(){
+            $('.contenedor-menu .menu').slideToggle();
+        });
+
+        $(window).resize(function(){
+            if ($(document).width() > 450){
+                $('.contenedor-menu .menu').css({'display' : 'block'});
+            }
+
+            if ($(document).width() < 450){
+                $('.contenedor-menu .menu').css({'display' : 'none'});
+                $('.menu li ul').slideUp();
+                $('.menu li').removeClass('activado');
+            }
+        });
+
+        $('.menu li ul li a').click(function(){
+            window.location.href = $(this).attr("href");
+        });
+    });
+</script>
 
 </body>
 
