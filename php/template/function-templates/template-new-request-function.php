@@ -34,4 +34,12 @@ function llenaComboBox($results)
     }
 }
 
+function nombrePaciente(){
+    global $wpdb;
+    $nombre="";
+    $nombre = $wpdb->get_var("SELECT MPERSON_LEGAL_NAME FROM PATIENT WHERE MPERSON_ID=".$_POST['id_pac']);
+    return $nombre;
+
+}
+
 ?>

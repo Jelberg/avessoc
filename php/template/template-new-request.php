@@ -25,7 +25,7 @@ include "function-templates/template-new-request-function.php";
         <section class="grid-2">
             <!-- COMPOSICION FAMILIAR -->
             <div class="item4">
-                <h2>Nueva solicitud: <?php echo $_POST['id_pac'];?></h2>
+                <h3>Nueva solicitud paciente: <?php echo nombrePaciente();?></h3>
                 <div class="item-grid-2-border">
                     <h3>Composición Familiar</h3>
                     <section class="grid-columns">
