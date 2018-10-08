@@ -34,11 +34,43 @@ function llenaComboBox($results)
     }
 }
 
+
+/**
+ * Funcion trae el nombre del paciente
+ * @return string
+ */
 function nombrePaciente(){
     global $wpdb;
     $nombre="";
     $nombre = $wpdb->get_var("SELECT MPERSON_LEGAL_NAME FROM PATIENT WHERE MPERSON_ID=".$_POST['id_pac']);
     return $nombre;
+
+}
+
+/**
+ * Registra solicitud para el paciente
+ */
+function registraSolicitud(){
+        global $wpdb;
+        $valor = $_POST['graffar-1']+$_POST['graffar-2']+$_POST['graffar-3']+$_POST['graffar-4'];
+        $porcentaje= $wpdb->get_var('SELECT SCALE_PORCENTAGE FROM `SCALE` WHERE SCALE_MIN<='.$valor.' AND SCALE_MAX>='.$valor);
+
+        //Insercion de datos en la tabla REQUEST
+        $wpdb->insert('REQUEST', array(
+            'REQUEST_PATIENT_PERSON_ID' => $_POST['id_pac'],
+            'REQUEST_INHABITANTS_NUMB' => $_POST['num-personas'],
+            'REQUEST_AVERAGE_INCOME' => $_POST['ingreso-promedio'],
+            'REQUEST_FAMILY_TYPE' => $_POST['familia-tipo'],
+            'REQUEST_FAMILY_OTHER' => ucfirst(strtolower($_POST['otro-tipo'])),
+            'REQUEST_LOBORAL_COND' => $_POST['condicion-laboral'],
+            'REQUEST_GRAFFAR_ONE' => $_POST['graffar-1'],
+            'REQUEST_GRAFFAR_TWO' => $_POST['graffar-2'],
+            'REQUEST_GRAFFAR_THREE' => $_POST['graffar-3'],
+            'REQUEST_GRAFFAR_FOUR' => $_POST['graffar-4'],
+            'REQUEST_GRAFFAR_PORCTG' => $porcentaje
+        ));
+
+
 
 }
 

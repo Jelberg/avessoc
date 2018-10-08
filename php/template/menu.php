@@ -49,6 +49,9 @@ define("PATH_PAG_ADD_NEW_EXAM"," http://dev.avessoc.org.ve/avessoc-agregar-nuevo
 
 //Direccion para generar una nueva solicitud
 define("PATH_PAG_NEW_REQUEST","http://dev.avessoc.org.ve/avessoc-nueva-solicitud-paciente/");
+
+//Direccion para agregar nueva preOrden
+define("PATH_PAG_ADD_PRE_ORDEN"," http://dev.avessoc.org.ve/avessoc-nueva-preorden/");
 ?>
 
 

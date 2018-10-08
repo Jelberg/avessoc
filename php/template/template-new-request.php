@@ -22,7 +22,7 @@ include "function-templates/template-new-request-function.php";
     </div> <!-- fin area 2-->
 
     <div class="area-3">
-        <form method="post" id="Solicitud paciente">
+        <form method="post" id="Solicitud paciente" action="<?php echo PATH_PAG_ADD_PRE_ORDEN;?>">
         <section class="grid-2">
             <!-- COMPOSICION FAMILIAR -->
             <div class="item4">
@@ -176,8 +176,7 @@ include "function-templates/template-new-request-function.php";
 
         </section>
             <section class="right">
-                <button class="button-just" type="submit" name="submit" id="submit" onsubmit=" <?php
-                ?> ">REGISTRAR Y GENERAR PRE-ORDEN</button>
+                <button class="button-just" type="submit" name="submit" id="submit" onsubmit=" <?php registraSolicitud(); ?> ">REGISTRAR Y GENERAR PRE-ORDEN</button>
             </section>
         </form>
     </div><!-- fin  area-3 del grid-container -->
