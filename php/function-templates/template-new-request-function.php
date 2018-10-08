@@ -1,4 +1,13 @@
 <?php
+$_POST['num-personas']= array();
+$_POST['ingreso-promedio']= array();
+$_POST['familia-tipo']= array();
+$_POST['otro-tipo']= array();
+$_POST['condicion-laboral']= array();
+$_POST['graffar-1']= array();
+$_POST['graffar-2']= array();
+$_POST['graffar-3']= array();
+$_POST['graffar-4']= array();
 
 /**
  * Obtiene el valor y la descripcion de la respuesta de la escala graffar
@@ -52,25 +61,28 @@ function nombrePaciente(){
  * Registra solicitud para el paciente
  */
 function registraSolicitud(){
-    if(!empty($_POST['num']) && !empty($_POST['ingresop']) && !empty($_POST['g1'] )
-                && !empty($_POST['g2']) && !empty($_POST['g3']) && !empty($_POST['g4'])) {
+    echo '<script languaje="javascript"> 
+            console.log("Este es graffar 1: '.$_POST['graffar-1'].'")
+            </script>';
+    if(!empty($_POST['num-personas']) && !empty($_POST['ingreso-promedio']) && !empty($_POST['graffar-1'] )
+                && !empty($_POST['graffar-2']) && !empty($_POST['graffar-3']) && !empty($_POST['graffar-4'])) {
 
         global $wpdb;
-        $valor = $_POST['g1'] + $_POST['g2'] + $_POST['g3'] + $_POST['g4'];
+        $valor = $_POST['graffar-1'] + $_POST['graffar-2'] + $_POST['graffar-3'] + $_POST['graffar-4'];
         $porcentaje = $wpdb->get_var('SELECT SCALE_PORCENTAGE FROM `SCALE` WHERE SCALE_MIN<=' . $valor . ' AND SCALE_MAX>=' . $valor);
 
         //Insercion de datos en la tabla REQUEST
         $wpdb->insert('REQUEST', array(
             'REQUEST_PATIENT_PERSON_ID' => $_POST['id_pac'],
-            'REQUEST_INHABITANTS_NUMB' => $_POST['num'],
-            'REQUEST_AVERAGE_INCOME' => $_POST['ingresop'],
-            'REQUEST_FAMILY_TYPE' => $_POST['fam-tipo'],
-            'REQUEST_FAMILY_OTHER' => ucfirst(strtolower($_POST['otro-desc'])),
-            'REQUEST_LOBORAL_COND' => $_POST['condicion'],
-            'REQUEST_GRAFFAR_ONE' => $_POST['g1'],
-            'REQUEST_GRAFFAR_TWO' => $_POST['g2'],
-            'REQUEST_GRAFFAR_THREE' => $_POST['g3'],
-            'REQUEST_GRAFFAR_FOUR' => $_POST['g4'],
+            'REQUEST_INHABITANTS_NUMB' => $_POST['num-personas'],
+            'REQUEST_AVERAGE_INCOME' => $_POST['ingreso-promedio'],
+            'REQUEST_FAMILY_TYPE' => $_POST['familia-tipo'],
+            'REQUEST_FAMILY_OTHER' => ucfirst(strtolower($_POST['otro-tipo'])),
+            'REQUEST_LOBORAL_COND' => $_POST['condicion-laboral'],
+            'REQUEST_GRAFFAR_ONE' => $_POST['graffar-1'],
+            'REQUEST_GRAFFAR_TWO' => $_POST['graffar-2'],
+            'REQUEST_GRAFFAR_THREE' => $_POST['graffar-3'],
+            'REQUEST_GRAFFAR_FOUR' => $_POST['graffar-4'],
             'REQUEST_GRAFFAR_PORCTG' => $porcentaje
         ));
     }

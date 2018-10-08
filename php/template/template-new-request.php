@@ -20,9 +20,9 @@ include "function-templates/template-new-request-function.php";
         mostrarMenu();
         ?>
     </div> <!-- fin area 2-->
-
+    <form name="Solicitudpacienteform"  id="Solicitudpacienteform" action="<?php echo PATH_PAG_ADD_PRE_ORDEN;?>" method="post">
     <div class="area-3">
-        <form method="post" id="Solicitud paciente" action="<?php echo PATH_PAG_ADD_PRE_ORDEN;?>">
+
         <section class="grid-2">
             <!-- COMPOSICION FAMILIAR -->
             <div class="item4">
@@ -33,18 +33,18 @@ include "function-templates/template-new-request-function.php";
                     <section class="grid-columns">
                         <div class = "item1">
                             <label for="name">Número de personas que viven en el hogar</label><span class="required">**   </span><br>
-                            <input type="number" class="form-area-number" name="num-personas" id="num-personas"  min="1" pattern="^[0-9]+"  required/>
+                            <input type="number" class="form-area-number" name="num" id="num"  min="1" pattern="^[0-9]+"  required/>
                         </div>
                         <div class = "item2">
                             <label for="name">Ingreso Promedio Mensual</label><span class="required">**  </span><br>
-                            <input type="number" class="form-area-number" name="ingreso-promedio" id="ingreso-promedio" step="0.01"  min="1"  placeholder="Sólo hasta dos(2) decimales Ej.: 123,45" value="<?php echo $ingresr ?>" required/>
+                            <input type="number" class="form-area-number" name="ingresop" id="ingresop" step="0.01"  min="1"  placeholder="Sólo hasta dos(2) decimales Ej.: 123,45" value="<?php echo $ingresr ?>" required/>
                         </div>
 
                         <div class = "item3"></div>
 
                         <div class = "item-span-two">
                             <label for="name">Tipo de familia con la que convive</label><br>
-                            <select id="familia-tipo" name ="familia-tipo"  class="select-area-two" onchange="muestraInfo()">
+                            <select id="fam-tipo" name ="fam-tipo"  class="select-area-two" onchange="muestraInfo()">
                                 <option value="" selected> >>Seleccione opción<< </option>
                                 <?php
 
@@ -68,7 +68,7 @@ include "function-templates/template-new-request-function.php";
                         </div>
                         <div class = "item-span-two" id="otro" style="display: block|none;">
                             <label for="name">En caso de ser otro especifique</label><br>
-                            <input type="text" class="form-area-two" name="otro-tipo" id="otro-tipo" value="<?php echo $otrof ?>" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+"  title="<?php echo $ErrmsjOnlyLetters ?>" /><br>
+                            <input type="text" class="form-area-two" name="otro-desc" id="otro-desc" value="<?php echo $otrof ?>" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+"  title="<?php echo $ErrmsjOnlyLetters ?>" /><br>
                             <p id="demo" maxlength="25" class="required"></p>
                         </div>
                     </section>
@@ -86,7 +86,7 @@ include "function-templates/template-new-request-function.php";
                     <section class="grid-columns">
                         <div class = "item-span-three">
                             <label for="name">Condicion laboral</label><br>
-                            <select id="condicion-laboral" name="condicion-laboral" class ="select-area-three">
+                            <select id="condicion" name="condicion" class ="select-area-three">
                                 <option value="" selected> >>Seleccione opción<< </option>
                                 <?php
 
@@ -125,7 +125,7 @@ include "function-templates/template-new-request-function.php";
                         <div class = "item-span-three">
                             <div class = "item1">
                                 <label for="name">Profesion del jefe del hogar</label><span class="required">** </span><br>
-                                <select id="graffar-1" name="graffar-1"  class ="select-area-three" required>
+                                <select id="g1" name="g1"  class ="select-area-three" required>
                                     <option value=""> >>Seleccione Opción<< </option>
                                     <?php
                                     $results = search_answer("1");
@@ -137,7 +137,7 @@ include "function-templates/template-new-request-function.php";
                         <div class = "item-span-three">
                             <div class = "item2">
                                 <label for="name">Nivel de instruccion de la esposa o conyugue</label><span class="required">** </span><br>
-                                <select id="graffar-2" name="graffar-2"  class ="select-area-three" required>
+                                <select id="g2" name="g2"  class ="select-area-three" required>
                                     <option value=""> >>Seleccione Opción<< </option>
                                     <?php
                                     $results = search_answer("2");
@@ -149,7 +149,7 @@ include "function-templates/template-new-request-function.php";
                         <div class = "item-span-three">
                             <div class = "item3">
                                 <label for="name">Principal fuente de ingreso</label><span class="required">** </span><br>
-                                <select id="graffar-3" name="graffar-3"  class ="select-area-three" required>
+                                <select id="g3" name="g3"  class ="select-area-three" required>
                                     <option value=""> >>Seleccione Opción<< </option>
                                     <?php
                                     $results = search_answer("3");
@@ -161,7 +161,7 @@ include "function-templates/template-new-request-function.php";
                         <div class = "item-span-three">
                             <div class = "item4">
                                 <label for="name">Condiciones de alojamiento</label><span class="required">** </span><br>
-                                <select id="graffar-4" name="graffar-4"  class ="select-area-three" required>
+                                <select id="g4" name="g4"  class ="select-area-three" required>
                                     <option value=""> >>Seleccione Opción<< </option>
                                     <?php
                                     $results = search_answer("4");
@@ -173,13 +173,15 @@ include "function-templates/template-new-request-function.php";
                 </div>
             </div>
             <!-- fin Clasificacion graffar -->
-
         </section>
-            <section class="right">
-                <button class="button-just" type="submit" name="submit" id="submit" onsubmit=" <?php registraSolicitud(); ?> ">REGISTRAR Y GENERAR PRE-ORDEN</button>
-            </section>
-        </form>
+        <input style="display: none" id="idpac" name="idpac">
     </div><!-- fin  area-3 del grid-container -->
+    <section class="right">
+        <button class="button-just" type="submit" name="submit" id="submit" value="<?php echo $_POST['id_pac'];?>" onsubmit=" <?php registraSolicitud(); ?> ">REGISTRAR Y GENERAR PRE-ORDEN</button>
+    </section>
+    </form>
 </section> <!-- fin  grid-container-->
-
+<script language="JavaScript">
+    document.getElementById("idpac").value = <?php echo $_POST['id_pac'];?>;
+</script>
 </body>
