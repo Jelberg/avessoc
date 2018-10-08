@@ -22,10 +22,12 @@ include "function-templates/template-new-request-function.php";
     </div> <!-- fin area 2-->
 
     <div class="area-3">
+        <form method="post" id="Solicitud paciente">
         <section class="grid-2">
             <!-- COMPOSICION FAMILIAR -->
             <div class="item4">
                 <h3>Nueva solicitud paciente: <?php echo nombrePaciente();?></h3>
+
                 <div class="item-grid-2-border">
                     <h3>Composición Familiar</h3>
                     <section class="grid-columns">
@@ -173,6 +175,11 @@ include "function-templates/template-new-request-function.php";
             <!-- fin Clasificacion graffar -->
 
         </section>
+            <section class="right">
+                <button class="button-just" type="submit" name="submit" id="submit" onsubmit=" <?php
+                ?> ">REGISTRAR Y GENERAR PRE-ORDEN</button>
+            </section>
+        </form>
     </div><!-- fin  area-3 del grid-container -->
 </section> <!-- fin  grid-container-->
 
