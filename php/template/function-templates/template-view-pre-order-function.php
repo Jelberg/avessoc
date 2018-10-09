@@ -6,6 +6,9 @@
 
 
     <script languaje="javascript">
+        var idRporde=Array();
+        var precio = Array();
+
         var nombreLegal="";
         var edad="";
         var tipoDoc="";
@@ -27,6 +30,7 @@
 
         <?php
             infoPaciente();
+            llenaArrays();
         ?>
 
         /**
@@ -96,45 +100,23 @@
                 return true;
             });
 
-            /**
-             * Añade otra fila a la tabla
-             * */
-           /* $('#addRow').on( 'click', function () {
-                if (count < 25) { // Arbitrariamente se limito a 25 filas, contando con las que se eliminan
-                    count++;
-                    table.row.add([
-                        '<select id="examenNombre'.concat(count).concat('"').concat('" name="examenNombre').concat(count).concat('"').concat('" class="select-area"  onchange="CargaCentrosSalud(').concat(count).concat(',this.value)" required> <option value="" selected> >>Seleccione opción<< </option>').concat('</select>'),
-                        '<select id="centroReferir'.concat(count).concat('"').concat('" name="centroReferir').concat(count).concat('"').concat('" class="select-area-two" required> <option value="" selected> >>Seleccione opción<< </option> ').concat('</select>')
-                    ]).draw(false);
-                    document.getElementById("examenNombre".concat(count)).value = "";
-                } else alert("Ya no puede seguir agregando mas datos");
-            } );
-
-            // Llena automaticamente la 1era fila
-            $('#addRow').click();
-
-            /**
-             * Selecciona un elemento de la fila
-             */
-           /* $('#examenes tbody').on( 'click', 'tr', function () {
-                if ( $(this).hasClass('selected') ) {
-                    $(this).removeClass('selected');
-                }
-                else {
-                    table.$('tr.selected').removeClass('selected');
-                    $(this).addClass('selected');
-                }
-            } );
-
-            /**
-             *
-             * Elimina una fila del sistema
-             */
-           /* $('#eliminafila').click( function () {
-                table.row('.selected').remove().draw( false );
-            } );*/
-
         });
+
+        /**
+         * Funcion Calcula el monto de los examenes
+         * @param precio
+         * @param comando
+         */
+        function adiereAlTotal(precio,comando) {
+            console.log(comando);
+            var total = document.getElementById("total").value;
+            if (comando == 'APR'){
+                document.getElementById("total").value = total + precio;
+            }else if(comando != 'APR' && total >= precio){
+                document.getElementById("total").value = total - precio;
+            }
+        }
+
 
 
     </script>
@@ -163,7 +145,7 @@ function infoPaciente(){
     $causa="";
     $query = "SELECT P.MPERSON_LEGAL_NAME,TIMESTAMPDIFF(YEAR,P.MPERSON_BIRTH,CURDATE()) AS EDAD, P.MPERSON_TYPE_DOC, P.MPERSON_IDENTF, REQUEST_GRAFFAR_PORCTG, 
     `REQUEST_GRAFFAR_ONE`,`REQUEST_GRAFFAR_TWO`, `REQUEST_GRAFFAR_THREE`, `REQUEST_GRAFFAR_FOUR`,`REQUEST_FAMILY_TYPE`,`REQUEST_FAMILY_OTHER`, MDC.MPERSON_LEGAL_NAME as CENTRO,
-    `REQUEST_WEIGHT`,`REQUEST_INHABITANTS_NUMB`, `REQUEST_AVERAGE_INCOME`, `REQUEST_ORIGIN`, `REQUEST_CAUSE_EXAM`,REQUEST_LOBORAL_COND,`REQUEST_ID`,P.MPERSON_ID 
+    `REQUEST_WEIGHT`,`REQUEST_INHABITANTS_NUMB`, `REQUEST_AVERAGE_INCOME`, `REQUEST_ORIGIN`, `REQUEST_CAUSE_EXAM`,REQUEST_LOBORAL_COND,`REQUEST_ID`,P.MPERSON_ID
     FROM REQUEST 
     INNER JOIN PATIENT AS P ON P.MPERSON_ID = `REQUEST_PATIENT_PERSON_ID` 
     INNER JOIN MDCENTER AS MDC ON MDC.MPERSON_ID = REQUEST_MDCENTER_ID_CONCERNING 
@@ -213,8 +195,9 @@ function infoPaciente(){
  * @return string
  */
 function llenaTablaExamenes(){
-    $query ="SELECT `RPORDER_STATUS`, MDC.MPERSON_LEGAL_NAME, E.EXAM_DESC, `RPORDER_ID`, RCE.RCENTEREXAM_ID,`RPORDER_NUMERO_SOL` 
-            FROM `RPORDER` INNER JOIN RCENTEREXAM AS RCE ON RCE.RCENTEREXAM_ID =`RPORDER_CE_ID` 
+    $query ="SELECT `RPORDER_STATUS`, MDC.MPERSON_LEGAL_NAME, E.EXAM_DESC, `RPORDER_ID`, RCE.RCENTEREXAM_ID,`RPORDER_NUMERO_SOL`, RCE.RCENTEREXAM_PRICE 
+            FROM `RPORDER` 
+            INNER JOIN RCENTEREXAM AS RCE ON RCE.RCENTEREXAM_ID =`RPORDER_CE_ID` 
             INNER JOIN MDCENTER AS MDC ON MDC.MPERSON_ID = RCE.RCENTEREXAM_MDCENTER_PERSON_ID 
             INNER JOIN EXAM AS E ON E.EXAM_ID= RCE.RCENTEREXAM_EXAM_ID 
             INNER JOIN REQUEST AS R ON R.REQUEST_ID=`RPORDER_REQUEST_ID` 
@@ -223,6 +206,7 @@ function llenaTablaExamenes(){
 
     $lista="";
     $lista .= '
+    
     <table id="examenes" class="display" style="width:100%" >
                             <thead>
                             <tr>
@@ -234,17 +218,21 @@ function llenaTablaExamenes(){
                             <tbody>
     ';
     global $wpdb;
+    $i=0;
     foreach ($wpdb->get_results($query) as $key => $row){
+
         $lista .= "<tr>\n";
         $lista .= '<td>'.$row->EXAM_DESC."</td>\n";
         $lista .= '<td>'.$row->MPERSON_LEGAL_NAME."</td>\n";
         $lista .= '<td>
-            <select id="estado-actual'.$row->RPORDER_ID.'" name="estado-actual'.$row->RPORDER_ID.'">
+            <select id="estado-actual'.$row->RPORDER_ID.'" name="estado-actual'.$row->RPORDER_ID.'" onchange="adiereAlTotal('.$row->RCENTEREXAM_PRICE.',this.value)">
                 <option selected="true" value="'.$row->RPORDER_STATUS.'">'.devuelveValorSelect($row->RPORDER_STATUS).'</option>
                 '.retornaRestolista($row->RPORDER_STATUS).'
             </select>
             '."</td>\n";
         $lista .= "</tr>\n";
+
+
     }
 
     $lista .= '
@@ -260,6 +248,28 @@ function llenaTablaExamenes(){
     ';
     return $lista;
 
+}
+
+/**
+ * Funcion llena los arreglos para los precios y las aprobaciones de los examens
+ */
+function llenaArrays(){
+    $query ='SELECT `RPORDER_ID`, RCE.RCENTEREXAM_PRICE 
+            FROM `RPORDER` 
+            INNER JOIN RCENTEREXAM AS RCE ON RCE.RCENTEREXAM_ID =`RPORDER_CE_ID` 
+            INNER JOIN MDCENTER AS MDC ON MDC.MPERSON_ID = RCE.RCENTEREXAM_MDCENTER_PERSON_ID 
+            INNER JOIN EXAM AS E ON E.EXAM_ID= RCE.RCENTEREXAM_EXAM_ID 
+            INNER JOIN REQUEST AS R ON R.REQUEST_ID=`RPORDER_REQUEST_ID` 
+            WHERE 
+            `RPORDER_NUMERO_SOL` = (SELECT `RPORDER_NUMERO_SOL` FROM RPORDER WHERE `REQUEST_PATIENT_PERSON_ID` = 3 ORDER BY RPORDER_NUMERO_SOL DESC LIMIT 1)';
+    global $wpdb;
+    $i=0;
+    foreach ($wpdb->get_results($query) as $key => $row){
+
+        echo 'idRporde['.$i.']="'.$row->RPORDER_ID.'"'.";\n";
+        echo 'precio['.$i.']="'.$row->RCENTEREXAM_PRICE.'"'.";\n";
+        $i = $i +1;
+    }
 }
 
 /**
@@ -291,5 +301,6 @@ function retornaRestolista($valor){
 
     return $opcion;
 }
+
 
 ?>

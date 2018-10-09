@@ -104,13 +104,15 @@ include "function-templates/template-view-pre-order-function.php"
                 </div>
                 <h6>Detalles del Examen</h6>
                 <div class="item-1">
-                    <span id="addRow" style="background: none; color: darkcyan"><strong>AGREGAR OTRO EXAMEN</strong></span>
-                    <span id="eliminafila"  style="background: none; color: firebrick" title="Seleciona un item de la lista para poder eliminar"><strong>ELIMINAR FILA</strong></span>
                     <?php
                       echo llenaTablaExamenes();
                     ?>
                 </div>
-
+                <h6>Asignar Patrocinante</h6>
+                <div class="item-2">
+                    <label for="name">Precio total de los examenes </label><br>
+                    <input type="text" name="total" id="total" class="form-area-two" value="0" disabled/><br>
+                </div>
             </section>
             <div class="right">
                 <button class="button-just" id="submit-porden" onsubmit="">ENVIAR PRE-ORDEN</button>
