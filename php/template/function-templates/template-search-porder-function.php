@@ -63,9 +63,9 @@ function llenaListaPreOrdenes(){
                             <table id="listaPorder" class="display" style="width:100%" >
                             <thead>
                             <tr>
-                                <th>Número Pre-Orden</th>
-                                <th>Nombre Paciente</th>
-                                <th>Tipo Documento</th>
+                                <th>Pre-Orden #</th>
+                                <th>Paciente</th>
+                                <th>T. Documento</th>
                                 <th>Número Identidad</th>
                                 <th>Centro Referente</th>
                                 <th>Fecha</th>
@@ -85,7 +85,7 @@ function llenaListaPreOrdenes(){
         $lista .= '<td>'.$row->NOMBRE_CENTRO."</td>\n";
         $lista .= '<td>'.$row->FECHA_PORDER."</td>\n
                     <td>
-                    <a style='background: red'><i class='fa fa-trash' aria-hidden='true'></i></a>
+                    <a><i style='background: red; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-trash fa-2x'></i></a>
                     </td>\n";
         $lista .= "</tr>\n";
     }
@@ -94,9 +94,9 @@ function llenaListaPreOrdenes(){
     </tbody>
                             <tfoot>
                             <tr>
-                                <th>Número Pre-Orden</th>
-                                <th>Nombre Paciente</th>
-                                <th>Tipo Documento</th>
+                                <th>Pre-Orden #</th>
+                                <th>Paciente</th>
+                                <th>T. Documento</th>
                                 <th>Número Identidad</th>
                                 <th>Centro Referente</th>
                                  <th>Fecha</th>
