@@ -107,7 +107,7 @@ include "function-templates/template-view-pre-order-function.php"
                     <span id="addRow" style="background: none; color: darkcyan"><strong>AGREGAR OTRO EXAMEN</strong></span>
                     <span id="eliminafila"  style="background: none; color: firebrick" title="Seleciona un item de la lista para poder eliminar"><strong>ELIMINAR FILA</strong></span>
                     <?php
-                    //  echo llenaTablaExamenes();
+                      echo llenaTablaExamenes();
                     ?>
                 </div>
 
