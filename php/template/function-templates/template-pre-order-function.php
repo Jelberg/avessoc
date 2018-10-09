@@ -101,7 +101,7 @@
          * */
         $('#submit-porden').click( function() {
             var data = table.$('select').serialize();
-            $.post(" http://dev.avessoc.org.ve/avessoc-nueva-preorden/" ,
+            $.post("<?php echo PATH_PAG_ADD_PRE_ORDEN;?>" ,
                 {
                     datos:data,
                 });
@@ -260,11 +260,9 @@ function cargaDatosPaciente($id_pacient){
 function request($id_paciente){
     if (!empty($id_paciente)) {
         global $wpdb;
-        $query = 'SELECT REQUEST_ID FROM `PATIENT`, REQUEST WHERE MPERSON_ID = REQUEST_PATIENT_PERSON_ID AND MPERSON_ID =' . $id_paciente.'ORDER BY REQUEST_ID DESC LIMIT 1';
+        $query = 'SELECT REQUEST_ID FROM `PATIENT`, REQUEST WHERE MPERSON_ID = REQUEST_PATIENT_PERSON_ID AND MPERSON_ID =' . $id_paciente.' ORDER BY REQUEST_ID DESC LIMIT 1';
         $id_sol = "";
-        foreach ($wpdb->get_var($query) as $key => $row) {
-            $id_sol = $row->REQUEST_ID;
-        }
+        $id_sol= $wpdb->get_var($query);
         return $id_sol;
     } else return null;
 }

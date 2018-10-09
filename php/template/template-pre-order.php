@@ -100,7 +100,7 @@ include "function-templates/template-pre-order-function.php"
 
             </section>
             <div class="right">
-                <button class="button-just" id="submit-porden" onsubmit="<?php registraPOrden(request($_GET['id_pac'])); ?>">ENVIAR PRE-ORDEN</button>
+                <button class="button-just" id="submit-porden" onsubmit="<?php registraPOrden(request($_POST['paciente-id'])); ?>">ENVIAR PRE-ORDEN</button>
             </div>
         </form>
     </div><!-- fin  area-3 del grid-container -->

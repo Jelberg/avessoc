@@ -1,5 +1,7 @@
 <?php
 
+
+
 /**
  * Obtiene el valor y la descripcion de la respuesta de la escala graffar
  * @param $id_question
@@ -42,8 +44,10 @@ function llenaComboBox($results)
  */
 function nombrePaciente(){
     global $wpdb;
+
     $nombre="";
-    $nombre = $wpdb->get_var("SELECT MPERSON_LEGAL_NAME FROM PATIENT WHERE MPERSON_ID=".$_POST['id_pac']);
+    $query="SELECT MPERSON_LEGAL_NAME FROM PATIENT WHERE MPERSON_ID=".$_POST['id_pac'];
+    $nombre = $wpdb->get_var($query);
     return $nombre;
 
 }
@@ -56,6 +60,7 @@ function registraSolicitud(){
                 && !empty($_POST['g2']) && !empty($_POST['g3']) && !empty($_POST['g4'])) {
 
         global $wpdb;
+
         $valor = $_POST['g1'] + $_POST['g2'] + $_POST['g3'] + $_POST['g4'];
         $porcentaje = $wpdb->get_var('SELECT SCALE_PORCENTAGE FROM `SCALE` WHERE SCALE_MIN<=' . $valor . ' AND SCALE_MAX>=' . $valor);
 
