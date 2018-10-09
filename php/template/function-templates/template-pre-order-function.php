@@ -291,6 +291,7 @@ function registraPOrden($id_solicitud){
             array(
                 'REQUEST_ORIGIN' => $_POST['procedencia'],
                 'REQUEST_WEIGHT' => $_POST['peso'],
+                'REQUEST_MDCENTER_ID_CONCERNING' => $_POST['solicitante'],
                 'REQUEST_CAUSE_EXAM' => $_POST['causa']
             ),
             // Cuando el ID del campo es igual al número 1
@@ -309,6 +310,7 @@ function registraPOrden($id_solicitud){
                     'REQUEST_PATIENT_PERSON_ID' => $_POST['paciente-id'], //
                     'RPORDER_REQUEST_ID' => $id_solicitud,
                     'RPORDER_CE_ID' => $id_rcentroexamen,
+                    'RPORDER_STATUS' => 'PEN',
                     'RPORDER_NUMERO_SOL' => $nuevonum
                 ));
             }
