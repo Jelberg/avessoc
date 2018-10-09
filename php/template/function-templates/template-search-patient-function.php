@@ -89,9 +89,9 @@ function llenaListaPacientes(){
         $lista .= '<td>'.$cuatro."</td>\n";
         $lista .= '<td>'.$row->EDAD."</td>\n
                        <td>
-                       <form action='".PATH_PAG_NEW_REQUEST."' name='solicitudes' id='solicitudes' method='post'>
+                       <form action='".PATH_PAG_NEW_REQUEST."' name='solicitudes' id='solicitudes' method='POST'>
                             <button style=' background-color: #3498DB; padding-left: 10px; padding-top:10px; padding-bottom:10px;
-                            padding-right: 10px; color: #006505' type='submit' id='id_pac' name='id_pac' value=".$cero.">Solicitud</button>
+                            padding-right: 10px;' id='id_pac' name='id_pac' value=".$cero.">Solicitud</button>
                        </form>   
                         </td>\n";
         $lista .= "</tr>\n";

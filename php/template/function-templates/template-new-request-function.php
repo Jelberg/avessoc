@@ -1,7 +1,6 @@
 <?php
 
 
-
 /**
  * Obtiene el valor y la descripcion de la respuesta de la escala graffar
  * @param $id_question
@@ -42,43 +41,15 @@ function llenaComboBox($results)
  * Funcion trae el nombre del paciente
  * @return string
  */
-function nombrePaciente(){
+function nombrePaciente($id){
     global $wpdb;
 
     $nombre="";
-    $query="SELECT MPERSON_LEGAL_NAME FROM PATIENT WHERE MPERSON_ID=".$_POST['id_pac'];
+    $query="SELECT MPERSON_LEGAL_NAME FROM PATIENT WHERE MPERSON_ID=".$id;
     $nombre = $wpdb->get_var($query);
     return $nombre;
 
 }
 
-/**
- * Registra solicitud para el paciente
- */
-function registraSolicitud(){
-    if(!empty($_POST['num']) && !empty($_POST['ingresop']) && !empty($_POST['g1'] )
-                && !empty($_POST['g2']) && !empty($_POST['g3']) && !empty($_POST['g4'])) {
-
-        global $wpdb;
-
-        $valor = $_POST['g1'] + $_POST['g2'] + $_POST['g3'] + $_POST['g4'];
-        $porcentaje = $wpdb->get_var('SELECT SCALE_PORCENTAGE FROM `SCALE` WHERE SCALE_MIN<=' . $valor . ' AND SCALE_MAX>=' . $valor);
-
-        //Insercion de datos en la tabla REQUEST
-        $wpdb->insert('REQUEST', array(
-            'REQUEST_PATIENT_PERSON_ID' => $_POST['id_pac'],
-            'REQUEST_INHABITANTS_NUMB' => $_POST['num'],
-            'REQUEST_AVERAGE_INCOME' => $_POST['ingresop'],
-            'REQUEST_FAMILY_TYPE' => $_POST['fam-tipo'],
-            'REQUEST_FAMILY_OTHER' => ucfirst(strtolower($_POST['otro-desc'])),
-            'REQUEST_LOBORAL_COND' => $_POST['condicion'],
-            'REQUEST_GRAFFAR_ONE' => $_POST['g1'],
-            'REQUEST_GRAFFAR_TWO' => $_POST['g2'],
-            'REQUEST_GRAFFAR_THREE' => $_POST['g3'],
-            'REQUEST_GRAFFAR_FOUR' => $_POST['g4'],
-            'REQUEST_GRAFFAR_PORCTG' => $porcentaje
-        ));
-    }
-}
 
 ?>

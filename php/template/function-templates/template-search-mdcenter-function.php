@@ -30,7 +30,11 @@
                         "previous":   "Anterior"
                     }
                 }
-            })
+            });
+
+            $('#ver').on('click',function () {
+                $("#ViewMDcenter").submit();
+            });
         });
 
     </script>
@@ -69,14 +73,15 @@ function muestraListaMdcenter(){
         $lista .= "<tr>\n";
 
         $lista .= '<td>'.$uno."</td>\n             
-                    <td>
-                       <form action='".PATH_PAG_LOAD_MDCENTER."' name='ViewMDcenter' id='VieMDcenter' metho='post'>
-                            <button style=' background-color: #3498DB; padding-left: 10px; padding-top:10px; padding-bottom:10px;
-                            padding-right: 10px; color: #006505s' type='submit' id='mdcenter_val' name='mdcenter_val' value=".$id.">VER</button>
-                       </form>
-                       
-                       <a id='mdcenter_del' name='mdcenter_del' value=".$id." href='javascript: eliminarxid(".$id.")'>
-                       <img src='".PATH_IC_DELETE."'></a>
+                    <td>                   
+                           <form action='".PATH_PAG_LOAD_MDCENTER."' name='ViewMDcenter' id='ViewMDcenter'>
+                           
+                                <input type='text' id='mdcenter_val' name='mdcenter_val' value=".$id." style='display:none'>
+                                <a id='ver' name='ver'><i style='background: dodgerblue; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-eye fa-2x'></i></a>             
+                           </form>
+                 
+                           <a id='mdcenter_del' name='mdcenter_del' value=".$id." href='javascript: eliminarxid(".$id.")'>
+                                   <i style='background: red; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-trash fa-2x'></i></a>
                      
                     </td>\n";
         $lista .= "</tr>\n";

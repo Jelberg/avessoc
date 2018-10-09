@@ -5,7 +5,6 @@
 
 get_header();
 include "menu.php";
-include "notifications.php";
 include "function-templates/template-load-sponsor-function.php";
 ?>
 

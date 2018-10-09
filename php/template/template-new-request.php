@@ -20,13 +20,16 @@ include "function-templates/template-new-request-function.php";
         mostrarMenu();
         ?>
     </div> <!-- fin area 2-->
-    <form name="Solicitudpacienteform"  id="Solicitudpacienteform" action="<?php echo PATH_PAG_ADD_PRE_ORDEN;?>" method="post">
-        <div class="area-3">
 
+
+
+
+        <div class="area-3">
+            <form name="Solicitudpacienteform"  id="Solicitudpacienteform" action="<?php echo PATH_PAG_ADD_PRE_ORDEN;?>" method="post">
             <section class="grid-2">
                 <!-- COMPOSICION FAMILIAR -->
                 <div class="item4">
-                    <h3>Nueva solicitud paciente: <?php echo nombrePaciente();?></h3>
+                    <h3>Nueva solicitud paciente: <?php echo nombrePaciente($_POST['id_pac']);?></h3>
 
                     <div class="item-grid-2-border">
                         <h3>Composición Familiar</h3>
@@ -46,24 +49,13 @@ include "function-templates/template-new-request-function.php";
                                 <label for="name">Tipo de familia con la que convive</label><br>
                                 <select id="fam-tipo" name ="fam-tipo"  class="select-area-two" onchange="muestraInfo()">
                                     <option value="" selected> >>Seleccione opción<< </option>
-                                    <?php
-
-                                    $datos = array("Una sola persona","Pareja sin hijos","Madre/Padre solo, con hijos","Madre y Padre con hijos y otros parientes","Madre/Padre solo, hijos y otros parientes","Niño/a o adolence en entidad de atencion","Otro");
-                                    $valor = array("Una sola persona","Pareja sin hijos","Madre/Padre solo, con hijos","Madre y Padre con hijos y otros parientes","Madre/Padre solo, hijos y otros parientes","Niño/a o adolence en entidad de atencion","0");
-
-                                    for($i=0; $i<count($datos); $i++)
-                                    {
-                                        if($valor[$i]==$tipofamilia)
-                                        {
-                                            echo "<option value='".$valor[$i]."' selected>".$datos[$i]."</option>";
-                                        }
-                                        else
-                                        {
-                                            echo "<option value='".$valor[$i]."'>".$datos[$i]."</option>";
-                                        }
-                                    }
-
-                                    ?>
+                                    <option value="Una sola persona" selected>Una sola persona </option>
+                                    <option value="Pareja sin hijos" selected>Pareja sin hijos </option>
+                                    <option value="Madre/Padre solo, con hijos" selected>Madre/Padre solo, con hijos </option>
+                                    <option value="Madre y Padre con hijos y otros parientes" selected>Madre y Padre con hijos y otros parientes </option>
+                                    <option value="Madre/Padre solo, hijos y otros parientes" selected>Madre/Padre solo, hijos y otros parientes </option>
+                                    <option value="Niño/a o adolence en entidad de atencion" selected>Niño/a o adolence en entidad de atencion </option>
+                                    <option value="0" selected>Otro </option>
                                 </select>
                             </div>
                             <div class = "item-span-two" id="otro" style="display: block|none;">
@@ -88,25 +80,10 @@ include "function-templates/template-new-request-function.php";
                                 <label for="name">Condicion laboral</label><br>
                                 <select id="condicion" name="condicion" class ="select-area-three">
                                     <option value="" selected> >>Seleccione opción<< </option>
-                                    <?php
-
-                                    $datos = array("Desocupado/ Sin trabajo","Oficios del hogar","Trabajo formal (Empresas, Organismos de estados, etc.)","Trabajo informal a destajo, trabajo temporal)");
-                                    $valor = array("Desocupado/ Sin trabajo","Oficios del hogar","Trabajo formal (Empresas, Organismos de estados, etc.)","Trabajo informal a destajo, trabajo temporal)");
-
-                                    for($i=0; $i<count($datos); $i++)
-                                    {
-                                        if($valor[$i]==$condicion)
-                                        {
-                                            echo "<option value='".$valor[$i]."' selected>".$datos[$i]."</option>";
-                                        }
-                                        else
-                                        {
-                                            echo "<option value='".$valor[$i]."'>".$datos[$i]."</option>";
-                                        }
-                                    }
-
-                                    ?>
-
+                                    <option value="Desocupado/ Sin trabajo" selected>Desocupado/ Sin trabajo</option>
+                                    <option value="Oficios del hogar" selected>Oficios del hogar</option>
+                                    <option value="Trabajo formal (Empresas, Organismos de estados, etc." selected>Trabajo formal (Empresas, Organismos de estados, etc.</option>
+                                    <option value="Trabajo informal a destajo, trabajo temporal" selected>Trabajo informal a destajo, trabajo temporal</option>
                                 </select>
                             </div>
                         </section>
@@ -173,16 +150,24 @@ include "function-templates/template-new-request-function.php";
                     </div>
                 </div>
                 <!-- fin Clasificacion graffar -->
-            </section>
-            <input style="display: none" id="idpac" name="idpac">
+            </section><!--fin section grid-2-->
+                    <input style="display: none" id="idpac" name="idpac">
+                        <section class="right">
+                            <button class="button-just" type="submit" name="submit" id="submit" value="<?php echo $id_paciente_control;?>"
+                                    onsubmit="">REGISTRAR Y GENERAR PRE-ORDEN</button>
+                        </section>
+            </form>
         </div><!-- fin  area-3 del grid-container -->
-        <div class="right">
-            <button class="button-just" type="submit" name="submit" id="submit" value="<?php echo $id_paciente_control;?>"
-                    onsubmit=" <?php registraSolicitud(); ?> ">REGISTRAR Y GENERAR PRE-ORDEN</button>
-        </div>
-    </form>
+
+
+
+
+
+
 </section> <!-- fin  grid-container-->
 <script language="JavaScript">
+    document.getElementById("fam-tipo").value = "";
+    document.getElementById("condicion").value = "";
     document.getElementById("idpac").value = <?php echo $_POST['id_pac'];?>;
 </script>
 </body>

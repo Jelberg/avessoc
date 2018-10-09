@@ -52,12 +52,12 @@
                     ]
                 } );
 
-              /*  $('#sponsor_val').on('click',function () {
-                    $.get, {sponsor_val: "uno"});
+                $('#verporden').on('click',function () {
+                    //$.get, {sponsor_val: "uno"});
                     $('#ViewSponsor').submit();
                 });
 
-*/
+
             });
 
 
@@ -121,18 +121,15 @@ function llenaListaSponsor(){
             $lista .= '<td>'.$dos."</td>\n";
             $lista .= '<td>'.$tres."</td>\n
                        <td>
-                       <div>
-                       <div style='float: left; width: auto;'>
                            <form action='".PATH_PAG_LOAD_SPONSOR."' name='ViewSponsor' id='ViewSponsor'>
-                                <button style=' background-color: #3498DB; padding-left: 10px; padding-top:10px; padding-bottom:10px;
-                                padding-right: 10px; color: #006505s' type='submit' id='sponsor_val' name='sponsor_val' value=".$id.">VER</button>
+
+                                <input type='text' id='sponsor_val' name='sponsor_val' value='".$id."' style='display:none'>
+                                <a id='verporden' name='verporden'><i style='background: dodgerblue; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-eye fa-2x'></i></a>             
                            </form>
-                        </div> 
-                          <div style='float: right; margin-top: 10px; margin-left: 5px; width: auto;'>
+                 
                            <a id='sponsor_del' name='sponsor_del' value=".$id." href='javascript: eliminarxid(".$id.")'>
-                                   <i style='background: red; width: 35px; height: 40px; color: white; text-align: center' class='fa fa-trash fa-2x'></i></a>
-                           </div>
-                        </div>
+                                   <i style='background: red; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-trash fa-2x'></i></a>
+             
                         </td>\n";
         $lista .= "</tr>\n";
     }
