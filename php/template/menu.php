@@ -77,6 +77,7 @@ function mostrarMenu(){
 				<ul>
                      <li><a href="'.PATH_PAG_REGISTER_PATIENT.'"><i class="icono izquierda fa fa-arrow-right"></i>Registrar nuevos Pacientes</a>
 				     <li><a href="'.PATH_PAG_SEARCH_PATIENT.'"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Pacientes</a>
+				     <li><a href="'.PATH_PAG_SEARCH_PRE_ORDER.'"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Pre-Ordenes</a>
 				</ul>
 			<li><a href="#"><i class="icono izquierda fa fa-users"></i>Patrocinantes<i class="icono derecha fa fa-chevron-down"></i></a>
 				<ul>
