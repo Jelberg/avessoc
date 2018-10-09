@@ -5,6 +5,7 @@
 
 get_header();
 include "menu.php";
+include "function-templates/template-search-porder-function.php";
 ?>
 
 <head>
