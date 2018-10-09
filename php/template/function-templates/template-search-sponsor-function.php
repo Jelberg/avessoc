@@ -52,19 +52,12 @@
                     ]
                 } );
 
-
-           /*     $('#listaSponsor tbody').on( 'click', 'tr', function () {
-                    if ( $(this).hasClass('selected') ) {
-                        $(this).removeClass('selected');
-                    }
-                    else {
-                        table.$('tr.selected').removeClass('selected');
-                        $(this).addClass('selected');
-                    }
-                } );*/
+                $('#sponsor_val').on('click',function () {
+                    $('#ViewSponsor').submit();
+                });
 
 
-            } );
+            });
 
 
         </script>
@@ -127,14 +120,12 @@ function llenaListaSponsor(){
             $lista .= '<td>'.$dos."</td>\n";
             $lista .= '<td>'.$tres."</td>\n
                        <td>
-                       <form action='http://dev.avessoc.org.ve/avessoc-load-sponsor?sponsor=".$id."' name='ViewSponsor' id='ViewSponsor'>
-                            <button style=' background-color: #3498DB; padding-left: 10px; padding-top:10px; padding-bottom:10px;
-                            padding-right: 10px; color: #006505s' type='submit' id='sponsor_val' name='sponsor_val' value=".$id.">VER</button>
+                       <form action='".PATH_PAG_LOAD_SPONSOR."'?sponsor=".$id."' name='ViewSponsor' id='ViewSponsor'>
+                            <a type='submit' id='sponsor_val' name='sponsor_val' value=".$id."'>
+                               <i style='background: cornflowerblue; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-eye fa-2x'></i></a>
                        </form>
-                       
-                       <a id='sponsor_del' name='sponsor_del' value=".$id." href='javascript: eliminarxid(".$id.")'>
-                       <img src='".path('DELETE_IC')."'></a>
-                     
+                            <a id='sponsor_del' name='sponsor_del' value=".$id." href='javascript: eliminarxid(".$id.")'>
+                               <i style='background: red; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-trash fa-2x'></i></a>
                         </td>\n";
         $lista .= "</tr>\n";
     }

@@ -55,6 +55,9 @@ define("PATH_PAG_ADD_PRE_ORDEN"," http://dev.avessoc.org.ve/avessoc-nueva-preord
 
 //Direccion de busqueda de pre-orden
 define("PATH_PAG_SEARCH_PRE_ORDER","http://dev.avessoc.org.ve/avessoc-buscar-preorden/");
+
+//Direccion Carga sponsor
+define("PATH_PAG_LOAD_SPONSOR","http://dev.avessoc.org.ve/avessoc-load-sponsor/");
 ?>
 
 
