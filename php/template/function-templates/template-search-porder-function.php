@@ -34,7 +34,12 @@
                     }
                 }
             } );
+
         });
+
+        function ref(num){
+            window.location.href = '<?php echo PATH_PAG_DATA_PRE_ORDER;?>'.concat('?numporden=').concat(num);
+        }
 
     </script>
 </head>
@@ -86,6 +91,7 @@ function llenaListaPreOrdenes(){
         $lista .= '<td>'.$row->FECHA_PORDER."</td>\n
                     <td>
                     <a><i style='background: red; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-trash fa-2x'></i></a>
+                    <a id='verporden' name='verporden' onclick='ref(".$row->RPORDER_NUMERO_SOL.")' ><i style='background: dodgerblue; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-eye fa-2x'></i></a>
                     </td>\n";
         $lista .= "</tr>\n";
     }

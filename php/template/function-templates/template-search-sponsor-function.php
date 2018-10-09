@@ -52,11 +52,12 @@
                     ]
                 } );
 
-                $('#sponsor_val').on('click',function () {
+              /*  $('#sponsor_val').on('click',function () {
+                    $.get, {sponsor_val: "uno"});
                     $('#ViewSponsor').submit();
                 });
 
-
+*/
             });
 
 
@@ -120,12 +121,18 @@ function llenaListaSponsor(){
             $lista .= '<td>'.$dos."</td>\n";
             $lista .= '<td>'.$tres."</td>\n
                        <td>
-                       <form action='".PATH_PAG_LOAD_SPONSOR."'?sponsor=".$id."' name='ViewSponsor' id='ViewSponsor'>
-                            <a type='submit' id='sponsor_val' name='sponsor_val' value=".$id."'>
-                               <i style='background: cornflowerblue; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-eye fa-2x'></i></a>
-                       </form>
-                            <a id='sponsor_del' name='sponsor_del' value=".$id." href='javascript: eliminarxid(".$id.")'>
-                               <i style='background: red; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-trash fa-2x'></i></a>
+                       <div>
+                       <div style='float: left; width: auto;'>
+                           <form action='".PATH_PAG_LOAD_SPONSOR."' name='ViewSponsor' id='ViewSponsor'>
+                                <button style=' background-color: #3498DB; padding-left: 10px; padding-top:10px; padding-bottom:10px;
+                                padding-right: 10px; color: #006505s' type='submit' id='sponsor_val' name='sponsor_val' value=".$id.">VER</button>
+                           </form>
+                        </div> 
+                          <div style='float: right; margin-top: 10px; margin-left: 5px; width: auto;'>
+                           <a id='sponsor_del' name='sponsor_del' value=".$id." href='javascript: eliminarxid(".$id.")'>
+                                   <i style='background: red; width: 35px; height: 40px; color: white; text-align: center' class='fa fa-trash fa-2x'></i></a>
+                           </div>
+                        </div>
                         </td>\n";
         $lista .= "</tr>\n";
     }

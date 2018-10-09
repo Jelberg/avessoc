@@ -54,7 +54,7 @@ include "function-templates/template-load-sponsor-function.php";
 
                         <div class="item-1" ><!--fila 1-->
                             <label for="legal-name">Nombre Legal</label><span class="required">*</span><br>
-                            <input type="text" name="legal-name" id="legal-name" class="form-area-two" value="<?php echo $legal?>"
+                            <input type="text" name="legal-name" id="legal-name" class="form-area-two"
                                    pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+"  title="Max. 40 carácteres. Solo Letras" maxlength="40" required/><br>
                         </div>
 
