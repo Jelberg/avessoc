@@ -69,6 +69,7 @@ function llenaListaPreOrdenes(){
                                 <th>Número Identidad</th>
                                 <th>Centro Referente</th>
                                 <th>Fecha</th>
+                                <th>Acción</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -82,7 +83,10 @@ function llenaListaPreOrdenes(){
         $lista .= '<td>'.$row->MPERSON_TYPE_DOC."</td>\n";
         $lista .= '<td>'.$row->MPERSON_IDENTF."</td>\n";
         $lista .= '<td>'.$row->NOMBRE_CENTRO."</td>\n";
-        $lista .= '<td>'.$row->FECHA_PORDER."</td>\n";
+        $lista .= '<td>'.$row->FECHA_PORDER."</td>\n
+                    <td>
+                    <a style='background: red'><i class='fa fa-trash' aria-hidden='true'></i></a>
+                    </td>\n";
         $lista .= "</tr>\n";
     }
 
@@ -96,6 +100,7 @@ function llenaListaPreOrdenes(){
                                 <th>Número Identidad</th>
                                 <th>Centro Referente</th>
                                  <th>Fecha</th>
+                                 <th>Acción</th>
                             </tr>
                             </tfoot>
                         </table>

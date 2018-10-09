@@ -96,7 +96,7 @@ include "function-templates/template-search-sponsor-function.php";
                         showConfirmButton: false,
                         allowOutsideClick: false
                     });
-                    $.post('http://dev.avessoc.org.ve/avessos-buscar-patrocinante/', {sponsor_del: id});
+                    $.post('<?php echo PATH_PAG_SEARCH_SPONSOR ;?>', {sponsor_del: id});
                     window.location.reload(false);
                 }
             });
