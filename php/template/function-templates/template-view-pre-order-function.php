@@ -326,4 +326,10 @@ function retornaRestolista($valor){
 }
 
 
+/**
+ * Funcion llena combo de los sponsors
+ */
+function llenaComboSponsors(){
+
+}
 ?>

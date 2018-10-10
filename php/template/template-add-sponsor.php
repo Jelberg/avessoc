@@ -89,11 +89,13 @@ include "function-templates/template-add-sponsor-function.php";
 
                 </div>
             </section>
-            <div class ="right">
-                <button class="button-just" name="registrar" id="registrar" onclick="registro(this.form, this.form.logo.value)">REGISTRAR PATROCINANTE</button>
-            </div>
 
         </form><!--fin de formulario-->
+        <div class ="right">
+            <button class="button-just" name="registrar" id="registrar" >REGISTRAR PATROCINANTE</button>
+        </div>
+
+
     </div><!-- fin  area-3 del grid-1 -->
 </div> <!-- fin  grid-1-->
 
