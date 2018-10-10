@@ -6,10 +6,25 @@
 get_header();
 include "menu.php";
 include "function-templates/template-add-user-function.php";
+
 ?>
 
 <head>
+    <script language="JavaScript">
+        var seudonimos = Array();
+        <?php
 
+        agregarUsuario(); // Una vez ejecutado limpio los datos del post
+        llenaArraySeudonimos();
+        $_POST['nombre'] = array();
+        $_POST['apellido'] = array();
+        $_POST['pass'] = array();
+        $_POST['seudonimo'] = array();
+        $_POST['privilegio'] = array();
+        $_POST['centro'] = array();
+
+        ?>
+    </script>
 </head>
 
 <body>
@@ -62,8 +77,8 @@ include "function-templates/template-add-user-function.php";
                             <label for="name">Privilegios</label><span class="required">*</span><br>
                             <select type="text" name="privilegio" id="privilegio" class="select-area-two" require>
                                 <option value=""> >>Selecione opción<< </option>
-                                <option value="Administrador">Administrador</option>
-                                <option value="Centro de Salud">Centro de Salud</option>
+                                <option value="ADMIN">Administrador</option>
+                                <option value="CENTR">Centro de Salud</option>
                             </select>
                         </div>
                         <div class="item-row-8">
@@ -73,11 +88,13 @@ include "function-templates/template-add-user-function.php";
                     </section>
                 </div>
             </section> <!--Fin del grid-2-->
+
         </form>
-        <section class="rigth">
-            <button id="RegistrarUsuario" name="RegistrarUsuario" onsubmit="<?php agregarUsuario();?>"></button>
+        <section class="right">
+            <button id="RegistrarUsuario" name="RegistrarUsuario" onclick="validaForm()">REGISTRAR USUARIO</button>
         </section>
     </div><!-- fin  area-3 del grid-container -->
 </section> <!-- fin  grid-container-->
+
 
 </body>

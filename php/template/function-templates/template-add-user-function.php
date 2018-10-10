@@ -1,28 +1,28 @@
 <html>
 <head>
-<script language="JavaScript">
-    var seudonimos = Array();
-<?php
-    llenaArraySeudonimos();
-?>
-
-    $('#RegistrarUsuario').on('click',function()){
-        var logitud = seudonimos.length;
-        var pass = ""; // variable para saber si encontro el seudoimo
-        var pse  = document.getElementById("seudonimo").value;
-        for(i=0; i < logitud; i++){
-            if (seudonimos[i] == pse){
-                $('#FormAddUser').submit();
-                pass = "SI";
+    <script language="JavaScript">
+        /**
+         * Form para validar que los datos sean los correctos
+         */
+           function validaForm() {
+            var logitud = seudonimos.length;
+            var pass = "NO"; // variable para saber si encontro el seudoimo
+            var pse = document.getElementById("seudonimo").value;
+            for (i = 0; i < logitud; i++) {
+                if (seudonimos[i] == pse) {
+                    alert("El seudónimo ingresado ya existe\n Por favor ingrese otro.");
+                    pass = "SI";
+                }
+            }
+            if (pass == 'NO') {
+                jQuery(function ($) {
+                    $('#FormAddUser').submit();
+                });
             }
         }
-        if (pass == 'SI'){
-            alert("El seudónimo ingresado ya existe\n Por favor ingrese otro.");
-        }
-    }
 
 
-</script>
+    </script>
 </head>
 <body>
 
@@ -59,9 +59,9 @@ function agregarUsuario(){
             'MPERSON_NAME' => $_POST['nombre'],
             'MPERSON_LAST_NAME' => $_POST['apellido'],
             'USER_PASS' => $_POST['pass'],
-            'USER_PSEUDONYM ' => $_POST['seudonimo'],
+            'USER_PSEUDONYM' => $_POST['seudonimo'],
             'USER_PRIVILEGE_LEVL' => $_POST['privilegio'],
-            'USER_COMPANY ' => $_POST['centro']
+            'USER_COMPANY' => $_POST['centro']
         ));
 
         $id = $wpdb->get_var("SELECT MPERSON_ID FROM USER ORDER BY MPERSON_ID DESC");

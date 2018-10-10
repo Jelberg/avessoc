@@ -61,6 +61,9 @@ define("PATH_PAG_LOAD_SPONSOR","http://dev.avessoc.org.ve/avessoc-load-sponsor/"
 
 //Carag Datos pre-orden
 define("PATH_PAG_DATA_PRE_ORDER","http://dev.avessoc.org.ve/avessod-datos-preoren/");
+
+//Direccion para la pagina de agregar usuario
+define("PATH_PAG_ADD_USER","http://dev.avessoc.org.ve/avessoc-agregar-usuario/");
 ?>
 
 
