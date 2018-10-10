@@ -106,6 +106,12 @@ function mostrarMenu(){
 			        <li><a href="'.PATH_PAG_ADD_NEW_EXAM.'"><i class="icono izquierda fa fa-arrow-right"></i>Agregar nuevos examenes</a>
                  </ul>
 			</li>
+			<li><a  href="#"><i class="icono izquierda "></i>Usuarios<i class="icono derecha fa fa-chevron-down"></i></a>
+			    <ul>
+			        <li><a href="'.PATH_PAG_ADD_USER.'"><i class="icono izquierda fa fa-arrow-right"></i>Registrar Usuarios</a>
+			        <li><a href=""><i class="icono izquierda fa fa-arrow-right"></i>Buscar Usuarios</a>
+                 </ul>
+			</li>
 		</ul>
 	</div>
     ';

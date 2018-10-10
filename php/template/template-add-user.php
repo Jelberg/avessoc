@@ -11,19 +11,21 @@ include "function-templates/template-add-user-function.php";
 
 <head>
     <script language="JavaScript">
+
         var seudonimos = Array();
         <?php
 
         agregarUsuario(); // Una vez ejecutado limpio los datos del post
         llenaArraySeudonimos();
-        $_POST['nombre'] = array();
-        $_POST['apellido'] = array();
-        $_POST['pass'] = array();
-        $_POST['seudonimo'] = array();
-        $_POST['privilegio'] = array();
-        $_POST['centro'] = array();
-
+        unset($_POST);
         ?>
+
+        document.onkeydown = function(e){
+            tecla = (document.all) ? e.keyCode : e.which;
+           // alert(tecla)
+            if (tecla == 116) {return false;}
+        }
+
     </script>
 </head>
 
@@ -54,7 +56,7 @@ include "function-templates/template-add-user-function.php";
                         </div>
                         <div class="item-row-3">
                             <label for="name">Seudónimo</label><span class="required">*</span><br>
-                            <input type="text" name="seudonimo" id="seudonimo" class="form-area-two" require/><br>
+                            <input type="text" name="seudonimo" id="seudonimo" class="form-area-two" minlength="4" require/><br>
                         </div>
                         <div class="item-row-4">
                             <label for="name">Centro de Salud al que pertenece</label><span class="required">*</span><br>
@@ -67,11 +69,11 @@ include "function-templates/template-add-user-function.php";
                         </div>
                         <div class="item-row-5">
                             <label for="name">Password</label><span class="required">*</span><br>
-                            <input type="password" name="pass" id="pass" class="form-area-two" require/><br>
+                            <input type="password" name="pass" id="pass" class="form-area-two" minlength="4" require/><br>
                         </div>
                         <div class="item-row-6">
                             <label for="name">Repita Password</label><span class="required">*</span><br>
-                            <input type="password" name="pass2" id="pass2" class="form-area-two" require/><br>
+                            <input type="password" name="pass2" id="pass2" class="form-area-two" minlength="4" require/><br>
                         </div>
                         <div class="item-row-7">
                             <label for="name">Privilegios</label><span class="required">*</span><br>
