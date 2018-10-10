@@ -114,7 +114,9 @@
         function adiereAlTotal(precio,comando,id) {
             var longitud =  arrayRespuesta.length;
             var total = document.getElementById("total").value;
-            for(i=0; i < longitud ; i++){
+
+
+            for(i=0; i < longitud ; i++){// Para la suma o resta del precio de los examenes
                 console.log(comando);
                 if (idRporde[i] == id){
                     var respuesta = arrayRespuesta[i]; // guarda el ultimo valor del status
@@ -134,8 +136,11 @@
                     }
 
                 }
-
             }
+
+            var porcentaje = document.getElementById("poncentaje").value;
+            var t= document.getElementById("total");
+            document.getElementById("desc").value =parseFloat(porcentaje) * parseInt(t);
         }
 
 
@@ -330,6 +335,16 @@ function retornaRestolista($valor){
  * Funcion llena combo de los sponsors
  */
 function llenaComboSponsors(){
+    global $wpdb;
+    $combo = "";
+    $query ="SELECT `MPERSON_LEGAL_NAME`, `MPERSON_ID`, C.CNTBTION_BALANCE, C.CNTBTION_ID 
+                FROM `SPONSOR` 
+                INNER JOIN CNTBTION AS C ON C.CNTBTION_SPONSOR_ID = MPERSON_ID";
 
+    foreach($wpdb->get_results($query) as $key => $row){
+        $combo .= '<option value="'.$row->MPERSON_ID.'">'.$row->MPERSON_LEGAL_NAME.'</option>';
+    }
+
+    return $combo;
 }
 ?>

@@ -110,14 +110,17 @@ include "function-templates/template-view-pre-order-function.php"
                 </div>
                 <h6>Asignar Patrocinante</h6>
                 <div class="item-2">
-                    <label for="name">Asignar Patrocinante </label><br>
-                    <select type="text" name="patrocinante" id="patrocinante" class="form-area-two" >
+                    <label for="name">Asignar Patrocinante </label><span class="required">*</span><br>
+                    <select name="patrocinante" id="patrocinante" class="select-area-two" onchange="calculaPrecioCubierto()" required>
+                        <option value=""> >>Selecione Opción<< </option>
                         <?php
-                       // echo llenaComboSponsors();
+                        echo llenaComboSponsors();
                         ?>
-                    </select>
+                    </select><br><br>
                     <label for="name">Precio total de los examenes </label><br>
-                    <input type="text" name="total" id="total" class="form-area-two" value=0 disabled/><br>
+                    <input type="text" name="total" id="total" class="form-area-two" value=0 disabled/><br><br>
+                    <label for="name">Total a cubrir del fondo solidario </label><br>
+                    <input type="text" name="desc" id="desc" class="form-area-two" value=0 disabled/><br><br>
                 </div>
             </section>
             <div class="right">
