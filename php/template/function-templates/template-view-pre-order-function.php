@@ -8,6 +8,7 @@
     <script languaje="javascript">
         var idRporde=Array();
         var precio = Array();
+        var arrayRespuesta= Array();
 
         var nombreLegal="";
         var edad="";
@@ -100,20 +101,40 @@
                 return true;
             });
 
+
         });
 
         /**
-         * Funcion Calcula el monto de los examenes
-         * @param precio
-         * @param comando
+         *
+         *Funcion calcula el total de la order
+         * @param precio a sumar
+         * @param comando a ejecutar
+         * @param id de rporder
          */
-        function adiereAlTotal(precio,comando) {
-            console.log(comando);
+        function adiereAlTotal(precio,comando,id) {
+            var longitud =  arrayRespuesta.length;
             var total = document.getElementById("total").value;
-            if (comando == 'APR'){
-                document.getElementById("total").value = total + precio;
-            }else if(comando != 'APR' && total >= precio){
-                document.getElementById("total").value = total - precio;
+            for(i=0; i < longitud ; i++){
+                console.log(comando);
+                if (idRporde[i] == id){
+                    var respuesta = arrayRespuesta[i]; // guarda el ultimo valor del status
+                    arrayRespuesta[i]= comando; // actualiza el status en el arreglo
+                    if (comando=='APR'){
+                        document.getElementById("total").value = parseFloat(total) + parseFloat(precio);
+                    }
+                    if (comando =='REC'){ //Varia en 2 casos dependiendo el ultimo estatus
+                        if (respuesta == 'APR'){  // SI anteriormente estaba aprobado se resta
+                            document.getElementById("total").value = parseFloat(total) - parseFloat(precio);
+                        }
+                    }
+                    if (comando =='PEN'){
+                        if (respuesta == 'APR'){
+                            document.getElementById("total").value = parseFloat(total) - parseFloat(precio);
+                        }
+                    }
+
+                }
+
             }
         }
 
@@ -225,7 +246,7 @@ function llenaTablaExamenes(){
         $lista .= '<td>'.$row->EXAM_DESC."</td>\n";
         $lista .= '<td>'.$row->MPERSON_LEGAL_NAME."</td>\n";
         $lista .= '<td>
-            <select id="estado-actual'.$row->RPORDER_ID.'" name="estado-actual'.$row->RPORDER_ID.'" onchange="adiereAlTotal('.$row->RCENTEREXAM_PRICE.',this.value)">
+            <select id="estado-actual'.$row->RPORDER_ID.'" name="estado-actual'.$row->RPORDER_ID.'" onchange="adiereAlTotal('.$row->RCENTEREXAM_PRICE.',this.value,'.$row->RPORDER_ID.')">
                 <option selected="true" value="'.$row->RPORDER_STATUS.'">'.devuelveValorSelect($row->RPORDER_STATUS).'</option>
                 '.retornaRestolista($row->RPORDER_STATUS).'
             </select>
@@ -254,7 +275,7 @@ function llenaTablaExamenes(){
  * Funcion llena los arreglos para los precios y las aprobaciones de los examens
  */
 function llenaArrays(){
-    $query ='SELECT `RPORDER_ID`, RCE.RCENTEREXAM_PRICE 
+    $query ='SELECT `RPORDER_ID`, RCE.RCENTEREXAM_PRICE, RPORDER_STATUS
             FROM `RPORDER` 
             INNER JOIN RCENTEREXAM AS RCE ON RCE.RCENTEREXAM_ID =`RPORDER_CE_ID` 
             INNER JOIN MDCENTER AS MDC ON MDC.MPERSON_ID = RCE.RCENTEREXAM_MDCENTER_PERSON_ID 
@@ -267,7 +288,9 @@ function llenaArrays(){
     foreach ($wpdb->get_results($query) as $key => $row){
 
         echo 'idRporde['.$i.']="'.$row->RPORDER_ID.'"'.";\n";
-        echo 'precio['.$i.']="'.$row->RCENTEREXAM_PRICE.'"'.";\n";
+        echo 'precio['.$i.']='.$row->RCENTEREXAM_PRICE.";\n";  //Precio no lleva comillas
+        echo 'arrayRespuesta['.$i.']="'.$row->RPORDER_STATUS.'"'.";\n";
+
         $i = $i +1;
     }
 }

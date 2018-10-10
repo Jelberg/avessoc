@@ -111,7 +111,7 @@ include "function-templates/template-view-pre-order-function.php"
                 <h6>Asignar Patrocinante</h6>
                 <div class="item-2">
                     <label for="name">Precio total de los examenes </label><br>
-                    <input type="text" name="total" id="total" class="form-area-two" value="0" disabled/><br>
+                    <input type="text" name="total" id="total" class="form-area-two" value=0 disabled/><br>
                 </div>
             </section>
             <div class="right">
