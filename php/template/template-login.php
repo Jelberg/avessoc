@@ -1,6 +1,7 @@
 <?php
 /* Template Name: Login */
 include "function-templates/template-login-function.php";
+include "menu.php";
 ?>
 
 <!DOCTYPE html>

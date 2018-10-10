@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Verifica el login del usuario
  */
@@ -13,7 +12,7 @@ function login(){
         $valido = $wpdb->get_var($query);
 
         if ($valido == $_POST['uname']){
-            echo '<script> alert("USUARIO VALIDO")</script>';
+            echo '<script> window.location.href ="'.PATH_PAG_SEARCH_PATIENT.'" </script>';
         } else echo '<script> alert("USUARIO O CONTRASEÑA NO VALIDOS")</script>';
 
     }
