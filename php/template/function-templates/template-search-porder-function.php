@@ -92,6 +92,7 @@ function llenaListaPreOrdenes(){
                     <td>
                     <a><i style='background: red; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-trash fa-2x'></i></a>
                     <a id='verporden' name='verporden' onclick='ref(".$row->RPORDER_NUMERO_SOL.")' ><i style='background: dodgerblue; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-eye fa-2x'></i></a>
+                    <a><i style='background: green; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-check-circle-o fa-2x'></i></a>
                     </td>\n";
         $lista .= "</tr>\n";
     }

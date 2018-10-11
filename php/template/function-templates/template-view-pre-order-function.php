@@ -221,6 +221,13 @@ function infoPaciente(){
  * @return string
  */
 function llenaTablaExamenes(){
+    global $wpdb;
+    $queryIdPac ="SELECT REQUEST_PATIENT_PERSON_ID 
+                    FROM RPORDER
+                    WHERE RPORDER_NUMERO_SOL = ".$_GET['numporden']." LIMIT 1";
+
+    $id = $wpdb->get_var($queryIdPac);
+
     $query ="SELECT `RPORDER_STATUS`, MDC.MPERSON_LEGAL_NAME, E.EXAM_DESC, `RPORDER_ID`, RCE.RCENTEREXAM_ID,`RPORDER_NUMERO_SOL`, RCE.RCENTEREXAM_PRICE 
             FROM `RPORDER` 
             INNER JOIN RCENTEREXAM AS RCE ON RCE.RCENTEREXAM_ID =`RPORDER_CE_ID` 
@@ -228,7 +235,7 @@ function llenaTablaExamenes(){
             INNER JOIN EXAM AS E ON E.EXAM_ID= RCE.RCENTEREXAM_EXAM_ID 
             INNER JOIN REQUEST AS R ON R.REQUEST_ID=`RPORDER_REQUEST_ID` 
             WHERE 
-            `RPORDER_NUMERO_SOL` = (SELECT `RPORDER_NUMERO_SOL` FROM RPORDER WHERE `REQUEST_PATIENT_PERSON_ID` = 3 ORDER BY RPORDER_NUMERO_SOL DESC LIMIT 1)";
+            `RPORDER_NUMERO_SOL` = ".$_GET['numporden'];
 
     $lista="";
     $lista .= '
@@ -243,7 +250,7 @@ function llenaTablaExamenes(){
                             </thead>
                             <tbody>
     ';
-    global $wpdb;
+
     $i=0;
     foreach ($wpdb->get_results($query) as $key => $row){
 
@@ -280,6 +287,13 @@ function llenaTablaExamenes(){
  * Funcion llena los arreglos para los precios y las aprobaciones de los examens
  */
 function llenaArrays(){
+    global $wpdb;
+    $queryIdPac ="SELECT REQUEST_PATIENT_PERSON_ID 
+                    FROM RPORDER
+                    WHERE RPORDER_NUMERO_SOL = ".$_GET['numporden']." LIMIT 1";
+
+    $id = $wpdb->get_var($queryIdPac);
+
     $query ='SELECT `RPORDER_ID`, RCE.RCENTEREXAM_PRICE, RPORDER_STATUS
             FROM `RPORDER` 
             INNER JOIN RCENTEREXAM AS RCE ON RCE.RCENTEREXAM_ID =`RPORDER_CE_ID` 
@@ -287,8 +301,8 @@ function llenaArrays(){
             INNER JOIN EXAM AS E ON E.EXAM_ID= RCE.RCENTEREXAM_EXAM_ID 
             INNER JOIN REQUEST AS R ON R.REQUEST_ID=`RPORDER_REQUEST_ID` 
             WHERE 
-            `RPORDER_NUMERO_SOL` = (SELECT `RPORDER_NUMERO_SOL` FROM RPORDER WHERE `REQUEST_PATIENT_PERSON_ID` = 3 ORDER BY RPORDER_NUMERO_SOL DESC LIMIT 1)';
-    global $wpdb;
+            `RPORDER_NUMERO_SOL` = (SELECT `RPORDER_NUMERO_SOL` FROM RPORDER WHERE `REQUEST_PATIENT_PERSON_ID` = '.$id.' ORDER BY RPORDER_NUMERO_SOL DESC LIMIT 1)';
+
     $i=0;
     foreach ($wpdb->get_results($query) as $key => $row){
 
