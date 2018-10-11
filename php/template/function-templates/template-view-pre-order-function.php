@@ -4,6 +4,9 @@
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
+    <?php
+        registraOreden();
+    ?>
 
     <script languaje="javascript">
         var idRporde=Array();
@@ -92,13 +95,29 @@
             /**
              * Se serializan los datos para mandarlos por ajax
              * */
-            $('#submit-porden').click( function() {
-                var data = table.$('select').serialize();
-                $.post("<?php echo PATH_PAG_ADD_PRE_ORDEN;?>" ,
-                    {
-                        datos:data,
-                    });
-                return true;
+            $('#submit-orden').click( function() {
+                var long = idRporde.length;
+                var sum = 0;
+                for (i=0; i < long; i++ ){
+                    var status = document.getElementById("estado-actual".concat(idRporde[i])).value;
+                    if (status == 'PEN'){
+                        alert("No pueden haber casillas pendientes en la respuesta de los examenes");
+                        sum ++;
+                    }
+                }
+                var pat = document.getElementById("patrocinante").value;
+                if (pat == "") {
+                    sum++;
+                    alert("Debe seleccionar un patrocinante");
+                }
+                if (sum ==0) {
+                    var data = table.$('select').serialize(); //Se serializan los datos de la pre-orden
+                    $.post("<?php echo PATH_PAG_DATA_PRE_ORDER;?>", // Se mandan a la pagina
+                        {
+                            datos: data,
+                        });
+                    $('#FormPreOrden').submit();
+                }
             });
 
 
@@ -169,13 +188,20 @@ function infoPaciente(){
     $g3="";
     $g4="";
     $causa="";
+
+    $queryIdPac ="SELECT REQUEST_PATIENT_PERSON_ID 
+                    FROM RPORDER
+                    WHERE RPORDER_NUMERO_SOL = ".$_GET['numporden']." LIMIT 1";
+
+    $id = $wpdb->get_var($queryIdPac);
+
     $query = "SELECT P.MPERSON_LEGAL_NAME,TIMESTAMPDIFF(YEAR,P.MPERSON_BIRTH,CURDATE()) AS EDAD, P.MPERSON_TYPE_DOC, P.MPERSON_IDENTF, REQUEST_GRAFFAR_PORCTG, 
     `REQUEST_GRAFFAR_ONE`,`REQUEST_GRAFFAR_TWO`, `REQUEST_GRAFFAR_THREE`, `REQUEST_GRAFFAR_FOUR`,`REQUEST_FAMILY_TYPE`,`REQUEST_FAMILY_OTHER`, MDC.MPERSON_LEGAL_NAME as CENTRO,
     `REQUEST_WEIGHT`,`REQUEST_INHABITANTS_NUMB`, `REQUEST_AVERAGE_INCOME`, `REQUEST_ORIGIN`, `REQUEST_CAUSE_EXAM`,REQUEST_LOBORAL_COND,`REQUEST_ID`,P.MPERSON_ID
     FROM REQUEST 
     INNER JOIN PATIENT AS P ON P.MPERSON_ID = `REQUEST_PATIENT_PERSON_ID` 
     INNER JOIN MDCENTER AS MDC ON MDC.MPERSON_ID = REQUEST_MDCENTER_ID_CONCERNING 
-    WHERE P.MPERSON_ID=3 ORDER BY REQUEST_ID DESC LIMIT 1";
+    WHERE P.MPERSON_ID=".$id." ORDER BY REQUEST_ID DESC LIMIT 1";
 
     foreach ($wpdb->get_results($query) as $key => $row) {
         echo 'nombreLegal="' . $row->MPERSON_LEGAL_NAME . '"'.";\n";
@@ -203,18 +229,17 @@ function infoPaciente(){
     $query_g3="SELECT `ANSWER_DESC` FROM `ANSWER` WHERE `ANSWER_VALUE` = ".$g3." and `ANSWER_QUESTION_ID`=3";
     $query_g4="SELECT `ANSWER_DESC` FROM `ANSWER` WHERE `ANSWER_VALUE` = ".$g4." and `ANSWER_QUESTION_ID`=4";
 
-        echo 'g1="'.$wpdb->get_var($query_g1).'"'.";\n";
-        echo 'g2="'.$wpdb->get_var($query_g2).'"'.";\n";
-        echo 'g3="'.$wpdb->get_var($query_g3).'"'.";\n";
-        echo 'g4="'.$wpdb->get_var($query_g4).'"'.";\n";
+    echo 'g1="'.$wpdb->get_var($query_g1).'"'.";\n";
+    echo 'g2="'.$wpdb->get_var($query_g2).'"'.";\n";
+    echo 'g3="'.$wpdb->get_var($query_g3).'"'.";\n";
+    echo 'g4="'.$wpdb->get_var($query_g4).'"'.";\n";
 
-        //Consulta para traer la respuesta de la causa
+    //Consulta para traer la respuesta de la causa
     $query_causa="SELECT DISIEASE_DESC FROM `DISIEASE` WHERE `DISIEASE_ID` =".$causa;
 
-        echo 'causa="'.$wpdb->get_var($query_causa).'"'.";\n";
+    echo 'causa="'.$wpdb->get_var($query_causa).'"'.";\n";
 
 }
-
 
 /**
  * Llena la tabla de los exames de la pre-orden realizada
@@ -301,7 +326,7 @@ function llenaArrays(){
             INNER JOIN EXAM AS E ON E.EXAM_ID= RCE.RCENTEREXAM_EXAM_ID 
             INNER JOIN REQUEST AS R ON R.REQUEST_ID=`RPORDER_REQUEST_ID` 
             WHERE 
-            `RPORDER_NUMERO_SOL` = (SELECT `RPORDER_NUMERO_SOL` FROM RPORDER WHERE `REQUEST_PATIENT_PERSON_ID` = '.$id.' ORDER BY RPORDER_NUMERO_SOL DESC LIMIT 1)';
+            `RPORDER_NUMERO_SOL` = '.$_GET['numporden'];
 
     $i=0;
     foreach ($wpdb->get_results($query) as $key => $row){
@@ -360,5 +385,33 @@ function llenaComboSponsors(){
     }
 
     return $combo;
+}
+
+
+/**
+ * Funcion registra los datos para generar la pre-orden
+ */
+function registraOreden(){
+    if (!empty($_POST['patrocinante']) && !empty($_POST['porcentaje'])) {
+        global $wpdb;
+        $wpdb->insert('ORD',array(
+            'ORDER_SPONSOR_PERSON_ID' => $_POST['patrocinante'],
+            'ORDER_TOTAL_EXAM' => $_POST['total'],
+            'ORDER_BIRTH_DATE' => 'SELECT CURDATE();',
+            'ORDER_GRAFFAR' => $_POST['porcentaje']
+        ));
+        $query_last_ord = "SELECT ORDER_ID FROM ORD order BY ORDER_ID DESC LIMIT 1";
+        $var = $wpdb->get_var($query_last_ord);
+
+        $wpdb->update( 'RPORDER',
+            // Datos que se remplazarán
+            array(
+                'RPORDER_ORDER_ID' =>  $var
+            ),
+            // Cuando el ID del campo es igual al número 1
+            array( 'RPORDER_NUMERO_SOL' => $_POST['number'] )
+        );
+
+    }
 }
 ?>
