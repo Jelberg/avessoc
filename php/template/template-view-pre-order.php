@@ -119,14 +119,12 @@ include "function-templates/template-view-pre-order-function.php"
                     </select><br><br>
                     <label for="name">Precio total de los examenes </label><br>
                     <input type="text" name="total" id="total" class="form-area-two" value=0 disabled/><br><br>
-                    <label for="name">Total a cubrir del fondo solidario </label><br>
-                    <input type="text" name="desc" id="desc" class="form-area-two" value=0 disabled/><br><br>
                 </div>
             </section>
-            <div class="right">
-                <button class="button-just" id="submit-porden" onsubmit="">ENVIAR PRE-ORDEN</button>
-            </div>
         </form>
+        <div class="right">
+            <button class="button-just" id="submit-orden" onsubmit="">GENERAR ORDEN</button>
+        </div>
     </div><!-- fin  area-3 del grid-container -->
 </section> <!-- fin  grid-container-->
 <script language="JavaScript">

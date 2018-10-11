@@ -138,9 +138,9 @@
                 }
             }
 
-            var porcentaje = document.getElementById("poncentaje").value;
-            var t= document.getElementById("total");
-            document.getElementById("desc").value =parseFloat(porcentaje) * parseInt(t);
+           // var porcentaje = document.getElementById("poncentaje").value;
+           // var t= document.getElementById("total");
+           // document.getElementById("desc").value =parseFloat(porcentaje) * parseInt(t);
         }
 
 
