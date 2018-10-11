@@ -29,7 +29,8 @@ include "function-templates/template-load-order-function.php"
 
                 <div class="item-0">
                     <section class="grid-rows">
-                        <h2>Datos del Paciente</h2>
+                        <h2>Orden</h2>
+                        <h4>Datos del Paciente</h4>
                         <div class="item-row-o">
                             <input type="text" name="paciente-id" id="paciente-id" style="display: none" readonly="readonly"/><br>
                         </div>
@@ -58,12 +59,16 @@ include "function-templates/template-load-order-function.php"
                             <input type="number" name="peso" id="peso" class="form-area-number-two" min="0" step="0.01" placeholder="En Kg" disabled/><br>
                         </div>
                         <div class="item-row-6">
-                            <label for="name">Porcentaje en base a clasificación Graffar estimado</label><br>
+                            <label for="name">Porcentaje descuento</label><br>
                             <input type="text" name="porc" id="porc" class="form-area-two" disabled/><br>
+                        </div>
+                        <div class="item-row-7">
+                            <label for="name">Patrocinante</label><br>
+                            <input type="text" name="sponsor" id="sponsor" class="form-area-two" disabled/><br>
                         </div>
                     </section>
                 </div>
-                <h6>Examenes</h6>
+                <h4>Examenes</h4>
                 <div class="item-1">
                     <?php
                     echo llenaTablaExamenes();
@@ -71,13 +76,10 @@ include "function-templates/template-load-order-function.php"
                 </div>
             </section>
         </form>
-        <div class="right">
-            <button class="button-just" id="submit-orden" onsubmit="">GENERAR ORDEN</button>
-        </div>
     </div><!-- fin  area-3 del grid-container -->
 </section> <!-- fin  grid-container-->
 <script language="JavaScript">
-    //cargaInformacionOrden();
+    cargaInformacionOrden();
 
 </script>
 

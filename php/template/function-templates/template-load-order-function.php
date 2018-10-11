@@ -1,4 +1,3 @@
-
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" >
@@ -13,20 +12,14 @@
         var tipoDoc="";
         var numeroDoc="";
         var porcentaje="";
-        var g1="";
-        var g2="";
-        var g3="";
-        var g4="";
-        var tipoFamilia="";
-        var otroTipo="";
-        var ingreso="";
-        var numHabitantes="";
-        var nombreCentro="";
-        var origen="";
+
+        var sponsor ="";
         var causa="";
-        var condicion="";
         var peso="";
 
+        <?php
+        llenaDatos();
+        ?>
 
         /**
          * Funcion carga la informacion del paciente en el html
@@ -35,9 +28,9 @@
             document.getElementById("legal-name").value=nombreLegal ;
             document.getElementById("identificacion").value= tipoDoc.concat(" ").concat(numeroDoc);
             document.getElementById("edad").value= edad;
-            document.getElementById("solicitante").value= nombreCentro ;
+            document.getElementById("sponsor").value= sponsor ;
             document.getElementById("peso").value= peso;
-            document.getElementById("poncentaje").value= porcentaje;
+            document.getElementById("porc").value= porcentaje;
             document.getElementById("causa").value= causa;
         }
 
@@ -95,7 +88,7 @@
 function llenaTablaExamenes(){
     global $wpdb;
 
-    $query ="SELECT ORDER_ID, P.MPERSON_LEGAL_NAME, P.MPERSON_TYPE_DOC, P.MPERSON_IDENTF,ORDER_ACTIVITY_DATE,  TIMESTAMPDIFF(YEAR,P.MPERSON_BIRTH,CURDATE()) AS EDAD, ORDER_GRAFFAR, R.REQUEST_WEIGHT, MDC.MPERSON_LEGAL_NAME AS CENTRO, E.EXAM_DESC, RC.RCENTEREXAM_PRICE, ORDER_TOTAL_EXAM,R.REQUEST_CAUSE_EXAM
+    $query ="SELECT ORDER_ID, P.MPERSON_LEGAL_NAME, P.MPERSON_TYPE_DOC, P.MPERSON_IDENTF,ORDER_ACTIVITY_DATE,  TIMESTAMPDIFF(YEAR,P.MPERSON_BIRTH,CURDATE()) AS EDAD, ORDER_GRAFFAR, R.REQUEST_WEIGHT, MDC.MPERSON_LEGAL_NAME AS CENTRO, E.EXAM_DESC, RC.RCENTEREXAM_PRICE, ORDER_TOTAL_EXAM,R.REQUEST_CAUSE_EXAM, S.MPERSON_LEGAL_NAME AS SPONSOR
             FROM `ORD` 
             INNER JOIN RPORDER AS PO ON PO.RPORDER_ORDER_ID=ORDER_ID
             INNER JOIN REQUEST AS R ON R.REQUEST_ID = PO.RPORDER_REQUEST_ID
@@ -103,8 +96,9 @@ function llenaTablaExamenes(){
             INNER JOIN RCENTEREXAM AS RC ON RC.RCENTEREXAM_ID = PO.RPORDER_CE_ID
             INNER JOIN MDCENTER AS MDC ON MDC.MPERSON_ID=RC.RCENTEREXAM_MDCENTER_PERSON_ID
             INNER JOIN EXAM AS E ON E.EXAM_ID = RC.RCENTEREXAM_EXAM_ID
+            INNER JOIN SPONSOR AS S ON S.MPERSON_ID = ORDER_SPONSOR_PERSON_ID
             WHERE 
-            R.REQUEST_PATIENT_PERSON_ID = PO.REQUEST_PATIENT_PERSON_ID AND ORDER_ID = 9 =";
+            R.REQUEST_PATIENT_PERSON_ID = PO.REQUEST_PATIENT_PERSON_ID AND ORDER_ID = ".$_GET['norden'];
 
     $lista="";
     $lista .= '
@@ -145,34 +139,42 @@ function llenaTablaExamenes(){
 }
 
 /**
- * Funcion llena los arreglos para los precios y las aprobaciones de los examens
+ * Funcion llena los datos para mostrar la informacion del paciente
  */
-function llenaArrays(){
+function llenaDatos(){
     global $wpdb;
-    $queryIdPac ="SELECT REQUEST_PATIENT_PERSON_ID 
-                    FROM RPORDER
-                    WHERE RPORDER_NUMERO_SOL = ".$_GET['numporden']." LIMIT 1";
 
-    $id = $wpdb->get_var($queryIdPac);
-
-    $query ='SELECT `RPORDER_ID`, RCE.RCENTEREXAM_PRICE, RPORDER_STATUS
-            FROM `RPORDER` 
-            INNER JOIN RCENTEREXAM AS RCE ON RCE.RCENTEREXAM_ID =`RPORDER_CE_ID` 
-            INNER JOIN MDCENTER AS MDC ON MDC.MPERSON_ID = RCE.RCENTEREXAM_MDCENTER_PERSON_ID 
-            INNER JOIN EXAM AS E ON E.EXAM_ID= RCE.RCENTEREXAM_EXAM_ID 
-            INNER JOIN REQUEST AS R ON R.REQUEST_ID=`RPORDER_REQUEST_ID` 
+    $query ='SELECT ORDER_ID, P.MPERSON_LEGAL_NAME, P.MPERSON_TYPE_DOC, P.MPERSON_IDENTF,ORDER_ACTIVITY_DATE,  TIMESTAMPDIFF(YEAR,P.MPERSON_BIRTH,CURDATE()) AS EDAD, ORDER_GRAFFAR, R.REQUEST_WEIGHT, MDC.MPERSON_LEGAL_NAME AS CENTRO, E.EXAM_DESC, RC.RCENTEREXAM_PRICE, ORDER_TOTAL_EXAM,R.REQUEST_CAUSE_EXAM, S.MPERSON_LEGAL_NAME AS SPONSOR
+            FROM `ORD` 
+            INNER JOIN RPORDER AS PO ON PO.RPORDER_ORDER_ID=ORDER_ID
+            INNER JOIN REQUEST AS R ON R.REQUEST_ID = PO.RPORDER_REQUEST_ID
+            INNER JOIN PATIENT AS P ON P.MPERSON_ID = R.REQUEST_PATIENT_PERSON_ID
+            INNER JOIN RCENTEREXAM AS RC ON RC.RCENTEREXAM_ID = PO.RPORDER_CE_ID
+            INNER JOIN MDCENTER AS MDC ON MDC.MPERSON_ID=RC.RCENTEREXAM_MDCENTER_PERSON_ID
+            INNER JOIN EXAM AS E ON E.EXAM_ID = RC.RCENTEREXAM_EXAM_ID
+            INNER JOIN SPONSOR AS S ON S.MPERSON_ID = ORDER_SPONSOR_PERSON_ID
             WHERE 
-            `RPORDER_NUMERO_SOL` = (SELECT `RPORDER_NUMERO_SOL` FROM RPORDER WHERE `REQUEST_PATIENT_PERSON_ID` = '.$id.' ORDER BY RPORDER_NUMERO_SOL DESC LIMIT 1)';
+            R.REQUEST_PATIENT_PERSON_ID = PO.REQUEST_PATIENT_PERSON_ID AND ORDER_ID = '.$_GET['norden'];
 
     $i=0;
+    $causa = "";
     foreach ($wpdb->get_results($query) as $key => $row){
 
-        echo 'idRporde['.$i.']="'.$row->RPORDER_ID.'"'.";\n";
-        echo 'precio['.$i.']='.$row->RCENTEREXAM_PRICE.";\n";  //Precio no lleva comillas
-        echo 'arrayRespuesta['.$i.']="'.$row->RPORDER_STATUS.'"'.";\n";
+        echo 'nombreLegal="'.$row->MPERSON_LEGAL_NAME.'"'.";\n";
+        echo 'edad='.$row->EDAD.";\n";  //Precio no lleva comillas
+        echo 'tipoDoc="'.$row->MPERSON_TYPE_DOC.'"'.";\n";
+        echo 'numeroDoc="'.$row->MPERSON_IDENTF.'"'.";\n";
+        echo 'porcentaje="'.$row->ORDER_GRAFFAR.'"'.";\n";
+        //echo 'causa="'.$row->RPORDER_STATUS.'"'.";\n";
+        echo 'peso="'.$row->REQUEST_WEIGHT.'"'.";\n";
+        echo 'sponsor="'.$row->SPONSOR.'"'.";\n";
+        $causa = $row->REQUEST_CAUSE_EXAM;
 
-        $i = $i +1;
     }
+
+    $res = $wpdb->get_var("SELECT DISIEASE_DESC FROM DISIEASE WHERE DISIEASE_ID =".$causa);
+    echo 'causa="'.$res.'"'.";\n";
+
 }
 
 

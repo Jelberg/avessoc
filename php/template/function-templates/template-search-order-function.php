@@ -42,7 +42,7 @@
          * @param num
          */
         function ref(num){
-            window.location.href = '<?php echo PATH_PAG_DATA_PRE_ORDER;?>'.concat('?numporden=').concat(num);
+            window.location.href = '<?php echo PATH_PAG_LOAD_ORDEN;?>'.concat('?norden=').concat(num);
         }
 
     </script>
@@ -96,7 +96,7 @@ function llenaListaOrdenes(){
 
         $lista .= '<td>'.$row->ORDER_ACTIVITY_DATE."</td>\n
                     <td>
-                    <a id='verporden' name='verporden' onclick='ref(".$row->RPORDER_NUMERO_SOL.")' ><i style='background: dodgerblue; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-eye fa-2x'></i></a>
+                    <a id='verporden' name='verporden' onclick='ref(".$row->ORDER_ID.")' ><i style='background: dodgerblue; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-eye fa-2x'></i></a>
           
                     </td>\n";
         $lista .= "</tr>\n";
