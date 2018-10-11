@@ -64,6 +64,12 @@ define("PATH_PAG_DATA_PRE_ORDER","http://dev.avessoc.org.ve/avessod-datos-preore
 
 //Direccion para la pagina de agregar usuario
 define("PATH_PAG_ADD_USER","http://dev.avessoc.org.ve/avessoc-agregar-usuario/");
+
+//direccion para la carga de os datos de la pre-orden
+define("PATH_PAG_LOAD_PRE_ORDEN"," http://dev.avessoc.org.ve/avessoc-carga-preoren/");
+
+//Direccion para la busqueda de ordenes
+define("PATH_PAG_SEARCH_ORDER"," http://dev.avessoc.org.ve/avessoc-busca-ordenes/");
 ?>
 
 
@@ -82,11 +88,12 @@ function mostrarMenu(){
        <div class="contenedor-menu">
 
 		<ul class="menu">
-			<li><a href="#"><i class="icono izquierda fa fa-gift"></i>Pacientes<i class="icono derecha fa fa-chevron-down"></i></a>
+			<li><a href="#"><i class="icono izquierda fa fa-gift"></i>Fondo Solidario<i class="icono derecha fa fa-chevron-down"></i></a>
 				<ul>
                      <li><a href="'.PATH_PAG_REGISTER_PATIENT.'"><i class="icono izquierda fa fa-arrow-right"></i>Registrar nuevos Pacientes</a>
 				     <li><a href="'.PATH_PAG_SEARCH_PATIENT.'"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Pacientes</a>
 				     <li><a href="'.PATH_PAG_SEARCH_PRE_ORDER.'"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Pre-Ordenes</a>
+				     <li><a href="'.PATH_PAG_SEARCH_ORDER.'"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Ordenes</a>
 				</ul>
 			<li><a href="#"><i class="icono izquierda fa fa-users"></i>Patrocinantes<i class="icono derecha fa fa-chevron-down"></i></a>
 				<ul>

@@ -5,7 +5,7 @@
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
     <?php
-        registraOreden();
+    registraOreden();
     ?>
 
     <script languaje="javascript">
@@ -33,9 +33,9 @@
         var peso="";
 
         <?php
-            infoPaciente();
-            $arrayIdPHP = array();
-            llenaArrays();
+        infoPaciente();
+        $arrayIdPHP = array();
+        llenaArrays();
 
         ?>
 
@@ -159,9 +159,9 @@
                 }
             }
 
-           // var porcentaje = document.getElementById("poncentaje").value;
-           // var t= document.getElementById("total");
-           // document.getElementById("desc").value =parseFloat(porcentaje) * parseInt(t);
+            // var porcentaje = document.getElementById("poncentaje").value;
+            // var t= document.getElementById("total");
+            // document.getElementById("desc").value =parseFloat(porcentaje) * parseInt(t);
         }
 
 
@@ -272,7 +272,7 @@ function llenaTablaExamenes(){
                             <tr>
                                 <th>Nombre del Examen</th>
                                 <th>Centro donde se realizará el examen</th>
-                                <th>Estatus</th>
+                                <!--th>Estatus</th-->
                             </tr>
                             </thead>
                             <tbody>
@@ -284,12 +284,12 @@ function llenaTablaExamenes(){
         $lista .= "<tr>\n";
         $lista .= '<td>'.$row->EXAM_DESC."</td>\n";
         $lista .= '<td>'.$row->MPERSON_LEGAL_NAME."</td>\n";
-        $lista .= '<td>
+        /*$lista .= '<td>
             <select id="estado-actual'.$row->RPORDER_ID.'" name="estado-actual'.$row->RPORDER_ID.'" onchange="adiereAlTotal('.$row->RCENTEREXAM_PRICE.',this.value,'.$row->RPORDER_ID.')">
                 <option selected="true" value="'.$row->RPORDER_STATUS.'">'.devuelveValorSelect($row->RPORDER_STATUS).'</option>
                 '.retornaRestolista($row->RPORDER_STATUS).'
             </select>
-            '."</td>\n";
+            '."</td>\n";*/
         $lista .= "</tr>\n";
 
 
@@ -301,7 +301,7 @@ function llenaTablaExamenes(){
                             <tr>
                                 <th>Nombre del Examen</th>
                                 <th>Centro donde se realizará el examen</th>
-                                <th>Estatus</th>
+                                <!--th>Estatus</th-->
                             </tr>
                             </tfoot>
                         </table>

@@ -13,7 +13,7 @@
     <script language="JavaScript">
 
         $(document).ready(function() {
-            var table = $('#listaPorder').DataTable( {
+            var table = $('#listaorder').DataTable( {
                 "jQueryUI": true,
                 "language": {
                     "loadingRecords": "Cargando...",
@@ -37,13 +37,14 @@
 
         });
 
+        /**
+         * Redirecciona a la pagina especifica
+         * @param num
+         */
         function ref(num){
             window.location.href = '<?php echo PATH_PAG_DATA_PRE_ORDER;?>'.concat('?numporden=').concat(num);
         }
 
-        function ref2(num) {
-            window.location.href = '<?php echo PATH_PAG_LOAD_PRE_ORDEN;?>'.concat('?numporden=').concat(num);
-        }
     </script>
 </head>
 <body>
@@ -57,25 +58,27 @@
  * Retorna La lista de las pre-ordenes
  * @return string
  */
-function llenaListaPreOrdenes(){
+function llenaListaOrdenes(){
     global $wpdb;
     $lista="";
-    $query ="SELECT RPORDER_NUMERO_SOL, P.MPERSON_LEGAL_NAME, P.MPERSON_TYPE_DOC, P.MPERSON_IDENTF ,DATE_FORMAT(RPORDER_ACTIVITY_DATE, '%Y-%m-%d') FECHA_PORDER, MDC.MPERSON_LEGAL_NAME as NOMBRE_CENTRO
-                FROM REQUEST
-                INNER JOIN PATIENT AS P ON P.MPERSON_ID = REQUEST_PATIENT_PERSON_ID
-                INNER JOIN RPORDER AS RPO ON RPO.RPORDER_REQUEST_ID = REQUEST_ID
-                INNER JOIN MDCENTER AS MDC ON MDC.MPERSON_ID = REQUEST_MDCENTER_ID_CONCERNING
-                GROUP BY RPORDER_NUMERO_SOL ORDER BY RPORDER_NUMERO_SOL DESC;";
+    $query ="SELECT ORDER_ID, P.MPERSON_LEGAL_NAME, P.MPERSON_TYPE_DOC, P.MPERSON_IDENTF,ORDER_ACTIVITY_DATE, PO.RPORDER_NUMERO_SOL 
+                FROM `ORD`
+                INNER JOIN RPORDER AS PO ON PO.RPORDER_ORDER_ID=ORDER_ID
+                INNER JOIN REQUEST AS R ON R.REQUEST_ID = PO.RPORDER_REQUEST_ID
+                INNER JOIN PATIENT AS P ON P.MPERSON_ID = R.REQUEST_PATIENT_PERSON_ID
+                WHERE 
+                R.REQUEST_PATIENT_PERSON_ID = PO.REQUEST_PATIENT_PERSON_ID 
+                GROUP BY PO.RPORDER_NUMERO_SOL";
 
     $lista .= '
-                            <table id="listaPorder" class="display" style="width:100%" >
+                            <table id="listaorder" class="display" style="width:100%" >
                             <thead>
                             <tr>
-                                <th>Pre-Orden #</th>
+                                <th>Orden #</th>
                                 <th>Paciente</th>
                                 <th>T. Documento</th>
                                 <th>Número Identidad</th>
-                                <th>Centro Referente</th>
+       
                                 <th>Fecha</th>
                                 <th>Acción</th>
                             </tr>
@@ -86,17 +89,15 @@ function llenaListaPreOrdenes(){
     foreach( $wpdb->get_results($query) as $key => $row){
 
         $lista .= "<tr>\n";
-        $lista .= '<td>'.$row->RPORDER_NUMERO_SOL."</td>\n";
+        $lista .= '<td>'.$row->ORDER_ID."</td>\n";
         $lista .= '<td>'.$row->MPERSON_LEGAL_NAME."</td>\n";
         $lista .= '<td>'.$row->MPERSON_TYPE_DOC."</td>\n";
         $lista .= '<td>'.$row->MPERSON_IDENTF."</td>\n";
-        $lista .= '<td>'.$row->NOMBRE_CENTRO."</td>\n";
-        $lista .= '<td>'.$row->FECHA_PORDER."</td>\n
+
+        $lista .= '<td>'.$row->ORDER_ACTIVITY_DATE."</td>\n
                     <td>
-                   
-                   
-                    <a id='verporden' name='verporden' onclick='ref(".$row->RPORDER_NUMERO_SOL.")' ><i style='background: green ; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-check-circle-o fa-2x'></i></a>
-                    <a onclick='ref2(".$row->RPORDER_NUMERO_SOL.")'><i style='background: dodgerblue; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-eye fa-2x'></i></a>
+                    <a id='verporden' name='verporden' onclick='ref(".$row->RPORDER_NUMERO_SOL.")' ><i style='background: dodgerblue; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-eye fa-2x'></i></a>
+          
                     </td>\n";
         $lista .= "</tr>\n";
     }
@@ -105,11 +106,11 @@ function llenaListaPreOrdenes(){
     </tbody>
                             <tfoot>
                             <tr>
-                                <th>Pre-Orden #</th>
+                                <th>Orden #</th>
                                 <th>Paciente</th>
                                 <th>T. Documento</th>
                                 <th>Número Identidad</th>
-                                <th>Centro Referente</th>
+                       
                                  <th>Fecha</th>
                                  <th>Acción</th>
                             </tr>
