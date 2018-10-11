@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -144,6 +145,7 @@
 //                                                                                        //
 //                                                                                        //
 //=========================================================================================
+
 
 
 /**
@@ -306,32 +308,32 @@ return $combo;
 
 function insert_patient(){
 
-    global $wpdb;
+        global $wpdb;
 
-    $wpdb->insert('PATIENT', array(
-        'MPERSON_NAME' => ucfirst(strtolower($_POST['name-uno'])),
-        'MPERSON_LAST_NAME' => ucfirst(strtolower($_POST['apellido-uno'])),
-        'MPERSON_BIRTH' => $_POST['birth-date'],
-        'MPERSON_IDENTF' => $_POST['numero-doc'],
-        'MPERSON_LEGAL_NAME' => ucfirst(strtolower($_POST['apellido-uno']))." ".ucfirst(strtolower($_POST['apellido-dos'])).", ".ucfirst(strtolower($_POST['name-uno']))." ".ucfirst(strtolower($_POST['name-dos'])),
-        'MPERSON_SECOND_NAME' => ucfirst(strtolower($_POST['name-dos'])),
-        'MPERSON_SECOND_LNAME' => ucfirst(strtolower($_POST['apellido-dos'])),
-        'MPERSON_NACIONALITY' => ucfirst(strtolower($_POST['nacionalidad'])),
-        'MPERSON_CIVIL_STATS' => $_POST['estado-civil'],
-        'MPERSON_SEX' => $_POST['sexo'],
-        'MPERSON_HOLDER_CARD' => $_POST['titular'],
-        'MPERSON_PROFETION' => ucfirst(strtolower($_POST['oficio'])),
-        'MPERSON_TYPE_DOC' => $_POST['tipo-documento']
-    ));
-    $id_paciente= $wpdb->get_var( "SELECT MAX(MPERSON_ID) AS id FROM PATIENT" ); //< Devuelve el ultimo id registrado
+        $wpdb->insert('PATIENT', array(
+            'MPERSON_NAME' => ucfirst(strtolower($_POST['name-uno'])),
+            'MPERSON_LAST_NAME' => ucfirst(strtolower($_POST['apellido-uno'])),
+            'MPERSON_BIRTH' => $_POST['birth-date'],
+            'MPERSON_IDENTF' => $_POST['numero-doc'],
+            'MPERSON_LEGAL_NAME' => ucfirst(strtolower($_POST['apellido-uno'])) . " " . ucfirst(strtolower($_POST['apellido-dos'])) . ", " . ucfirst(strtolower($_POST['name-uno'])) . " " . ucfirst(strtolower($_POST['name-dos'])),
+            'MPERSON_SECOND_NAME' => ucfirst(strtolower($_POST['name-dos'])),
+            'MPERSON_SECOND_LNAME' => ucfirst(strtolower($_POST['apellido-dos'])),
+            'MPERSON_NACIONALITY' => ucfirst(strtolower($_POST['nacionalidad'])),
+            'MPERSON_CIVIL_STATS' => $_POST['estado-civil'],
+            'MPERSON_SEX' => $_POST['sexo'],
+            'MPERSON_HOLDER_CARD' => $_POST['titular'],
+            'MPERSON_PROFETION' => ucfirst(strtolower($_POST['oficio'])),
+            'MPERSON_TYPE_DOC' => $_POST['tipo-documento']
+        ));
+        $id_paciente = $wpdb->get_var("SELECT MAX(MPERSON_ID) AS id FROM PATIENT"); //< Devuelve el ultimo id registrado
 
-    if (!empty($_POST['local']) or !empty($_POST['movil']) or !empty($_POST['correo'])){
-        add_contact_patient($id_paciente, $wpdb, $_POST['local'], $_POST['movil'], strtolower($_POST['correo']));
-    }
-    add_request($wpdb,$id_paciente,$_POST['num-personas'],$_POST['ingreso-promedio'], $_POST['familia-tipo'], ucfirst(strtolower($_POST['otro-tipo'])), $_POST['condicion-laboral'],
-        $_POST['graffar-1'],$_POST['graffar-2'],$_POST['graffar-3'],$_POST['graffar-4']);
-    insert_direction($id_paciente);
-
+        if (!empty($_POST['local']) or !empty($_POST['movil']) or !empty($_POST['correo'])) {
+            add_contact_patient($id_paciente, $wpdb, $_POST['local'], $_POST['movil'], strtolower($_POST['correo']));
+        }
+        add_request($wpdb, $id_paciente, $_POST['num-personas'], $_POST['ingreso-promedio'], $_POST['familia-tipo'], ucfirst(strtolower($_POST['otro-tipo'])), $_POST['condicion-laboral'],
+            $_POST['graffar-1'], $_POST['graffar-2'], $_POST['graffar-3'], $_POST['graffar-4']);
+        insert_direction($id_paciente);
+    
 }
 
 

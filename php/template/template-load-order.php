@@ -2,7 +2,7 @@
 
 /* Template Name: Load ORDER */
 
-get_header();
+get_header('single');
 include "menu.php";
 include "function-templates/template-load-order-function.php"
 ?>

@@ -5,6 +5,8 @@
 get_header();
 include "menu.php";
 include "function-templates/template-register-patient-function.php";
+
+
 ?>
 
 <!DOCTYPE html>
@@ -375,6 +377,7 @@ include "function-templates/template-register-patient-function.php";
                     if (!empty($_POST['name-uno']) or !empty($_POST['name-dos']) or !empty($_POST['apellido-uno']) or !empty($_POST['apellido-dos']) or !empty($_POST['nacionalidad'])
                         or !empty($_POST['oficio']) or !empty($_POST['tipo-documento']) or !empty($_POST['numero-doc']) or !empty($_POST['titular'])) {
                         insert_patient();
+                        $_POST['name-uno']=array();
                     }?> ">REGISTRAR PACIENTE</button>
                 </section>
 

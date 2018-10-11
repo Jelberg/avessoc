@@ -20,11 +20,6 @@ include "function-templates/template-add-user-function.php";
         unset($_POST);
         ?>
 
-        document.onkeydown = function(e){
-            tecla = (document.all) ? e.keyCode : e.which;
-           // alert(tecla)
-            if (tecla == 116) {return false;}
-        }
 
     </script>
 </head>

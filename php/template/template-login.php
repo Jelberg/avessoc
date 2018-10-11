@@ -70,8 +70,8 @@ include "menu.php";
             width: 100%; /* Full width */
             height: 100%; /* Full height */
             overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            background-color: rgb(200, 233, 251); /* Fallback color */
+           /* background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
             padding-top: 60px;
         }
 
@@ -79,7 +79,7 @@ include "menu.php";
         .modal-content {
             background-color: #fefefe;
             margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-            border: 1px solid #888;
+         /*   border: 1px solid #888;*/
             width: 80%; /* Could be more or less, depending on screen size */
         }
 
@@ -111,21 +111,23 @@ include "menu.php";
 
     <form class="modal-content animate" method="post" >
 
-
+        <div class="container" style="background-color:#f1f1f1">
+            <h1 style="text-align: center;"> </h1><br>
+        </div>
         <div class="container">
             <label for="uname"><b>Username</b></label>
             <input type="text" placeholder="Enter Username" name="uname" id="uname" required>
 
-            <label for="psw"><b>Password</b></label>
+            <label for="psw"><b>Contraseña</b></label>
             <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
 
-            <button type="submit" onclick="">Login</button>
+            <button type="submit" onclick=""><strong>LOGIN</strong></button>
 
         </div>
-
+                <span class="psw">Olvidaste tu <a href="#">contraseña?</a></span><br>
         <div class="container" style="background-color:#f1f1f1">
-            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-            <span class="psw">Forgot <a href="#">password?</a></span>
+
+
         </div>
     </form>
 </div>
