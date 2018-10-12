@@ -80,33 +80,38 @@
 </body>
 </html>
 
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    /*  if (empty($_POST["numero-doc"]) or empty($_POST["tipo-documento"])) {
-      } elseif (sizeof(search_sponsor_id($_POST["numero-doc"], $_POST["tipo-documento"])) != 0) {
-          $msjNumero = "Tipo de documento con número de identificaion ya existen";
-      }*/
-}
+<?php
+
+session_start();
+
 
 /**
  *
  * Inserta el Sponsor a la base de datos
  */
 function add_sponsor(){
-    if (!empty($_POST['legal-name'])) {
-        global $wpdb;
 
-        $wpdb->insert('SPONSOR', array(
-            'MPERSON_LEGAL_NAME' => ucfirst(strtolower($_POST["legal-name"])),
-            'MPERSON_TYPE_DOC' => $_POST["tipo-documento"],
-            'MPERSON_IDENTF' => $_POST["numero-doc"],
-            'SPONSOR_LOGO' => $_POST["logo"]
-        ));
+    $messageIdent = md5($_POST["legal-name"].$_POST["tipo-documento"].$_POST["numero-doc"]); // Se hace hash sobre los valoes de los parametros
 
-        if (!empty($_POST["aporte"])) {
-            $id_sponsor = $wpdb->get_var("SELECT MAX(MPERSON_ID) AS id FROM SPONSOR"); //< Devuelve el ultimo id registrado
-            add_cntribution_init($_POST["aporte"], $id_sponsor);
+    $sessionMessageIdent = isset($_SESSION['messageIdent'])?$_SESSION['messageIdent']:''; // si la variable de sesion esta definida entonces se asigna a la variable el valor de la sesion si no se asigna ''
+
+    if($messageIdent!=$sessionMessageIdent) {
+        $_SESSION['messageIdent'] = $messageIdent; // Se guarda la nueva variable de sesion
+        if (!empty($_POST['legal-name'])) {
+            global $wpdb;
+
+            $wpdb->insert('SPONSOR', array(
+                'MPERSON_LEGAL_NAME' => ucfirst(strtolower($_POST["legal-name"])),
+                'MPERSON_TYPE_DOC' => $_POST["tipo-documento"],
+                'MPERSON_IDENTF' => $_POST["numero-doc"],
+                'SPONSOR_LOGO' => $_POST["logo"]
+            ));
+
+            if (!empty($_POST["aporte"])) {
+                $id_sponsor = $wpdb->get_var("SELECT MAX(MPERSON_ID) AS id FROM SPONSOR"); //< Devuelve el ultimo id registrado
+                add_cntribution_init($_POST["aporte"], $id_sponsor);
+            }
         }
     }
 }

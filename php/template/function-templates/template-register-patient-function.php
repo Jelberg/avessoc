@@ -333,7 +333,7 @@ function insert_patient(){
         add_request($wpdb, $id_paciente, $_POST['num-personas'], $_POST['ingreso-promedio'], $_POST['familia-tipo'], ucfirst(strtolower($_POST['otro-tipo'])), $_POST['condicion-laboral'],
             $_POST['graffar-1'], $_POST['graffar-2'], $_POST['graffar-3'], $_POST['graffar-4']);
         insert_direction($id_paciente);
-    
+
 }
 
 

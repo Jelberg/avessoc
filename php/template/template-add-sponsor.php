@@ -100,16 +100,22 @@ include "function-templates/template-add-sponsor-function.php";
 </div> <!-- fin  grid-1-->
 
 <script language="JavaScript">
-    var alerta =<?php if ($_SERVER["REQUEST_METHOD"] === "POST"){
-                            echo 1;
-                    } else {echo 0;}
-                    ?>;
-    console.log(alerta);
-    if (alerta ==1){
+   /* var alerta = */<?php
+       /* $messageIdent = md5($_POST["legal-name"].$_POST["tipo-documento"].$_POST["numero-doc"]); // Se hace hash sobre los valoes de los parametros
+
+        $sessionMessageIdent = isset($_SESSION['messageIdent'])?$_SESSION['messageIdent']:''; // si la variable de sesion esta definida entonces se asigna a la variable el valor de la sesion si no se asigna ''
+
+        if($messageIdent!=$sessionMessageIdent) {
+            echo 1;
+        }
+        else{ echo 0;}
+                   */ ?>;
+
+   /* if (alerta ==1){
         console.log(alerta);
         swal("Pactrocinante redistrado correctamente!", "Click en el botón!", "success");
         alerta ="";
-    }
+    }*/
 </script>
 
 
