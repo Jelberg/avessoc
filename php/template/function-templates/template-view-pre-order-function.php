@@ -350,8 +350,8 @@ function llenaArrays(){
 function retornaArrayID(){
     global $wpdb;
     $arrayIdPHP = array();
-    $query ='SELECT `RPORDER_ID`
-            FROM `RPORDER` 
+    $query ='SELECT RPORDER_ID
+            FROM RPORDER 
             INNER JOIN RCENTEREXAM AS RCE ON RCE.RCENTEREXAM_ID =`RPORDER_CE_ID` 
             INNER JOIN MDCENTER AS MDC ON MDC.MPERSON_ID = RCE.RCENTEREXAM_MDCENTER_PERSON_ID 
             INNER JOIN EXAM AS E ON E.EXAM_ID= RCE.RCENTEREXAM_EXAM_ID 
@@ -359,12 +359,10 @@ function retornaArrayID(){
             WHERE 
             `RPORDER_NUMERO_SOL` = '.$_POST['number'];
 
-    $i=0;
+
 
     foreach ($wpdb->get_results($query) as $key => $row){
-
-        $arrayIdPHP[i]=$row->RPORDER_ID;
-        $i = $i +1;
+        array_push( $arrayIdPHP,$row->RPORDER_ID);
     }
 
     return $arrayIdPHP;
@@ -377,12 +375,12 @@ function devuelveValorSelect($valor){
     if ($valor == 'PEN'){
         return "Pendiente";
     }else if($valor == 'APR'){
-        return "Aprovado";
+        return "Aprobado";
     }else return "Rechazado";
 }
 
 /**
- * funcion Retorna el resto de la lista
+ * funcion Retorna el resto deL combo de status
  */
 function retornaRestolista($valor){
     $opcion="";
@@ -425,15 +423,16 @@ function llenaComboSponsors(){
 function actualizaStatus(){
     $arrayIdPHP = retornaArrayID();  //Retorna una lista e ID's
     $long = sizeof($arrayIdPHP);
-
+echo '<script> console.log("ESTE ES EL VALOR '.$arrayIdPHP[0].'")</script>';
     for ($i=0 ; $i < $long ; $i++ ){
-        $var = $arrayIdPHP[$i];
-        if (!empty($_POST['estado-actual'.$var])){
+      $var =$arrayIdPHP[$i];
+
+        if (!empty($_POST["estado-actual$var"])){
             global $wpdb;
             $wpdb->update( 'RPORDER',
                 // Datos que se remplazarán
                 array(
-                    'RPORDER_STATUS' => $_POST['estado-actual'.$var]
+                    'RPORDER_STATUS' => $_POST["estado-actual$var"]
                 ),
                 // Cuando el ID del campo es igual al número 1
                 array( 'RPORDER_ID' =>$var )

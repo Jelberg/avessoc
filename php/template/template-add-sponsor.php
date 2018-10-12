@@ -80,6 +80,7 @@ include "function-templates/template-add-sponsor-function.php";
                             </div>
 
                             <div class="item-5" ><!--fila 5-->
+                                <?php if(function_exists('pf_show_link')){echo pf_show_link();} ?>
                                 <label for="name">Aporte Inicial</label><br>
                                 <input type="number" name="aporte" id="aporte" step="0.01"  min="0"  placeholder="Sólo hasta dos(2) decimales Ej.: 123,45" class="form-area-number-row"  min="0" value="<?php echo $aporte ?>"/>
                             </div>
@@ -89,6 +90,7 @@ include "function-templates/template-add-sponsor-function.php";
 
                 </div>
             </section>
+
 
         </form><!--fin de formulario-->
         <div class ="right">

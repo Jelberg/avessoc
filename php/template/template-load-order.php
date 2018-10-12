@@ -74,6 +74,9 @@ include "function-templates/template-load-order-function.php"
                     echo llenaTablaExamenes();
                     ?>
                 </div>
+                <div>
+                    ['wp_objects_pdf']
+                </div>
             </section>
         </form>
     </div><!-- fin  area-3 del grid-container -->
