@@ -369,6 +369,32 @@ function retornaArrayID(){
 }
 
 /**
+ * Funcion retorna arreglo de precios de los  examenes
+ * @return array
+ */
+function retornaArrayPrecios(){
+    global $wpdb;
+    $array = array();
+    $query ='SELECT RCE.RCENTEREXAM_PRICE 
+            FROM `RPORDER` 
+            INNER JOIN RCENTEREXAM AS RCE ON RCE.RCENTEREXAM_ID =`RPORDER_CE_ID` 
+            INNER JOIN MDCENTER AS MDC ON MDC.MPERSON_ID = RCE.RCENTEREXAM_MDCENTER_PERSON_ID 
+            INNER JOIN EXAM AS E ON E.EXAM_ID= RCE.RCENTEREXAM_EXAM_ID 
+            INNER JOIN REQUEST AS R ON R.REQUEST_ID=`RPORDER_REQUEST_ID` 
+            WHERE 
+            `RPORDER_NUMERO_SOL` =  '.$_POST['number'];
+
+
+
+    foreach ($wpdb->get_results($query) as $key => $row){
+        array_push( $array,$row->RCENTEREXAM_PRICE);
+    }
+
+    return $array;
+}
+
+
+/**
  * Funcion devuelve el valor del select
  */
 function devuelveValorSelect($valor){
@@ -422,6 +448,7 @@ function llenaComboSponsors(){
  */
 function actualizaStatus(){
     $arrayIdPHP = retornaArrayID();  //Retorna una lista e ID's
+    $arrayPrecios = retornaArrayPrecios();
     $long = sizeof($arrayIdPHP);
 echo '<script> console.log("ESTE ES EL VALOR '.$arrayIdPHP[0].'")</script>';
     for ($i=0 ; $i < $long ; $i++ ){
@@ -432,7 +459,8 @@ echo '<script> console.log("ESTE ES EL VALOR '.$arrayIdPHP[0].'")</script>';
             $wpdb->update( 'RPORDER',
                 // Datos que se remplazarán
                 array(
-                    'RPORDER_STATUS' => $_POST["estado-actual$var"]
+                    'RPORDER_STATUS' => $_POST["estado-actual$var"],
+                    'RPORDER_EXAM_PRICE' => $arrayPrecios[$i]
                 ),
                 // Cuando el ID del campo es igual al número 1
                 array( 'RPORDER_ID' =>$var )
