@@ -92,7 +92,7 @@
 </html>
 
 <?php
-
+session_start();
 /**
  *Funcion dibuja la parte de direccion en el formulario
  */
@@ -250,28 +250,34 @@ function llenarParroquias() {
  * Funcion reistra al centro de salud
  */
 function agregaCentroSalud(){
-    if (!empty($_POST['name-center']) && !empty($_POST['flaborday']) && !empty($_POST['lastlaborday'])) {
-        global $wpdb;
-        $wpdb->insert("MDCENTER", array(
-            'MPERSON_LEGAL_NAME' => $_POST['name-center'],
-            'MDCENTER_REFERENCE_CENTER' => $_POST['salud'],
-            'MDCENTER_ACRONYM' => $_POST['siglas'],
-            'MDCENTER_NATURE_INST' => $_POST['naturaleza'],
-            'MDCENTER_CONGREGATION' => $_POST['congregacion'],
-            'MDCENTER_FLABOR_DAY' => $_POST['flaborday'],
-            'MDCENTER_LLABOR_DAY' => $_POST['lastlaborday'],
-            'MDCENTER_FTURN_INIT' => $_POST['tunoinicio'],
-            'MDCENTER_FTURN_END' => $_POST['tunofin'],
-            'MDCENTER_STURN_INIT' => $_POST['tdosinicio'],
-            'MDCENTER_STURN_END' => $_POST['tdosfin'],
-            'MDCENTER_RESPANSABILITY_NAME' => $_POST['responsable'],
-            'MDCENTER_RESPANSABILITY_EMAIL' => $_POST['correo']
-        ));
+    $messageIdent = md5($_POST["name-center"].$_POST["flaborday"].$_POST["lastlaborday"]); // Se hace hash sobre los valoes de los parametros
 
-        $id_mdcenter= $wpdb->get_var( "SELECT MAX(MPERSON_ID) AS id FROM MDCENTER" ); //< Devuelve el ultimo id registrado
-        agregarDir($id_mdcenter);
-        if (!empty($_POST['cant-telefonos'])) {
-            agregarcontacto($id_mdcenter);
+    $sessionMessageIdent = isset($_SESSION['messageIdent'])?$_SESSION['messageIdent']:''; // si la variable de sesion esta definida entonces se asigna a la variable el valor de la sesion si no se asigna ''
+
+    if($messageIdent!=$sessionMessageIdent) {
+        if (!empty($_POST['name-center']) && !empty($_POST['flaborday']) && !empty($_POST['lastlaborday'])) {
+            global $wpdb;
+            $wpdb->insert("MDCENTER", array(
+                'MPERSON_LEGAL_NAME' => $_POST['name-center'],
+                'MDCENTER_REFERENCE_CENTER' => $_POST['salud'],
+                'MDCENTER_ACRONYM' => $_POST['siglas'],
+                'MDCENTER_NATURE_INST' => $_POST['naturaleza'],
+                'MDCENTER_CONGREGATION' => $_POST['congregacion'],
+                'MDCENTER_FLABOR_DAY' => $_POST['flaborday'],
+                'MDCENTER_LLABOR_DAY' => $_POST['lastlaborday'],
+                'MDCENTER_FTURN_INIT' => $_POST['tunoinicio'],
+                'MDCENTER_FTURN_END' => $_POST['tunofin'],
+                'MDCENTER_STURN_INIT' => $_POST['tdosinicio'],
+                'MDCENTER_STURN_END' => $_POST['tdosfin'],
+                'MDCENTER_RESPANSABILITY_NAME' => $_POST['responsable'],
+                'MDCENTER_RESPANSABILITY_EMAIL' => $_POST['correo']
+            ));
+
+            $id_mdcenter = $wpdb->get_var("SELECT MAX(MPERSON_ID) AS id FROM MDCENTER"); //< Devuelve el ultimo id registrado
+            agregarDir($id_mdcenter);
+            if (!empty($_POST['cant-telefonos'])) {
+                agregarcontacto($id_mdcenter);
+            }
         }
     }
 }

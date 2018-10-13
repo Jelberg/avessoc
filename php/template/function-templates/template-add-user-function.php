@@ -46,7 +46,7 @@
 </html>
 
 <?php
-
+session_start();
 
 //podemos pasar un array de direcciones de email a cuales enviar.
 $to=array('elbergjessica@gmail.com');
@@ -99,26 +99,31 @@ function llenaListaMDC(){
  * Inserta el usuario en la base de datos
  */
 function agregarUsuario(){
-    global $wpdb;
-    if (!empty($_POST['nombre']) && !empty($_POST['apellido']) && !empty($_POST['pass']) && !empty($_POST['seudonimo']) &&
-        !empty($_POST['email']) && !empty($_POST['privilegio']) && !empty($_POST['centro']) ) {
-        $wpdb->insert('USER', array(
-            'MPERSON_NAME' => $_POST['nombre'],
-            'MPERSON_LAST_NAME' => $_POST['apellido'],
-            'USER_PASS' => $_POST['pass'],
-            'USER_PSEUDONYM' => $_POST['seudonimo'],
-            'USER_PRIVILEGE_LEVL' => $_POST['privilegio'],
-            'USER_COMPANY' => $_POST['centro']
-        ));
+    $messageIdent = md5($_POST["nombre"].$_POST["seudonimo"].$_POST["apellido"]); // Se hace hash sobre los valoes de los parametros
+
+    $sessionMessageIdent = isset($_SESSION['messageIdent'])?$_SESSION['messageIdent']:''; // si la variable de sesion esta definida entonces se asigna a la variable el valor de la sesion si no se asigna ''
+
+    if($messageIdent!=$sessionMessageIdent) {
+        global $wpdb;
+        if (!empty($_POST['nombre']) && !empty($_POST['apellido']) && !empty($_POST['pass']) && !empty($_POST['seudonimo']) &&
+            !empty($_POST['email']) && !empty($_POST['privilegio']) && !empty($_POST['centro'])) {
+            $wpdb->insert('USER', array(
+                'MPERSON_NAME' => $_POST['nombre'],
+                'MPERSON_LAST_NAME' => $_POST['apellido'],
+                'USER_PASS' => $_POST['pass'],
+                'USER_PSEUDONYM' => $_POST['seudonimo'],
+                'USER_PRIVILEGE_LEVL' => $_POST['privilegio'],
+                'USER_COMPANY' => $_POST['centro']
+            ));
 
 
-
-        $id = $wpdb->get_var("SELECT MPERSON_ID FROM USER ORDER BY MPERSON_ID DESC");
-        //Agrega el correo en contacto
-        $wpdb->insert('CONTACT', array(
-            'CONTACT_EMAIL' => $_POST['email'],
-            'CONTACT_USER_MPERSON_ID'=> $id
-        ));
+            $id = $wpdb->get_var("SELECT MPERSON_ID FROM USER ORDER BY MPERSON_ID DESC");
+            //Agrega el correo en contacto
+            $wpdb->insert('CONTACT', array(
+                'CONTACT_EMAIL' => $_POST['email'],
+                'CONTACT_USER_MPERSON_ID' => $id
+            ));
+        }
     }
 }
 

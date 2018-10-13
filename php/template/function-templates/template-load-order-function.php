@@ -38,7 +38,7 @@
          * Seccion para manejar el datatable
          * */
         $(document).ready(function() {
-            var table = $('#examenes').DataTable({
+            var table = $('table.display').DataTable({
                 "language": {
                     "loadingRecords": "Cargando...",
                     "decimal": ",",
@@ -66,7 +66,9 @@
 
         });
 
-
+        function verordencentro(idcentro,numeroorden){
+            window.location.href = "<?php echo PATH_PAG_PRINT_ORDER?>".concat("?centro=").concat(idcentro).concat("&norden=").concat(numeroorden);
+        }
 
     </script>
 
@@ -77,8 +79,19 @@
 </html>
 
 
-
 <?php
+/**
+ * Funcion evuelve el status legible para el usurio
+ * @param $st
+ * @return string
+ */
+function devuelveStatusLegible($st){
+    if($st=='APR'){
+        return "Aprobado";
+    }else if($st=='REC'){
+        return "Rechazado";
+    }
+}
 
 
 /**
@@ -88,7 +101,7 @@
 function llenaTablaExamenes(){
     global $wpdb;
 
-    $query ="SELECT ORDER_ID, P.MPERSON_LEGAL_NAME, P.MPERSON_TYPE_DOC, P.MPERSON_IDENTF,ORDER_ACTIVITY_DATE,  TIMESTAMPDIFF(YEAR,P.MPERSON_BIRTH,CURDATE()) AS EDAD, ORDER_GRAFFAR, R.REQUEST_WEIGHT, MDC.MPERSON_LEGAL_NAME AS CENTRO, E.EXAM_DESC, RC.RCENTEREXAM_PRICE, ORDER_TOTAL_EXAM,R.REQUEST_CAUSE_EXAM, S.MPERSON_LEGAL_NAME AS SPONSOR
+    $query ="SELECT ORDER_ID, P.MPERSON_LEGAL_NAME, P.MPERSON_TYPE_DOC, P.MPERSON_IDENTF,ORDER_ACTIVITY_DATE, PO.RPORDER_STATUS,  TIMESTAMPDIFF(YEAR,P.MPERSON_BIRTH,CURDATE()) AS EDAD, ORDER_GRAFFAR, R.REQUEST_WEIGHT, MDC.MPERSON_LEGAL_NAME AS CENTRO, E.EXAM_DESC, RC.RCENTEREXAM_PRICE, ORDER_TOTAL_EXAM,R.REQUEST_CAUSE_EXAM, S.MPERSON_LEGAL_NAME AS SPONSOR
             FROM `ORD` 
             INNER JOIN RPORDER AS PO ON PO.RPORDER_ORDER_ID=ORDER_ID
             INNER JOIN REQUEST AS R ON R.REQUEST_ID = PO.RPORDER_REQUEST_ID
@@ -103,11 +116,12 @@ function llenaTablaExamenes(){
     $lista="";
     $lista .= '
     
-    <table id="examenes" class="display" style="width:100%" >
+    <table id="" class="display" style="width:100%" >
                             <thead>
                             <tr>
                                 <th>Nombre del Examen</th>
                                 <th>Centro donde se realizará el examen</th>
+                                <th>Estatus</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -119,6 +133,7 @@ function llenaTablaExamenes(){
         $lista .= "<tr>\n";
         $lista .= '<td>'.$row->EXAM_DESC."</td>\n";
         $lista .= '<td>'.$row->CENTRO."</td>\n";
+        $lista .= '<td>'.devuelveStatusLegible($row->RPORDER_STATUS)."</td>\n";
         $lista .= "</tr>\n";
 
 
@@ -130,6 +145,7 @@ function llenaTablaExamenes(){
                             <tr>
                                 <th>Nombre del Examen</th>
                                 <th>Centro donde se realizará el examen</th>
+                                <th>Estatus</th>
                             </tr>
                             </tfoot>
                         </table>
@@ -174,6 +190,65 @@ function llenaDatos(){
 
     $res = $wpdb->get_var("SELECT DISIEASE_DESC FROM DISIEASE WHERE DISIEASE_ID =".$causa);
     echo 'causa="'.$res.'"'.";\n";
+
+}
+
+
+/**
+ * lLENA LA LISTA DE LOS CENTROS DE SALUD QUE VAN A REALIZAR LOS EXAMENES
+ * @return string
+ */
+function llenaTablas(){
+    global $wpdb;
+
+    $query ="SELECT MDC.MPERSON_ID, MDC.MPERSON_LEGAL_NAME
+            FROM `ORD` 
+            INNER JOIN RPORDER AS PO ON PO.RPORDER_ORDER_ID=ORDER_ID
+            INNER JOIN REQUEST AS R ON R.REQUEST_ID = PO.RPORDER_REQUEST_ID
+            INNER JOIN PATIENT AS P ON P.MPERSON_ID = R.REQUEST_PATIENT_PERSON_ID
+            INNER JOIN RCENTEREXAM AS RC ON RC.RCENTEREXAM_ID = PO.RPORDER_CE_ID
+            INNER JOIN MDCENTER AS MDC ON MDC.MPERSON_ID=RC.RCENTEREXAM_MDCENTER_PERSON_ID
+            INNER JOIN EXAM AS E ON E.EXAM_ID = RC.RCENTEREXAM_EXAM_ID
+            INNER JOIN SPONSOR AS S ON S.MPERSON_ID = ORDER_SPONSOR_PERSON_ID
+            WHERE 
+            R.REQUEST_PATIENT_PERSON_ID = PO.REQUEST_PATIENT_PERSON_ID AND ORDER_ID =".$_GET['norden']."
+            GROUP BY MDC.MPERSON_ID ";
+
+    $lista="";
+    $lista .= '
+    
+    <table id="" class="display" style="width:100%; text-align: center;" >
+                            <thead>
+                            <tr>
+                                <th>Nombre del Examen</th>
+                                <th>Centro a referir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+    ';
+
+    $i=0;
+    foreach ($wpdb->get_results($query) as $key => $row){
+
+        $lista .= "<tr>\n";
+        $lista .= '<td>'.$row->MPERSON_LEGAL_NAME."</td>\n";
+        $lista .= '<td><button onclick="verordencentro('.$row->MPERSON_ID.','.$_GET['norden'].')">Ver Orden</button> '."</td>\n";
+        $lista .= "</tr>\n";
+
+
+    }
+
+    $lista .= '
+    </tbody>
+                            <tfoot>
+                            <tr>
+                                <th>Nombre del Examen</th>
+                                <th>Centro a referir</th>
+                            </tr>
+                            </tfoot>
+                        </table>
+    ';
+    return $lista;
 
 }
 

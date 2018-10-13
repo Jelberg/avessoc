@@ -71,7 +71,11 @@ define("PATH_PAG_LOAD_PRE_ORDEN"," http://dev.avessoc.org.ve/avessoc-carga-preor
 //Direccion para la busqueda de ordenes
 define("PATH_PAG_SEARCH_ORDER"," http://dev.avessoc.org.ve/avessoc-busca-ordenes/");
 
-define("PATH_PAG_LOAD_ORDEN","http://dev.avessoc.org.ve/avessoc-carga-orden/")
+//Direccion que ,¿muestra la direccion de la orden
+define("PATH_PAG_LOAD_ORDEN","http://dev.avessoc.org.ve/avessoc-carga-orden/");
+
+//DIRECCION de pagina que muestra la impresion de la orden
+define("PATH_PAG_PRINT_ORDER","http://dev.avessoc.org.ve/avessoc-imprimir-orden/");
 ?>
 
 

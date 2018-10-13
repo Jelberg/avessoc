@@ -176,6 +176,7 @@ function llenaListaCentros(){
  */
 function agregarExamenenCentro(){
 
+
     for($i=1; $i < 25 ;$i++){
 
         if(!empty($_POST['centro'.$i]) and !empty($_POST['precio'.$i]) and !empty($_POST['disp'.$i])) {

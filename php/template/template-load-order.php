@@ -24,13 +24,12 @@ include "function-templates/template-load-order-function.php"
     <div class="area-3">
         <h4 id="preordennumero" style="color: dodgerblue"></h4>
 
-        <form id="FormPreOrden" name="FormPreOrden" method="post" action="">
+
             <section class="grid-2">
 
                 <div class="item-0">
                     <section class="grid-rows">
                         <h2>Orden</h2>
-                        <h4>Datos del Paciente</h4>
                         <div class="item-row-o">
                             <input type="text" name="paciente-id" id="paciente-id" style="display: none" readonly="readonly"/><br>
                         </div>
@@ -74,11 +73,15 @@ include "function-templates/template-load-order-function.php"
                     echo llenaTablaExamenes();
                     ?>
                 </div>
-                <div>
-                    ['wp_objects_pdf']
+                <h4>Centro a Referir</h4>
+                <div class="item-2" style="text-align: center;">
+                    <?php
+                    echo llenaTablas();
+                    ?>
                 </div>
+
             </section>
-        </form>
+
     </div><!-- fin  area-3 del grid-container -->
 </section> <!-- fin  grid-container-->
 <script language="JavaScript">

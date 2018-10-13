@@ -157,6 +157,7 @@
 </html>
 
 <?php
+session_start();
 
 /**
  * Registra la nueva solicitud del paciente
@@ -327,35 +328,41 @@ function numeroPreOrden(){
  * @param $id_solicitud
  */
 function registraPOrden($id_solicitud){
-    if (!empty($_POST['procedencia']) && !empty($_POST['peso']) && !empty($_POST['causa'])) { //Si no estan vacios hacen el update
-        global $wpdb;
-        $wpdb->update('REQUEST',
-            // Datos que se remplazarán
-            array(
-                'REQUEST_ORIGIN' => $_POST['procedencia'],
-                'REQUEST_WEIGHT' => $_POST['peso'],
-                'REQUEST_MDCENTER_ID_CONCERNING' => $_POST['solicitante'],
-                'REQUEST_CAUSE_EXAM' => $_POST['causa']
-            ),
-            // Cuando el ID del campo es igual al número 1
-            array('REQUEST_ID' => $id_solicitud)
-        );
+    $messageIdent = md5($_POST["procedencia"].$_POST["peso"].$_POST["solicitante"]); // Se hace hash sobre los valoes de los parametros
 
-        //Se obtiene el ultimo id de la tabla
-        $nuevonum =numeroPreOrden();
+    $sessionMessageIdent = isset($_SESSION['messageIdent'])?$_SESSION['messageIdent']:''; // si la variable de sesion esta definida entonces se asigna a la variable el valor de la sesion si no se asigna ''
 
-        // Para hacer el insert de los examenes
-        for($i=1; $i < 25 ;$i++){
-            if (!empty($_POST["centroReferir$i"]) && !empty($_POST["centroReferir$i"]) && !empty($_POST["examenNombre$i"])) {
-                //Obtengo el id del centro que posee el examen
-                $id_rcentroexamen = $wpdb->get_var('SELECT `RCENTEREXAM_ID` FROM `RCENTEREXAM`, MDCENTER, EXAM WHERE `RCENTEREXAM_MDCENTER_PERSON_ID`= MPERSON_ID AND `RCENTEREXAM_EXAM_ID`=EXAM_ID AND RCENTEREXAM_MDCENTER_PERSON_ID = ' . $_POST["centroReferir$i"] . ' AND RCENTEREXAM_EXAM_ID=' . $_POST["examenNombre$i"]);
-                $wpdb->insert("RPORDER", array(
-                    'REQUEST_PATIENT_PERSON_ID' => $_POST['paciente-id'], //
-                    'RPORDER_REQUEST_ID' => $id_solicitud,
-                    'RPORDER_CE_ID' => $id_rcentroexamen,
-                    'RPORDER_STATUS' => 'PEN',
-                    'RPORDER_NUMERO_SOL' => $nuevonum
-                ));
+    if($messageIdent!=$sessionMessageIdent) {
+        if (!empty($_POST['procedencia']) && !empty($_POST['peso']) && !empty($_POST['causa'])) { //Si no estan vacios hacen el update
+            global $wpdb;
+            $wpdb->update('REQUEST',
+                // Datos que se remplazarán
+                array(
+                    'REQUEST_ORIGIN' => $_POST['procedencia'],
+                    'REQUEST_WEIGHT' => $_POST['peso'],
+                    'REQUEST_MDCENTER_ID_CONCERNING' => $_POST['solicitante'],
+                    'REQUEST_CAUSE_EXAM' => $_POST['causa']
+                ),
+                // Cuando el ID del campo es igual al número 1
+                array('REQUEST_ID' => $id_solicitud)
+            );
+
+            //Se obtiene el ultimo id de la tabla
+            $nuevonum = numeroPreOrden();
+
+            // Para hacer el insert de los examenes
+            for ($i = 1; $i < 25; $i++) {
+                if (!empty($_POST["centroReferir$i"]) && !empty($_POST["centroReferir$i"]) && !empty($_POST["examenNombre$i"])) {
+                    //Obtengo el id del centro que posee el examen
+                    $id_rcentroexamen = $wpdb->get_var('SELECT `RCENTEREXAM_ID` FROM `RCENTEREXAM`, MDCENTER, EXAM WHERE `RCENTEREXAM_MDCENTER_PERSON_ID`= MPERSON_ID AND `RCENTEREXAM_EXAM_ID`=EXAM_ID AND RCENTEREXAM_MDCENTER_PERSON_ID = ' . $_POST["centroReferir$i"] . ' AND RCENTEREXAM_EXAM_ID=' . $_POST["examenNombre$i"]);
+                    $wpdb->insert("RPORDER", array(
+                        'REQUEST_PATIENT_PERSON_ID' => $_POST['paciente-id'], //
+                        'RPORDER_REQUEST_ID' => $id_solicitud,
+                        'RPORDER_CE_ID' => $id_rcentroexamen,
+                        'RPORDER_STATUS' => 'PEN',
+                        'RPORDER_NUMERO_SOL' => $nuevonum
+                    ));
+                }
             }
         }
     }

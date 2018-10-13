@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Obtiene el valor y la descripcion de la respuesta de la escala graffar
  * @param $id_question

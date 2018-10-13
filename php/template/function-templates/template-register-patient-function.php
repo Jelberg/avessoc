@@ -146,7 +146,7 @@
 //                                                                                        //
 //=========================================================================================
 
-
+session_start();
 
 /**
  *Funcion dibuja la parte de direccion en el formulario
@@ -307,6 +307,11 @@ return $combo;
  */
 
 function insert_patient(){
+    $messageIdent = md5($_POST["name-uno"].$_POST["titular"].$_POST["numero-doc"]); // Se hace hash sobre los valoes de los parametros
+
+    $sessionMessageIdent = isset($_SESSION['messageIdent'])?$_SESSION['messageIdent']:''; // si la variable de sesion esta definida entonces se asigna a la variable el valor de la sesion si no se asigna ''
+
+    if($messageIdent!=$sessionMessageIdent) {
 
         global $wpdb;
 
@@ -334,6 +339,7 @@ function insert_patient(){
             $_POST['graffar-1'], $_POST['graffar-2'], $_POST['graffar-3'], $_POST['graffar-4']);
         insert_direction($id_paciente);
 
+    }
 }
 
 

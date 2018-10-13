@@ -37,7 +37,7 @@
 </html>
 
 <?php
-
+session_start();
 /**
  * Funcion llena el combo de patologias
  */
@@ -77,40 +77,46 @@ function muestraCategorias(){
 }
 
 function agregaNuevoExamen(){
-    global $wpdb;
-    if (!empty($_POST['examen'])) {
-        if ($_POST['tipo-categoria'] != '-1' && $_POST['tipo-patologia'] != '-1') {
-            $wpdb->insert('EXAM', array(
-                'EXAM_CATEGORY' => $_POST['tipo-categoria'],
-                'EXAM_DISIEASE' => $_POST['tipo-patologia'],
-                'EXAM_DESC' => ucfirst(strtolower($_POST['examen']))
-            ));
-        } else if ($_POST['tipo-categoria'] == '-1' && $_POST['tipo-patologia'] == '-1') {
-            $wpdb->insert('EXAM', array(
-                'EXAM_CATEGORY' => ucfirst(strtolower($_POST['nueva-categoria'])),
-                'EXAM_DISIEASE' => ucfirst(strtolower($_POST['nueva-patologia'])),
-                'EXAM_DESC' => ucfirst(strtolower($_POST['examen']))
-            ));
+    $messageIdent = md5($_POST["examen"].$_POST["nueva-categoria"].$_POST["tipo-categoria"]); // Se hace hash sobre los valoes de los parametros
 
-            $wpdb->insert('DISIEASE', array(
-                'DISIEASE_DESC' => ucfirst(strtolower($_POST['nueva-patologia']))
-            ));
-        } else if ($_POST['tipo-categoria'] == '-1' && $_POST['tipo-patologia'] != '-1') {
-            $wpdb->insert('EXAM', array(
-                'EXAM_CATEGORY' => ucfirst(strtolower($_POST['nueva-categoria'])),
-                'EXAM_DISIEASE' => $_POST['tipo-patologia'],
-                'EXAM_DESC' => ucfirst(strtolower($_POST['examen']))
-            ));
-        } else if ($_POST['tipo-categoria'] != '-1' && $_POST['tipo-patologia'] == '-1') {
-            $wpdb->insert('EXAM', array(
-                'EXAM_CATEGORY' => $_POST['tipo-categoria'],
-                'EXAM_DISIEASE' => ucfirst(strtolower($_POST['nueva-patologia'])),
-                'EXAM_DESC' => ucfirst(strtolower($_POST['examen']))
-            ));
+    $sessionMessageIdent = isset($_SESSION['messageIdent'])?$_SESSION['messageIdent']:''; // si la variable de sesion esta definida entonces se asigna a la variable el valor de la sesion si no se asigna ''
 
-            $wpdb->insert('DISIEASE', array(
-                'DISIEASE_DESC' => ucfirst(strtolower($_POST['nueva-patologia']))
-            ));
+    if($messageIdent!=$sessionMessageIdent) {
+        global $wpdb;
+        if (!empty($_POST['examen'])) {
+            if ($_POST['tipo-categoria'] != '-1' && $_POST['tipo-patologia'] != '-1') {
+                $wpdb->insert('EXAM', array(
+                    'EXAM_CATEGORY' => $_POST['tipo-categoria'],
+                    'EXAM_DISIEASE' => $_POST['tipo-patologia'],
+                    'EXAM_DESC' => ucfirst(strtolower($_POST['examen']))
+                ));
+            } else if ($_POST['tipo-categoria'] == '-1' && $_POST['tipo-patologia'] == '-1') {
+                $wpdb->insert('EXAM', array(
+                    'EXAM_CATEGORY' => ucfirst(strtolower($_POST['nueva-categoria'])),
+                    'EXAM_DISIEASE' => ucfirst(strtolower($_POST['nueva-patologia'])),
+                    'EXAM_DESC' => ucfirst(strtolower($_POST['examen']))
+                ));
+
+                $wpdb->insert('DISIEASE', array(
+                    'DISIEASE_DESC' => ucfirst(strtolower($_POST['nueva-patologia']))
+                ));
+            } else if ($_POST['tipo-categoria'] == '-1' && $_POST['tipo-patologia'] != '-1') {
+                $wpdb->insert('EXAM', array(
+                    'EXAM_CATEGORY' => ucfirst(strtolower($_POST['nueva-categoria'])),
+                    'EXAM_DISIEASE' => $_POST['tipo-patologia'],
+                    'EXAM_DESC' => ucfirst(strtolower($_POST['examen']))
+                ));
+            } else if ($_POST['tipo-categoria'] != '-1' && $_POST['tipo-patologia'] == '-1') {
+                $wpdb->insert('EXAM', array(
+                    'EXAM_CATEGORY' => $_POST['tipo-categoria'],
+                    'EXAM_DISIEASE' => ucfirst(strtolower($_POST['nueva-patologia'])),
+                    'EXAM_DESC' => ucfirst(strtolower($_POST['examen']))
+                ));
+
+                $wpdb->insert('DISIEASE', array(
+                    'DISIEASE_DESC' => ucfirst(strtolower($_POST['nueva-patologia']))
+                ));
+            }
         }
     }
 }

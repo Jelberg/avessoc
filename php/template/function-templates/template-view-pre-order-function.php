@@ -178,7 +178,7 @@
 
 <?php
 
-
+session_start();
 
 /**
  * Funcion trae la informacion del usuario para mostrar en la pre-orden
@@ -477,26 +477,32 @@ echo '<script> console.log("ESTE ES EL VALOR '.$arrayIdPHP[0].'")</script>';
  * Funcion registra los datos para generar la pre-orden
  */
 function registraOreden(){
-    if (!empty($_POST['patrocinante']) && !empty($_POST['porcentaje'])) {
-        global $wpdb;
-        $wpdb->insert('ORD',array(
-            'ORDER_SPONSOR_PERSON_ID' => $_POST['patrocinante'],
-            'ORDER_TOTAL_EXAM' => $_POST['total'],
-            'ORDER_BIRTH_DATE' => 'SELECT CURDATE();',
-            'ORDER_GRAFFAR' => $_POST['porcentaje']
-        ));
-        $query_last_ord = "SELECT ORDER_ID FROM ORD order BY ORDER_ID DESC LIMIT 1";
-        $var = $wpdb->get_var($query_last_ord);
+    $messageIdent = md5($_POST["patrocinante"].$_POST["porcentaje"].$_POST["number"]); // Se hace hash sobre los valoes de los parametros
 
-        $wpdb->update( 'RPORDER',
-            // Datos que se remplazarán
-            array(
-                'RPORDER_ORDER_ID' =>  $var
-            ),
-            // Cuando el ID del campo es igual al número 1
-            array( 'RPORDER_NUMERO_SOL' => $_POST['number'] )
-        );
-        actualizaStatus();
+    $sessionMessageIdent = isset($_SESSION['messageIdent'])?$_SESSION['messageIdent']:''; // si la variable de sesion esta definida entonces se asigna a la variable el valor de la sesion si no se asigna ''
+
+    if($messageIdent!=$sessionMessageIdent) {
+        if (!empty($_POST['patrocinante']) && !empty($_POST['porcentaje'])) {
+            global $wpdb;
+            $wpdb->insert('ORD', array(
+                'ORDER_SPONSOR_PERSON_ID' => $_POST['patrocinante'],
+                'ORDER_TOTAL_EXAM' => $_POST['total'],
+                'ORDER_BIRTH_DATE' => 'SELECT CURDATE();',
+                'ORDER_GRAFFAR' => $_POST['porcentaje']
+            ));
+            $query_last_ord = "SELECT ORDER_ID FROM ORD order BY ORDER_ID DESC LIMIT 1";
+            $var = $wpdb->get_var($query_last_ord);
+
+            $wpdb->update('RPORDER',
+                // Datos que se remplazarán
+                array(
+                    'RPORDER_ORDER_ID' => $var
+                ),
+                // Cuando el ID del campo es igual al número 1
+                array('RPORDER_NUMERO_SOL' => $_POST['number'])
+            );
+            actualizaStatus();
+        }
     }
 }
 
