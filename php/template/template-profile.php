@@ -9,7 +9,9 @@ include "function-templates/template-profile-function.php";
 ?>
 
 <head>
+    <?php
 
+    ?>
 </head>
 
 <body>
@@ -49,10 +51,6 @@ include "function-templates/template-profile-function.php";
                             <label for="name">Password</label><span class="required">*</span><br>
                             <input type="password" name="pass" id="pass" class="form-area-two" /><br>
                         </div>
-                        <div class="item-row-6">
-                            <label for="name">Repita Password</label><span class="required">*</span><br>
-                            <input type="password" name="pass2" id="pass2" class="form-area-two" /><br>
-                        </div>
                         <div class="item-row-7">
                             <label for="name">Privilegios</label><span class="required">*</span><br>
                             <input type="text" name="privilegio" id="privilegio" class="form-area-two" disabled/><br>
@@ -65,9 +63,14 @@ include "function-templates/template-profile-function.php";
                 </div>
             </section> <!--Fin del grid-2-->
         </form>
-        <section class="rigth">
-            <button id="RegistrarUsuario" name="RegistrarUsuario" onsubmit=""></button>
+        <section style="text-align: right display: inline;">
+            <button id="edit" name="edit" onclick="submitCambios()">GUARDAR CAMBIOS</button>
+            <button type="text" name="habilitar" id="habilitar" onclick="habilitaCampos()">HABILITAR EDICION</button><br>
         </section>
+        <div style="text-align: left display: inline;">
+
+        </div>
+
     </div><!-- fin  area-3 del grid-container -->
 </section> <!-- fin  grid-container-->
 
