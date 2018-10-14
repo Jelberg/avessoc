@@ -82,6 +82,7 @@ function agregaNuevoExamen(){
     $sessionMessageIdent = isset($_SESSION['messageIdent'])?$_SESSION['messageIdent']:''; // si la variable de sesion esta definida entonces se asigna a la variable el valor de la sesion si no se asigna ''
 
     if($messageIdent!=$sessionMessageIdent) {
+        $_SESSION['messageIdent'] = $messageIdent; // Se guarda la nueva variable de sesion
         global $wpdb;
         if (!empty($_POST['examen'])) {
             if ($_POST['tipo-categoria'] != '-1' && $_POST['tipo-patologia'] != '-1') {

@@ -333,6 +333,7 @@ function registraPOrden($id_solicitud){
     $sessionMessageIdent = isset($_SESSION['messageIdent'])?$_SESSION['messageIdent']:''; // si la variable de sesion esta definida entonces se asigna a la variable el valor de la sesion si no se asigna ''
 
     if($messageIdent!=$sessionMessageIdent) {
+        $_SESSION['messageIdent'] = $messageIdent; // Se guarda la nueva variable de sesion
         if (!empty($_POST['procedencia']) && !empty($_POST['peso']) && !empty($_POST['causa'])) { //Si no estan vacios hacen el update
             global $wpdb;
             $wpdb->update('REQUEST',

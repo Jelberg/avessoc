@@ -5,7 +5,7 @@
 get_header();
 include "menu.php";
 include "notifications.php";
-include "function-templates/template-load-sponsor-function.php";
+include "function-templates/template-load-patient-function.php";
 ?>
 
 <!DOCTYPE html>

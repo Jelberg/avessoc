@@ -100,6 +100,7 @@
 </html>
 
 <?php
+session_start();
 
 /**
  * Funcion dibuja el combo box de los examenes registrados en el sistema
@@ -176,27 +177,32 @@ function llenaListaCentros(){
  */
 function agregarExamenenCentro(){
 
+    $messageIdent = md5($_POST["examen"].$_POST["nueva-categoria"].$_POST["tipo-categoria"]); // Se hace hash sobre los valoes de los parametros
+$sessionMessageIdent = isset($_SESSION['messageIdent'])?$_SESSION['messageIdent']:''; // si la variable de sesion esta definida entonces se asigna a la variable el valor de la sesion si no se asigna ''
 
-    for($i=1; $i < 25 ;$i++){
+if($messageIdent!=$sessionMessageIdent) {
 
-        if(!empty($_POST['centro'.$i]) and !empty($_POST['precio'.$i]) and !empty($_POST['disp'.$i])) {
+    $_SESSION['messageIdent'] = $messageIdent; // Se guarda la nueva variable de sesion
+    for ($i = 1; $i < 25; $i++) {
+
+        if (!empty($_POST['centro' . $i]) and !empty($_POST['precio' . $i]) and !empty($_POST['disp' . $i])) {
             global $wpdb;
 
             $wpdb->insert('RCENTEREXAM', array(
-                'RCENTEREXAM_MDCENTER_PERSON_ID' => $_POST['centro'.$i],
+                'RCENTEREXAM_MDCENTER_PERSON_ID' => $_POST['centro' . $i],
                 'RCENTEREXAM_EXAM_ID' => $_POST['tipo-examen'],
-                'RCENTEREXAM_AVAILABILITY' => $_POST['disp'.$i],
-                'RCENTEREXAM_PRICE' => $_POST['precio'.$i]
+                'RCENTEREXAM_AVAILABILITY' => $_POST['disp' . $i],
+                'RCENTEREXAM_PRICE' => $_POST['precio' . $i]
             ));
 
-                unset($_POST['centro' . $i]);
-                unset($_POST['disp' . $i]);
-                unset($_POST['precio' . $i]);
-                unset($_POST['tipo-examen' . $i]);
-            }
+            unset($_POST['centro' . $i]);
+            unset($_POST['disp' . $i]);
+            unset($_POST['precio' . $i]);
+            unset($_POST['tipo-examen' . $i]);
         }
-   // }
-
+    }
+    // }
+}
 }
 
 

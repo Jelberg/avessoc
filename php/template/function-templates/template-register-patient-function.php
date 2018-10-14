@@ -312,7 +312,7 @@ function insert_patient(){
     $sessionMessageIdent = isset($_SESSION['messageIdent'])?$_SESSION['messageIdent']:''; // si la variable de sesion esta definida entonces se asigna a la variable el valor de la sesion si no se asigna ''
 
     if($messageIdent!=$sessionMessageIdent) {
-
+        $_SESSION['messageIdent'] = $messageIdent; // Se guarda la nueva variable de sesion
         global $wpdb;
 
         $wpdb->insert('PATIENT', array(
@@ -332,11 +332,10 @@ function insert_patient(){
         ));
         $id_paciente = $wpdb->get_var("SELECT MAX(MPERSON_ID) AS id FROM PATIENT"); //< Devuelve el ultimo id registrado
 
-        if (!empty($_POST['local']) or !empty($_POST['movil']) or !empty($_POST['correo'])) {
-            add_contact_patient($id_paciente, $wpdb, $_POST['local'], $_POST['movil'], strtolower($_POST['correo']));
-        }
-        add_request($wpdb, $id_paciente, $_POST['num-personas'], $_POST['ingreso-promedio'], $_POST['familia-tipo'], ucfirst(strtolower($_POST['otro-tipo'])), $_POST['condicion-laboral'],
-            $_POST['graffar-1'], $_POST['graffar-2'], $_POST['graffar-3'], $_POST['graffar-4']);
+        add_contact_patient($id_paciente, $wpdb, $_POST['local'], $_POST['movil'], strtolower($_POST['correo']));
+
+        //add_request($wpdb, $id_paciente, $_POST['num-personas'], $_POST['ingreso-promedio'], $_POST['familia-tipo'], ucfirst(strtolower($_POST['otro-tipo'])), $_POST['condicion-laboral'],
+          //  $_POST['graffar-1'], $_POST['graffar-2'], $_POST['graffar-3'], $_POST['graffar-4']);
         insert_direction($id_paciente);
 
     }

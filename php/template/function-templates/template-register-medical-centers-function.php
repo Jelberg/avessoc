@@ -255,6 +255,7 @@ function agregaCentroSalud(){
     $sessionMessageIdent = isset($_SESSION['messageIdent'])?$_SESSION['messageIdent']:''; // si la variable de sesion esta definida entonces se asigna a la variable el valor de la sesion si no se asigna ''
 
     if($messageIdent!=$sessionMessageIdent) {
+        $_SESSION['messageIdent'] = $messageIdent; // Se guarda la nueva variable de sesion
         if (!empty($_POST['name-center']) && !empty($_POST['flaborday']) && !empty($_POST['lastlaborday'])) {
             global $wpdb;
             $wpdb->insert("MDCENTER", array(
