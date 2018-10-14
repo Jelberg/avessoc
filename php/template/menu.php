@@ -79,6 +79,9 @@ define("PATH_PAG_PRINT_ORDER","http://dev.avessoc.org.ve/avessoc-imprimir-orden/
 
 //Direccion para la carga de datos de paciente
 define("PATH_PAG_LOAD_PATIENT","http://dev.avessoc.org.ve/avessoc-loa-patient/");
+
+//DIREccion para el perfil de usuario
+define("PATH_PAG_PROFILE","http://dev.avessoc.org.ve/avessoc-perfil-usuario/");
 ?>
 
 
@@ -126,6 +129,7 @@ function mostrarMenu(){
 			    <ul>
 			        <li><a href="'.PATH_PAG_ADD_USER.'"><i class="icono izquierda fa fa-arrow-right"></i>Registrar Usuarios</a>
 			        <li><a href=""><i class="icono izquierda fa fa-arrow-right"></i>Buscar Usuarios</a>
+			        <li><a href="'.PATH_PAG_PROFILE.'"><i class="icono izquierda fa fa-arrow-right"></i>Perfil</a>
                  </ul>
 			</li>
 		</ul>

@@ -1,7 +1,7 @@
 
 <?php
 
-/* Template Name: Perfil User */
+/* Template Name: Profile User */
 
 get_header();
 include "menu.php";
@@ -66,9 +66,13 @@ include "function-templates/template-profile-function.php";
             </section> <!--Fin del grid-2-->
         </form>
         <section class="rigth">
-            <button id="RegistrarUsuario" name="RegistrarUsuario" onsubmit="<?php agregarUsuario();?>"></button>
+            <button id="RegistrarUsuario" name="RegistrarUsuario" onsubmit=""></button>
         </section>
     </div><!-- fin  area-3 del grid-container -->
 </section> <!-- fin  grid-container-->
+
+<script language="JavaScript">
+    muestraData();
+</script>
 
 </body>
