@@ -13,6 +13,13 @@ var nacionalidad = "";
 var titularDoc  = "";
 var fechaNac = "";
 var estadoCivil="";
+var direccion ="";
+var nombreEstado="";
+var nombreMunicipio="";
+var nombreParroquia="";
+var uno;
+var dos;
+var email="";
 
     <?php
     loadPatient();
@@ -34,6 +41,14 @@ var estadoCivil="";
         document.getElementById("estao-civil").value = estadoCivil;
         document.getElementById("oficio").value = profesion;
         document.getElementById("nacionalidad").value =nacionalidad ;
+        document.getElementById("muestraEstado").value = nombreEstado;
+        document.getElementById("muestraMunicipio").value = nombreMunicipio;
+        document.getElementById("muestraParroquia").value = nombreParroquia;
+        document.getElementById("direccion").value = direccion;
+        document.getElementById("local").value = uno;
+        document.getElementById("movil").value = dos;
+        document.getElementById("correo").value = email;
+
     }
 
 </script>
@@ -74,6 +89,46 @@ WHERE MPERSON_ID = ".$_POST['patient'];
         echo 'estadoCivil="'.$row->MPERSON_CIVIL_STATS.'";'."\n";
         $direccion=$row->DIRECTION_ID;
         $contacto=$row->CONTACT_ID;
+    }
+    cargaDireccion($direccion);
+    cargaDatoscontacto($contacto);
+
+}
+
+/**
+ * Funcion carga la direccion en la pagina
+ * @param $id_direccion
+ */
+function cargaDireccion($id_direccion){
+    global $wpdb;
+    $query ="SELECT `DIRECTION_DESC`, PARISH_ID, PARISH_DESC, MUNICIPALT_ID, MUNICIPALT_DESC, STATE_ID, STATE_DESC FROM 
+`DIRECTION`, PARISH, MUNICIPALT, STATE WHERE `DIRECTION_PARISH_ID`= PARISH_ID AND `DIRECTION_PAR_MUN_ID`= 
+MUNICIPALT_ID AND MUNICIPALT_STATE_ID=STATE_ID AND DIRECTION_ID=".$id_direccion;
+    foreach ($wpdb->get_results($query) as $key => $row) {
+        echo 'direccion="'.$row->DIRECTION_DESC.'"'.";\n";
+        echo 'nombreEstado="'.$row->STATE_DESC.'"'.";\n";
+        echo 'nombreMunicipio="'.$row->MUNICIPALT_DESC.'"'.";\n";
+        echo 'nombreParroquia="'.$row->PARISH_DESC.'"'.";\n";
+    }
+}
+
+/**
+ *
+ * Funcion carga los datos de contacto en la pagina
+ * @param $id_contactoss
+ */
+function cargaDatoscontacto($id_contacto){
+    global $wpdb;
+    $query_contacto="SELECT CONTACT_LOCAL_PHON, CONTACT_MOVIL_PHON, CONTACT_EMAIL FROM CONTACT WHERE CONTACT_MPERSON_ID=".$id_contacto;
+    foreach ($wpdb->get_results($query_contacto) as $key => $row) {
+        if ($row->CONTACT_LOCAL_PHON==0){
+            echo 'uno=""'. ";\n";
+        }else echo 'uno=' . $row->CONTACT_LOCAL_PHON  . ";\n";
+        if ($row->CONTACT_MOVIL_PHON ==0){
+            echo 'dos=""'. ";\n";
+        }else echo 'dos=' . $row->CONTACT_MOVIL_PHON   . ";\n";
+
+        echo 'email="' . $row->CONTACT_EMAIL . '"' . ";\n";
     }
 
 }
