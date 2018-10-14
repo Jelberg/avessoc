@@ -19,6 +19,10 @@
         var financiado="";
         var pagar ="";
         var referente="";
+        var causa="";
+        var totaltotal="";
+        var graffar="";
+        var sponsor="";
 
         <?php
         llenaDatosOrden();
@@ -36,6 +40,10 @@
             document.getElementById("orden").value = "Orden # "+numeroOrden;
             document.getElementById("referente").value = referente;
             document.getElementById("referido").value =centroReferido ;
+            document.getElementById("causa").value =causa ;
+            document.getElementById("totaltotal").value =totaltotal ;
+            document.getElementById("graffar").value ="Usted esta siendo beneficiado por el Fondo Solidario de AVESSOC son el "+graffar+"% del costo total" ;
+            document.getElementById("sponsor").value ="Este descuento que esta recibiendo es gracias a: "+sponsor ;
         }
 
         $(document).ready(function() {
@@ -150,7 +158,7 @@ PO.RPORDER_STATUS = 'APR' AND ORDER_ID = ".$_GET['norden']." AND MC.MPERSON_ID= 
  * Funcion busca los datos en la base de datos para implimir la orden
  */
 function llenaDatosOrden(){
-    $query ="SELECT ORDER_ID, PA.MPERSON_LEGAL_NAME, PA.MPERSON_TYPE_DOC, PA.MPERSON_IDENTF, PA.MPERSON_BIRTH, R.REQUEST_CAUSE_EXAM,TIMESTAMPDIFF(YEAR,PA.MPERSON_BIRTH,CURDATE()) AS EDAD, PO.RPORDER_NUMERO_SOL, R.REQUEST_MDCENTER_ID_CONCERNING, MDC.MPERSON_LEGAL_NAME AS CENTRO,R.REQUEST_WEIGHT
+    $query ="SELECT ORDER_ID, PA.MPERSON_LEGAL_NAME, PA.MPERSON_TYPE_DOC, PA.MPERSON_IDENTF, PA.MPERSON_BIRTH, R.REQUEST_CAUSE_EXAM,TIMESTAMPDIFF(YEAR,PA.MPERSON_BIRTH,CURDATE()) AS EDAD, PO.RPORDER_NUMERO_SOL, R.REQUEST_MDCENTER_ID_CONCERNING, MDC.MPERSON_LEGAL_NAME AS CENTRO,R.REQUEST_WEIGHT,ORDER_SPONSOR_PERSON_ID, ORDER_GRAFFAR
                 FROM `ORD`
                 INNER JOIN RPORDER AS PO ON PO.RPORDER_ORDER_ID=ORDER_ID
                 INNER JOIN REQUEST AS R ON R.REQUEST_ID = PO.RPORDER_REQUEST_ID
@@ -163,6 +171,9 @@ function llenaDatosOrden(){
                 AND ORDER_ID =".$_GET['norden'];
     global $wpdb;
     $referente ="";
+    $causasExamen ="";
+    $idsponsor="";
+
     foreach($wpdb->get_results($query) as $key => $row){
         echo 'nombre="'.$row->MPERSON_LEGAL_NAME.'";'."\n";
         echo 'fechaNac="'.$row->MPERSON_BIRTH.'";'."\n";
@@ -173,9 +184,17 @@ function llenaDatosOrden(){
         echo 'tipoDoc="'.$row->MPERSON_TYPE_DOC.'";'."\n";
         echo 'numeroDoc="'.$row->MPERSON_IDENTF.'";'."\n";
         $referente = $row->REQUEST_MDCENTER_ID_CONCERNING;
+        $causasExamen= $row->REQUEST_CAUSE_EXAM;
+        $idsponsor= $row->ORDER_SPONSOR_PERSON_ID;
+        echo 'graffar="'.$row->ORDER_GRAFFAR.'";'."\n";
+
     }
     $centro = $wpdb->get_var("SELECT MPERSON_LEGAL_NAME FROM MDCENTER WHERE MPERSON_ID=".$referente);
     echo 'referente="'.$centro.'";'."\n";
+    $respuestaCausa = $wpdb->get_var("SELECT DISIEASE_DESC FROM DISIEASE WHERE DISIEASE_ID=".$causasExamen);
+    echo 'causa="'.$respuestaCausa.'";'."\n";
+    $namesponsor= $wpdb->get_var("SELECT MPERSON_LEGAL_NAME FROM SPONSOR WHERE MPERSON_ID=".$idsponsor);
+    echo 'sponsor="'.$namesponsor.'";'."\n";
 
 }
 
@@ -197,6 +216,7 @@ PO.RPORDER_STATUS = 'APR' AND ORDER_ID = ".$_GET['norden']." AND MC.MPERSON_ID= 
         echo 'financiado="'.$row->FINANCIADO.'";'."\n";
         $final = ($row->TOTAL) - ($row->FINANCIADO);
         echo 'pagar="'.$final.'";'."\n";
+        echo 'totaltotal="'.$row->TOTAL.'";'."\n";
     }
 
 }
