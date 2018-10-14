@@ -4,19 +4,15 @@
 
 get_header();
 include "menu.php";
-include "notifications.php";
 include "function-templates/template-load-patient-function.php";
+
+
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <?php
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        notificationSuccess("Success!","Paciente registrado exitosamente.");
-    }
 
-    ?>
 
 </head>
 <body>
@@ -41,51 +37,11 @@ include "function-templates/template-load-patient-function.php";
                         <section class="grid-columns"><!-- Columnas del formulario-->
                             <div class ="item1">
                                 <label for="name">Tipo de Documento</label><span class="required">*</span><br>
-                                <select class="select-area" id="tipo-documento" name="tipo-documento" onchange="cambioTipoDocumento()" required>
-                                    <option value="" selected> >>Seleccione opción<< </option>
-                                    <?php
-
-                                    $datos = array("V","E","Passaporte","RIF");
-                                    $valor = array("V","E","Passaporte","RIF");
-
-                                    for($i=0; $i<count($datos); $i++)
-                                    {
-                                        if($valor[$i]==$tdoc) // Compara si el valor que se guarda en tdoc se encuentra dentro del arreglo
-                                        {
-                                            echo "<option value='".$valor[$i]."' selected>".$datos[$i]."</option>";
-                                        }
-                                        else
-                                        {
-                                            echo "<option value='".$valor[$i]."'>".$datos[$i]."</option>";
-                                        }
-                                    }
-
-                                    ?>
-                                </select>
+                                <input type="text" maxlength="25"  class="form-area" name="tipo-documento" id="tipo-documento" required/><br>
                             </div>
                             <div class ="item2">
                                 <label for="name">Titular</label><span class="required">*</span><br>
-                                <select class="select-area" id="titular" name="titular" required>
-                                    <option value="" selected> >>Seleccione opción<< </option>
-                                    <?php
-
-                                    $datos = array("Propio","Madre","Padre","Representante");
-                                    $valor = array("PR","M","P","R");
-
-                                    for($i=0; $i<count($datos); $i++)
-                                    {
-                                        if($valor[$i]==$titular) // Compara si el valor que se guarda en tdoc se encuentra dentro del arreglo
-                                        {
-                                            echo "<option value='".$valor[$i]."' selected>".$datos[$i]."</option>";
-                                        }
-                                        else
-                                        {
-                                            echo "<option value='".$valor[$i]."'>".$datos[$i]."</option>";
-                                        }
-                                    }
-
-                                    ?>
-                                </select>
+                                <input type="text" maxlength="25"  class="form-area" name="titular" id="titular" required/><br>
                             </div>
                             <div class ="item3">
                                 <label for="name">Número del documento</label><span class="required">* </span><br>
@@ -119,54 +75,14 @@ include "function-templates/template-load-patient-function.php";
 
                             <div class = "item11">
                                 <label for="name">Sexo</label><span class="required">* <?php echo $sexoErr;?></span><br>
-                                <select id="Sexo" class="select-area" name="sexo" required>
-                                    <option value="" selected> >>Seleccione opción<< </option>
-                                    <?php
-
-                                    $datos = array("Masculino","Femenino");
-                                    $valor = array("M","F");
-
-                                    for($i=0; $i<count($datos); $i++)
-                                    {
-                                        if($valor[$i]==$sexo) // Compara si el valor que se guarda en tdoc se encuentra dentro del arreglo
-                                        {
-                                            echo "<option value='".$valor[$i]."' selected>".$datos[$i]."</option>";
-                                        }
-                                        else
-                                        {
-                                            echo "<option value='".$valor[$i]."'>".$datos[$i]."</option>";
-                                        }
-                                    }
-
-                                    ?>
-                                </select>
+                                <input type="text" maxlength="25"  class="form-area" name="sexo" id="sexo" required/><br>
                             </div>
 
                             <div class = "item12"></div>
 
                             <div class = "item13">
                                 <label for="name">Estado Civil</label><span class="required">* </span><br>
-                                <select id="estado-civil" class="select-area" name="estado-civil" required>
-                                    <option value="" selected> >>Seleccione opción<< </option>
-                                    <?php
-
-                                    $datos = array("Soltero","Casado","Divorciado","Viudo");
-                                    $valor = array("S","C","D","V");
-
-                                    for($i=0; $i<count($datos); $i++)
-                                    {
-                                        if($valor[$i]==$Ecivil)
-                                        {
-                                            echo "<option value='".$valor[$i]."' selected>".$datos[$i]."</option>";
-                                        }
-                                        else
-                                        {
-                                            echo "<option value='".$valor[$i]."'>".$datos[$i]."</option>";
-                                        }
-                                    }
-
-                                    ?>
-                                </select>
+                                <input type="text" maxlength="25"  class="form-area" name="estado-civil" id="estao-civil" required/><br>
                             </div>
 
                             <div class = "item14"></div>
@@ -192,9 +108,27 @@ include "function-templates/template-load-patient-function.php";
                 <div class="item2">
                     <div class="item-grid-2-border">
                         <h3>Detalles de Dirección</h3>
-                        <?php
-                        mostrarFormulario();
-                        ?>
+                        <section class="grid-columns">
+                            <div class="item1" style="display: none|block" id="cmbsE">
+                                <label for="name">Estado</label><span class="required">*  </span><br>
+                                <input type="text" class="form-area" name="muestraEstado" id="muestraEstado"/>
+
+                            </div>
+                            <div class="item2" style="display: none|block" id="cmbsM">
+                                <label for="name">Municipio</label><span class="required">* </span><br>
+                                <input type="text" class="form-area" name="muestraMunicipio" id="muestraMunicipio"/>
+
+                            </div>
+                            <div class="item3" style="display: none|block" id="cmbsP">
+                                <label for="name">Parroquia</label><span class="required">* </span><br>
+                                <input type="text" class="form-area" name="muestraParroquia" id="muestraParroquia"/>
+
+                            </div>
+                            <div class="item-span-three">
+                                <label for="name">Direccion</label><br>
+                                <input type="text" class="form-area-three" name="direccion" id="direccion" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+"  title="<?php echo $ErrmsjOnlyLetters ?>" /><br>
+                            </div>
+                        </section>
                     </div><!--fin border grid 2-->
                 </div> <!--fin item2-->
                 <!--fin de detalles de direccion-->
@@ -223,176 +157,16 @@ include "function-templates/template-load-patient-function.php";
                 </div>
                 <!-- FIN CONTACTO -->
 
+            </section> <!-- fin de grid-2 -->
 
-                <!-- COMPOSICION FAMILIAR -->
-                <div class="item4">
-                    <div class="item-grid-2-border">
-                        <h3>Composición Familiar</h3>
-                        <section class="grid-columns">
-                            <div class = "item1">
-                                <label for="name">Número de personas que viven en el hogar</label><span class="required">**   </span><br>
-                                <input type="number" class="form-area-number" name="num-personas" id="num-personas"  min="1" pattern="^[0-9]+" value="<?php echo $numper ?>" required/>
-                            </div>
-                            <div class = "item2">
-                                <label for="name">Ingreso Promedio Mensual</label><span class="required">**  </span><br>
-                                <input type="number" class="form-area-number" name="ingreso-promedio" id="ingreso-promedio" step="0.01"  min="1"  placeholder="Sólo hasta dos(2) decimales Ej.: 123,45" value="<?php echo $ingresr ?>" required/>
-                            </div>
+        </form><!--fin de formulario-->
 
-                            <div class = "item3"></div>
-
-                            <div class = "item-span-two">
-                                <label for="name">Tipo de familia con la que convive</label><br>
-                                <select id="familia-tipo" name ="familia-tipo"  class="select-area-two" onchange="muestraInfo()">
-                                    <option value="" selected> >>Seleccione opción<< </option>
-                                    <?php
-
-                                    $datos = array("Una sola persona","Pareja sin hijos","Madre/Padre solo, con hijos","Madre y Padre con hijos y otros parientes","Madre/Padre solo, hijos y otros parientes","Niño/a o adolence en entidad de atencion","Otro");
-                                    $valor = array("Una sola persona","Pareja sin hijos","Madre/Padre solo, con hijos","Madre y Padre con hijos y otros parientes","Madre/Padre solo, hijos y otros parientes","Niño/a o adolence en entidad de atencion","0");
-
-                                    for($i=0; $i<count($datos); $i++)
-                                    {
-                                        if($valor[$i]==$tipofamilia)
-                                        {
-                                            echo "<option value='".$valor[$i]."' selected>".$datos[$i]."</option>";
-                                        }
-                                        else
-                                        {
-                                            echo "<option value='".$valor[$i]."'>".$datos[$i]."</option>";
-                                        }
-                                    }
-
-                                    ?>
-                                </select>
-                            </div>
-                            <div class = "item-span-two" id="otro" style="display: block|none;">
-                                <label for="name">En caso de ser otro especifique</label><br>
-                                <input type="text" class="form-area-two" name="otro-tipo" id="otro-tipo" value="<?php echo $otrof ?>" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+"  title="<?php echo $ErrmsjOnlyLetters ?>" /><br>
-                                <p id="demo" maxlength="25" class="required"></p>
-                            </div>
-                        </section>
-                    </div>
-                </div>
-                <!-- FIN COMPOSICION FAMILIAR -->
-
-
-
-                <!-- DETALLE LABORAL -->
-                <div class="item5">
-                    <div class="item-grid-2-border">
-                        <h3>Detalles Laborales</h3>
-
-                        <section class="grid-columns">
-                            <div class = "item-span-three">
-                                <label for="name">Condicion laboral</label><br>
-                                <select id="condicion-laboral" name="condicion-laboral" class ="select-area-three">
-                                    <option value="" selected> >>Seleccione opción<< </option>
-                                    <?php
-
-                                    $datos = array("Desocupado/ Sin trabajo","Oficios del hogar","Trabajo formal (Empresas, Organismos de estados, etc.)","Trabajo informal a destajo, trabajo temporal)");
-                                    $valor = array("Desocupado/ Sin trabajo","Oficios del hogar","Trabajo formal (Empresas, Organismos de estados, etc.)","Trabajo informal a destajo, trabajo temporal)");
-
-                                    for($i=0; $i<count($datos); $i++)
-                                    {
-                                        if($valor[$i]==$condicion)
-                                        {
-                                            echo "<option value='".$valor[$i]."' selected>".$datos[$i]."</option>";
-                                        }
-                                        else
-                                        {
-                                            echo "<option value='".$valor[$i]."'>".$datos[$i]."</option>";
-                                        }
-                                    }
-
-                                    ?>
-
-                                </select>
-                            </div>
-                        </section>
-                    </div>
-                </div>
-                <!-- FIN DETALLE LABORAL -->
-
-
-                <!-- Clasificacion graffar -->
-
-                <div class="item6">
-                    <div class="item-grid-2-border">
-                        <h3>Clasificación Graffar</h3>
-                        <section class="grid-columns">
-
-                            <div class = "item-span-three">
-                                <div class = "item1">
-                                    <label for="name">Profesion del jefe del hogar</label><span class="required">** </span><br>
-                                    <select id="graffar-1" name="graffar-1"  class ="select-area-three" required>
-                                        <option value=""> >>Seleccione Opción<< </option>
-                                        <?php
-                                        $results = search_answer("1");
-                                        llenaComboBox($results); ?>
-                                    </select>
-                                </div>
-                            </div><!--span item-->
-
-                            <div class = "item-span-three">
-                                <div class = "item2">
-                                    <label for="name">Nivel de instruccion de la esposa o conyugue</label><span class="required">** </span><br>
-                                    <select id="graffar-2" name="graffar-2"  class ="select-area-three" required>
-                                        <option value=""> >>Seleccione Opción<< </option>
-                                        <?php
-                                        $results = search_answer("2");
-                                        llenaComboBox($results); ?>
-                                    </select>
-                                </div>
-                            </div><!--span item-->
-
-                            <div class = "item-span-three">
-                                <div class = "item3">
-                                    <label for="name">Principal fuente de ingreso</label><span class="required">** </span><br>
-                                    <select id="graffar-3" name="graffar-3"  class ="select-area-three" required>
-                                        <option value=""> >>Seleccione Opción<< </option>
-                                        <?php
-                                        $results = search_answer("3");
-                                        llenaComboBox($results); ?>
-                                    </select>
-                                </div>
-                            </div><!--span item-->
-
-                            <div class = "item-span-three">
-                                <div class = "item4">
-                                    <label for="name">Condiciones de alojamiento</label><span class="required">** </span><br>
-                                    <select id="graffar-4" name="graffar-4"  class ="select-area-three" required>
-                                        <option value=""> >>Seleccione Opción<< </option>
-                                        <?php
-                                        $results = search_answer("4");
-                                        llenaComboBox($results); ?>
-                                    </select>
-                                </div>
-                            </div><!--span item-->
-                        </section><!--fin rows grid-->
-                    </div>
-                </div>
-                <!-- fin Clasificacion graffar -->
-
-                <section class="right">
-                    <button class="button-just" type="submit" name="submit" id="submit" onsubmit=" <?php
-                    if (!empty($_POST['name-uno']) or !empty($_POST['name-dos']) or !empty($_POST['apellido-uno']) or !empty($_POST['apellido-dos']) or !empty($_POST['nacionalidad'])
-                        or !empty($_POST['oficio']) or !empty($_POST['tipo-documento']) or !empty($_POST['numero-doc']) or !empty($_POST['titular'])) {
-                        insert_patient();
-                    }?> ">REGISTRAR PACIENTE</button>
-                </section>
-
-    </div> <!--FIN grid area 3-->
-
-
-
-
-    </section> <!-- fin de grid-2 -->
-
-    </form><!--fin de formulario-->
+    </div>
 
 </div>
-
-</div>
-
+<script language="JavaScript">
+    llenaDatosPaciente();
+</script>
 
 </body>
 </html>

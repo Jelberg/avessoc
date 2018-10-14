@@ -52,16 +52,16 @@
                     ]
                 } );
 
-                $('#verporden').on('click',function () {
-                    //$.get, {sponsor_val: "uno"});
-                    $('#ViewSponsor').submit();
-                });
-
 
             });
 
 
+            function submitForm(nombreForm){
+                var ir = "sponsor"+nombreForm;
+                document.getElementById(ir).submit();
+            }
         </script>
+
 
 </head>
 
@@ -119,18 +119,17 @@ function llenaListaSponsor(){
             $lista .= '<td>'.$id."</td>\n";
             $lista .= '<td>'.$uno."</td>\n";
             $lista .= '<td>'.$dos."</td>\n";
-            $lista .= '<td>'.$tres."</td>\n
-                       <td>
-                           <form action='".PATH_PAG_LOAD_SPONSOR."' name='ViewSponsor' id='ViewSponsor'>
+            $lista .= '<td>'.$tres."</td>\n";
+               $lista .= ' <td>
+                           <form action="'.PATH_PAG_LOAD_SPONSOR.'" name="sponsor'.$id.'" id="sponsor'.$id.'" style="display: inline;">
 
-                                <input type='text' id='sponsor_val' name='sponsor_val' value='".$id."' style='display:none'>
-                                <a id='verporden' name='verporden'><i style='background: dodgerblue; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-eye fa-2x'></i></a>             
+                                <input type="text" id="sponsor_val" name="sponsor_val" value="'.$id.'" style="display:none">
+                                <a onclick="submitForm('.$id.')"><i style="background: dodgerblue; width: 35px; height: 30px; color: white; text-align: center" class="fa fa-eye fa-2x"></i></a>             
                            </form>
                  
-                           <a id='sponsor_del' name='sponsor_del' value=".$id." href='javascript: eliminarxid(".$id.")'>
-                                   <i style='background: red; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-trash fa-2x'></i></a>
-             
-                        </td>\n";
+                           <a id="sponsor_del" name="sponsor_del" value=".$id." href="javascript: eliminarxid(".$id.")">
+                                   <i style="background: red; width: 35px; height: 30px; color: white; text-align: center" class="fa fa-trash fa-2x"></i></a>
+             '."</td>\n";
         $lista .= "</tr>\n";
     }
 

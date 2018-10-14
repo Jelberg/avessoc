@@ -76,6 +76,9 @@ define("PATH_PAG_LOAD_ORDEN","http://dev.avessoc.org.ve/avessoc-carga-orden/");
 
 //DIRECCION de pagina que muestra la impresion de la orden
 define("PATH_PAG_PRINT_ORDER","http://dev.avessoc.org.ve/avessoc-imprimir-orden/");
+
+//Direccion para la carga de datos de paciente
+define("PATH_PAG_LOAD_PATIENT","http://dev.avessoc.org.ve/avessoc-loa-patient/");
 ?>
 
 

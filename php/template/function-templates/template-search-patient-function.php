@@ -4,12 +4,17 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" >
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.jqueryui.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" >
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.jqueryui.min.css" >
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <script language="JavaScript">
 
         $(document).ready(function() {
             $('#paciente').DataTable( {
+                "jQueryUI": true,
                 "language": {
                     "loadingRecords": "Cargando...",
                     "decimal": ",",
@@ -46,6 +51,24 @@
             } );
 
         } );
+
+        /**
+         * Hace submit el form load patient
+         * @param nombreForm
+         */
+        function submitForm(nombreForm){
+            var ir = "LoadPatient"+nombreForm;
+            document.getElementById(ir).submit();
+        }
+
+        /**
+         * Hace submit al form para generar solicitudes
+         * @param nombreForm
+         */
+        function submitFormSolicitudes(nombreForm){
+            var ir = "solicitudes"+nombreForm;
+            document.getElementById(ir).submit();
+        }
 
     </script>
 </head>
@@ -89,9 +112,14 @@ function llenaListaPacientes(){
         $lista .= '<td>'.$cuatro."</td>\n";
         $lista .= '<td>'.$row->EDAD."</td>\n
                        <td>
-                       <form action='".PATH_PAG_NEW_REQUEST."' name='solicitudes' id='solicitudes' method='POST'>
-                            <button style=' background-color: #3498DB; padding-left: 10px; padding-top:10px; padding-bottom:10px;
-                            padding-right: 10px;' id='id_pac' name='id_pac' value=".$cero.">Solicitud</button>
+                       <form action='".PATH_PAG_NEW_REQUEST."' name='solicitudes$cero' id='solicitudes$cero' method='POST' style='display: inline;'>
+                             <input type='text' id='id_pac' name='id_pac' value=".$cero." style='display:none'>
+                            <a onclick='submitFormSolicitudes($cero)'><i style='background: greenyellow; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-pencil-square-o fa-2x'></i></a>
+                       
+                       </form>  
+                       <form action='".PATH_PAG_LOAD_PATIENT."' name='LoadPatient$cero' id='LoadPatient$cero' method='POST' style='display: inline;'>
+                            <input type='text' id='patient' name='patient' value=".$cero." style='display:none'>
+                            <a onclick='submitForm($cero)'><i style='background: dodgerblue; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-eye fa-2x'></i></a>
                        </form>   
                         </td>\n";
         $lista .= "</tr>\n";
