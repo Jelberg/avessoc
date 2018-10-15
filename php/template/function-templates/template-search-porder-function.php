@@ -58,6 +58,7 @@
  * @return string
  */
 function llenaListaPreOrdenes(){
+    session_start();
     global $wpdb;
     $lista="";
     $query ="SELECT RPORDER_NUMERO_SOL, P.MPERSON_LEGAL_NAME, P.MPERSON_TYPE_DOC, P.MPERSON_IDENTF ,DATE_FORMAT(RPORDER_ACTIVITY_DATE, '%Y-%m-%d') FECHA_PORDER, MDC.MPERSON_LEGAL_NAME as NOMBRE_CENTRO
@@ -83,22 +84,42 @@ function llenaListaPreOrdenes(){
                             <tbody>
     ';
 
-    foreach( $wpdb->get_results($query) as $key => $row){
+    $privilegio = $_SESSION['user_load']['level'];
 
-        $lista .= "<tr>\n";
-        $lista .= '<td>'.$row->RPORDER_NUMERO_SOL."</td>\n";
-        $lista .= '<td>'.$row->MPERSON_LEGAL_NAME."</td>\n";
-        $lista .= '<td>'.$row->MPERSON_TYPE_DOC."</td>\n";
-        $lista .= '<td>'.$row->MPERSON_IDENTF."</td>\n";
-        $lista .= '<td>'.$row->NOMBRE_CENTRO."</td>\n";
-        $lista .= '<td>'.$row->FECHA_PORDER."</td>\n
+    if ($privilegio == "ADMIN") {
+        foreach ($wpdb->get_results($query) as $key => $row) {
+
+            $lista .= "<tr>\n";
+            $lista .= '<td>' . $row->RPORDER_NUMERO_SOL . "</td>\n";
+            $lista .= '<td>' . $row->MPERSON_LEGAL_NAME . "</td>\n";
+            $lista .= '<td>' . $row->MPERSON_TYPE_DOC . "</td>\n";
+            $lista .= '<td>' . $row->MPERSON_IDENTF . "</td>\n";
+            $lista .= '<td>' . $row->NOMBRE_CENTRO . "</td>\n";
+            $lista .= '<td>' . $row->FECHA_PORDER . "</td>\n
                     <td>
                    
                    
-                    <a id='verporden' name='verporden' onclick='ref(".$row->RPORDER_NUMERO_SOL.")' ><i style='background: green ; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-check-circle-o fa-2x'></i></a>
-                    <a onclick='ref2(".$row->RPORDER_NUMERO_SOL.")'><i style='background: dodgerblue; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-eye fa-2x'></i></a>
+                    <a id='verporden' name='verporden' onclick='ref(" . $row->RPORDER_NUMERO_SOL . ")' ><i style='background: green ; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-check-circle-o fa-2x'></i></a>
+                    <a onclick='ref2(" . $row->RPORDER_NUMERO_SOL . ")'><i style='background: dodgerblue; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-eye fa-2x'></i></a>
                     </td>\n";
-        $lista .= "</tr>\n";
+            $lista .= "</tr>\n";
+        }
+    }
+    else{
+        foreach ($wpdb->get_results($query) as $key => $row) {
+
+            $lista .= "<tr>\n";
+            $lista .= '<td>' . $row->RPORDER_NUMERO_SOL . "</td>\n";
+            $lista .= '<td>' . $row->MPERSON_LEGAL_NAME . "</td>\n";
+            $lista .= '<td>' . $row->MPERSON_TYPE_DOC . "</td>\n";
+            $lista .= '<td>' . $row->MPERSON_IDENTF . "</td>\n";
+            $lista .= '<td>' . $row->NOMBRE_CENTRO . "</td>\n";
+            $lista .= '<td>' . $row->FECHA_PORDER . "</td>\n
+                    <td>
+                    <a onclick='ref2(" . $row->RPORDER_NUMERO_SOL . ")'><i style='background: dodgerblue; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-eye fa-2x'></i></a>
+                    </td>\n";
+            $lista .= "</tr>\n";
+        }
     }
 
     $lista .= '

@@ -9,10 +9,21 @@
     ?>
 
     <script languaje="javascript">
+        var level = "";
+        <?php verificaPrivilegio(); ?>
+        /**
+         * Funcion pregunta si soy administrador
+         * */
+        function ManInTheMiddle(){
+            if (level != 'ADMIN'){
+                window.location.href = "<?php echo ERROR_403; ?>";
+            }
+        }
+        ManInTheMiddle();
+
         var idRporde=Array();
         var precio = Array();
         var arrayRespuesta= Array();
-
         var nombreLegal="";
         var edad="";
         var tipoDoc="";
@@ -177,6 +188,15 @@
 
 
 <?php
+
+
+function verificaPrivilegio(){
+    $p =$_SESSION['user_load']['level'];
+    echo 'level="'.$p.'"'.";\n";
+
+}
+
+
 
 session_start();
 

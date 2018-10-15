@@ -82,6 +82,12 @@ define("PATH_PAG_LOAD_PATIENT","http://dev.avessoc.org.ve/avessoc-loa-patient/")
 
 //DIREccion para el perfil de usuario
 define("PATH_PAG_PROFILE","http://dev.avessoc.org.ve/avessoc-perfil-usuario/");
+
+//pAGINA DE ERROR E ACCESO
+define("ERROR_403","http://dev.avessoc.org.ve/error-403/");
+
+//Path para las busquedas de usuarios
+define("PATH_PAG_SEARCH_USERS","http://dev.avessoc.org.ve/avessoc-search-user/");
 ?>
 
 
@@ -120,7 +126,7 @@ function mostrarMenu(){
 				</ul>
 			<li><a  href="#"><i class="icono izquierda "></i>Examenes<i class="icono derecha fa fa-chevron-down"></i></a>
 			    <ul>
-			        <li><a href="#"><i class="icono izquierda fa fa-arrow-right"></i>Buscar examenes en centros</a>
+			        <!--li><a href="#"><i class="icono izquierda fa fa-arrow-right"></i>Buscar examenes en centros</a-->
 			        <li><a href="'.PATH_PAG_REGISTER_EXAM_FROM_CENTER.'"><i class="icono izquierda fa fa-arrow-right"></i>Registrar examenes en centros</a>
 			        <li><a href="'.PATH_PAG_ADD_NEW_EXAM.'"><i class="icono izquierda fa fa-arrow-right"></i>Agregar nuevos examenes</a>
                  </ul>
@@ -128,7 +134,7 @@ function mostrarMenu(){
 			<li><a  href="#"><i class="icono izquierda "></i>Usuarios<i class="icono derecha fa fa-chevron-down"></i></a>
 			    <ul>
 			        <li><a href="'.PATH_PAG_ADD_USER.'"><i class="icono izquierda fa fa-arrow-right"></i>Registrar Usuarios</a>
-			        <li><a href=""><i class="icono izquierda fa fa-arrow-right"></i>Buscar Usuarios</a>
+			        <li><a href="'.PATH_PAG_SEARCH_USERS.'"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Usuarios</a>
 			        <li><a href="'.PATH_PAG_PROFILE.'"><i class="icono izquierda fa fa-arrow-right"></i>Perfil</a>
                  </ul>
 			</li>
