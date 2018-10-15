@@ -117,9 +117,9 @@ include "function-templates/template-view-pre-order-function.php"
                         echo llenaComboSponsors();
                         ?>
                     </select><br><br>
-                    <label for="name">Precio total de los examenes </label><br>
+                    <!--label for="name">Precio total de los examenes </label><br>
                     <input type="text" name="total" id="total" class="form-area-two" value=0 readonly="readonly"/><br><br>
-                    <input type="text" name="number" id="number" class="form-area-two" value="<?php echo $_GET['numporden'];?>" style="display: none;"/>
+                    <input type="text" name="number" id="number" class="form-area-two" value="<?php //echo $_GET['numporden'];?>" style="display: none;"/-->
                 </div>
             </section>
         </form>

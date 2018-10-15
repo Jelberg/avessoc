@@ -177,7 +177,7 @@ function llenaListaCentros(){
  */
 function agregarExamenenCentro(){
 
-    $messageIdent = md5($_POST["examen"].$_POST["nueva-categoria"].$_POST["tipo-categoria"]); // Se hace hash sobre los valoes de los parametros
+    $messageIdent = md5($_POST["centro1"].$_POST["precio1"].$_POST["disp1"]); // Se hace hash sobre los valoes de los parametros
 $sessionMessageIdent = isset($_SESSION['messageIdent'])?$_SESSION['messageIdent']:''; // si la variable de sesion esta definida entonces se asigna a la variable el valor de la sesion si no se asigna ''
 
 if($messageIdent!=$sessionMessageIdent) {

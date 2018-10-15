@@ -88,6 +88,15 @@ define("ERROR_403","http://dev.avessoc.org.ve/error-403/");
 
 //Path para las busquedas de usuarios
 define("PATH_PAG_SEARCH_USERS","http://dev.avessoc.org.ve/avessoc-search-user/");
+
+//Path para la configuracion del email
+define("PATH_PAG_CONFIG","http://dev.avessoc.org.ve/avessoc-config/");
+
+//path para el login
+define("PATH_PAG_LOGIN","http://dev.avessoc.org.ve/avessoc-login/");
+
+//PATH para la busqueda de examenes en los centros
+define("PATH_PAG_SEARCH_EXAMS","http://dev.avessoc.org.ve/avessoc-search-exam/");
 ?>
 
 
@@ -101,46 +110,90 @@ define("PATH_PAG_SEARCH_USERS","http://dev.avessoc.org.ve/avessoc-search-user/")
 <body>
 
 <?php
+
+/**
+ * Funcion muestra el menu y ademas filtra lo que puede ver los usuarios no administradores
+ */
 function mostrarMenu(){
-    echo '
+    session_start();
+
+    if ($_SESSION['user_load']['level'] == 'ADMIN') {
+        echo '
        <div class="contenedor-menu">
 
 		<ul class="menu">
 			<li><a href="#"><i class="icono izquierda fa fa-gift"></i>Fondo Solidario<i class="icono derecha fa fa-chevron-down"></i></a>
 				<ul>
-                     <li><a href="'.PATH_PAG_REGISTER_PATIENT.'"><i class="icono izquierda fa fa-arrow-right"></i>Registrar nuevos Pacientes</a>
-				     <li><a href="'.PATH_PAG_SEARCH_PATIENT.'"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Pacientes</a>
-				     <li><a href="'.PATH_PAG_SEARCH_PRE_ORDER.'"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Pre-Ordenes</a>
-				     <li><a href="'.PATH_PAG_SEARCH_ORDER.'"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Ordenes</a>
+                     <li><a href="' . PATH_PAG_REGISTER_PATIENT . '"><i class="icono izquierda fa fa-arrow-right"></i>Registrar nuevos Pacientes</a>
+				     <li><a href="' . PATH_PAG_SEARCH_PATIENT . '"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Pacientes</a>
+				     <li><a href="' . PATH_PAG_SEARCH_PRE_ORDER . '"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Pre-Ordenes</a>
+				     <li><a href="' . PATH_PAG_SEARCH_ORDER . '"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Ordenes</a>
 				</ul>
+			</li>
 			<li><a href="#"><i class="icono izquierda fa fa-users"></i>Patrocinantes<i class="icono derecha fa fa-chevron-down"></i></a>
 				<ul>
-					<li><a href="'.PATH_PAG_ADD_SPONSOR.'"><i class="icono izquierda fa fa-arrow-right"></i>Agregar Patrocinantes</a>
-                    <li><a href="'.PATH_PAG_SEARCH_SPONSOR.'"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Patrocinantes</a>
+					<li><a href="' . PATH_PAG_ADD_SPONSOR . '"><i class="icono izquierda fa fa-arrow-right"></i>Agregar Patrocinantes</a>
+                    <li><a href="' . PATH_PAG_SEARCH_SPONSOR . '"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Patrocinantes</a>
 				</ul>
 			</li>
 			<li><a href="#"><i class="icono izquierda fa fa-university"></i>Centros de Salud<i class="icono derecha fa fa-chevron-down"></i></a>
 				<ul>
-					<li><a href="'.PATH_PAG_ADD_MDCENTER.'"><i class="icono izquierda fa fa-arrow-right"></i>Agregar Centros</a>
-                    <li><a href="'.PATH_PAG_SEARCH_MDCENTER.'"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Centros de Salud</a>
+					<li><a href="' . PATH_PAG_ADD_MDCENTER . '"><i class="icono izquierda fa fa-arrow-right"></i>Agregar Centros</a>
+                    <li><a href="' . PATH_PAG_SEARCH_MDCENTER . '"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Centros de Salud</a>
 				</ul>
 			<li><a  href="#"><i class="icono izquierda "></i>Examenes<i class="icono derecha fa fa-chevron-down"></i></a>
 			    <ul>
-			        <!--li><a href="#"><i class="icono izquierda fa fa-arrow-right"></i>Buscar examenes en centros</a-->
-			        <li><a href="'.PATH_PAG_REGISTER_EXAM_FROM_CENTER.'"><i class="icono izquierda fa fa-arrow-right"></i>Registrar examenes en centros</a>
-			        <li><a href="'.PATH_PAG_ADD_NEW_EXAM.'"><i class="icono izquierda fa fa-arrow-right"></i>Agregar nuevos examenes</a>
+			        <li><a href="'.PATH_PAG_SEARCH_EXAMS.'"><i class="icono izquierda fa fa-arrow-right"></i>Buscar examenes en centros</a>
+			        <li><a href="' . PATH_PAG_REGISTER_EXAM_FROM_CENTER . '"><i class="icono izquierda fa fa-arrow-right"></i>Registrar examenes en centros</a>
+			        <li><a href="' . PATH_PAG_ADD_NEW_EXAM . '"><i class="icono izquierda fa fa-arrow-right"></i>Agregar nuevos examenes</a>
                  </ul>
 			</li>
 			<li><a  href="#"><i class="icono izquierda "></i>Usuarios<i class="icono derecha fa fa-chevron-down"></i></a>
 			    <ul>
-			        <li><a href="'.PATH_PAG_ADD_USER.'"><i class="icono izquierda fa fa-arrow-right"></i>Registrar Usuarios</a>
-			        <li><a href="'.PATH_PAG_SEARCH_USERS.'"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Usuarios</a>
-			        <li><a href="'.PATH_PAG_PROFILE.'"><i class="icono izquierda fa fa-arrow-right"></i>Perfil</a>
+			        <li><a href="' . PATH_PAG_ADD_USER . '"><i class="icono izquierda fa fa-arrow-right"></i>Registrar Usuarios</a>
+			        <li><a href="' . PATH_PAG_SEARCH_USERS . '"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Usuarios</a>
+			        <li><a href="' . PATH_PAG_PROFILE . '"><i class="icono izquierda fa fa-arrow-right"></i>Perfil</a>
                  </ul>
 			</li>
+			<li><a  href="' . PATH_PAG_CONFIG . '"><i class="icono izquierda fa fa-cog"></i>Configuración<i class="icono derecha"></i></a>
+			<li><a  href="' . PATH_PAG_LOGIN . '"><i class="icono izquierda fa fa-sign-out"></i>Cerrar Sesión<i class="icono derecha"></i></a>
 		</ul>
 	</div>
     ';
+    }
+    else{
+        echo '
+       <div class="contenedor-menu">
+
+		<ul class="menu">
+			<li><a href="#"><i class="icono izquierda fa fa-gift"></i>Fondo Solidario<i class="icono derecha fa fa-chevron-down"></i></a>
+				<ul>
+                     <li><a href="' . PATH_PAG_REGISTER_PATIENT . '"><i class="icono izquierda fa fa-arrow-right"></i>Registrar nuevos Pacientes</a>
+				     <li><a href="' . PATH_PAG_SEARCH_PATIENT . '"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Pacientes</a>
+				     <li><a href="' . PATH_PAG_SEARCH_PRE_ORDER . '"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Pre-Ordenes</a>
+				     <li><a href="' . PATH_PAG_SEARCH_ORDER . '"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Ordenes</a>
+				</ul>
+			</li>
+			<li><a href="#"><i class="icono izquierda fa fa-university"></i>Centros de Salud<i class="icono derecha fa fa-chevron-down"></i></a>
+				<ul>
+                    <li><a href="' . PATH_PAG_SEARCH_MDCENTER . '"><i class="icono izquierda fa fa-arrow-right"></i>Buscar Centros de Salud</a>
+				</ul>
+			<li><a  href="#"><i class="icono izquierda "></i>Examenes<i class="icono derecha fa fa-chevron-down"></i></a>
+			    <ul>
+                    <li><a href="'.PATH_PAG_SEARCH_EXAMS.'"><i class="icono izquierda fa fa-arrow-right"></i>Buscar examenes en centros</a>
+                 </ul>
+			</li>
+			<li><a  href="#"><i class="icono izquierda "></i>Usuarios<i class="icono derecha fa fa-chevron-down"></i></a>
+			    <ul>
+			        <li><a href="' . PATH_PAG_PROFILE . '"><i class="icono izquierda fa fa-arrow-right"></i>Perfil</a>
+                 </ul>
+			</li>
+			<li><a  href="' . PATH_PAG_CONFIG . '"><i class="icono izquierda fa fa-cog"></i>Configuración<i class="icono derecha"></i></a>
+			<li><a  href="' . PATH_PAG_LOGIN . '"><i class="icono izquierda fa fa-sign-out"></i>Cerrar Sesión<i class="icono derecha"></i></a>
+		</ul>
+	</div>
+    ';
+    }
 }
 
 ?>

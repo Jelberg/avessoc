@@ -8,7 +8,7 @@ function login(){
 
         global $wpdb;
         $query = "SELECT USER_PSEUDONYM,USER_PRIVILEGE_LEVL, MPERSON_ID FROM USER  WHERE USER_PSEUDONYM = '".$_POST['uname']."' and USER_PASS = '".$_POST['psw']."';";
-        echo '<script>alert("ESTE  ES EL SCRIPT :'.$query.'")</script>';
+        //echo '<script>alert("ESTE  ES EL SCRIPT :'.$query.'")</script>';
 
         $valido = "";
         $privilegio="";

@@ -31,7 +31,7 @@ include "function-templates/template-register-exams-centers-function.php";
                         <div class="algodistinto">
                             <?php
                             $i=1;
-                                echo $_POST['centro'.$i];
+                               // echo $_POST['centro'.$i];
                                 //echo "HOLAAAA";
                             ?>
                         </div>

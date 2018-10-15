@@ -13,7 +13,7 @@
     <script language="JavaScript">
 
         $(document).ready(function() {
-            $('#paciente').DataTable( {
+            $('#examenes').DataTable( {
                 "jQueryUI": true,
                 "language": {
                     "loadingRecords": "Cargando...",
@@ -79,54 +79,34 @@
 <?php
 
 /**
- * Funcion retorna un string con la lista de los pacientes
+ * Funcion retorna un string con la lista de los examenes
  * @return string
  */
-function llenaListaPacientes(){
+function llenaListaExamenes(){
     global $wpdb;
     $lista="";
 
     $lista .= '
-    <table id="paciente" class="display" style="width:100%" >
+    <table id="examenes" class="display" style="width:100%" >
                             <thead>
                             <tr>
-                      
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>T. Doc</th>
-                                <th>Número de identidad</th>
-                                <th>Edad</th>
-                                <th>Accion</th>
+                                <th>Nombre del Examen</th>
+                                <th>Centro</th>
+                                <th>Categoria</th>
+                                <th>Causas</th>
                             </tr>
                             </thead>
                             <tbody>
     ';
 
-    $query ="SELECT MPERSON_ID, MPERSON_NAME, MPERSON_LAST_NAME, MPERSON_TYPE_DOC, MPERSON_IDENTF, TIMESTAMPDIFF(YEAR,`MPERSON_BIRTH`,CURDATE()) AS EDAD FROM PATIENT";
+    $query ="SELECT EXAM_DESC, MDC.MPERSON_LEGAL_NAME, EXAM_CATEGORY, EXAM_DISIEASE FROM EXAM INNER JOIN RCENTEREXAM AS RC ON RC.RCENTEREXAM_EXAM_ID = EXAM_ID INNER JOIN MDCENTER AS MDC ON MDC.MPERSON_ID = RC.RCENTEREXAM_MDCENTER_PERSON_ID";
     foreach( $wpdb->get_results($query) as $key => $row) {
-        $cero =$row->MPERSON_ID;
-        $uno = $row->MPERSON_NAME;
-        $dos = $row->MPERSON_LAST_NAME;
-        $tres = $row->MPERSON_TYPE_DOC;
-        $cuatro = $row->MPERSON_IDENTF;
 
         $lista .= "<tr>\n";
-        $lista .= '<td>'.$uno."</td>\n";
-        $lista .= '<td>'.$dos."</td>\n";
-        $lista .= '<td>'.$tres."</td>\n";
-        $lista .= '<td>'.$cuatro."</td>\n";
-        $lista .= '<td>'.$row->EDAD."</td>\n
-                       <td>
-                       <form action='".PATH_PAG_NEW_REQUEST."' name='solicitudes$cero' id='solicitudes$cero' method='POST' style='display: inline;'>
-                             <input type='text' id='id_pac' name='id_pac' value=".$cero." style='display:none'>
-                            <a onclick='submitFormSolicitudes($cero)'><i style='background: greenyellow; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-pencil-square-o fa-2x'></i></a>
-                       
-                       </form>  
-                       <form action='".PATH_PAG_LOAD_PATIENT."' name='LoadPatient$cero' id='LoadPatient$cero' method='POST' style='display: inline;'>
-                            <input type='text' id='patient' name='patient' value=".$cero." style='display:none'>
-                            <a onclick='submitForm($cero)'><i style='background: dodgerblue; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-eye fa-2x'></i></a>
-                       </form>   
-                        </td>\n";
+        $lista .= '<td>'.$row->EXAM_DESC."</td>\n";
+        $lista .= '<td>'.$row->MPERSON_LEGAL_NAME."</td>\n";
+        $lista .= '<td>'.$row->EXAM_CATEGORY."</td>\n";
+        $lista .= '<td>'.$row->EXAM_DISIEASE."</td>\n";
         $lista .= "</tr>\n";
 
     }
@@ -134,14 +114,11 @@ function llenaListaPacientes(){
     $lista .= '
     </tbody>
                             <tfoot>
-                            <tr>
-                             
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>T. Doc</th>
-                                <th>Número de identidad</th>
-                                <th>Edad</th>
-                                <th>Accion</th>
+                            <tr>     
+                                <th>Nombre del Examen</th>
+                                <th>Centro</th>
+                                <th>Categoria</th>
+                                <th>Causas</th>
                             </tr>
                             </tfoot>
                         </table>

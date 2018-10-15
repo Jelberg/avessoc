@@ -67,14 +67,16 @@ function muestraListaMdcenter(){
                             </thead>
                             <tbody>
     ';
+    session_start();
 
-    foreach( $wpdb->get_results($query) as $key => $row){
-        $id = $row->MPERSON_ID;
-        $uno =$row->MPERSON_LEGAL_NAME;
+    if ($_SESSION['user_load']['level'] == 'ADMIN'){
+        foreach( $wpdb->get_results($query) as $key => $row){
+            $id = $row->MPERSON_ID;
+            $uno =$row->MPERSON_LEGAL_NAME;
 
-        $lista .= "<tr>\n";
+            $lista .= "<tr>\n";
 
-        $lista .= '<td>'.$uno."</td>\n             
+            $lista .= '<td>'.$uno."</td>\n             
                     <td>                   
                            <form action='".PATH_PAG_LOAD_MDCENTER."' name='ViewMDcenter$id' id='ViewMDcenter$id' style='display: inline;'>
                            
@@ -86,8 +88,29 @@ function muestraListaMdcenter(){
                                    <i style='background: red; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-trash fa-2x'></i></a>
                      
                     </td>\n";
-        $lista .= "</tr>\n";
+            $lista .= "</tr>\n";
+        }
+    } else{
+        foreach( $wpdb->get_results($query) as $key => $row){
+            $id = $row->MPERSON_ID;
+            $uno =$row->MPERSON_LEGAL_NAME;
+
+            $lista .= "<tr>\n";
+
+            $lista .= '<td>'.$uno."</td>\n             
+                    <td>                   
+                           <form action='".PATH_PAG_LOAD_MDCENTER."' name='ViewMDcenter$id' id='ViewMDcenter$id' style='display: inline;'>
+                           
+                                <input type='text' id='mdcenter_val' name='mdcenter_val' value=".$id." style='display:none'>
+                                <a  onclick='submitForm($id)'><i style='background: dodgerblue; width: 35px; height: 30px; color: white; text-align: center' class='fa fa-eye fa-2x'></i></a>             
+                           </form>
+                     
+                    </td>\n";
+            $lista .= "</tr>\n";
+        }
+
     }
+
 
     $lista .= '
     </tbody>

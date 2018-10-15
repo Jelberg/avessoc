@@ -143,6 +143,7 @@
             document.getElementById("muestraParroquia").value = nombreParroquia ;
             document.getElementById("direccion").value = direcciondesc;
             document.getElementById("tt").style.display="none";
+
             document.getElementById("edit").style.display="block";
             document.getElementById("edit-null").style.display="none";
             //document.getElementById("look-1").style.display="none";

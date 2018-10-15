@@ -10,7 +10,7 @@
 
     <script languaje="javascript">
         var level = "";
-        <?php verificaPrivilegio(); ?>
+        <?php verificaPrivilegio(); ?> // Llena la variable level para saber el privilegio del usuario
         /**
          * Funcion pregunta si soy administrador
          * */
@@ -19,7 +19,7 @@
                 window.location.href = "<?php echo ERROR_403; ?>";
             }
         }
-        ManInTheMiddle();
+        //ManInTheMiddle(); //Se supone que si no es admin no deberia entrar, pero lanza Acceso denegado igual -.-
 
         var idRporde=Array();
         var precio = Array();
@@ -193,7 +193,7 @@
 function verificaPrivilegio(){
     $p =$_SESSION['user_load']['level'];
     echo 'level="'.$p.'"'.";\n";
-
+    //echo '<script language="JavaScript"> alert("'.$p.'")</script>';
 }
 
 
