@@ -365,6 +365,15 @@ function registraPOrden($id_solicitud){
                     ));
                 }
             }
+            //$id_centro = $wpdb->get_var("SELECT USER_COMPANY FROM USER  WHERE MPERSON_ID=28"); //trae el id del centro
+            $correo = $wpdb->get_var("SELECT EXTRA_EMAIL FROM EXTRA WHERE EXTRA_COMPANY = 28");
+            $mensaje ="";
+            $mensaje .= "Nueva Pre-orden registrada\n";
+            $mensaje .= "Paciente: ".$_POST['legal-name']."\n";
+            $mensaje .= "Identificación: ".$_POST['identificacion']."\n";
+            $mensaje .= "Esperamos su pronta respuesta, Saludos. "."\n";
+           // wp_mail("elbergjessica@gmail.com", "Nueva Pre-Orden", $mensaje);
+            //$a= wp_mail("elbergjessica@gmail.com", "Ejemplo de la función mail en WP", "Este es un ejemplo del contenido de del mensaje de la funcion wp_mail() de WordPress");
         }
     }
 }

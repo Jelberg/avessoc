@@ -1,5 +1,17 @@
 <?php
+/*
+$a = wp_mail("elbergjessica@gmail.com", "Ejemplo de la función mail en WP", "Este es un ejemplo del contenido de del mensaje de la funcion wp_mail() de WordPress");
 
+if ($a == true){
+    $a= 'SI ES TRUE';
+}
+
+if($a == false){
+    $a='ES FALSE';
+}
+
+echo '<script language="JavaScript"> alert("Se supone que mando correo y devuelve: '.$a.'")</script>';
+*/
 /**
  * Verifica el login del usuario
  */

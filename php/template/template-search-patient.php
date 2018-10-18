@@ -41,4 +41,10 @@ include "function-templates/template-search-patient-function.php";
 </div> <!-- fin  grid-1-->
 
 
+<?php
+if( function_exists( ‘mc4wp_show_form’ ) ) {
+mc4wp_show_form();
+}
+?>
+
 </body>
