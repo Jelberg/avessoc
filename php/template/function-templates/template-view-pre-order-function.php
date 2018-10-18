@@ -9,18 +9,18 @@
     ?>
 
     <script languaje="javascript">
-        var level = "";
-        <?php verificaPrivilegio(); ?> // Llena la variable level para saber el privilegio del usuario
+     /*   var level = "";
+        <?php //verificaPrivilegio(); ?> // Llena la variable level para saber el privilegio del usuario
         /**
          * Funcion pregunta si soy administrador
          * */
-        function ManInTheMiddle(){
+       /* function ManInTheMiddle(){
             if (level != 'ADMIN'){
-                window.location.href = "<?php echo ERROR_403; ?>";
+                window.location.href = "<?php //echo ERROR_403; ?>";
             }
         }
         //ManInTheMiddle(); //Se supone que si no es admin no deberia entrar, pero lanza Acceso denegado igual -.-
-
+*/
         var idRporde=Array();
         var precio = Array();
         var arrayRespuesta= Array();
@@ -61,7 +61,7 @@
             document.getElementById("procedencia").value= origen;
             //document.getElementById("causa").value= ;
             document.getElementById("peso").value= peso;
-            document.getElementById("poncentaje").value= porcentaje;
+            document.getElementById("porcentaje").value= porcentaje;
             document.getElementById("convivencia").value= numHabitantes;
             document.getElementById("ingreso").value= ingreso;
             document.getElementById("condicion").value= condicion;
@@ -497,7 +497,7 @@ echo '<script> console.log("ESTE ES EL VALOR '.$arrayIdPHP[0].'")</script>';
  * Funcion registra los datos para generar la pre-orden
  */
 function registraOreden(){
-    $messageIdent = md5($_POST["patrocinante"].$_POST["porcentaje"].$_POST["number"]); // Se hace hash sobre los valoes de los parametros
+    $messageIdent = md5($_POST["patrocinante"].$_POST["porcentaje"]); // Se hace hash sobre los valoes de los parametros
 
     $sessionMessageIdent = isset($_SESSION['messageIdent'])?$_SESSION['messageIdent']:''; // si la variable de sesion esta definida entonces se asigna a la variable el valor de la sesion si no se asigna ''
 

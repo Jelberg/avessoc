@@ -8,7 +8,6 @@ include "function-templates/template-view-pre-order-function.php"
 ?>
 
 <head>
-
 </head>
 
 <body>
@@ -67,7 +66,7 @@ include "function-templates/template-view-pre-order-function.php"
                         </div>
                         <div class="item-row-6">
                             <label for="name">Porcentaje en base a clasificación Graffar estimado</label><br>
-                            <select id="poncentaje" name="porcentaje" class="select-area">
+                            <select id="porcentaje" name="porcentaje" class="select-area">
                                 <option value="0">0%</option>
                                 <option value="25">25%</option>
                                 <option value="50">50%</option>
@@ -118,8 +117,8 @@ include "function-templates/template-view-pre-order-function.php"
                         ?>
                     </select><br><br>
                     <!--label for="name">Precio total de los examenes </label><br>
-                    <input type="text" name="total" id="total" class="form-area-two" value=0 readonly="readonly"/><br><br>
-                    <input type="text" name="number" id="number" class="form-area-two" value="<?php //echo $_GET['numporden'];?>" style="display: none;"/-->
+                    <input type="text" name="total" id="total" class="form-area-two" value=0 readonly="readonly"/><br><br-->
+                    <input type="text" name="number" id="number" class="form-area-two" value="<?php echo $_GET['numporden'];?>" style="display: none;"/>
                 </div>
             </section>
         </form>
