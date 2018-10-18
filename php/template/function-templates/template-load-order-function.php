@@ -220,8 +220,8 @@ function llenaTablas(){
     <table id="" class="display" style="width:100%; text-align: center;" >
                             <thead>
                             <tr>
-                                <th>Nombre del Examen</th>
-                                <th>Centro a referir</th>
+                                <th>Nombre del Centro</th>
+                                <th>Accion</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -242,8 +242,8 @@ function llenaTablas(){
     </tbody>
                             <tfoot>
                             <tr>
-                                <th>Nombre del Examen</th>
-                                <th>Centro a referir</th>
+                                <th>Nombre del Centro</th>
+                                <th>Accion</th>
                             </tr>
                             </tfoot>
                         </table>

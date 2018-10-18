@@ -168,7 +168,7 @@ function llenaDatosOrden(){
                 INNER JOIN MDCENTER AS MDC ON MDC.MPERSON_ID =  RC.RCENTEREXAM_MDCENTER_PERSON_ID
                 WHERE 
                 R.REQUEST_PATIENT_PERSON_ID = PO.REQUEST_PATIENT_PERSON_ID
-                AND ORDER_ID =".$_GET['norden'];
+                AND ORDER_ID =".$_GET['norden']." and MDC.MPERSON_ID =".$_GET['centro']." LIMIT 1";
     global $wpdb;
     $referente ="";
     $causasExamen ="";
